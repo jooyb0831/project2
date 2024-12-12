@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private PlayerData pd;
     public State state = State.Idle;
 
+    private float speed;
     [SerializeField] Transform foot;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     {
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
         Move();
+        Attack();
     }
 
     void Move()
@@ -43,58 +45,116 @@ public class Player : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * pd.Speed);
-        
-        RaycastHit hit;
-        if(Physics.Raycast(foot.position, Vector3.down * 0.1f, out hit))
+        transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * speed);
+
+        if (state == State.Jump)
         {
-            if(hit.collider.gameObject == null)
+            return;
+        }
+
+        RaycastHit hit;
+        if (Physics.Raycast(foot.position, Vector3.down * 0.1f, out hit))
+        {
+            if (!hit.collider.CompareTag("Ground"))
             {
                 state = State.Jump;
             }
         }
-        /*
-        RaycastHit hit;
 
-        if (Physics.Raycast(foot.position, foot.transform.forward, out hit))
-        {
-            
-            state = State.Jump;
-        }
-        */
         if (Input.GetButtonDown("Jump"))
         {
-            if (state != State.Jump)
+            if (state == State.Jump)
+            {
+                return;
+            }
+            else
             {
                 Jump();
+                state = State.Jump;
+                return;
             }
                 
         }
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            state = State.Attack;
+            isAtkStart = true;
+            clickCnt++;
+            animator.SetTrigger("Punch");
+        }
 
+        
         if (x != 0 || z != 0)
         {
-            animator.SetTrigger("WalkForward");
-            state = State.Walk;
+
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = pd.RunSpeed;
+                state = State.Run;
+                animator.SetTrigger("RunForward");
+            }
+            else
+            {
+                animator.SetTrigger("WalkForward");
+                state = State.Walk;
+                speed = pd.Speed;
+            }
         }
         else
         {
             animator.SetTrigger("Idle");
             state = State.Idle;
         }
+        
     }
+
+
 
     void Jump()
     {
         rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         animator.SetTrigger("Jump");
+        
+    }
+
+    [SerializeField] float timer;
+    [SerializeField] int clickCnt;
+    bool isAtkStart = false;
+    void Attack()
+    {
+        if(isAtkStart)
+        {
+            timer += Time.deltaTime;
+        }
+
+        if (timer >= 2f)
+        {
+            timer = 0;
+            clickCnt = 0;
+            isAtkStart = false;
+        }
+
+        /*
+        while (timer>0 && timer<=2f)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                clickCnt++;
+            }
+            else
+            {
+                return;
+            }
+        }
+        */
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Ãæµ¹");
+            state = State.Idle;
         }
     }
 }

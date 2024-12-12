@@ -20,6 +20,8 @@ public class PlayerData : MonoBehaviour
         }
     }
 
+    public float RunSpeed { get; set; } = 6f;
+
     // Start is called before the first frame update
     void Start()
     {
