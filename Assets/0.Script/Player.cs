@@ -36,8 +36,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
+        UpdateAttacking();
+        /*
         Move();
         Attack();
+        */
     }
 
     void Move()
@@ -107,6 +110,75 @@ public class Player : MonoBehaviour
             state = State.Idle;
         }
         
+    }
+
+    [SerializeField] bool bComboExist;
+    [SerializeField] bool bComboEnable;
+    [SerializeField] int comboIndex;
+    [SerializeField] bool bAttacking;
+    
+
+    void UpdateAttacking()
+    {
+        if(!Input.GetKeyDown(KeyCode.E))
+        {
+            return;
+        }
+
+        // 콤보가 가능한 상태에서 E키를 눌렀을 때
+        if(bComboEnable)
+        {
+            // 콤보 불가능으로 만들고
+            bComboEnable = false;
+
+            //콤보가 있다는 것으로 인식
+            bComboExist = true;
+
+            return;
+        }
+
+        if(bAttacking)
+        {
+            return;
+        }
+
+        bAttacking = true;
+        animator.SetBool("Attacking", bAttacking);
+    }
+
+    public void Combo_Enable()
+    {
+        bComboEnable = true;
+    }
+
+    public void Combo_Disable()
+    {
+        bComboEnable = false;
+    }
+
+    public void Combo_Exist()
+    {
+        //콤보가 없으면
+        if (!bComboExist)
+        {
+            //종료
+            EndAttack();
+            return;
+        }
+        
+        //콤보가 있다면
+        comboIndex++;
+        //콤보 트리거 발동
+        animator.SetTrigger("Combo");
+        //콤보 없는 것으로 바꾸기
+        bComboExist = false;
+    }
+
+    public void EndAttack()
+    {
+        bAttacking = false;
+        animator.SetBool("Attacking", bAttacking);
+        comboIndex = 0;
     }
 
 

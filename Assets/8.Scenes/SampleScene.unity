@@ -1534,6 +1534,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   foot: {fileID: 1839664929}
+  bComboExist: 0
+  bComboEnable: 0
+  comboIndex: 0
+  bAttacking: 0
+  timer: 0
+  clickCnt: 0
 --- !u!4 &8347404766391272154
 Transform:
   m_ObjectHideFlags: 0
