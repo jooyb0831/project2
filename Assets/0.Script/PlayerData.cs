@@ -22,11 +22,22 @@ public class PlayerData : MonoBehaviour
 
     public float RunSpeed { get; set; } = 6f;
 
+    private int basicAtk;
+    public int BasicAtk
+    {
+        get { return basicAtk; }
+        set
+        {
+            basicAtk = value;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this);
         Speed = 4f;
+        BasicAtk = 2;
     }
 
     // Update is called once per frame

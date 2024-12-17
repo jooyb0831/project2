@@ -1,0 +1,12 @@
+﻿{
+  "eData": [
+    {
+      "maxHP": 10,
+      "enemyName": "해골 병사",
+      "index": 0,
+      "speed": 4.0,
+      "atkPower": 5,
+      "exp" :  5
+    }
+  ]
+}

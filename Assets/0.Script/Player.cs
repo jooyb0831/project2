@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
         Walk,
         Run,
         Jump,
+        AttackIdle,
         Attack,
         Hit,
         Dead
@@ -36,15 +37,21 @@ public class Player : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
-        UpdateAttacking();
-        /*
-        Move();
         Attack();
-        */
+        StateCheck();
+        Move();
+
+
     }
 
     void Move()
     {
+
+        if (state == State.Attack)
+        {
+            return;
+        }
+
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
@@ -79,15 +86,6 @@ public class Player : MonoBehaviour
                 
         }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            state = State.Attack;
-            isAtkStart = true;
-            clickCnt++;
-            animator.SetTrigger("Punch");
-        }
-
-        
         if (x != 0 || z != 0)
         {
 
@@ -106,82 +104,128 @@ public class Player : MonoBehaviour
         }
         else
         {
+           
             animator.SetTrigger("Idle");
             state = State.Idle;
         }
         
     }
 
-    [SerializeField] bool bComboExist;
-    [SerializeField] bool bComboEnable;
+    [SerializeField] bool isComboExist;
+    [SerializeField] bool isComboEnable;
     [SerializeField] int comboIndex;
-    [SerializeField] bool bAttacking;
+    [SerializeField] bool isAttacking;
     
 
-    void UpdateAttacking()
+    void Attack()
     {
-        if(!Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            return;
+            if (state != State.Attack)
+            {
+                state = State.Attack;
+                animator.SetBool("Attacking", true);
+            }
+
+            AttackCombo();
         }
+
+
+
+
+    }
+
+    [SerializeField] float atkIdleTimer;
+    void StateCheck()
+    {
+        if (state == State.AttackIdle)
+        {
+            atkIdleTimer += Time.deltaTime;
+
+            if (atkIdleTimer >= 2f)
+            {
+                atkIdleTimer = 0;
+                animator.SetTrigger("Idle");
+                state = State.Idle;
+            }
+        }
+        else
+        {
+            atkIdleTimer = 0;
+        }
+
+    }
+
+    void AttackCombo()
+    {
 
         // 콤보가 가능한 상태에서 E키를 눌렀을 때
-        if(bComboEnable)
+        if (isComboEnable)
         {
             // 콤보 불가능으로 만들고
-            bComboEnable = false;
+            isComboEnable = false;
 
             //콤보가 있다는 것으로 인식
-            bComboExist = true;
+            isComboExist = true;
 
             return;
         }
 
-        if(bAttacking)
+        if (isAttacking)
         {
             return;
         }
 
-        bAttacking = true;
-        animator.SetBool("Attacking", bAttacking);
+        isAttacking = true;
     }
 
     public void Combo_Enable()
     {
-        bComboEnable = true;
+        isComboEnable = true;
     }
 
     public void Combo_Disable()
     {
-        bComboEnable = false;
+        isComboEnable = false;
     }
 
     public void Combo_Exist()
     {
         //콤보가 없으면
-        if (!bComboExist)
+        if (!isComboExist)
         {
             //종료
             EndAttack();
-            return;
         }
-        
-        //콤보가 있다면
-        comboIndex++;
-        //콤보 트리거 발동
-        animator.SetTrigger("Combo");
-        //콤보 없는 것으로 바꾸기
-        bComboExist = false;
+        else
+        {
+            //콤보가 있다면
+            comboIndex++;
+            //콤보 트리거 발동
+            animator.SetTrigger("Combo");
+            isAttacking = false;
+            //콤보 없는 것으로 바꾸기
+            isComboExist = false;
+        }
+
+
     }
 
     public void EndAttack()
     {
-        bAttacking = false;
-        animator.SetBool("Attacking", bAttacking);
-        comboIndex = 0;
+        isAttacking = false;
+        animator.SetBool("Attacking", false);
+        state = State.AttackIdle;
+        //comboIndex = 0;
     }
 
-
+    public void AttackEnd()
+    {
+        Debug.Log("end");
+        isAttacking = false;
+        animator.SetBool("Attacking", false);
+        state = State.AttackIdle;
+    }
 
     void Jump()
     {
@@ -190,37 +234,6 @@ public class Player : MonoBehaviour
         
     }
 
-    [SerializeField] float timer;
-    [SerializeField] int clickCnt;
-    bool isAtkStart = false;
-    void Attack()
-    {
-        if(isAtkStart)
-        {
-            timer += Time.deltaTime;
-        }
-
-        if (timer >= 2f)
-        {
-            timer = 0;
-            clickCnt = 0;
-            isAtkStart = false;
-        }
-
-        /*
-        while (timer>0 && timer<=2f)
-        {
-            if(Input.GetMouseButtonDown(0))
-            {
-                clickCnt++;
-            }
-            else
-            {
-                return;
-            }
-        }
-        */
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
