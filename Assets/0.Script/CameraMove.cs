@@ -5,10 +5,17 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     private Player p;
+    [SerializeField] float rotSpeed;
+    [SerializeField] float camSpeed;
+    [SerializeField] float maxDist;
+    float camDist;
+    Vector3 pos;
+    Vector3 rot;
     // Start is called before the first frame update
     void Start()
     {
         p = GameManager.Instance.Player;
+        camDist = maxDist;
     }
 
     // Update is called once per frame
@@ -20,6 +27,7 @@ public class CameraMove : MonoBehaviour
 
     void CameraView()
     {
+
         float mX = Input.GetAxis("Mouse X");
         float mY = Input.GetAxis("Mouse Y");
 
@@ -32,11 +40,19 @@ public class CameraMove : MonoBehaviour
         transform.localRotation = Quaternion.Euler(curRotation);
 
         p.transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0);
+        pos = p.transform.position - transform.forward * camDist;
+        rot = new Vector3(this.transform.rotation.eulerAngles.x, p.transform.rotation.eulerAngles.y, 0);
 
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.Euler(rot), rotSpeed * Time.deltaTime);
+        pos.y += 1.8f;
+        transform.position = Vector3.Lerp(transform.position, pos, camSpeed * Time.deltaTime);
+
+        /*
         Vector3 vec = p.transform.position;
-        vec.y = p.transform.position.y+1.7f;
+        vec.z = p.transform.position.z - 0.5f;
+        vec.y = p.transform.position.y + 1.8f;
         transform.position = vec;
-
+        */
     }
 
     float ClampAngle(float angle, float min, float max)
@@ -66,4 +82,15 @@ public class CameraMove : MonoBehaviour
         return angle;
     }
 
+    //https://hustlehustle.tistory.com/22
+    void Obstacle()
+    {
+        RaycastHit hit;
+        Vector3 dir = transform.position - p.transform.position;
+        Debug.DrawRay(p.transform.position, dir.normalized * dir.magnitude, Color.red);
+        if(Physics.Raycast(p.transform.position, dir.normalized, out hit, dir.magnitude))
+        {
+            Debug.Log(hit.transform.name);
+        }
+    }
 }

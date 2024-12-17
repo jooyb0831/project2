@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
         AttackIdle,
         Attack,
         Hit,
+        Gather,
         Dead
     }
 
@@ -41,17 +42,19 @@ public class Player : MonoBehaviour
         StateCheck();
         Move();
 
-
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            state = State.Gather;
+            animator.SetTrigger("Gather");
+        }
     }
 
     void Move()
     {
-
-        if (state == State.Attack)
+        if(state == State.Gather)
         {
             return;
         }
-
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
@@ -104,7 +107,10 @@ public class Player : MonoBehaviour
         }
         else
         {
-           
+            if(state == State.Hit || state == State.AttackIdle || state == State.Attack)
+            {
+                return;
+            }
             animator.SetTrigger("Idle");
             state = State.Idle;
         }
@@ -119,15 +125,18 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
         {
             if (state != State.Attack)
             {
                 state = State.Attack;
                 animator.SetBool("Attacking", true);
             }
-
-            AttackCombo();
+            else
+            {
+                AttackCombo();
+            }
+            
         }
 
 
@@ -240,6 +249,15 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             state = State.Idle;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("EnemyWeapon"))
+        {
+            state = State.Hit;
+            animator.SetTrigger("Hit");
         }
     }
 }
