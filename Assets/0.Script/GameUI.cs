@@ -1,0 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class GameUI : Singleton<GameUI>
+{
+    private PlayerData pd;
+    [SerializeField] Image hpBarImg;
+    [SerializeField] TMP_Text hpTxt;
+
+    [SerializeField] Image spBarImg;
+    // Start is called before the first frame update
+    void Start()
+    {
+        pd = GameManager.Instance.PlayerData;
+        hpBarImg.fillAmount = (float)((float)pd.HP / (float)pd.MAXHP);
+        spBarImg.fillAmount = (float)((float)pd.SP / (float)pd.MAXSP);
+        hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
+    }
+
+    public int MAXHP
+    {
+        set
+        {
+            if (pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            hpBarImg.fillAmount = ((float)pd.HP / pd.MAXHP);
+            hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
+        }
+    }
+
+    public int HP
+    {
+        set
+        {
+            if (pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            hpBarImg.fillAmount = ((float)pd.HP / pd.MAXHP);
+            hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
+        }
+    }
+
+    public int MAXSP
+    {
+        set
+        {
+            if(pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            spBarImg.fillAmount = ((float)pd.SP / pd.MAXSP);
+        }
+    }
+
+    public int SP
+    {
+        set
+        {
+            if(pd==null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            spBarImg.fillAmount = ((float)pd.SP / pd.MAXSP);
+        }
+    }
+}

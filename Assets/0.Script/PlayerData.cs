@@ -4,6 +4,78 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+
+    private int maxHP;
+    public int MAXHP
+    {
+        get { return maxHP; }
+        set
+        {
+            maxHP = value;
+            if (GameUI.Instance != null)
+            {
+                GameUI.Instance.MAXHP = maxHP;
+            }
+            /*
+            if (StatUI.Instance != null)
+            {
+                StatUI.Instance.HP = maxHP;
+            }
+            */
+
+        }
+    }
+
+    private int hp;
+    public int HP
+    {
+        get { return hp; }
+        set
+        {
+            hp = value;
+            if (GameUI.Instance != null)
+            {
+                GameUI.Instance.HP = hp;
+            }
+
+        }
+    }
+
+    private int maxSP;
+    public int MAXSP
+    {
+        get { return maxSP; }
+        set
+        {
+            if(GameUI.Instance!=null)
+            {
+                GameUI.Instance.MAXSP = maxSP;
+            }
+        }
+    }
+
+    private int sp;
+    public int SP
+    {
+        get { return sp; }
+        set
+        {
+            sp = value;
+            if(GameUI.Instance != null)
+            {
+                GameUI.Instance.SP = sp;
+            }
+        }
+    }
+
+    //초당 SP 감소량
+    public int minSP { get; set; }
+
+    //초당 SP 충전량
+    public int plusSP { get; set; }
+    //몇초 후부터 다시 충전되는지
+    public float delaySP { get; set; }
+
     private float speed;
     public float Speed
     {
@@ -36,6 +108,13 @@ public class PlayerData : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
+        MAXHP = 20;
+        HP = MAXHP;
+        MAXSP = 20;
+        SP = 20;
+        minSP = 2;
+        delaySP = 3;
+        plusSP = 1;
         Speed = 4f;
         BasicAtk = 2;
     }
@@ -43,6 +122,9 @@ public class PlayerData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.F8))
+        {
+            Debug.Log(SP);
+        }
     }
 }

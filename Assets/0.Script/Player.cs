@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Idle");
     }
 
+    [SerializeField] float timer = 1f;
     // Update is called once per frame
     void Update()
     {
@@ -47,11 +48,21 @@ public class Player : MonoBehaviour
             state = State.Gather;
             animator.SetTrigger("Gather");
         }
+
+        if(state == State.Run)
+        {
+            timer -= Time.deltaTime;
+            if(timer<=0)
+            {
+                pd.SP -= pd.minSP;
+                timer = 1;
+            }
+        }
     }
 
     void Move()
     {
-        if(state == State.Gather)
+        if(state == State.Gather || state == State.Dead)
         {
             return;
         }
@@ -138,10 +149,6 @@ public class Player : MonoBehaviour
             }
             
         }
-
-
-
-
     }
 
     [SerializeField] float atkIdleTimer;
@@ -236,11 +243,54 @@ public class Player : MonoBehaviour
         state = State.AttackIdle;
     }
 
+
+    public void ToIdleState()
+    {
+        if (state == State.Dead)
+        {
+            return;
+        }
+        Debug.Log("act");
+        state = State.Idle;
+    }
+
     void Jump()
     {
         rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         animator.SetTrigger("Jump");
         
+    }
+    
+    void reduceSP()
+    {
+        float originDelay = pd.delaySP;
+        if (state != State.Run)
+        {
+            pd.delaySP -= Time.deltaTime;
+            if (pd.delaySP <= 0)
+            {
+                pd.delaySP = originDelay;
+            }
+        }
+    }
+
+
+    void TakeDamage(int damage)
+    {
+        pd.HP -= damage;
+        if(pd.HP<=0)
+        {
+            Dead();
+            return;
+        }
+        state = State.Hit;
+        animator.SetTrigger("Hit");
+    }
+
+    void Dead()
+    {
+        state = State.Dead;
+        animator.SetTrigger("Dead");
     }
 
 
@@ -256,8 +306,8 @@ public class Player : MonoBehaviour
     {
         if(other.CompareTag("EnemyWeapon"))
         {
-            state = State.Hit;
-            animator.SetTrigger("Hit");
+            int dmg = other.gameObject.GetComponent<EnemyWeapon>().enemy.data.AtkPower;
+            TakeDamage(dmg);
         }
     }
 }
