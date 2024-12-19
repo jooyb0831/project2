@@ -47,7 +47,8 @@ public class PlayerData : MonoBehaviour
         get { return maxSP; }
         set
         {
-            if(GameUI.Instance!=null)
+            maxSP = value;
+            if (GameUI.Instance!=null)
             {
                 GameUI.Instance.MAXSP = maxSP;
             }
@@ -111,7 +112,7 @@ public class PlayerData : MonoBehaviour
         MAXHP = 20;
         HP = MAXHP;
         MAXSP = 20;
-        SP = 20;
+        SP = MAXSP;
         minSP = 2;
         delaySP = 3;
         plusSP = 1;

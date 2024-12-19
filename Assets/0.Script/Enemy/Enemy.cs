@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     }
 
     [SerializeField] protected EnemyUI enemyUI;
+    [SerializeField] protected GameObject item;
     protected Animator animator;
     protected Player p;
     protected PlayerData pd;

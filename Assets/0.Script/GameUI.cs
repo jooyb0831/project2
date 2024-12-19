@@ -10,6 +10,7 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] Image hpBarImg;
     [SerializeField] TMP_Text hpTxt;
 
+    public GameObject spUI;
     [SerializeField] Image spBarImg;
     // Start is called before the first frame update
     void Start()
@@ -65,7 +66,7 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd==null)
+            if(pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;

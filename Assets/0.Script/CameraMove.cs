@@ -22,6 +22,15 @@ public class CameraMove : MonoBehaviour
     void Update()
     {
         CameraView();
+
+        if(Input.GetMouseButton(1))
+        {
+            ZoomIn();
+        }
+        else
+        {
+            ZoomOut();
+        }
     }
 
 
@@ -93,4 +102,23 @@ public class CameraMove : MonoBehaviour
             Debug.Log(hit.transform.name);
         }
     }
+
+
+    public float zoomLevel = 20f;
+    private bool isZoomed = false;
+
+    void ZoomIn()
+    {
+        Camera.main.fieldOfView = zoomLevel;
+        isZoomed = true;
+        Camera.main.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
+    }
+
+    void ZoomOut()
+    {
+        Camera.main.fieldOfView = 60f;
+        isZoomed = false;
+        Camera.main.cullingMask = -1;
+    }
+
 }

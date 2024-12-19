@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
         AttackIdle,
         Attack,
         Hit,
+        Bow,
         Gather,
         Dead
     }
@@ -39,9 +40,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
+        RecoverSP();
         Attack();
         StateCheck();
         Move();
+        Bow();
+
 
         if(Input.GetKeyDown(KeyCode.E))
         {
@@ -49,6 +53,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Gather");
         }
 
+        
         if(state == State.Run)
         {
             timer -= Time.deltaTime;
@@ -58,6 +63,9 @@ public class Player : MonoBehaviour
                 timer = 1;
             }
         }
+
+
+        
     }
 
     void Move()
@@ -105,6 +113,14 @@ public class Player : MonoBehaviour
 
             if(Input.GetKey(KeyCode.LeftShift))
             {
+               if(pd.SP<=0)
+                {
+                    speed = pd.Speed;
+                    state = State.Walk;
+                    animator.SetTrigger("WalkForward");
+                    return;
+                }
+                GameUI.Instance.spUI.SetActive(true);
                 speed = pd.RunSpeed;
                 state = State.Run;
                 animator.SetTrigger("RunForward");
@@ -138,6 +154,10 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if(state == State.Bow)
+            {
+                return;
+            }
             if (state != State.Attack)
             {
                 state = State.Attack;
@@ -170,6 +190,26 @@ public class Player : MonoBehaviour
             atkIdleTimer = 0;
         }
 
+    }
+
+    [SerializeField] Arrow arrow;
+    void Bow()
+    {
+        if(Input.GetMouseButton(1))
+        {
+            state = State.Bow;
+            if(Input.GetMouseButton(0))
+            {
+                //화살 차징
+                arrow.ArrowCharge();
+
+            }
+            if(Input.GetMouseButtonUp(0))
+            {
+                //화살 발사
+                arrow.Fire();
+            }
+        }
     }
 
     void AttackCombo()
@@ -260,16 +300,38 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Jump");
         
     }
-    
-    void reduceSP()
+
+    [SerializeField] bool spRecoverStarted = false;
+    [SerializeField] float spRecoverTimer = 1;
+    [SerializeField] float spRecoverDelay = 3;
+    [SerializeField] float plusTimer =1;
+    void RecoverSP()
     {
-        float originDelay = pd.delaySP;
         if (state != State.Run)
         {
-            pd.delaySP -= Time.deltaTime;
-            if (pd.delaySP <= 0)
+            if(pd.SP>=pd.MAXSP)
             {
-                pd.delaySP = originDelay;
+                GameUI.Instance.spUI.SetActive(false);
+                spRecoverStarted = false;
+                return;
+            }
+            if(!spRecoverStarted)
+            {
+                spRecoverDelay -= Time.deltaTime;
+                if (spRecoverDelay <= 0)
+                {
+                    spRecoverDelay = pd.delaySP;
+                    spRecoverStarted = true;
+                }
+            }
+            else
+            {
+                plusTimer -= Time.deltaTime;
+                if(plusTimer <= 0)
+                {
+                    plusTimer = 1;
+                    pd.SP += pd.plusSP;
+                }
             }
         }
     }
@@ -292,6 +354,8 @@ public class Player : MonoBehaviour
         state = State.Dead;
         animator.SetTrigger("Dead");
     }
+
+
 
 
     private void OnCollisionEnter(Collision collision)
