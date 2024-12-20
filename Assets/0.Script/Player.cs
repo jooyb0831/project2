@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
         }
 
 
+
         
     }
 
@@ -198,21 +199,21 @@ public class Player : MonoBehaviour
     [SerializeField] Arrow ar;
     void Bow()
     {
-        
-        if (Input.GetMouseButtonDown(1))
-        {
-            ar = Instantiate(arrow, pos);
-            ar.transform.SetParent(null);
-        }
+       
         if(Input.GetMouseButton(1))
         {
             isCharging = true;
-
             animator.SetTrigger("Bow");
             state = State.Bow;
+            if(Input.GetMouseButtonDown(0))
+            {
+                //화살 생성
+                ar = Instantiate(arrow, Camera.main.transform);
+            }
             if(Input.GetMouseButton(0))
             {
                 //화살 차징
+                
                 ar.ArrowCharge();
                 
 
@@ -220,13 +221,24 @@ public class Player : MonoBehaviour
             if(Input.GetMouseButtonUp(0))
             {
                 //화살 발사
+                ar.gameObject.layer = default;
+                isCharging = false;
+                animator.speed = 1;
                 ar.Fire();
+                ar.transform.SetParent(null);
             }
         }
         if(Input.GetMouseButtonUp(1))
         {
-            isCharging = false;
-            animator.speed = 1;
+            if(isCharging)
+            {
+                isCharging = false;
+            }
+            if(animator.speed!=1)
+            {
+                animator.speed = 1;
+            }
+
             animator.SetTrigger("Idle");
             state = State.Idle;
         }
@@ -333,7 +345,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] bool spRecoverStarted = false;
     [SerializeField] float spRecoverTimer = 1;
-    [SerializeField] float spRecoverDelay = 3;
+    [SerializeField] float spRecoverDelay = 2;
     [SerializeField] float plusTimer =1;
     void RecoverSP()
     {

@@ -114,7 +114,7 @@ public class PlayerData : MonoBehaviour
         MAXSP = 20;
         SP = MAXSP;
         minSP = 2;
-        delaySP = 3;
+        delaySP = 2;
         plusSP = 1;
         Speed = 4f;
         BasicAtk = 2;

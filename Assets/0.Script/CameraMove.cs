@@ -11,6 +11,8 @@ public class CameraMove : MonoBehaviour
     float camDist;
     Vector3 pos;
     Vector3 rot;
+
+    //https://rito15.github.io/posts/unity-fps-tps-character/
     // Start is called before the first frame update
     void Start()
     {

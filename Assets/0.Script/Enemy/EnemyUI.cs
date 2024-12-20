@@ -39,6 +39,9 @@ public class EnemyUI : Singleton<EnemyUI>
             transform.localScale = new Vector3(-1, 1, 1);
         }
         */
+
+        Vector3 targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
+        transform.LookAt(targetPos);
     }
 
     public void SetUI(string name, int hp, Enemy enemy)

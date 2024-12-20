@@ -86,19 +86,30 @@ public class Enemy : MonoBehaviour
     */
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Punch")&& p.state.Equals(Player.State.Attack))
+        if(other.CompareTag("Punch") && p.state.Equals(Player.State.Attack))
         {
-            data.CURHP -= pd.BasicAtk;
-            if (data.CURHP <= 0)
-            {
-                state = State.Dead;
-                animator.SetTrigger("Fall");
-            }
-            else
-            {
-                state = State.Hit;
-                animator.SetTrigger("Hit");
-            }
+            TakeDamage(pd.BasicAtk);
+        }
+
+        Arrow arrow = other.GetComponent<Arrow>();
+        if(arrow)
+        {
+            arrow.End(this.transform);
+            TakeDamage(arrow.damage);
         }
     }
+    void TakeDamage(int damage)
+    {
+        data.CURHP -= damage;
+        if(data.CURHP<=0)
+        {
+            state = State.Dead;
+            animator.SetTrigger("Fall");
+        }
+        else
+        {
+            state = State.Hit;
+            animator.SetTrigger("Hit");
+        }
+    }   
 }

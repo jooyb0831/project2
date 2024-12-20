@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-
+    public int damage = 1;
     float speed = 0.5f;
     float deg;
     public float power;
     Rigidbody rigid;
     private Player p;
 
+    bool isEnd = false;
+    
     [SerializeField] float chargeTimer = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
         p = GameManager.Instance.Player;
-        power = 10;
+        power = 70;
     }
 
     // Update is called once per frame
@@ -26,10 +28,26 @@ public class Arrow : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        /*
+        if(isEnd)
+        {
+            float angle = Mathf.Atan2(rigid.velocity.y, rigid.velocity.x) * Mathf.Rad2Deg;
+            transform.eulerAngles = new Vector3(0, 0, angle);
+        }
+        else
+        {
+            return;
+        }
+        */
+        
+    }
+
     // È­»ì Â÷Â¡
     public void ArrowCharge()
     {
-        if (power >= 100)
+        if (power >= 130)
         {
             return;
         }
@@ -50,9 +68,29 @@ public class Arrow : MonoBehaviour
             rigid = GetComponent<Rigidbody>();
         }
         rigid.useGravity = true;
-        Vector3 dir =  Vector3.forward * speed * power;
+        Vector3 dir = transform.up * speed * power;
         rigid.velocity = dir;
+
+    }
+
+    public void End(Transform trans)
+    {
+        isEnd = true;
+        if (rigid == null)
+        {
+            rigid = GetComponent<Rigidbody>();
+        }
+        rigid.constraints = RigidbodyConstraints.FreezeAll;
+        transform.SetParent(trans);
+       
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Ground"))
+        {
+            End(other.transform);
+        }
+    }
 }
