@@ -193,23 +193,53 @@ public class Player : MonoBehaviour
     }
 
     [SerializeField] Arrow arrow;
+    [SerializeField] Transform pos;
+    [SerializeField] bool isCharging = false;
+    [SerializeField] Arrow ar;
     void Bow()
     {
+        
+        if (Input.GetMouseButtonDown(1))
+        {
+            ar = Instantiate(arrow, pos);
+            ar.transform.SetParent(null);
+        }
         if(Input.GetMouseButton(1))
         {
+            isCharging = true;
+
+            animator.SetTrigger("Bow");
             state = State.Bow;
             if(Input.GetMouseButton(0))
             {
                 //화살 차징
-                arrow.ArrowCharge();
+                ar.ArrowCharge();
+                
 
             }
             if(Input.GetMouseButtonUp(0))
             {
                 //화살 발사
-                arrow.Fire();
+                ar.Fire();
             }
         }
+        if(Input.GetMouseButtonUp(1))
+        {
+            isCharging = false;
+            animator.speed = 1;
+            animator.SetTrigger("Idle");
+            state = State.Idle;
+        }
+    }
+
+    
+    public void BowAnimationStop()
+    {
+        if (isCharging)
+        {
+            animator.speed = 0;
+        }
+
     }
 
     void AttackCombo()

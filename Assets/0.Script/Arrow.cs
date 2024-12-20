@@ -5,7 +5,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
 
-    float speed;
+    float speed = 0.5f;
     float deg;
     public float power;
     Rigidbody rigid;
@@ -23,7 +23,7 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Fire();
+
     }
 
     // È­»ì Â÷Â¡
@@ -49,7 +49,8 @@ public class Arrow : MonoBehaviour
         {
             rigid = GetComponent<Rigidbody>();
         }
-        Vector3 dir = transform.localRotation * Vector3.forward * Time.deltaTime*speed * power;
+        rigid.useGravity = true;
+        Vector3 dir =  Vector3.forward * speed * power;
         rigid.velocity = dir;
     }
 
