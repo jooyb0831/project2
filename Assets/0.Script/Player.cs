@@ -118,7 +118,16 @@ public class Player : MonoBehaviour
                 {
                     speed = pd.Speed;
                     state = State.Walk;
-                    animator.SetTrigger("WalkForward");
+
+                    if(x<0)
+                    {
+                        animator.SetTrigger("WalkBackward");
+                    }
+                    else
+                    {
+                        animator.SetTrigger("WalkForward");
+                    }
+                    
                     return;
                 }
                 GameUI.Instance.spUI.SetActive(true);
@@ -128,7 +137,15 @@ public class Player : MonoBehaviour
             }
             else
             {
-                animator.SetTrigger("WalkForward");
+                if(x<0)
+                {
+                    animator.SetTrigger("WalkBackward");
+                }
+                else
+                {
+                    animator.SetTrigger("WalkForward");
+                }
+                
                 state = State.Walk;
                 speed = pd.Speed;
             }
@@ -193,39 +210,40 @@ public class Player : MonoBehaviour
 
     }
 
-    [SerializeField] Arrow arrow;
     [SerializeField] Transform pos;
     [SerializeField] bool isCharging = false;
     [SerializeField] Arrow ar;
+    [SerializeField] Transform arrows;
     void Bow()
     {
-       
-        if(Input.GetMouseButton(1))
+        
+        if (Input.GetMouseButton(1))
         {
             isCharging = true;
             animator.SetTrigger("Bow");
             state = State.Bow;
+
             if(Input.GetMouseButtonDown(0))
             {
                 //화살 생성
-                ar = Instantiate(arrow, Camera.main.transform);
+                ar = Pooling.Instance.GetPool(DicKey.arrow, Camera.main.transform).GetComponent<Arrow>();
             }
-            if(Input.GetMouseButton(0))
+
+            if (Input.GetMouseButton(0))
             {
                 //화살 차징
-                
                 ar.ArrowCharge();
-                
-
             }
-            if(Input.GetMouseButtonUp(0))
+
+            if (Input.GetMouseButtonUp(0))
             {
                 //화살 발사
                 ar.gameObject.layer = default;
                 isCharging = false;
                 animator.speed = 1;
                 ar.Fire();
-                ar.transform.SetParent(null);
+                ar.transform.SetParent(arrows);
+                ar = null;
             }
         }
         if(Input.GetMouseButtonUp(1))

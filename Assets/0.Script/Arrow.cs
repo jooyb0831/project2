@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public int damage = 1;
+    public int damage = 5;
     float speed = 0.5f;
     float deg;
     public float power;
@@ -90,7 +90,17 @@ public class Arrow : MonoBehaviour
     {
         if(other.CompareTag("Ground"))
         {
-            End(other.transform);
+            //End(other.transform);
         }
+    }
+
+    public void Initialize()
+    {
+        isEnd = false;
+        rigid.useGravity = false;
+        power = 70;
+        transform.position = Vector3.zero;
+        chargeTimer = 0;
+        transform.localRotation = Quaternion.Euler(90, 0, 0);
     }
 }

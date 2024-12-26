@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
         Arrow arrow = other.GetComponent<Arrow>();
         if(arrow)
         {
-            arrow.End(this.transform);
+            Pooling.Instance.SetPool(DicKey.arrow, arrow.gameObject);
             TakeDamage(arrow.damage);
         }
     }
