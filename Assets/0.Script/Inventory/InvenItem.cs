@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class InvenItem : MonoBehaviour
+
+public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Image itemBG;
     [SerializeField] Image itemIcon;
     [SerializeField] GameObject cntBG;
     [SerializeField] TMP_Text cntTxt;
-    private Inventory inventory;
 
+    [SerializeField] ItemInvenOption itemOptionWindow;
+
+    private Inventory inventory;
+    public GameObject invenOption = null;
     public InvenData data;
 
     public void SetData(InvenData data)
@@ -33,11 +38,64 @@ public class InvenItem : MonoBehaviour
 
         cntTxt.text = $"{data.count}";
         cntBG.SetActive(data.count <= 1 ? false : true);
-        /*
+        
         if (data.inQuickSlot)
         {
             data.qItem.ItemCntChange(this);
         }
-        */
+        
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if(Input.GetMouseButtonDown(1))
+        {
+            /*
+            if(transform.parent.GetComponent<Slot>().isMerchantInven
+                || transform.parent.GetComponent<Slot>().isSellInven)
+            {
+                return;
+            }
+            */
+
+            if(invenOption == null)
+            {
+                invenOption = Instantiate(itemOptionWindow, transform).gameObject;
+                invenOption.GetComponent<ItemInvenOption>().item = this;
+
+                // 이 사이에 아이템 종류에 따라 목록 다르게 수정하는 코드 들어감
+
+                invenOption.transform.SetParent(transform.parent.parent.parent.parent);
+                invenOption.transform.SetAsLastSibling();
+
+            }
+
+            else if (invenOption != null)
+            {
+                Destroy(invenOption);
+            }
+        }
+
+
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+     
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+
     }
 }

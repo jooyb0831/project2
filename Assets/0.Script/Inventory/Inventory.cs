@@ -15,6 +15,9 @@ public class InvenData
     public string itemTitle;
     public int price;
     public int slotIdx;
+    public bool inQuickSlot = false;
+    public int quickSlotIdx;
+    public QuickInven qItem;
     public FieldItem fieldItem = null;
 }
 public enum ItemType
@@ -38,6 +41,7 @@ public class Inventory : Singleton<Inventory>
     private Player p;
     [SerializeField] InvenItem invenItem;
     public Transform[] invenSlots;
+    public Transform[] quickSlots;
 
     public InventoryData inventoryData = new();
     public List<InvenItem> invenItems = new();
@@ -186,12 +190,12 @@ public class Inventory : Singleton<Inventory>
         }
         invenItem.data.count += itemData.count;
         invenItem.GetComponent<InvenItem>().ItemCntChange(invenItem.data);
-        /*
+        
         if (invenItem.data.inQuickSlot)
         {
             invenItem.data.qItem.ItemCntChange(invenItem);
         }
-        */
+        
     }
 
     /// <summary>
@@ -211,11 +215,45 @@ public class Inventory : Singleton<Inventory>
         }
         invenItem.data.count += item.data.count;
         invenItem.GetComponent<InvenItem>().ItemCntChange(invenItem.data);
-        /*
+        
         if (invenItem.data.inQuickSlot)
         {
             invenItem.data.qItem.ItemCntChange(invenItem);
         }
-        */
+        
     }
+
+
+    [SerializeField] QuickInven quickInvenSample;
+    /// <summary>
+    /// æ∆¿Ã≈€ ¿Â¬¯(ƒ¸ΩΩ∑‘)
+    /// </summary>
+    /// <param name="item"></param>
+    public void ItemEquip(InvenItem item)
+    {
+        QuickSlot qSlot = null;
+        for(int i =0; i<quickSlots.Length; i++)
+        {
+            if(!quickSlots[i].GetComponent<QuickSlot>().isFilled)
+            {
+                qSlot = quickSlots[i].GetComponent<QuickSlot>();
+                break;
+            }
+        }
+        QuickInven qItem = Instantiate(quickInvenSample, qSlot.transform);
+        item.data.inQuickSlot = true;
+        item.data.qItem = qItem;
+        qItem.SetData(item);
+        qItem.SetInvenItem(item);
+        qSlot.GetComponent<QuickSlot>().isFilled = true;
+
+        if(item.data.type.Equals(ItemType.Tool))
+        {
+            if(item.data.itemTitle.Equals("≥ÏΩº ∞À"))
+            {
+                Instantiate(item.data.fieldItem, p.swordPos);
+            }
+        }
+    }
+
 }

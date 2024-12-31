@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
 
     private float speed;
     [SerializeField] Transform foot;
+    public Transform swordPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -236,12 +237,13 @@ public class Player : MonoBehaviour
         
         if (Input.GetMouseButton(1))
         {
-            isCharging = true;
-            animator.SetTrigger("Bow");
             state = State.Bow;
-
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
+                GameUI.Instance.arrowUI.SetActive(true);
+                isCharging = true;
+                animator.SetTrigger("Bow");
+                
                 //화살 생성
                 ar = Pooling.Instance.GetPool(DicKey.arrow, Camera.main.transform).GetComponent<Arrow>();
             }
@@ -261,6 +263,7 @@ public class Player : MonoBehaviour
                 ar.Fire();
                 ar.transform.SetParent(arrows);
                 ar = null;
+                GameUI.Instance.arrowUI.SetActive(false);
             }
         }
         if(Input.GetMouseButtonUp(1))
@@ -274,7 +277,7 @@ public class Player : MonoBehaviour
                 animator.speed = 1;
             }
 
-            animator.SetTrigger("Idle");
+            //animator.SetTrigger("Idle");
             state = State.Idle;
         }
     }

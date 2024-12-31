@@ -40,23 +40,37 @@ public class FieldItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(p == null)
+        if(itemData.type.Equals(ItemType.Tool))
+        {
+            ItemGet();
+        }
+
+        else
+        {
+            ItemMove();
+        }
+    }
+
+
+    void ItemMove()
+    {
+        if (p == null)
         {
             p = GameManager.Instance.Player;
         }
         float dist = Vector3.Distance(p.transform.position, transform.position);
-        
-        if(Input.GetKeyDown(KeyCode.F3))
+
+        if (Input.GetKeyDown(KeyCode.F3))
         {
             Debug.Log(dist);
         }
-        if(dist<1.5f)
+        if (dist < 1.5f)
         {
-            if(!isFull)
+            if (!isFull)
             {
                 isFind = true;
             }
-            
+
         }
         else
         {
@@ -67,12 +81,30 @@ public class FieldItem : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, p.transform.position, Time.deltaTime * speed);
 
-        if(dist<0.2f)
+        if (dist < 0.2f)
         {
             Inventory.Instance.GetItem(itemData);
         }
     }
 
+    void ItemGet()
+    {
+        if(p == null)
+        {
+            p = GameManager.Instance.Player;
+        }
+
+        float dist = Vector3.Distance(p.transform.position, transform.position);
+
+        if(dist<2f)
+        {
+            if(Input.GetKeyDown(KeyCode.Y))
+            {
+                Inventory.Instance.GetItem(itemData);
+            }
+        }
+           
+    }
     public void InvenFull(bool invenFull)
     {
         isFull = invenFull;

@@ -5,7 +5,9 @@ using UnityEngine;
 public class InventoryUI : Singleton<InventoryUI>
 {
     [SerializeField] Transform[] slots;
+    [SerializeField] Transform[] quickSlots;
     [SerializeField] Inventory inventory;
+    [SerializeField] QuickInven quickItem;
     [SerializeField] InvenItem sampleInvenItem;
     [SerializeField] PlayerData pd;
     // Start is called before the first frame update
@@ -49,7 +51,11 @@ public class InventoryUI : Singleton<InventoryUI>
                 slots[i + 9].GetComponent<Slot>().isLocked = false;
             }
         }
-        //inventory.quickSlot = quickSlot;
+        
+        for(int i =0; i<4; i++)
+        {
+            inventory.quickSlots[i] = quickSlots[i];
+        }
     }
     void SetInventory()
     {
@@ -91,16 +97,17 @@ public class InventoryUI : Singleton<InventoryUI>
         item.transform.parent.gameObject.GetComponent<Slot>().isFilled = true;
         inventory.invenItems.Add(item);
 
-        /*
+        
         if (data.inQuickSlot)
         {
-            GameObject obj = Instantiate(quickItem, quickSlot);
-            obj.GetComponent<QuickInven>().SetData(item);
-            obj.GetComponent<QuickInven>().SetInvenItem(item);
-            quickSlot.GetComponent<QuickSlot>().isFilled = true;
-            data.qItem = obj.GetComponent<QuickInven>();
+            QuickInven quickItem = null;
+            quickItem = Instantiate(quickItem, quickSlots[data.quickSlotIdx]);
+            quickItem.SetData(item);
+            quickItem.SetInvenItem(item);
+            quickSlots[data.quickSlotIdx].GetComponent<QuickSlot>().isFilled = true;
+            data.qItem = quickItem;
         }
-        */
+        
     }
 
 

@@ -7,6 +7,9 @@ using TMPro;
 public class GameUI : Singleton<GameUI>
 {
     private PlayerData pd;
+
+    public GameObject arrowUI;
+
     [SerializeField] Image hpBarImg;
     [SerializeField] TMP_Text hpTxt;
 

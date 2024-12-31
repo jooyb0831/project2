@@ -437,6 +437,8 @@ MonoBehaviour:
   itemIcon: {fileID: 6209183622733918042}
   cntBG: {fileID: 4558733989176242841}
   cntTxt: {fileID: 5256498863055404994}
+  itemOptionWindow: {fileID: 2040604059165980424, guid: 005b880636a313e41b4a2bce30173842, type: 3}
+  invenOption: {fileID: 0}
   data:
     iconSprite: {fileID: 0}
     bgSprite: {fileID: 0}
@@ -446,6 +448,9 @@ MonoBehaviour:
     itemTitle: 
     price: 0
     slotIdx: 0
+    inQuickSlot: 0
+    quickSlotIdx: 0
+    qItem: {fileID: 0}
     fieldItem: {fileID: 0}
 --- !u!222 &4598361075767943236
 CanvasRenderer:
