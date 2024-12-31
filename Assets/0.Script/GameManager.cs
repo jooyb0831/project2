@@ -37,5 +37,17 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private Inventory inven;
+    public Inventory Inven
+    {
+        get
+        {
+            if(inven==null)
+            {
+                inven = FindAnyObjectByType<Inventory>();
+            }
+            return inven;
+        }
+    }
 
 }

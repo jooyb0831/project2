@@ -12,6 +12,8 @@ public class GameUI : Singleton<GameUI>
 
     public GameObject spUI;
     [SerializeField] Image spBarImg;
+
+    [SerializeField] GameObject menuObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,34 @@ public class GameUI : Singleton<GameUI>
         spBarImg.fillAmount = (float)((float)pd.SP / (float)pd.MAXSP);
         hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
     }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            menuObj.SetActive(true);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(menuObj.activeSelf)
+            {
+                menuObj.SetActive(false);
+            }
+        }
+
+        if(menuObj.activeSelf)
+        {
+            Time.timeScale = 0;
+
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        
+    }
+
 
     public int MAXHP
     {

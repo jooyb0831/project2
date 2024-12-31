@@ -55,7 +55,9 @@ public class Pooling : Singleton<Pooling>
         }
 
         obj = pool[key].Dequeue();
-        obj.transform.position = trans.position;
+        obj.transform.SetParent(trans);
+        obj.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        obj.transform.localPosition = Vector3.zero;
         obj.SetActive(true);
         return obj;
     }

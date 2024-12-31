@@ -31,7 +31,7 @@ public class Enemy0 : Enemy
     {
         if(state == State.Dead)
         {
-            animator.SetTrigger("Fall");
+            TakeItem();
             return;
         }
         Move();
@@ -63,6 +63,11 @@ public class Enemy0 : Enemy
             agent.SetDestination(transform.position);
             
         }
+    }
+
+    protected override void TakeItem()
+    {
+        base.TakeItem();
     }
 
     [SerializeField] float atkCoolTime;

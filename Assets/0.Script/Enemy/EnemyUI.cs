@@ -7,6 +7,8 @@ using TMPro;
 public class EnemyUI : Singleton<EnemyUI>
 {
     private Player p;
+    [SerializeField] GameObject hpObj;
+    [SerializeField] GameObject deadObj;
     [SerializeField] TMP_Text bossNameTxt;
     [SerializeField] Image hpBar;
     Enemy enemy = null;
@@ -49,6 +51,12 @@ public class EnemyUI : Singleton<EnemyUI>
         this.enemy = enemy;
         bossNameTxt.text = name;
         hpBar.fillAmount = ((float)enemy.data.CURHP / enemy.data.MAXHP);
+    }
+
+    public void DeadUI()
+    {
+        hpObj.SetActive(false);
+        deadObj.SetActive(true);
     }
 
     public int HP

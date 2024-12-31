@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public int damage = 5;
+    public int Damage { get; set; } = 5;
     float speed = 0.5f;
     float deg;
-    public float power;
+
+    private float power;
+    public float Power
+    {
+        get { return power; }
+        set
+        {
+            power = value;
+            ArrowUI.Instance.Power = power;
+        }
+    }
     Rigidbody rigid;
     private Player p;
 
@@ -19,7 +29,8 @@ public class Arrow : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         p = GameManager.Instance.Player;
-        power = 70;
+        Power = 70;
+        ArrowUI.Instance.arrow = this;
     }
 
     // Update is called once per frame
@@ -47,14 +58,14 @@ public class Arrow : MonoBehaviour
     // È­»ì Â÷Â¡
     public void ArrowCharge()
     {
-        if (power >= 130)
+        if (Power >= 130)
         {
             return;
         }
         chargeTimer -= Time.deltaTime;
         if(chargeTimer<=0)
         {
-            power += 10;
+            Power += 10;
             chargeTimer = 0.5f;
         }
 
@@ -68,7 +79,7 @@ public class Arrow : MonoBehaviour
             rigid = GetComponent<Rigidbody>();
         }
         rigid.useGravity = true;
-        Vector3 dir = transform.up * speed * power;
+        Vector3 dir = transform.up * speed * Power;
         rigid.velocity = dir;
 
     }
@@ -98,9 +109,11 @@ public class Arrow : MonoBehaviour
     {
         isEnd = false;
         rigid.useGravity = false;
-        power = 70;
+        rigid.velocity = Vector3.zero;
+        Power = 70;
         transform.position = Vector3.zero;
-        chargeTimer = 0;
-        transform.localRotation = Quaternion.Euler(90, 0, 0);
+        gameObject.layer = 6;
+        chargeTimer = 0.5f;
+        transform.localRotation = Quaternion.identity;
     }
 }

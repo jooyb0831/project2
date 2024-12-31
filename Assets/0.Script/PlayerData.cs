@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-
     private int maxHP;
     public int MAXHP
     {

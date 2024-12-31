@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
         if(arrow)
         {
             Pooling.Instance.SetPool(DicKey.arrow, arrow.gameObject);
-            TakeDamage(arrow.damage);
+            TakeDamage(arrow.Damage);
         }
     }
     void TakeDamage(int damage)
@@ -103,13 +103,36 @@ public class Enemy : MonoBehaviour
         data.CURHP -= damage;
         if(data.CURHP<=0)
         {
-            state = State.Dead;
-            animator.SetTrigger("Fall");
+            Dead();
         }
         else
         {
             state = State.Hit;
             animator.SetTrigger("Hit");
         }
-    }   
+    }
+    
+    
+    void Dead()
+    {
+        state = State.Dead;
+        animator.SetTrigger("Fall");
+        //경험치 추가
+
+        //아이템 드롭.
+        enemyUI.DeadUI();
+    }
+
+    protected virtual void TakeItem()
+    {
+        float dist = Vector3.Distance(p.transform.position, transform.position);
+
+        if(dist<2.5f)
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                Instantiate(item, transform);
+            }
+        }
+    }
 }

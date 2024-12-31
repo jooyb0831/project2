@@ -14,14 +14,25 @@ public class Player : MonoBehaviour
         Attack,
         Hit,
         Bow,
+        Mine,
         Gather,
         Dead
+    }
+
+    public enum ToolState
+    {
+        None,
+        Arrow,
+        Sword,
+        PickAxe,
+        Axe
     }
 
     private Rigidbody rigid;
     private Animator animator;
     private PlayerData pd;
     public State state = State.Idle;
+    public ToolState tState = ToolState.None;
 
     private float speed;
     [SerializeField] Transform foot;
@@ -52,6 +63,11 @@ public class Player : MonoBehaviour
             state = State.Gather;
             animator.SetTrigger("Gather");
         }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            state = State.Mine;
+            animator.SetTrigger("Mine");
+        }
 
         
         if(state == State.Run)
@@ -63,10 +79,11 @@ public class Player : MonoBehaviour
                 timer = 1;
             }
         }
+    }
 
+    void Tools()
+    {
 
-
-        
     }
 
     void Move()
