@@ -43,6 +43,8 @@ public class Inventory : Singleton<Inventory>
     public Transform[] invenSlots;
     public Transform[] quickSlots;
 
+    public MoveItem moveItem;
+
     public InventoryData inventoryData = new();
     public List<InvenItem> invenItems = new();
     private List<int> itemIdxList = new();
@@ -254,6 +256,23 @@ public class Inventory : Singleton<Inventory>
                 Instantiate(item.data.fieldItem, p.swordPos);
             }
         }
+    }
+
+
+    public void ItemMove(bool isShow, Vector3 pos, InvenData data = null)
+    {
+        if(data!=null)
+        {
+            moveItem.SetData(data);
+        }
+        moveItem.gameObject.SetActive(isShow);
+        moveItem.transform.position = pos;
+    }
+
+    public void PointUp(InvenItem invenItem)
+    {
+        moveItem.MoveSlot(invenItem);
+        ItemMove(false, Vector2.zero);
     }
 
 }

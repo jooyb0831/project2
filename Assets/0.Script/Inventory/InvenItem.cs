@@ -76,17 +76,52 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
             }
         }
 
+        if(Input.GetMouseButton(0))
+        {
+            if(transform.parent.GetComponent<Slot>() || transform.GetComponent<QuickSlot>())
+            {
+                inventory.ItemMove(true, eventData.position, data);
+            }
+
+            //¹Ú½º½½·Ô
+            
+        }
+
 
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-     
+        if(Input.GetMouseButtonUp(0))
+        {
+            itemBG.color = Color.white;
+            itemIcon.color = Color.white;
+            if (data.count >1)
+            {
+                cntBG.SetActive(true);
+            }
+            if(transform.parent.GetComponent<Slot>() || transform.parent.GetComponent<QuickSlot>())
+            {
+                inventory.PointUp(this);
+            }
+
+
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        
+        if(Input.GetMouseButton(0))
+        {
+            itemBG.color = Color.clear;
+            itemIcon.color = Color.clear;
+            cntBG.SetActive(false);
+
+            if(transform.parent.GetComponent<Slot>() || transform.parent.GetComponent<QuickSlot>())
+            {
+                inventory.ItemMove(true, eventData.position);
+            }
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

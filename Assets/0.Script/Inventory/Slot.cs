@@ -6,6 +6,7 @@ public class Slot : MonoBehaviour
 {
     public bool isFilled;
     public bool isLocked;
+    public int indexNum;
     // Start is called before the first frame update
     void Start()
     {

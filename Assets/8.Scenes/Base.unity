@@ -171,6 +171,7 @@ MonoBehaviour:
   - {fileID: 0}
   invenItems: []
   invenDatas: []
+  quickInvenSample: {fileID: 7745125645568108703, guid: 8d16be7f84880e940978e80f499160e1, type: 3}
 --- !u!4 &1244060002
 Transform:
   m_ObjectHideFlags: 0
