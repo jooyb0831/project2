@@ -14,6 +14,7 @@ public class ItemData
     public int price;
     public int itemIdx;
     public GameObject obj;
+    public FieldItem fItem;
 }
 
 public class FieldItem : MonoBehaviour

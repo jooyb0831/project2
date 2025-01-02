@@ -43,12 +43,14 @@ public class GameUI : Singleton<GameUI>
 
         if(menuObj.activeSelf)
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
+            Camera.main.GetComponent<CameraMove>().enabled = false;
 
         }
         else
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
+            Camera.main.GetComponent<CameraMove>().enabled = true;
         }
         
     }

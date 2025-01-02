@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MoveItem : MonoBehaviour
 {
+    [SerializeField] Image frameImg;
     [SerializeField] Image bgImg;
     [SerializeField] Image icon;
     [SerializeField] TMP_Text countTxt;
@@ -24,9 +25,10 @@ public class MoveItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(inven.moveItem == null)
+        if(Inventory.Instance.moveItem == null)
         {
-            inven.moveItem = this;
+            Inventory.Instance.moveItem = this;
+            return;
         }
     }
 
@@ -48,35 +50,59 @@ public class MoveItem : MonoBehaviour
         countBG.SetActive(item.data.count <= 1 ? false : true);
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("인식");
         coll = collision;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        coll = null;
+        //coll = null;
     }
-
-
+    
+    /// <summary>
+    /// 아이템 드래그-드롭으로 이동
+    /// </summary>
+    /// <param name="invenItem"></param>
     public void MoveSlot(InvenItem invenItem)
     {
-        if (coll.GetComponent<Slot>() == true) // 아이템을 인벤토리의 일반 슬롯으로 이동할 경우
+
+        //
+        if(coll.GetComponent<WeaponSlot>())
         {
-            if (coll.GetComponent<Slot>().isFilled == false)
+            if(invenItem.data.type != ItemType.Weapon)
             {
-                if (invenItem.transform.parent.GetComponent<QuickSlot>() == true) // 아이템이 현재 퀵슬롯에 있을 경우
+                return;
+            }
+            else
+            {
+                invenItem.transform.position = coll.transform.position;
+                invenItem.transform.SetParent(coll.transform);
+                coll.GetComponent<WeaponSlot>().isFilled = true;
+                coll.GetComponent<WeaponSlot>().item = invenItem;
+                coll.GetComponent<WeaponSlot>().Equip();
+            }
+        }
+        // 아이템을 인벤토리의 일반 슬롯으로 이동할 경우
+        if (coll.GetComponent<Slot>()) 
+        {
+            // 빈 슬롯으로 이동시
+            if (!coll.GetComponent<Slot>().isFilled)
+            {
+                // 아이템이 현재 퀵슬롯에 있을 경우
+                if (invenItem.transform.parent.GetComponent<QuickSlot>()) 
                 {
                     invenItem.transform.parent.GetComponent<QuickSlot>().isFilled = false;
                     invenItem.data.inQuickSlot = false;
                     invenItem.data.quickSlotIdx = -1;
                     //invenItem.transform.parent.GetComponent<QuickSlot>().RemoveItem();
                 }
-                if (invenItem.transform.parent.GetComponent<Slot>() == true) // 아이템이 현재 일반 슬롯에 있을 경우
+                // 아이템이 현재 일반 슬롯에 있을 경우
+                if (invenItem.transform.parent.GetComponent<Slot>()) 
                 {
                     invenItem.transform.parent.GetComponent<Slot>().isFilled = false;
-
                 }
                 /*
                 if (invenItem.transform.parent.GetComponent<BoxSlot>() == true) // 아이템을 박스에서 이동할 경우
@@ -92,21 +118,23 @@ public class MoveItem : MonoBehaviour
                 coll.GetComponent<Slot>().isFilled = true;
             }
 
-            if (coll.GetComponent<Slot>().isFilled == true)
+            //비어있지 않은 슬롯으로 이동시
+            if (coll.GetComponent<Slot>().isFilled)
             {
+                // 중복된 아이템일 경우 수량 증가 처리(합치기)
                 if (coll.transform.GetChild(0).GetComponent<InvenItem>().data.itemTitle.Equals(invenItem.data.itemTitle) 
                     && coll.transform.GetChild(0).GetComponent<InvenItem>().data.itemIdx != invenItem.data.itemIdx)
                 {
                     coll.transform.GetChild(0).GetComponent<InvenItem>().data.count += invenItem.data.count;
                     //coll.transform.GetChild(0).GetComponent<InvenItem>().AddData(coll.transform.GetChild(0).GetComponent<InvenItem>().data);
 
-                    if (invenItem.transform.parent.GetComponent<QuickSlot>() == true)
+                    if (invenItem.transform.parent.GetComponent<QuickSlot>())
                     {
                         invenItem.transform.parent.GetComponent<QuickSlot>().isFilled = false;
                         invenItem.data.inQuickSlot = false;
                         //invenItem.transform.parent.GetComponent<QuickSlot>().RemoveItem();
                     }
-                    if (invenItem.transform.parent.GetComponent<Slot>() == true)
+                    if (invenItem.transform.parent.GetComponent<Slot>())
                     {
                         invenItem.transform.parent.GetComponent<Slot>().isFilled = false;
                     }
@@ -122,7 +150,8 @@ public class MoveItem : MonoBehaviour
             }
 
         }
-        if (coll.GetComponent<QuickSlot>() == true) // 아이템이 퀵슬롯으로 이동할 경우
+        // 아이템이 퀵슬롯으로 이동할 경우
+        if (coll.GetComponent<QuickSlot>())
         {
             if (coll.GetComponent<QuickSlot>().isFilled == false)
             {

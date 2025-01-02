@@ -24,7 +24,8 @@ public enum ItemType
 {
     Ore,
     Wood,
-    Tool
+    Tool,
+    Weapon
 }
 
 public class InventoryData
@@ -94,7 +95,7 @@ public class Inventory : Singleton<Inventory>
             price = itemData.price,
             //usage = itemData.usage,
             itemIdx = itemData.itemIdx,
-            fieldItem = itemData.obj.GetComponent<FieldItem>(),
+            fieldItem = itemData.fItem,
             slotIdx = index
         };
         item.SetData(data);

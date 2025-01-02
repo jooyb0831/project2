@@ -391,8 +391,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5402098873889672817}
   - component: {fileID: 7074396693919224216}
+  - component: {fileID: -2410918407265884268}
   - component: {fileID: 4598361075767943236}
   - component: {fileID: 1042242438238377406}
+  - component: {fileID: 9177183713549385244}
   m_Layer: 5
   m_Name: InvenItemSample
   m_TagString: Untagged
@@ -433,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d93890d0a8f4d489bb03eb9c1e7111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemFrame: {fileID: 1042242438238377406}
   itemBG: {fileID: 3206625265136227291}
   itemIcon: {fileID: 6209183622733918042}
   cntBG: {fileID: 4558733989176242841}
@@ -452,6 +455,32 @@ MonoBehaviour:
     quickSlotIdx: 0
     qItem: {fileID: 0}
     fieldItem: {fileID: 0}
+--- !u!61 &-2410918407265884268
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623779716238406075}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100}
+  m_EdgeRadius: 0
 --- !u!222 &4598361075767943236
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -490,3 +519,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!50 &9177183713549385244
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623779716238406075}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

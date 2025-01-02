@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 
 public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] Image itemFrame;
     [SerializeField] Image itemBG;
     [SerializeField] Image itemIcon;
     [SerializeField] GameObject cntBG;
@@ -76,7 +77,7 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
             }
         }
 
-        if(Input.GetMouseButton(0))
+        else if(Input.GetMouseButton(0))
         {
             if(transform.parent.GetComponent<Slot>() || transform.GetComponent<QuickSlot>())
             {
@@ -94,6 +95,7 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     {
         if(Input.GetMouseButtonUp(0))
         {
+            itemFrame.color = Color.white;
             itemBG.color = Color.white;
             itemIcon.color = Color.white;
             if (data.count >1)
@@ -113,6 +115,7 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     {
         if(Input.GetMouseButton(0))
         {
+            itemFrame.color = Color.clear;
             itemBG.color = Color.clear;
             itemIcon.color = Color.clear;
             cntBG.SetActive(false);

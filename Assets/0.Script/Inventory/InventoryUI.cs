@@ -10,6 +10,7 @@ public class InventoryUI : Singleton<InventoryUI>
     [SerializeField] QuickInven quickItem;
     [SerializeField] InvenItem sampleInvenItem;
     [SerializeField] PlayerData pd;
+    [SerializeField] MoveItem moveitem;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class InventoryUI : Singleton<InventoryUI>
         {
             pd = GameManager.Instance.PlayerData;
         }
+        inventory.moveItem = this.moveitem;
         SetInvenSlot();
         InventoryCheck();
 
