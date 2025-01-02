@@ -69,7 +69,7 @@ public class MoveItem : MonoBehaviour
     public void MoveSlot(InvenItem invenItem)
     {
 
-        //
+        //무기 슬롯으로 이동시 : 무기 장착
         if(coll.GetComponent<WeaponSlot>())
         {
             if(invenItem.data.type != ItemType.Weapon)
