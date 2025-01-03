@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
         Dead
     }
 
-    public enum ToolState
+    public enum EquipState
     {
         None,
         Arrow,
@@ -32,11 +32,14 @@ public class Player : MonoBehaviour
     private Animator animator;
     private PlayerData pd;
     public State state = State.Idle;
-    public ToolState tState = ToolState.None;
+    public EquipState equipState = EquipState.None;
 
     private float speed;
     [SerializeField] Transform foot;
+
+
     public Transform swordPos;
+    public Transform weapon1Rest;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +81,29 @@ public class Player : MonoBehaviour
             {
                 pd.SP -= pd.minSP;
                 timer = 1;
+            }
+        }
+    }
+
+    public Weapon curWeapon = null;
+    [SerializeField] Weapon equipedWeapon = null;
+    void Weapon()
+    {
+        if(curWeapon == null)
+        {
+            return;
+        }
+        else
+        {
+            if(equipState.Equals(EquipState.Sword))
+            {
+                if(equipedWeapon!=null)
+                {
+                    return;
+                }
+                equipedWeapon = Instantiate(curWeapon, swordPos);
+                equipedWeapon.transform.localPosition = Vector3.zero;
+                curWeapon.gameObject.SetActive(false);
             }
         }
     }
@@ -198,6 +224,16 @@ public class Player : MonoBehaviour
             {
                 state = State.Attack;
                 animator.SetBool("Attacking", true);
+                if (equipState.Equals(EquipState.Sword))
+                {
+                    Weapon();
+                    animator.SetTrigger("Sword");
+                }
+
+                if(equipState.Equals(EquipState.None))
+                {
+                    animator.SetTrigger("Punch");
+                }
             }
             else
             {
@@ -219,6 +255,14 @@ public class Player : MonoBehaviour
                 atkIdleTimer = 0;
                 animator.SetTrigger("Idle");
                 state = State.Idle;
+
+                if(equipedWeapon != null)
+                {
+                    Destroy(equipedWeapon.gameObject);
+                    curWeapon.gameObject.SetActive(true);
+                }
+                
+                isAttacking = false;
             }
         }
         else

@@ -91,6 +91,12 @@ public class Enemy : MonoBehaviour
             TakeDamage(pd.BasicAtk);
         }
 
+        if(other.GetComponent<Weapon>() && p.state.Equals(Player.State.Attack))
+        {
+            TakeDamage(other.GetComponent<Weapon>().weaponData.atkDmg);
+        }
+
+
         Arrow arrow = other.GetComponent<Arrow>();
         if(arrow)
         {
