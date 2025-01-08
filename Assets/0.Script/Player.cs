@@ -179,19 +179,34 @@ public class Player : MonoBehaviour
                 state = State.Run;
                 animator.SetTrigger("RunForward");
             }
+
+
             else
             {
-                if(x<0)
+                if(x<0 && z<0)
+                {
+                    animator.SetTrigger("WalkBackwardL");
+                }
+                else if(x<0 && z>0)
+                {
+                    animator.SetTrigger("WalkForwardL");
+                }
+                else if(x<0 && z==0)
                 {
                     animator.SetTrigger("WalkBackward");
                 }
-                else
+                else if(z>0 && x>0)
+                {
+                    animator.SetTrigger("WalkForwardR");
+                }
+                else if(z<0&&x>0)
+                {
+                    animator.SetTrigger("WalkBackwardR");
+                }
+                else if (z>0 && x==0)
                 {
                     animator.SetTrigger("WalkForward");
                 }
-                
-                state = State.Walk;
-                speed = pd.Speed;
             }
         }
         else
