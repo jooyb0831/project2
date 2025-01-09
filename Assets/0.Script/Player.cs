@@ -168,16 +168,18 @@ public class Player : MonoBehaviour
             {
                 if (pd.SP <= 0)
                 {
-                    Walk();
+                    //Walk();
                     return;
                 }
                 GameUI.Instance.spUI.SetActive(true);
-                Run();
+                //Run();
             }
 
             else
             {
-                Walk();
+                animator.SetTrigger("Walk");
+                MoveAnimatorSet(new Vector3(x,0,z));
+                //Walk();
             }
         }
 
@@ -288,12 +290,18 @@ public class Player : MonoBehaviour
             animator.SetTrigger("RunForwardR");
         }
     }
+
+    void MoveAnimatorSet(Vector3 dir)
+    {
+        animator.SetFloat("floatX", dir.x);
+        animator.SetFloat("floatZ", dir.z);
+    }
+
+
     [SerializeField] bool isComboExist;
     [SerializeField] bool isComboEnable;
     [SerializeField] int comboIndex;
     [SerializeField] bool isAttacking;
-
-
     void Attack()
     {
         if (Input.GetMouseButtonDown(0))
@@ -570,6 +578,8 @@ public class Player : MonoBehaviour
         state = State.Dead;
         animator.SetTrigger("Dead");
     }
+
+
 
 
 
