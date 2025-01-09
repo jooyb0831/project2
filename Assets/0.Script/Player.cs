@@ -62,22 +62,22 @@ public class Player : MonoBehaviour
         Bow();
 
 
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             state = State.Gather;
             animator.SetTrigger("Gather");
         }
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             state = State.Mine;
             animator.SetTrigger("Mine");
         }
 
-        
-        if(state == State.Run)
+
+        if (state == State.Run)
         {
             timer -= Time.deltaTime;
-            if(timer<=0)
+            if (timer <= 0)
             {
                 pd.SP -= pd.minSP;
                 timer = 1;
@@ -89,15 +89,15 @@ public class Player : MonoBehaviour
     [SerializeField] Weapon equipedWeapon = null;
     void Weapon()
     {
-        if(curWeapon == null)
+        if (curWeapon == null)
         {
             return;
         }
         else
         {
-            if(equipState.Equals(EquipState.Sword))
+            if (equipState.Equals(EquipState.Sword))
             {
-                if(equipedWeapon!=null)
+                if (equipedWeapon != null)
                 {
                     return;
                 }
@@ -115,10 +115,11 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if(state == State.Gather || state == State.Dead)
+        if (state == State.Gather || state == State.Dead || state == State.Bow || state == State.Attack || state == State.Hit)
         {
             return;
         }
+
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
@@ -127,6 +128,14 @@ public class Player : MonoBehaviour
         if (state == State.Jump)
         {
             return;
+        }
+
+        if (state == State.AttackIdle)
+        {
+            if (x != 0 || z != 0)
+            {
+                state = State.Walk;
+            }
         }
 
         RaycastHit hit;
@@ -150,88 +159,146 @@ public class Player : MonoBehaviour
                 state = State.Jump;
                 return;
             }
-                
+
         }
 
         if (x != 0 || z != 0)
         {
-
-            if(Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-               if(pd.SP<=0)
+                if (pd.SP <= 0)
                 {
-                    speed = pd.Speed;
-                    state = State.Walk;
-
-                    if(x<0)
-                    {
-                        animator.SetTrigger("WalkBackward");
-                    }
-                    else
-                    {
-                        animator.SetTrigger("WalkForward");
-                    }
-                    
+                    Walk();
                     return;
                 }
                 GameUI.Instance.spUI.SetActive(true);
-                speed = pd.RunSpeed;
-                state = State.Run;
-                animator.SetTrigger("RunForward");
+                Run();
             }
-
 
             else
             {
-                if(x<0 && z<0)
-                {
-                    animator.SetTrigger("WalkBackwardL");
-                }
-                else if(x<0 && z>0)
-                {
-                    animator.SetTrigger("WalkForwardL");
-                }
-                else if(x<0 && z==0)
-                {
-                    animator.SetTrigger("WalkBackward");
-                }
-                else if(z>0 && x>0)
-                {
-                    animator.SetTrigger("WalkForwardR");
-                }
-                else if(z<0&&x>0)
-                {
-                    animator.SetTrigger("WalkBackwardR");
-                }
-                else if (z>0 && x==0)
-                {
-                    animator.SetTrigger("WalkForward");
-                }
+                Walk();
             }
         }
+
         else
         {
-            if(state == State.Hit || state == State.AttackIdle || state == State.Attack)
+            if (state == State.Hit || state == State.AttackIdle || state == State.Attack)
             {
                 return;
             }
             animator.SetTrigger("Idle");
             state = State.Idle;
         }
-        
+
     }
 
+    void Walk()
+    {
+        state = State.Walk;
+        speed = pd.Speed;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.SetTrigger("WalkForwardL");
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                animator.SetTrigger("WalkForwardR");
+            }
+            else
+            {
+                animator.SetTrigger("WalkForward");
+            }
+        }
+
+        else if (Input.GetKey(KeyCode.S))
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.SetTrigger("WalkBackwardR");
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                animator.SetTrigger("WalkBackwardL");
+            }
+            else
+            {
+                animator.SetTrigger("WalkBackward");
+            }
+        }
+
+        else if (Input.GetKey(KeyCode.A))
+        {
+            animator.SetTrigger("WalkForwardL");
+        }
+
+        else if (Input.GetKey(KeyCode.D))
+        {
+            animator.SetTrigger("WalkForwardR");
+        }
+    }
+
+    void Run()
+    {
+        speed = pd.RunSpeed;
+        state = State.Run;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.SetTrigger("RunForwardL");
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                animator.SetTrigger("RunForwardR");
+            }
+            else
+            {
+                animator.SetTrigger("RunForward");
+            }
+        }
+
+        else if (Input.GetKey(KeyCode.S))
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                animator.SetTrigger("RunBackwardL");
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                animator.SetTrigger("RunBackwardR");
+            }
+            else
+            {
+                animator.SetTrigger("RunBackward");
+            }
+        }
+
+        else if (Input.GetKey(KeyCode.A))
+        {
+            animator.SetTrigger("RunForwardL");
+        }
+
+        else if (Input.GetKey(KeyCode.D))
+        {
+            animator.SetTrigger("RunForwardR");
+        }
+    }
     [SerializeField] bool isComboExist;
     [SerializeField] bool isComboEnable;
     [SerializeField] int comboIndex;
     [SerializeField] bool isAttacking;
-    
+
 
     void Attack()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(state == State.Bow)
+            if (state == State.Bow)
             {
                 return;
             }
@@ -245,16 +312,17 @@ public class Player : MonoBehaviour
                     animator.SetTrigger("Sword");
                 }
 
-                if(equipState.Equals(EquipState.None))
+                if (equipState.Equals(EquipState.None))
                 {
                     animator.SetTrigger("Punch");
                 }
             }
+            
             else
             {
                 AttackCombo();
             }
-            
+
         }
     }
 
@@ -267,16 +335,10 @@ public class Player : MonoBehaviour
 
             if (atkIdleTimer >= 2f)
             {
+
                 atkIdleTimer = 0;
                 animator.SetTrigger("Idle");
                 state = State.Idle;
-
-                if(equipedWeapon != null)
-                {
-                    Destroy(equipedWeapon.gameObject);
-                    curWeapon.gameObject.SetActive(true);
-                }
-                
                 isAttacking = false;
             }
         }
@@ -284,6 +346,17 @@ public class Player : MonoBehaviour
         {
             atkIdleTimer = 0;
         }
+
+
+        if (state == State.Idle || state == State.Walk  || state == State.Run) 
+        {
+            if (equipedWeapon != null)
+            {
+                Destroy(equipedWeapon.gameObject);
+                curWeapon.gameObject.SetActive(true);
+            }
+        }
+
 
     }
 
@@ -293,7 +366,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform arrows;
     void Bow()
     {
-        
+
         if (Input.GetMouseButton(1))
         {
             state = State.Bow;
@@ -302,20 +375,20 @@ public class Player : MonoBehaviour
                 GameUI.Instance.arrowUI.SetActive(true);
                 isCharging = true;
                 animator.SetTrigger("Bow");
-                
-                //»≠ªÏ ª˝º∫
+
+                //ÌôîÏÇ¥ ÏÉùÏÑ±
                 ar = Pooling.Instance.GetPool(DicKey.arrow, Camera.main.transform).GetComponent<Arrow>();
             }
 
             if (Input.GetMouseButton(0))
             {
-                //»≠ªÏ ¬˜¬°
+                //ÌôîÏÇ¥ Ï∞®Ïßï
                 ar.ArrowCharge();
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                //»≠ªÏ πﬂªÁ
+                //ÌôîÏÇ¥ Î∞úÏÇ¨
                 ar.gameObject.layer = default;
                 isCharging = false;
                 animator.speed = 1;
@@ -325,13 +398,13 @@ public class Player : MonoBehaviour
                 GameUI.Instance.arrowUI.SetActive(false);
             }
         }
-        if(Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1))
         {
-            if(isCharging)
+            if (isCharging)
             {
                 isCharging = false;
             }
-            if(animator.speed!=1)
+            if (animator.speed != 1)
             {
                 animator.speed = 1;
             }
@@ -341,7 +414,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+
     public void BowAnimationStop()
     {
         if (isCharging)
@@ -354,13 +427,13 @@ public class Player : MonoBehaviour
     void AttackCombo()
     {
 
-        // ƒﬁ∫∏∞° ∞°¥…«— ªÛ≈¬ø°º≠ E≈∞∏¶ ¥≠∑∂¿ª ∂ß
+        // ÏΩ§Î≥¥Í∞Ä Í∞ÄÎä•Ìïú ÏÉÅÌÉúÏóêÏÑú EÌÇ§Î•º ÎàåÎ†ÄÏùÑ Îïå
         if (isComboEnable)
         {
-            // ƒﬁ∫∏ ∫“∞°¥…¿∏∑Œ ∏∏µÈ∞Ì
+            //ÏΩ§Î≥¥ Î∂àÍ∞ÄÎä•
             isComboEnable = false;
 
-            //ƒﬁ∫∏∞° ¿÷¥Ÿ¥¬ ∞Õ¿∏∑Œ ¿ŒΩƒ
+            //ÏΩ§Î≥¥Í∞Ä ÏûàÎã§Îäî Í≤ÉÏúºÎ°ú Ïù∏Ïãù
             isComboExist = true;
 
             return;
@@ -386,20 +459,20 @@ public class Player : MonoBehaviour
 
     public void Combo_Exist()
     {
-        //ƒﬁ∫∏∞° æ¯¿∏∏È
+        //ÏΩ§Î≥¥Í∞Ä ÏóÜÏúºÎ©¥
         if (!isComboExist)
         {
-            //¡æ∑·
+            //Ï¢ÖÎ£å
             EndAttack();
         }
         else
         {
-            //ƒﬁ∫∏∞° ¿÷¥Ÿ∏È
+            //ÏΩ§Î≥¥Í∞Ä ÏûàÎã§Î©¥
             comboIndex++;
-            //ƒﬁ∫∏ ∆Æ∏Æ∞≈ πﬂµø
+            //ÏΩ§Î≥¥ Ìä∏Î¶¨Í±∞ Î∞úÎèô
             animator.SetTrigger("Combo");
             isAttacking = false;
-            //ƒﬁ∫∏ æ¯¥¬ ∞Õ¿∏∑Œ πŸ≤Ÿ±‚
+            //ÏΩ§Î≥¥ ÏóÜÎäî Í≤ÉÏúºÎ°ú Î∞îÍæ∏Í∏∞
             isComboExist = false;
         }
 
@@ -437,24 +510,24 @@ public class Player : MonoBehaviour
     {
         rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         animator.SetTrigger("Jump");
-        
+
     }
 
     [SerializeField] bool spRecoverStarted = false;
     [SerializeField] float spRecoverTimer = 1;
     [SerializeField] float spRecoverDelay = 2;
-    [SerializeField] float plusTimer =1;
+    [SerializeField] float plusTimer = 1;
     void RecoverSP()
     {
         if (state != State.Run)
         {
-            if(pd.SP>=pd.MAXSP)
+            if (pd.SP >= pd.MAXSP)
             {
                 GameUI.Instance.spUI.SetActive(false);
                 spRecoverStarted = false;
                 return;
             }
-            if(!spRecoverStarted)
+            if (!spRecoverStarted)
             {
                 spRecoverDelay -= Time.deltaTime;
                 if (spRecoverDelay <= 0)
@@ -466,7 +539,7 @@ public class Player : MonoBehaviour
             else
             {
                 plusTimer -= Time.deltaTime;
-                if(plusTimer <= 0)
+                if (plusTimer <= 0)
                 {
                     plusTimer = 1;
                     pd.SP += pd.plusSP;
@@ -479,7 +552,7 @@ public class Player : MonoBehaviour
     void TakeDamage(int damage)
     {
         pd.HP -= damage;
-        if(pd.HP<=0)
+        if (pd.HP <= 0)
         {
             Dead();
             return;
@@ -490,6 +563,10 @@ public class Player : MonoBehaviour
 
     void Dead()
     {
+        if (pd.HP < 0)
+        {
+            pd.HP = 0;
+        }
         state = State.Dead;
         animator.SetTrigger("Dead");
     }
@@ -499,7 +576,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             state = State.Idle;
         }
@@ -507,8 +584,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("EnemyWeapon"))
+        if (other.CompareTag("EnemyWeapon"))
         {
+            if (state == State.Hit)
+            {
+                return;
+            }
             int dmg = other.gameObject.GetComponent<EnemyWeapon>().enemy.data.AtkPower;
             TakeDamage(dmg);
         }
