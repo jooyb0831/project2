@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : Singleton<InventoryUI>
 {
@@ -19,14 +21,34 @@ public class InventoryUI : Singleton<InventoryUI>
         SetInventory();
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            quickSlots[0].GetComponent<Toggle>().isOn = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            quickSlots[1].GetComponent<Toggle>().isOn = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            quickSlots[2].GetComponent<Toggle>().isOn = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            quickSlots[3].GetComponent<Toggle>().isOn = true;
+        }
+    }
+
     public void Init()
     {
-        if(inventory == null)
+        if (inventory == null)
         {
             inventory = GameManager.Instance.Inven;
         }
 
-        if(pd == null)
+        if (pd == null)
         {
             pd = GameManager.Instance.PlayerData;
         }
@@ -55,8 +77,8 @@ public class InventoryUI : Singleton<InventoryUI>
                 slots[i + 9].GetComponent<Slot>().isLocked = false;
             }
         }
-        
-        for(int i =0; i<4; i++)
+
+        for (int i = 0; i < 4; i++)
         {
             inventory.quickSlots[i] = quickSlots[i];
         }
@@ -101,7 +123,7 @@ public class InventoryUI : Singleton<InventoryUI>
         item.transform.parent.gameObject.GetComponent<Slot>().isFilled = true;
         inventory.invenItems.Add(item);
 
-        
+
         if (data.inQuickSlot)
         {
             QuickInven quickItem = null;
@@ -111,7 +133,7 @@ public class InventoryUI : Singleton<InventoryUI>
             quickSlots[data.quickSlotIdx].GetComponent<QuickSlot>().isFilled = true;
             data.qItem = quickItem;
         }
-        
+
     }
 
 

@@ -111,7 +111,7 @@ public class FieldItem : MonoBehaviour
         isFull = invenFull;
         if(invenFull)
         {
-            Debug.Log("ÀÎº¥ °¡µæ Âü.");
+            Debug.Log("ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.");
         }
     }
 }

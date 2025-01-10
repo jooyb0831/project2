@@ -20,6 +20,18 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     public GameObject invenOption = null;
     public InvenData data;
 
+    public void Update()
+    {
+        if(transform.parent.GetComponent<QuickSlot>())
+        {
+            itemFrame.color = Color.clear;
+        }
+        else
+        {
+            itemFrame.color = Color.white;
+        }
+    }
+
     public void SetData(InvenData data)
     {
         this.data = data;
@@ -64,7 +76,7 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
                 invenOption = Instantiate(itemOptionWindow, transform).gameObject;
                 invenOption.GetComponent<ItemInvenOption>().item = this;
 
-                // ÀÌ »çÀÌ¿¡ ¾ÆÀÌÅÛ Á¾·ù¿¡ µû¶ó ¸ñ·Ï ´Ù¸£°Ô ¼öÁ¤ÇÏ´Â ÄÚµå µé¾î°¨
+                // ì´ ì‚¬ì´ì— ì•„ì´í…œ ì¢…ë¥˜ì— ë”°ë¼ ëª©ë¡ ë‹¤ë¥´ê²Œ ìˆ˜ì •í•˜ëŠ” ì½”ë“œ ë“¤ì–´ê°
 
                 invenOption.transform.SetParent(transform.parent.parent.parent.parent);
                 invenOption.transform.SetAsLastSibling();
@@ -84,7 +96,7 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
                 inventory.ItemMove(true, eventData.position, data);
             }
 
-            //¹Ú½º½½·Ô
+            //ë°•ìŠ¤ìŠ¬ë¡¯
             
         }
 

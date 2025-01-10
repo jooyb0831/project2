@@ -19,6 +19,8 @@ public class InvenData
     public int quickSlotIdx;
     public QuickInven qItem;
     public FieldItem fieldItem = null;
+
+    public GameObject inGameobj = null;
 }
 public enum ItemType
 {
@@ -56,11 +58,12 @@ public class Inventory : Singleton<Inventory>
     {
         DontDestroyOnLoad(this);
         pd = GameManager.Instance.PlayerData;
+        p = GameManager.Instance.Player;
     }
 
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛ Ãß°¡ÇÏ´Â ÇÔ¼ö(ItemData ÀÎ¼ö)
+    /// ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜(ItemDataì¸ìˆ˜)
     /// </summary>
     /// <param name="itemData"></param>
     public void GetItem(ItemData itemData)
@@ -107,7 +110,7 @@ public class Inventory : Singleton<Inventory>
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛ Ãß°¡(InvenItem ÀÎ¼ö)
+    /// ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œ ì¶”ê°€(InvenItem ì¸ìˆ˜)
     /// </summary>
     /// <param name="invenItem"></param>
     public void GetItem(InvenItem invenItem)
@@ -130,7 +133,7 @@ public class Inventory : Singleton<Inventory>
     }
 
     /// <summary>
-    /// ½½·Ô ÀÎµ¦½º
+    /// ìŠ¬ë¡¯ ì¸ë±ìŠ¤
     /// </summary>
     /// <returns></returns>
     int SlotCheck()
@@ -149,7 +152,7 @@ public class Inventory : Singleton<Inventory>
     }
 
     /// <summary>
-    /// ºó ½½·Ô Ã¼Å©
+    /// ë¹ˆ ìŠ¬ë¡¯ ì²´í¬
     /// </summary>
     /// <returns></returns>
     public bool EmptySlotCheck()
@@ -177,7 +180,7 @@ public class Inventory : Singleton<Inventory>
     }
 
     /// <summary>
-    /// Áßº¹¾ÆÀÌÅÛ Ã¼Å©(ItemData)
+    /// ì¤‘ë³µì•„ì´í…œ ì²´í¬(ItemData)
     /// </summary>
     /// <param name="itemData"></param>
     void ItemCheck(ItemData itemData)
@@ -202,7 +205,7 @@ public class Inventory : Singleton<Inventory>
     }
 
     /// <summary>
-    /// Áßº¹¾ÆÀÌÅÛ Ã¼Å©(InvenItem)
+    /// ì¤‘ë³µì•„ì´í…œ ì²´í¬(InvenItem)
     /// </summary>
     /// <param name="item"></param>
     void ItemCheck(InvenItem item)
@@ -229,7 +232,7 @@ public class Inventory : Singleton<Inventory>
 
     [SerializeField] QuickInven quickInvenSample;
     /// <summary>
-    /// ¾ÆÀÌÅÛ ÀåÂø(Äü½½·Ô)
+    /// ì•„ì´í…œ ì¥ì°©(í€µìŠ¬ë¡¯)
     /// </summary>
     /// <param name="item"></param>
     public void ItemEquip(InvenItem item)
@@ -252,7 +255,7 @@ public class Inventory : Singleton<Inventory>
 
         if(item.data.type.Equals(ItemType.Tool))
         {
-            if(item.data.itemTitle.Equals("³ì½¼ °Ë"))
+            if(item.data.itemTitle.Equals("ï¿½ì½¼ ï¿½ï¿½"))
             {
                 Instantiate(item.data.fieldItem, p.swordPos);
             }
@@ -274,6 +277,65 @@ public class Inventory : Singleton<Inventory>
     {
         moveItem.MoveSlot(invenItem);
         ItemMove(false, Vector2.zero);
+    }
+
+
+    /// <summary>
+    /// í€µì¸ë²¤ ì•„ì´í…œ ì¥ì°© ì½”ë“œ
+    /// </summary>
+    /// <param name="item">í•´ë‹¹ ì¸ë²¤ì•„ì´í…œ</param>
+    public void QuickSlotItemSet(InvenItem item)
+    {
+        ItemType type = item.data.type;
+        QuickSlot quickSlot = item.transform.parent.GetComponent<QuickSlot>();
+        if(p == null)
+        {
+            p = GameManager.Instance.Player;
+        }
+        
+        //ì•„ì´í…œì˜ íƒ€ì…ì— ë”°ë¼ ì„¸íŒ… ë‹¤ë¥´ê²Œ
+        switch(type)
+        {
+            case ItemType.Tool:
+            {
+                if(quickSlot.isToolEquiped)
+                {
+                    return;
+                }
+                
+                if(quickSlot.tool==null)
+                {
+                    quickSlot.tool = Instantiate(item.data.fieldItem.GetComponent<Tool>(), p.toolPos);
+                }
+                
+                quickSlot.isToolEquiped = true;
+                quickSlot.tool.SetTool();
+                break;
+            }
+        }
+    }
+
+
+    public void QuickUnequiped(InvenItem item)
+    {
+        ItemType type = item.data.type;
+        QuickSlot quickSlot = item.transform.parent.GetComponent<QuickSlot>();
+        
+        switch(type)
+        {
+            case ItemType.Tool:
+            {
+                if(!quickSlot.isToolEquiped)
+                {
+                    return;
+                }
+                quickSlot.isToolEquiped = false;
+                quickSlot.tool.obj.SetActive(false);
+                break;
+            }
+            
+        }
+
     }
 
 }

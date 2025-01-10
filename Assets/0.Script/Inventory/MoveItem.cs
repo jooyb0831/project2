@@ -53,7 +53,7 @@ public class MoveItem : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("ÀÎ½Ä");
+        Debug.Log("ì¸ì‹");
         coll = collision;
     }
 
@@ -63,13 +63,13 @@ public class MoveItem : MonoBehaviour
     }
     
     /// <summary>
-    /// ¾ÆÀÌÅÛ µå·¡±×-µå·ÓÀ¸·Î ÀÌµ¿
+    /// ì•„ì´í…œ ë“œë˜ê·¸-ë“œë¡­ìœ¼ë¡œ ì´ë™
     /// </summary>
     /// <param name="invenItem"></param>
     public void MoveSlot(InvenItem invenItem)
     {
 
-        //¹«±â ½½·ÔÀ¸·Î ÀÌµ¿½Ã : ¹«±â ÀåÂø
+        //ë¬´ê¸° ìŠ¬ë¡¯ìœ¼ë¡œ ì´ë™ì‹œ : ë¬´ê¸° ì¥ì°©
         if(coll.GetComponent<WeaponSlot>())
         {
             if(invenItem.data.type != ItemType.Weapon)
@@ -85,13 +85,13 @@ public class MoveItem : MonoBehaviour
                 coll.GetComponent<WeaponSlot>().Equip();
             }
         }
-        // ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®ÀÇ ÀÏ¹İ ½½·ÔÀ¸·Î ÀÌµ¿ÇÒ °æ¿ì
+        // ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ì˜ ì¼ë°˜ ìŠ¬ë¡¯ìœ¼ë¡œ ì´ë™í•  ê²½ìš°
         if (coll.GetComponent<Slot>()) 
         {
-            // ºó ½½·ÔÀ¸·Î ÀÌµ¿½Ã
+            // ë¹ˆ ìŠ¬ë¡¯ìœ¼ë¡œ ì´ë™ì‹œ
             if (!coll.GetComponent<Slot>().isFilled)
             {
-                // ¾ÆÀÌÅÛÀÌ ÇöÀç Äü½½·Ô¿¡ ÀÖÀ» °æ¿ì
+                // ì•„ì´í…œì´ í˜„ì¬ í€µìŠ¬ë¡¯ì— ìˆì„ ê²½ìš°
                 if (invenItem.transform.parent.GetComponent<QuickSlot>()) 
                 {
                     invenItem.transform.parent.GetComponent<QuickSlot>().isFilled = false;
@@ -99,13 +99,13 @@ public class MoveItem : MonoBehaviour
                     invenItem.data.quickSlotIdx = -1;
                     //invenItem.transform.parent.GetComponent<QuickSlot>().RemoveItem();
                 }
-                // ¾ÆÀÌÅÛÀÌ ÇöÀç ÀÏ¹İ ½½·Ô¿¡ ÀÖÀ» °æ¿ì
+                // ì•„ì´í…œì´ í˜„ì¬ ì¼ë°˜ ìŠ¬ë¡¯ì— ìˆì„ ê²½ìš°
                 if (invenItem.transform.parent.GetComponent<Slot>()) 
                 {
                     invenItem.transform.parent.GetComponent<Slot>().isFilled = false;
                 }
                 /*
-                if (invenItem.transform.parent.GetComponent<BoxSlot>() == true) // ¾ÆÀÌÅÛÀ» ¹Ú½º¿¡¼­ ÀÌµ¿ÇÒ °æ¿ì
+                if (invenItem.transform.parent.GetComponent<BoxSlot>() == true) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 {
                     Inventory.Instance.GetBoxItem(invenItem);
                     invenItem.transform.parent.GetComponent<BoxSlot>().isFilled = false;
@@ -118,10 +118,10 @@ public class MoveItem : MonoBehaviour
                 coll.GetComponent<Slot>().isFilled = true;
             }
 
-            //ºñ¾îÀÖÁö ¾ÊÀº ½½·ÔÀ¸·Î ÀÌµ¿½Ã
+            //ë¹„ì–´ìˆì§€ ì•Šì€ ìŠ¬ë¡¯ìœ¼ë¡œ ì´ë™ì‹œ
             if (coll.GetComponent<Slot>().isFilled)
             {
-                // Áßº¹µÈ ¾ÆÀÌÅÛÀÏ °æ¿ì ¼ö·® Áõ°¡ Ã³¸®(ÇÕÄ¡±â)
+                // ì¤‘ë³µëœ ì•„ì´í…œì¼ ê²½ìš° ìˆ˜ëŸ‰ ì¦ê°€ ì²˜ë¦¬(í•©ì¹˜ê¸°)
                 if (coll.transform.GetChild(0).GetComponent<InvenItem>().data.itemTitle.Equals(invenItem.data.itemTitle) 
                     && coll.transform.GetChild(0).GetComponent<InvenItem>().data.itemIdx != invenItem.data.itemIdx)
                 {
@@ -150,23 +150,23 @@ public class MoveItem : MonoBehaviour
             }
 
         }
-        // ¾ÆÀÌÅÛÀÌ Äü½½·ÔÀ¸·Î ÀÌµ¿ÇÒ °æ¿ì
+        // ì•„ì´í…œì´ í€µìŠ¬ë¡¯ìœ¼ë¡œ ì´ë™í•  ê²½ìš°
         if (coll.GetComponent<QuickSlot>())
         {
             if (coll.GetComponent<QuickSlot>().isFilled == false)
             {
-                if (invenItem.transform.parent.GetComponent<QuickSlot>() == true) // ¾ÆÀÌÅÛÀÌ ÇöÀç Äü½½·Ô¿¡ ÀÖÀ» °æ¿ì
+                if (invenItem.transform.parent.GetComponent<QuickSlot>() == true) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 {
                     invenItem.transform.parent.GetComponent<QuickSlot>().isFilled = false;
                     //invenItem.transform.parent.GetComponent<QuickSlot>().RemoveItem();
                 }
-                if (invenItem.transform.parent.GetComponent<Slot>() == true) // ¾ÆÀÌÅÛÀÌ ÇöÀç ÀÏ¹İ ½½·Ô¿¡ ÀÖÀ» °æ¿ì
+                if (invenItem.transform.parent.GetComponent<Slot>() == true) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 {
                     invenItem.transform.parent.GetComponent<Slot>().isFilled = false;
                     //invenItem.data.quickIndexNum = coll.GetComponent<QuickSlot>().index;
                 }
                 /*
-                if (invenItem.transform.parent.GetComponent<BoxSlot>() == true) // ¾ÆÀÌÅÛÀÌ ¹Ú½º¿¡¼­ ÀÌµ¿ÇÏ´Â °æ¿ì
+                if (invenItem.transform.parent.GetComponent<BoxSlot>() == true) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
                 {
                     Inventory.Instance.GetBoxItem(invenItem);
                     invenItem.transform.parent.GetComponent<BoxSlot>().isFilled = false;
@@ -183,8 +183,8 @@ public class MoveItem : MonoBehaviour
 
             if (coll.transform.GetComponent<QuickSlot>().isFilled == true)
             {
-                if (coll.transform.GetChild(0).GetComponent<InvenItem>().data.itemTitle.Equals(invenItem.data.itemTitle) 
-                    && coll.transform.GetChild(0).GetComponent<InvenItem>().data.itemIdx != invenItem.data.itemIdx)
+                if (coll.transform.GetChild(1).GetComponent<InvenItem>().data.itemTitle.Equals(invenItem.data.itemTitle) 
+                    && coll.transform.GetChild(1).GetComponent<InvenItem>().data.itemIdx != invenItem.data.itemIdx)
                 {
                     coll.transform.GetChild(0).GetComponent<InvenItem>().data.count += invenItem.data.count;
                     //coll.transform.GetChild(0).GetComponent<InvenItem>().AddData(coll.transform.GetChild(0).GetComponent<InvenItem>().data);

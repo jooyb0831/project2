@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
 
     public Transform swordPos;
     public Transform weapon1Rest;
+
+    public Transform toolPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -86,8 +88,8 @@ public class Player : MonoBehaviour
     }
 
     public Weapon curWeapon = null;
-    [SerializeField] Weapon equipedWeapon = null;
-    void Weapon()
+    public Weapon equipedWeapon = null;
+    public void Weapon()
     {
         if (curWeapon == null)
         {
@@ -156,7 +158,6 @@ public class Player : MonoBehaviour
             else
             {
                 Jump();
-                state = State.Jump;
                 return;
             }
 
@@ -168,17 +169,20 @@ public class Player : MonoBehaviour
             {
                 if (pd.SP <= 0)
                 {
-                    //Walk();
+                    state = State.Walk;
+                    MoveAnimatorSet(new Vector3(x, 0, z), State.Walk);
                     return;
                 }
+                state = State.Run;
+                MoveAnimatorSet(new Vector3(x, 0, z), State.Run);
                 GameUI.Instance.spUI.SetActive(true);
-                //Run();
+
             }
 
             else
             {
-                animator.SetTrigger("Walk");
-                MoveAnimatorSet(new Vector3(x,0,z));
+                state = State.Walk;
+                MoveAnimatorSet(new Vector3(x, 0, z), State.Walk);
                 //Walk();
             }
         }
@@ -291,10 +295,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    void MoveAnimatorSet(Vector3 dir)
+    void MoveAnimatorSet(Vector3 dir, State state)
     {
-        animator.SetFloat("floatX", dir.x);
-        animator.SetFloat("floatZ", dir.z);
+        animator.SetTrigger("Walk");
+        switch (state)
+        {
+            case State.Walk:
+                {
+                    
+                    speed = pd.Speed;
+                    animator.SetFloat("floatX", dir.x * 0.5f);
+                    animator.SetFloat("floatZ", dir.z * 0.5f);
+                    break;
+                }
+            case State.Run:
+                {
+                    
+                    speed = pd.RunSpeed;
+                    animator.SetFloat("floatX", dir.x);
+                    animator.SetFloat("floatZ", dir.z);
+                    break;
+                }
+        }
+
     }
 
 
@@ -325,7 +348,7 @@ public class Player : MonoBehaviour
                     animator.SetTrigger("Punch");
                 }
             }
-            
+
             else
             {
                 AttackCombo();
@@ -356,7 +379,7 @@ public class Player : MonoBehaviour
         }
 
 
-        if (state == State.Idle || state == State.Walk  || state == State.Run) 
+        if (state == State.Idle || state == State.Walk || state == State.Run)
         {
             if (equipedWeapon != null)
             {
@@ -491,6 +514,7 @@ public class Player : MonoBehaviour
     {
         isAttacking = false;
         animator.SetBool("Attacking", false);
+        animator.ResetTrigger("Walk");
         state = State.AttackIdle;
         //comboIndex = 0;
     }
@@ -500,6 +524,7 @@ public class Player : MonoBehaviour
         Debug.Log("end");
         isAttacking = false;
         animator.SetBool("Attacking", false);
+        animator.ResetTrigger("Walk");
         state = State.AttackIdle;
     }
 
@@ -516,8 +541,20 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
+        if(state.Equals(State.Jump))
+        {
+            return;
+        }
         rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
-        animator.SetTrigger("Jump");
+        if (state.Equals(State.Run))
+        {
+            animator.SetTrigger("JumpRun");
+        }
+        else
+        {
+            animator.SetTrigger("Jump");
+        }
+        state = State.Jump;
 
     }
 

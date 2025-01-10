@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
-    int hitCnt = 12;
-    int curHit = 0;
+    [SerializeField] int hitCnt = 12;
+    [SerializeField] int curHit = 0;
     [SerializeField] GameObject stone;
     [SerializeField] Transform area;
     // Start is called before the first frame update
