@@ -23,22 +23,59 @@ public class InventoryUI : Singleton<InventoryUI>
 
     public void Update()
     {
+        WheelScroll();
+        
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            quickSlots[0].GetComponent<Toggle>().isOn = true;
+            SelectItem(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            quickSlots[1].GetComponent<Toggle>().isOn = true;
+            SelectItem(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            quickSlots[2].GetComponent<Toggle>().isOn = true;
+            SelectItem(2);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            quickSlots[3].GetComponent<Toggle>().isOn = true;
+            SelectItem(3);
         }
+        
+    }
+
+    [SerializeField] int selectedIdx = 0;
+    void WheelScroll()
+    {
+        float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+
+        if(wheelInput>0)
+        {
+            selectedIdx++;
+            if(selectedIdx>3)
+            {
+                selectedIdx = 0;
+            }
+            SelectItem(selectedIdx);
+        }
+        else if(wheelInput<0)
+        {
+            selectedIdx--;
+            if(selectedIdx<0)
+            {
+                selectedIdx = 3;
+            }
+            SelectItem(selectedIdx);
+        }
+    }
+
+    void SelectItem(int idx)
+    {
+        foreach(var item in quickSlots)
+        {
+            item.GetComponent<Toggle>().isOn = false;
+        }
+        quickSlots[idx].GetComponent<Toggle>().isOn = true;
     }
 
     public void Init()

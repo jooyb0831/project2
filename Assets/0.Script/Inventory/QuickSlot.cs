@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class QuickSlot : MonoBehaviour
 {
+    Player p;
     Inventory inven;
     public bool isFilled = false;
 
@@ -19,7 +20,9 @@ public class QuickSlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         toggle = GetComponent<Toggle>();
+        p = GameManager.Instance.Player;
         inven = GameManager.Instance.Inven;
     }
 
@@ -41,13 +44,22 @@ public class QuickSlot : MonoBehaviour
 
             if(item!=null)
             {
-                if(inven==null)
+                if (tool != null)
                 {
-                    inven = GameManager.Instance.Inven;
+                    if (p.equipedWeapon != null)
+                    {
+                        tool.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        tool.gameObject.SetActive(true);
+                    }
                 }
-                inven.QuickSlotItemSet(item);
+                else
+                {
+                    inven.QuickSlotItemSet(item);
+                }
             }
-
         }
         else
         {

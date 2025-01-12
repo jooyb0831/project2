@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
             state = State.Gather;
             animator.SetTrigger("Gather");
         }
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetKey(KeyCode.F))
         {
             state = State.Mine;
             animator.SetTrigger("Mine");
@@ -117,7 +117,8 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if (state == State.Gather || state == State.Dead || state == State.Bow || state == State.Attack || state == State.Hit)
+        if (state == State.Gather || state == State.Dead || state == State.Bow 
+            || state == State.Attack || state == State.Hit)
         {
             return;
         }

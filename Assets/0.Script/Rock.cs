@@ -33,7 +33,9 @@ public class Rock : MonoBehaviour
             {
                 if (curHit % 3 == 0)
                 {
-                    Instantiate(stone, area);
+                    //Pooling으로 처리하기
+                    GameObject obj = Instantiate(stone, area);
+                    obj.transform.SetParent(null);
                 }
             }
         }
