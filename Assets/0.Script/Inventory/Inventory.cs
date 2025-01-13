@@ -298,17 +298,14 @@ public class Inventory : Singleton<Inventory>
         {
             case ItemType.Tool:
             {
-                if(quickSlot.isToolEquiped)
-                {
-                    return;
-                }
-                
+                //도구가 장착되어 있지 않는 경우
                 if(quickSlot.tool==null)
                 {
+                    //도구 아이템 생성하고 Player쪽에 넣어주기
                     quickSlot.tool = Instantiate(item.data.fieldItem.GetComponent<Tool>(), p.toolPos);
+                    p.currentTool = quickSlot.tool.gameObject;
                 }
-                
-                quickSlot.isToolEquiped = true;
+                //도구 세팅
                 quickSlot.tool.SetTool();
                 break;
             }
@@ -325,15 +322,13 @@ public class Inventory : Singleton<Inventory>
         {
             case ItemType.Tool:
             {
-                if(!quickSlot.isToolEquiped)
-                {
-                    return;
-                }
-                quickSlot.isToolEquiped = false;
+                //인게임 도구 오브젝트 끄기
                 quickSlot.tool.obj.SetActive(false);
+
+                //Player쪽 현재 사용중인 도구 null로 처리
+                p.currentTool = null;
                 break;
             }
-            
         }
 
     }

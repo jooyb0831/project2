@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class QuickSlot : MonoBehaviour
     Inventory inven;
     public bool isFilled = false;
 
-    public bool isToolEquiped = false;
+    public bool isToolEquiped;
     public Tool tool = null;
     public GameObject frame;
 
@@ -20,7 +21,7 @@ public class QuickSlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        isToolEquiped = false;
         toggle = GetComponent<Toggle>();
         p = GameManager.Instance.Player;
         inven = GameManager.Instance.Inven;
@@ -38,34 +39,54 @@ public class QuickSlot : MonoBehaviour
             item = null;
         }
 
+        //선택 활성화
         if(toggle.isOn)
         {
             frame.SetActive(true);
 
+            //아이템이 있을 경우
             if(item!=null)
             {
+                //도구가 있을 경우(이미 세팅되어있는 경우)
                 if (tool != null)
                 {
+                    isToolEquiped = true;
+                    //Player가 사용중인 무기가 있을 경우
                     if (p.equipedWeapon != null)
                     {
+                        //도구 안 보이게
                         tool.gameObject.SetActive(false);
                     }
+                    //사용중인 무기가 없을 경우
                     else
                     {
+                        //도구 보이게
                         tool.gameObject.SetActive(true);
                     }
                 }
+
+                //도구가 없을 경우(처음 세팅)
                 else
                 {
                     inven.QuickSlotItemSet(item);
                 }
             }
         }
+
+        //선택이 비활성화 되었을 경우
         else
         {
+            //선택 프레임 비활성화
             frame.SetActive(false);
+
+            //장착중인 아이템이 있을 경우
             if(item!=null)
             {
+                if(tool!=null)
+                {
+                    isToolEquiped = false;
+                }
+                
                 inven.QuickUnequiped(item);
             }
 

@@ -50,4 +50,16 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private GameSystem gameSystem;
+    public GameSystem GameSystem
+    {
+        get
+        {
+            if(gameSystem == null){
+                gameSystem = FindAnyObjectByType<GameSystem>();
+            }
+            return gameSystem;
+        }
+    }
+
 }

@@ -19,20 +19,27 @@ public class Player : MonoBehaviour
         Dead
     }
 
-    public enum EquipState
+    public enum WeaponEquipState
     {
         None,
         Arrow,
-        Sword,
+        Sword
+    }
+
+    public enum ToolEquipState
+    {
+        None,
         PickAxe,
         Axe
+
     }
 
     private Rigidbody rigid;
     private Animator animator;
     private PlayerData pd;
     public State state = State.Idle;
-    public EquipState equipState = EquipState.None;
+    public WeaponEquipState weaponEquipState = WeaponEquipState.None;
+    public ToolEquipState toolEquipState = ToolEquipState.None;
 
     private float speed;
     [SerializeField] Transform foot;
@@ -69,8 +76,19 @@ public class Player : MonoBehaviour
             state = State.Gather;
             animator.SetTrigger("Gather");
         }
-        if (Input.GetKeyDown(KeyCode.F) || Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
+            if (currentTool == null)
+            {
+                return;
+            }
+            int toolST = currentTool.GetComponent<Tool>().data.useST;
+            if (pd.ST < toolST)
+            {
+                Debug.Log("스태미너가 부족합니다.");
+                return;
+            }
+            pd.ST -= toolST;
             state = State.Mine;
             animator.SetTrigger("Mine");
         }
@@ -97,7 +115,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (equipState.Equals(EquipState.Sword))
+            if (weaponEquipState.Equals(WeaponEquipState.Sword))
             {
                 if (equipedWeapon != null)
                 {
@@ -110,10 +128,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Tools()
-    {
-
-    }
+    public GameObject currentTool = null;
 
     void Move()
     {
@@ -338,13 +353,13 @@ public class Player : MonoBehaviour
             {
                 state = State.Attack;
                 animator.SetBool("Attacking", true);
-                if (equipState.Equals(EquipState.Sword))
+                if (weaponEquipState.Equals(WeaponEquipState.Sword))
                 {
                     Weapon();
                     animator.SetTrigger("Sword");
                 }
 
-                if (equipState.Equals(EquipState.None))
+                if (weaponEquipState.Equals(WeaponEquipState.None))
                 {
                     animator.SetTrigger("Punch");
                 }
@@ -616,10 +631,6 @@ public class Player : MonoBehaviour
         state = State.Dead;
         animator.SetTrigger("Dead");
     }
-
-
-
-
 
 
     private void OnCollisionEnter(Collision collision)

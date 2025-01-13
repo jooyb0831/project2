@@ -84,6 +84,7 @@ public class Enemy : MonoBehaviour
         }
     }
     */
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Punch") && p.state.Equals(Player.State.Attack))
@@ -104,6 +105,8 @@ public class Enemy : MonoBehaviour
             TakeDamage(arrow.Damage);
         }
     }
+
+
     void TakeDamage(int damage)
     {
         data.CURHP -= damage;
@@ -121,11 +124,10 @@ public class Enemy : MonoBehaviour
     
     void Dead()
     {
+        pd.EXP+=data.EXP;
+        Debug.Log(pd.EXP);
         state = State.Dead;
         animator.SetTrigger("Fall");
-        //경험치 추가
-
-        //아이템 드롭.
         enemyUI.DeadUI();
     }
 
@@ -138,7 +140,13 @@ public class Enemy : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 Instantiate(item, transform);
+                DestroyEnemy();
             }
         }
+    }
+
+    void DestroyEnemy()
+    {
+        Destroy(gameObject, 0.5f);
     }
 }

@@ -40,7 +40,7 @@ public class WeaponSlot : MonoBehaviour
         {
             case WeaponType.Sword:
                 {
-                    p.equipState = Player.EquipState.Sword;
+                    p.weaponEquipState = Player.WeaponEquipState.Sword;
                     p.curWeapon = weapon;
                     break;
                 }

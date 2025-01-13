@@ -13,6 +13,12 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] Image hpBarImg;
     [SerializeField] TMP_Text hpTxt;
 
+    [SerializeField] Image stBarImg;
+    [SerializeField] TMP_Text stTxt;
+
+    [SerializeField] Image lvBarImg;
+    [SerializeField] TMP_Text lvTxt;
+
     public GameObject spUI;
     [SerializeField] Image spBarImg;
 
@@ -22,10 +28,13 @@ public class GameUI : Singleton<GameUI>
     {
         pd = GameManager.Instance.PlayerData;
         hpBarImg.fillAmount = (float)((float)pd.HP / (float)pd.MAXHP);
+        stBarImg.fillAmount = (float)((float)pd.ST / (float)pd.MAXST);
+        lvBarImg.fillAmount = (float)((float)pd.EXP / (float)pd.MAXEXP);
         spBarImg.fillAmount = (float)((float)pd.SP / (float)pd.MAXSP);
         hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
+        stTxt.text = $"{pd.ST}/{pd.MAXST}";
+        lvTxt.text = $"Lv.{pd.Level}";
     }
-
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab))
@@ -55,6 +64,42 @@ public class GameUI : Singleton<GameUI>
         
     }
 
+    public int Level
+    {
+        set
+        {
+            if(pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            lvTxt.text = $"Lv.{pd.Level}";
+        }
+    }
+
+    public int EXP
+    {
+        set
+        {
+            if(pd ==  null)
+            {
+                pd = GameManager.Instance.PlayerData;
+            }
+            lvBarImg.fillAmount = ((float)pd.EXP/pd.MAXEXP);
+        }
+    }
+
+    public int MAXEXP
+    {
+        set
+        {
+            if(pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+            }
+        }
+    }
+
 
     public int MAXHP
     {
@@ -81,6 +126,35 @@ public class GameUI : Singleton<GameUI>
             }
             hpBarImg.fillAmount = ((float)pd.HP / pd.MAXHP);
             hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
+        }
+    }
+
+    public int MAXST
+    {
+        set
+        {
+            if(pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            stBarImg.fillAmount = ((float)pd.ST / pd.MAXST);
+            stTxt.text = $"{pd.ST}/{pd.MAXST}";
+
+        }
+    }
+
+    public int ST
+    {
+        set
+        {
+            if(pd==null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            stBarImg.fillAmount = ((float)pd.ST/pd.MAXST);
+            stTxt.text = $"{pd.ST}/{pd.MAXST}";
         }
     }
 

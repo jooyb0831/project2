@@ -4194,8 +4194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b791f4d775f89484ea328a700057a4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tool: {fileID: 0}
-  obj: {fileID: 0}
+  toolObj: {fileID: 0}
   isEquiped: 0
 --- !u!23 &6786073918454709489
 MeshRenderer:

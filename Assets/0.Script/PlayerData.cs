@@ -4,6 +4,50 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+
+    private int level;
+    public int Level
+    {
+        get{return level;}
+        set
+        {
+            level = value;
+            if(GameUI.Instance !=null)
+            {
+                GameUI.Instance.Level = level;
+            }
+        }
+    }
+
+    private int maxEXP;
+    public int MAXEXP
+    {
+        get{return maxEXP;}
+        set
+        {
+            maxEXP = value;
+            if(GameUI.Instance != null)
+            {
+                GameUI.Instance.MAXEXP = maxEXP;
+            }
+        }
+
+    }
+
+    private int exp;
+    public int EXP
+    {
+        get{return exp;}
+        set
+        {
+            exp = value;
+            if(GameUI.Instance!=null)
+            {
+                GameUI.Instance.EXP = exp;
+            }
+        }
+
+    }
     private int maxHP;
     public int MAXHP
     {
@@ -40,6 +84,34 @@ public class PlayerData : MonoBehaviour
         }
     }
 
+    private int maxST;
+    public int MAXST
+    {
+        get { return maxST; }
+        set
+        {
+            maxST = value;
+            if(GameUI.Instance!=null)
+            {
+                GameUI.Instance.MAXST = maxST;
+            }
+        }
+    }
+
+    private int st;
+    public int ST
+    {
+        get{return st;}
+        set
+        {
+            st = value;
+            if(GameUI.Instance!=null)
+            {
+                GameUI.Instance.ST = st;
+            }
+        }
+    }
+
     private int maxSP;
     public int MAXSP
     {
@@ -47,7 +119,7 @@ public class PlayerData : MonoBehaviour
         set
         {
             maxSP = value;
-            if (GameUI.Instance!=null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.MAXSP = maxSP;
             }
@@ -61,19 +133,20 @@ public class PlayerData : MonoBehaviour
         set
         {
             sp = value;
-            if(GameUI.Instance != null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.SP = sp;
             }
         }
     }
 
-    //ÃÊ´ç SP °¨¼Ò·®
+    //ì´ˆë‹¹ SPê°ì†ŒëŸ‰
     public int minSP { get; set; }
 
-    //ÃÊ´ç SP ÃæÀü·®
+    //ì´ˆë‹¹ SP ì¶©ì „ëŸ‰
     public int plusSP { get; set; }
-    //¸îÃÊ ÈÄºÎÅÍ ´Ù½Ã ÃæÀüµÇ´ÂÁö
+
+    //ëª‡ì´ˆ í›„ë¶€í„° ë‹¤ì‹œ ì¶©ì „ë˜ëŠ”ì§€
     public float delaySP { get; set; }
 
     private float speed;
@@ -108,6 +181,11 @@ public class PlayerData : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
+        Level = 1;
+        EXP = 0;
+        MAXEXP = 15;
+        MAXST = 20;
+        ST = 20;
         MAXHP = 20;
         HP = MAXHP;
         MAXSP = 20;
@@ -122,9 +200,20 @@ public class PlayerData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F8))
+        if (Input.GetKeyDown(KeyCode.F8))
         {
             Debug.Log(SP);
+        }
+        LevelUp();
+    }
+
+    void LevelUp()
+    {
+        if(EXP>=MAXEXP)
+        {
+            Level++;
+            EXP = MAXEXP - EXP;
+            MAXEXP += 10;
         }
     }
 }
