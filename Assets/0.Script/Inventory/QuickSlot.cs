@@ -15,7 +15,7 @@ public class QuickSlot : MonoBehaviour
     public Tool tool = null;
     public GameObject frame;
 
-    public InvenItem item = null;
+    public QuickInven item = null;
 
     Toggle toggle;
     // Start is called before the first frame update
@@ -32,11 +32,16 @@ public class QuickSlot : MonoBehaviour
     {
         if(isFilled)
         {
-            item = transform.GetChild(1).GetComponent<InvenItem>();
+            item = transform.GetChild(0).GetComponent<QuickInven>();
         }
         else
         {
             item = null;
+            if(tool!=null)
+            {
+                Destroy(tool.gameObject);
+            }
+
         }
 
         //선택 활성화

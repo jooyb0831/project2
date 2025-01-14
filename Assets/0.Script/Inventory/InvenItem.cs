@@ -59,6 +59,7 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
         
     }
 
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if(Input.GetMouseButtonDown(1))
@@ -91,7 +92,9 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
 
         else if(Input.GetMouseButton(0))
         {
-            if(transform.parent.GetComponent<Slot>() || transform.GetComponent<QuickSlot>())
+            if(transform.parent.GetComponent<Slot>() 
+            || transform.GetComponent<QuickSlotInven>()
+            || transform.GetComponent<WeaponSlot>())
             {
                 inventory.ItemMove(true, eventData.position, data);
             }
@@ -114,7 +117,9 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
             {
                 cntBG.SetActive(true);
             }
-            if(transform.parent.GetComponent<Slot>() || transform.parent.GetComponent<QuickSlot>())
+            if(transform.parent.GetComponent<Slot>() 
+            || transform.parent.GetComponent<QuickSlotInven>()
+            || transform.parent.GetComponent<WeaponSlot>())
             {
                 inventory.PointUp(this);
             }
@@ -132,7 +137,9 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
             itemIcon.color = Color.clear;
             cntBG.SetActive(false);
 
-            if(transform.parent.GetComponent<Slot>() || transform.parent.GetComponent<QuickSlot>())
+            if(transform.parent.GetComponent<Slot>() 
+            || transform.parent.GetComponent<QuickSlotInven>()
+            || transform.parent.GetComponent<WeaponSlot>())
             {
                 inventory.ItemMove(true, eventData.position);
             }

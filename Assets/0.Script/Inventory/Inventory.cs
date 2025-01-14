@@ -284,9 +284,9 @@ public class Inventory : Singleton<Inventory>
     /// 퀵인벤 아이템 장착 코드
     /// </summary>
     /// <param name="item">해당 인벤아이템</param>
-    public void QuickSlotItemSet(InvenItem item)
+    public void QuickSlotItemSet(QuickInven item)
     {
-        ItemType type = item.data.type;
+        ItemType type = item.invenItem.data.type;
         QuickSlot quickSlot = item.transform.parent.GetComponent<QuickSlot>();
         if(p == null)
         {
@@ -302,7 +302,7 @@ public class Inventory : Singleton<Inventory>
                 if(quickSlot.tool==null)
                 {
                     //도구 아이템 생성하고 Player쪽에 넣어주기
-                    quickSlot.tool = Instantiate(item.data.fieldItem.GetComponent<Tool>(), p.toolPos);
+                    quickSlot.tool = Instantiate(item.invenItem.data.fieldItem.GetComponent<Tool>(), p.toolPos);
                     p.currentTool = quickSlot.tool.gameObject;
                 }
                 //도구 세팅
@@ -313,15 +313,19 @@ public class Inventory : Singleton<Inventory>
     }
 
 
-    public void QuickUnequiped(InvenItem item)
+    public void QuickUnequiped(QuickInven item)
     {
-        ItemType type = item.data.type;
+        ItemType type = item.invenItem.data.type;
         QuickSlot quickSlot = item.transform.parent.GetComponent<QuickSlot>();
         
         switch(type)
         {
             case ItemType.Tool:
             {
+                if(quickSlot.tool==null)
+                {
+                    return;
+                }
                 //인게임 도구 오브젝트 끄기
                 quickSlot.tool.obj.SetActive(false);
 

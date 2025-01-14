@@ -29,18 +29,19 @@ public class QuickInven : MonoBehaviour
 
     public void SetData(InvenItem item)
     {
+        invenItem = item;
         itemIcon.sprite = item.data.iconSprite;
         cnt = item.data.count;
         cntTxt.text = $"{cnt}";
         cntBG.SetActive(cnt <= 1 ? false : true);
     }
+
     public void ItemCntChange(InvenItem item)
     {
         cnt = item.data.count;
         cntTxt.text = $"{cnt}";
         cntBG.SetActive(cnt <= 1 ? false : true);
     }
-
 
     public void SetInvenItem(InvenItem item)
     {
