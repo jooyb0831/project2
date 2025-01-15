@@ -60,6 +60,7 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     }
 
 
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if(Input.GetMouseButtonDown(1))

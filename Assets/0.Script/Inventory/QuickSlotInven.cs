@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class QuickSlotInven : MonoBehaviour
 {
+    public int quickSlotIdx;
     public bool isFilled;
     public QuickSlot quickSlot;
     [SerializeField] QuickInven quickItem;

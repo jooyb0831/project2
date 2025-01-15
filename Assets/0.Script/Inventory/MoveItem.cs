@@ -144,15 +144,16 @@ public class MoveItem : MonoBehaviour
                     itemOrigin.data.count += invenItem.data.count;
                     //coll.transform.GetChild(0).GetComponent<InvenItem>().AddData(coll.transform.GetChild(0).GetComponent<InvenItem>().data);
 
-                    //퀵슬롯으로 옮길 경우
+                    //퀵슬롯에서 옮길 경우
                     if (invenItem.transform.parent.GetComponent<QuickSlotInven>())
                     {
                         invenItem.transform.parent.GetComponent<QuickSlotInven>().isFilled = false;
                         invenItem.data.inQuickSlot = false;
+                        invenItem.data.quickSlotIdx = -1;
                         //invenItem.transform.parent.GetComponent<QuickSlot>().RemoveItem();
                     }
 
-                    //일반 슬롯으로 옮길 경우
+                    //일반 슬롯에서 옮길 경우
                     if (invenItem.transform.parent.GetComponent<Slot>())
                     {
                         invenItem.transform.parent.GetComponent<Slot>().isFilled = false;
@@ -164,7 +165,7 @@ public class MoveItem : MonoBehaviour
                         invenItem.transform.parent.GetComponent<BoxSlot>().RemoveItem();
                     }
                     */
-
+                    invenItem.data.slotIdx = coll.GetComponent<Slot>().indexNum;
                     //옮기려는 invenItem삭제
                     Destroy(invenItem.gameObject);
                 }
@@ -243,7 +244,8 @@ public class MoveItem : MonoBehaviour
                     Destroy(invenItem.gameObject);
                 }
             }
-
+            invenItem.data.quickSlotIdx = coll.transform.GetComponent<QuickSlotInven>().quickSlotIdx;
+            invenItem.data.slotIdx = -1;
 
         }
         

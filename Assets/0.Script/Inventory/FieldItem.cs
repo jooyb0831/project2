@@ -51,7 +51,7 @@ public class FieldItem : MonoBehaviour
             ItemMove();
         }
     }
-
+    
 
     void ItemMove()
     {
@@ -113,5 +113,15 @@ public class FieldItem : MonoBehaviour
         {
             Debug.Log("�κ� ���� ��.");
         }
+    }
+
+
+    public virtual bool ItemUseCheck()
+    {
+        return true;
+    }
+    public virtual void UseItem()
+    {
+        
     }
 }

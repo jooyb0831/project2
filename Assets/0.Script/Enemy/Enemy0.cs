@@ -39,20 +39,24 @@ public class Enemy0 : Enemy
 
     void Move()
     {
+        Vector3 targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
+        transform.LookAt(targetPos);
 
         float dist = Vector3.Distance(p.transform.position, transform.position);
 
-        if (dist < 10 && dist >3)
+        if (dist < 10 && dist >1)
         {
             state = State.Walk;
             animator.SetTrigger("Walk");
-            agent.SetDestination(p.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, p.transform.position, Time.deltaTime* data.Speed);
+
+            //agent.SetDestination(p.transform.position);
             
         }
 
-        else if (dist<=3)
+        else if (dist<=1)
         {
-            agent.SetDestination(transform.position);
+            //agent.SetDestination(transform.position);
             Attack();
         }
 
@@ -60,7 +64,7 @@ public class Enemy0 : Enemy
         {
             state = State.Idle;
             animator.SetTrigger("Idle");
-            agent.SetDestination(transform.position);
+            //agent.SetDestination(transform.position);
             
         }
     }

@@ -52,32 +52,47 @@ public class QuickSlot : MonoBehaviour
             //아이템이 있을 경우
             if(item!=null)
             {
-                //도구가 있을 경우(이미 세팅되어있는 경우)
-                if (tool != null)
+                ItemType type = item.invenItem.data.type;
+                switch(type)
                 {
-                    isToolEquiped = true;
-                    //Player가 사용중인 무기가 있을 경우
-                    if (p.equipedWeapon != null)
+                    case ItemType.Tool :
                     {
-                        //도구 안 보이게
-                        tool.gameObject.SetActive(false);
-                    }
-                    //사용중인 무기가 없을 경우
-                    else
-                    {
-                        //도구 보이게
-                        tool.gameObject.SetActive(true);
-                    }
-                }
+                        //도구가 있을 경우(이미 세팅되어있는 경우)
+                        if (tool != null)
+                        {
+                            isToolEquiped = true;
+                            //Player가 사용중인 무기가 있을 경우
+                            if (p.equipedWeapon != null)
+                            {
+                                //도구 안 보이게
+                                tool.gameObject.SetActive(false);
+                            }
+                            //사용중인 무기가 없을 경우
+                            else
+                            {
+                                //도구 보이게
+                                tool.gameObject.SetActive(true);
+                            }
+                        }
 
-                //도구가 없을 경우(처음 세팅)
-                else
-                {
-                    inven.QuickSlotItemSet(item);
-                }
+                        //도구가 없을 경우(처음 세팅)
+                        else
+                        {
+                            inven.QuickSlotItemSet(item);
+                        }
+                        break;
+                    }
+                    case ItemType.Potion:
+                    {
+                        if(Input.GetKeyDown(KeyCode.G))
+                        {
+                            inven.UseItem(item.invenItem);
+                        }
+                        break;
+                    }
+                }         
             }
         }
-
         //선택이 비활성화 되었을 경우
         else
         {
@@ -96,5 +111,5 @@ public class QuickSlot : MonoBehaviour
             }
 
         }
-    }
+    }    
 }

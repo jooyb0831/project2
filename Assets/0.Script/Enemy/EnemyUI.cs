@@ -41,8 +41,8 @@ public class EnemyUI : Singleton<EnemyUI>
             transform.localScale = new Vector3(-1, 1, 1);
         }
         */
-
-        Vector3 targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
+        Vector3 camPos = Camera.main.transform.position;
+        Vector3 targetPos = new Vector3(camPos.x, transform.position.y, camPos.z);
         transform.LookAt(targetPos);
     }
 

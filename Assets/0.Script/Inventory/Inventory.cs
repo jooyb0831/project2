@@ -15,6 +15,7 @@ public class InvenData
     public string itemTitle;
     public int price;
     public int slotIdx;
+    public int invenOrderNum;
     public bool inQuickSlot = false;
     public int quickSlotIdx;
     public QuickInven qItem;
@@ -27,12 +28,14 @@ public enum ItemType
     Ore,
     Wood,
     Tool,
-    Weapon
+    Weapon,
+    Potion
 }
 
 public class InventoryData
 {
     public int curInvenSlots = 10;
+    public int invenCount = 0;
     public List<InvenItem> items = new();
     public bool invenFull = false;
 }
@@ -84,6 +87,7 @@ public class Inventory : Singleton<Inventory>
 
         itemData.obj.GetComponent<FieldItem>().InvenFull(isFull);
         itemIdxList.Add(itemData.itemIdx);
+        inventoryData.invenCount++;
         int index = SlotCheck();
         InvenItem item = Instantiate(invenItem, invenSlots[index]);
         invenSlots[index].GetComponent<Slot>().isFilled = true;
@@ -101,6 +105,7 @@ public class Inventory : Singleton<Inventory>
             fieldItem = itemData.fItem,
             slotIdx = index
         };
+        item.data.invenOrderNum = inventoryData.invenCount;
         item.SetData(data);
         item.SetInventory(this);
         invenItems.Add(item);
@@ -227,6 +232,62 @@ public class Inventory : Singleton<Inventory>
             invenItem.data.qItem.ItemCntChange(invenItem);
         }
         
+    }
+
+    public void UseItem(InvenItem item)
+    {
+        ItemType type = item.data.type;
+        
+        switch(type)
+        {
+            case ItemType.Potion :
+            {
+                bool canUse = item.data.fieldItem.ItemUseCheck();
+                if(!canUse)
+                {
+                    Debug.Log("더 이상 회복할 수 없습니다.");
+                    return;
+                }
+                item.data.fieldItem.UseItem();
+                break;
+            }
+        }
+        item.data.count--;
+        item.ItemCntChange(item.data);
+        if(item.data.count==0)
+        {
+            DeleteItem(item);
+            Destroy(item.gameObject);
+        }
+    }
+
+    public void DeleteItem(InvenItem item)
+    {
+        if(item.transform.parent.GetComponent<Slot>())
+        {
+            item.transform.parent.GetComponent<Slot>().isFilled = false;
+        }
+        else if(item.transform.parent.GetComponent<QuickSlotInven>())
+        {
+            item.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(item);
+        }
+        int itemIdx = -1;
+        for(int i =0; i<invenItems.Count; i++)
+        {
+            if(invenItems[i].data.itemIdx == item.data.itemIdx)
+            {
+                itemIdx = i;
+                Debug.Log(itemIdx);
+                break;
+            }
+        }
+        itemIdxList.Remove(item.data.itemIdx);
+        if(item.data.slotIdx!=-1)
+        {
+
+        }
+        invenItems.RemoveAt(item.data.invenOrderNum);
+        invenDatas.RemoveAt(item.data.invenOrderNum);
     }
 
 

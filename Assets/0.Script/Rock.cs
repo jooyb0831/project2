@@ -8,6 +8,8 @@ public class Rock : MonoBehaviour
     [SerializeField] int curHit = 0;
     [SerializeField] GameObject stone;
     [SerializeField] Transform area;
+
+    [SerializeField] GameObject effect;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +31,24 @@ public class Rock : MonoBehaviour
         if(other.GetComponent<PickAxe>())
         {
             curHit += 1;
+            
+            effect.SetActive(true);
+            Invoke(nameof(ResetEffect), 0.2f);
             if (curHit > 0)
             {
                 if (curHit % 3 == 0)
                 {
-                    //PoolingÀ¸·Î Ã³¸®ÇÏ±â
+                    //Poolingìœ¼ë¡œ ì²˜ë¦¬í• ê²ƒ
                     GameObject obj = Instantiate(stone, area);
                     obj.transform.SetParent(null);
                 }
             }
         }
+    }
+
+    void ResetEffect()
+    {
+        effect.SetActive(false);
+        effect.GetComponent<ParticleSystem>().Clear();
     }
 }
