@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -55,7 +56,7 @@ public class Arrow : MonoBehaviour
         
     }
 
-    // È­»ì Â÷Â¡
+    // í™”ì‚´ ì°¨ì§•
     public void ArrowCharge()
     {
         if (Power >= 130)
@@ -93,17 +94,17 @@ public class Arrow : MonoBehaviour
         }
         rigid.constraints = RigidbodyConstraints.FreezeAll;
         transform.SetParent(trans);
-       
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Ground"))
         {
-            //End(other.transform);
+            Pooling.Instance.SetPool(DicKey.arrow, gameObject);
         }
     }
+
+
 
     public void Initialize()
     {

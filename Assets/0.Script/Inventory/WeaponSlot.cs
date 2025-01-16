@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponSlot : MonoBehaviour
 {
     public bool isFilled;
+    public bool isBowSlot;
     public InvenItem item;
     private Player p;
     // Start is called before the first frame update

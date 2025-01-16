@@ -40,4 +40,9 @@ public class QuickSlotInven : MonoBehaviour
         quickSlot.isFilled = false;
         Destroy(quickItem.gameObject);
     }
+
+    public void TransferItem(InvenItem item)
+    {
+        isFilled = false;
+    }
 }

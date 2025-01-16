@@ -78,7 +78,11 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
                 invenOption = Instantiate(itemOptionWindow, transform).gameObject;
                 invenOption.GetComponent<ItemInvenOption>().item = this;
 
-                // 이 사이에 아이템 종류에 따라 목록 다르게 수정하는 코드 들어감
+                // 이 사이에 아이템 종류에 따라 목록 다르게 수정하는 코드
+                if(data.type.Equals(ItemType. Weapon))
+                {
+                    invenOption.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+                }
 
                 invenOption.transform.SetParent(transform.parent.parent.parent.parent);
                 invenOption.transform.SetAsLastSibling();
@@ -94,8 +98,8 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
         else if(Input.GetMouseButton(0))
         {
             if(transform.parent.GetComponent<Slot>() 
-            || transform.GetComponent<QuickSlotInven>()
-            || transform.GetComponent<WeaponSlot>())
+            || transform.parent.GetComponent<QuickSlotInven>()
+            || transform.parent.GetComponent<WeaponSlot>())
             {
                 inventory.ItemMove(true, eventData.position, data);
             }

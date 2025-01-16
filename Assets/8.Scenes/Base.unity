@@ -164,7 +164,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  quickSlots:
+  quickSlotsInven:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

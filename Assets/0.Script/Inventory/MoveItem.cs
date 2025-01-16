@@ -179,11 +179,11 @@ public class MoveItem : MonoBehaviour
             if (!coll.GetComponent<QuickSlotInven>().isFilled)
             {
                 //현재 아이템이 퀵슬롯에 있을 경우
-                if (invenItem.transform.parent.GetComponent<QuickSlotInven>() )
+                if (invenItem.transform.parent.GetComponent<QuickSlotInven>())
                 {
                     //현재 위치의 퀵슬롯 비움처리
                     invenItem.transform.parent.GetComponent<QuickSlotInven>().isFilled = false;
-                    //invenItem.transform.parent.GetComponent<QuickSlotInven>().RemoveItem();
+                    invenItem.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(invenItem);
                 }
 
                 //현재 아이템이 일반 슬롯에 있을 경우
@@ -205,6 +205,7 @@ public class MoveItem : MonoBehaviour
                 invenItem.transform.SetParent(coll.transform);
                 coll.GetComponent<QuickSlotInven>().isFilled = true;
                 coll.GetComponent<QuickSlotInven>().SetItem(invenItem);
+                
                 //invenItem.data.isQuickSlot = true;
                 //QuickInventory.Instance.GetItem(invenItem, coll.GetComponent<QuickSlot>().lowSlot);
                 //Instantiate(invenItem, coll.GetComponent<QuickSlots>().slot);//

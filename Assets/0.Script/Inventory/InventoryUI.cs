@@ -8,6 +8,7 @@ public class InventoryUI : Singleton<InventoryUI>
 {
     [SerializeField] Transform[] slots;
     [SerializeField] Transform[] quickSlots;
+    [SerializeField] Transform[] quickSlotsInven;
     [SerializeField] Inventory inventory;
     [SerializeField] QuickInven quickItem;
     [SerializeField] InvenItem sampleInvenItem;
@@ -117,7 +118,7 @@ public class InventoryUI : Singleton<InventoryUI>
 
         for (int i = 0; i < 4; i++)
         {
-            inventory.quickSlots[i] = quickSlots[i];
+            inventory.quickSlotsInven[i] = quickSlotsInven[i];
         }
     }
     void SetInventory()

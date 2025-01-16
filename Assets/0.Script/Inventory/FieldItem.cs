@@ -111,7 +111,7 @@ public class FieldItem : MonoBehaviour
         isFull = invenFull;
         if(invenFull)
         {
-            Debug.Log("�κ� ���� ��.");
+            Debug.Log("인벤토리가 가득 찼습니다.");
         }
     }
 
@@ -120,6 +120,7 @@ public class FieldItem : MonoBehaviour
     {
         return true;
     }
+    
     public virtual void UseItem()
     {
         

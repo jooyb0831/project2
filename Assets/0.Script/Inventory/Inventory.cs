@@ -29,7 +29,8 @@ public enum ItemType
     Wood,
     Tool,
     Weapon,
-    Potion
+    Potion,
+    Arrow
 }
 
 public class InventoryData
@@ -47,7 +48,7 @@ public class Inventory : Singleton<Inventory>
     private Player p;
     [SerializeField] InvenItem invenItem;
     public Transform[] invenSlots;
-    public Transform[] quickSlots;
+    public Transform[] quickSlotsInven;
 
     public MoveItem moveItem;
 
@@ -298,29 +299,33 @@ public class Inventory : Singleton<Inventory>
     /// <param name="item"></param>
     public void ItemEquip(InvenItem item)
     {
-        QuickSlot qSlot = null;
-        for(int i =0; i<quickSlots.Length; i++)
+        QuickSlotInven qSlot = null;
+        for(int i =0; i<quickSlotsInven.Length; i++)
         {
-            if(!quickSlots[i].GetComponent<QuickSlot>().isFilled)
+            if(!quickSlotsInven[i].GetComponent<QuickSlotInven>().isFilled)
             {
-                qSlot = quickSlots[i].GetComponent<QuickSlot>();
+                qSlot = quickSlotsInven[i].GetComponent<QuickSlotInven>();
                 break;
             }
         }
-        QuickInven qItem = Instantiate(quickInvenSample, qSlot.transform);
-        item.data.inQuickSlot = true;
-        item.data.qItem = qItem;
-        qItem.SetData(item);
-        qItem.SetInvenItem(item);
-        qSlot.GetComponent<QuickSlot>().isFilled = true;
 
+        item.transform.parent.GetComponent<Slot>().isFilled = false;
+        item.data.slotIdx = -1;
+        item.transform.SetParent(qSlot.transform);
+        item.transform.position = qSlot.transform.position;
+        item.data.quickSlotIdx = qSlot.quickSlotIdx;
+        qSlot.SetItem(item);
+        qSlot.isFilled = true;
+
+        /*
         if(item.data.type.Equals(ItemType.Tool))
         {
-            if(item.data.itemTitle.Equals("�콼 ��"))
+            if(item.data.itemTitle.Equals("곡괭이"))
             {
                 Instantiate(item.data.fieldItem, p.swordPos);
             }
         }
+        */
     }
 
 

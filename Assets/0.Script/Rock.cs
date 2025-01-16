@@ -46,6 +46,8 @@ public class Rock : MonoBehaviour
         }
     }
 
+
+
     void ResetEffect()
     {
         effect.SetActive(false);
