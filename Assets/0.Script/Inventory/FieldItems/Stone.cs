@@ -15,4 +15,9 @@ public class Stone : FieldItem
         base.Init();
     }
 
+    public void Initialize()
+    {
+        transform.localPosition = Vector3.zero;
+    }
+
 }

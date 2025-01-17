@@ -9,6 +9,8 @@ public class InventoryUI : Singleton<InventoryUI>
     [SerializeField] Transform[] slots;
     [SerializeField] Transform[] quickSlots;
     [SerializeField] Transform[] quickSlotsInven;
+    [SerializeField] Transform weaponslot;
+    [SerializeField] Transform bowSlot;
     [SerializeField] Inventory inventory;
     [SerializeField] QuickInven quickItem;
     [SerializeField] InvenItem sampleInvenItem;
@@ -120,6 +122,11 @@ public class InventoryUI : Singleton<InventoryUI>
         {
             inventory.quickSlotsInven[i] = quickSlotsInven[i];
         }
+        
+        inventory.weaponSlot = weaponslot;
+        inventory.bowSlot = bowSlot;
+
+
     }
     void SetInventory()
     {
@@ -171,6 +178,7 @@ public class InventoryUI : Singleton<InventoryUI>
             quickSlots[data.quickSlotIdx].GetComponent<QuickSlot>().isFilled = true;
             data.qItem = quickItem;
         }
+
 
     }
 

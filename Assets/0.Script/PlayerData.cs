@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+    public bool bowEquiped = false;
 
     private int level;
     public int Level

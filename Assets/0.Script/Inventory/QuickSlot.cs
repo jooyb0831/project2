@@ -62,7 +62,7 @@ public class QuickSlot : MonoBehaviour
                         {
                             isToolEquiped = true;
                             //Player가 사용중인 무기가 있을 경우
-                            if (p.equipedWeapon != null)
+                            if (p.equipedWeapon != null || p.equipedBow != null)  
                             {
                                 //도구 안 보이게
                                 tool.gameObject.SetActive(false);

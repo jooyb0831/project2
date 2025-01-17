@@ -183,4 +183,6 @@ public class GameUI : Singleton<GameUI>
             spBarImg.fillAmount = ((float)pd.SP / pd.MAXSP);
         }
     }
+    
+
 }

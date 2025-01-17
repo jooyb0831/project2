@@ -5086,6 +5086,8 @@ MonoBehaviour:
   - {fileID: 321166523}
   - {fileID: 1179246617}
   - {fileID: 1366857236}
+  weaponslot: {fileID: 1863836308}
+  bowSlot: {fileID: 1926528267}
   inventory: {fileID: 0}
   quickItem: {fileID: 0}
   sampleInvenItem: {fileID: 7074396693919224216, guid: 0012ae0a856161d468c13f17471ca5df, type: 3}

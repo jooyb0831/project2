@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class ArrowUI : Singleton<ArrowUI>
     {
         set
         {
-            bar.fillAmount = ((float)arrow.Power / (float) 130);
+            bar.fillAmount =(float)arrow.Power / (float) 130;
         }
     }
 

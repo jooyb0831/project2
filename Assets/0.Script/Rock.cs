@@ -8,7 +8,7 @@ public class Rock : MonoBehaviour
     [SerializeField] int curHit = 0;
     [SerializeField] GameObject stone;
     [SerializeField] Transform area;
-
+    [SerializeField] Transform stonePooling;
     [SerializeField] GameObject effect;
     // Start is called before the first frame update
     void Start()
@@ -39,8 +39,8 @@ public class Rock : MonoBehaviour
                 if (curHit % 3 == 0)
                 {
                     //Pooling으로 처리할것
-                    GameObject obj = Instantiate(stone, area);
-                    obj.transform.SetParent(null);
+                    GameObject obj = Pooling.Instance.GetPool(DicKey.stone, area);
+                    obj.transform.SetParent(stonePooling);
                 }
             }
         }

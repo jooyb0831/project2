@@ -49,6 +49,8 @@ public class Inventory : Singleton<Inventory>
     [SerializeField] InvenItem invenItem;
     public Transform[] invenSlots;
     public Transform[] quickSlotsInven;
+    public Transform weaponSlot;
+    public Transform bowSlot;
 
     public MoveItem moveItem;
 
@@ -112,6 +114,11 @@ public class Inventory : Singleton<Inventory>
         invenItems.Add(item);
         invenDatas.Add(item.data);
         inventoryData.items.Add(item);
+        if(itemData.type.Equals(ItemType.Ore))
+        {
+            Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+            return;
+        }
         Destroy(itemData.obj);
     }
 
@@ -252,6 +259,10 @@ public class Inventory : Singleton<Inventory>
                 item.data.fieldItem.UseItem();
                 break;
             }
+            default:
+            {
+                break;
+            }
         }
         item.data.count--;
         item.ItemCntChange(item.data);
@@ -328,6 +339,42 @@ public class Inventory : Singleton<Inventory>
         */
     }
 
+    public void WeaponEquip(InvenItem item)
+    {
+        WeaponSlot wSlot = null;
+        WeaponType type = item.data.fieldItem.GetComponent<Weapon>().weaponData.weaponType;
+        
+        
+        switch(type)
+        {
+            case WeaponType.Sword:
+            {
+                wSlot = weaponSlot.GetComponent<WeaponSlot>();
+                break;
+            }
+
+            case WeaponType.Bow:
+            {
+                wSlot = bowSlot.GetComponent<WeaponSlot>();
+                break;
+            }
+            
+        }
+
+        if(wSlot.isFilled)
+        {
+            //교환
+        }
+        wSlot.isFilled = true;
+        item.transform.parent.GetComponent<Slot>().isFilled = false;
+        item.data.slotIdx = -1;
+        item.transform.SetParent(wSlot.transform);
+        item.transform.position = wSlot.transform.position;
+        wSlot.item = item;
+        wSlot.Equip();
+
+    }
+
 
     public void ItemMove(bool isShow, Vector3 pos, InvenData data = null)
     {
@@ -400,7 +447,25 @@ public class Inventory : Singleton<Inventory>
                 break;
             }
         }
+    }
 
+    /// <summary>
+    /// 인벤에 있는 아이템을 리턴
+    /// </summary>
+    /// <param name="itemIdx">아이템 코드번호</param>
+    /// <returns>아이템 개수</returns>
+    public InvenItem FindItem(int itemIdx)
+    {
+        InvenItem item = null;
+        for(int i =0; i<invenItems.Count; i++)
+        {
+            if(invenItems[i].data.itemIdx==itemIdx)
+            {
+                item = invenItems[i];
+                break;
+            }
+        }
+        return item;
     }
 
 }

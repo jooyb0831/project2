@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     private Rigidbody rigid;
     private Animator animator;
     private PlayerData pd;
+    private Inventory inven;
     public State state = State.Idle;
     public WeaponEquipState weaponEquipState = WeaponEquipState.None;
     public ToolEquipState toolEquipState = ToolEquipState.None;
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
 
     public Transform swordPos;
     public Transform weapon1Rest;
+    public Transform backWeaponRest;
 
     public Transform toolPos;
     // Start is called before the first frame update
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
     {
 
         pd = GameManager.Instance.PlayerData;
+        inven = GameManager.Instance.Inven;
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         animator.SetTrigger("Idle");
@@ -107,6 +110,10 @@ public class Player : MonoBehaviour
 
     public Weapon curWeapon = null;
     public Weapon equipedWeapon = null;
+    public GameObject currentTool = null;
+    /// <summary>
+    /// 공격시 무기 손에 장착하는 함수
+    /// </summary>
     public void Weapon()
     {
         if (curWeapon == null)
@@ -128,7 +135,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    public GameObject currentTool = null;
+    [SerializeField] Transform bowAttackPos;
+    public Weapon curBow = null;
+    public Weapon equipedBow = null;
+    public void BowEquip()
+    {
+        //활 자체를 활 슬롯에 장착하지 않았을 경우 리턴
+        if(curBow == null)
+        {
+            return;
+        }
+        //이미 손에 활이 있는 경우 리턴
+        if(equipedBow !=null)
+        {
+            return;
+        }
+
+        //위치에 활 생성
+        equipedBow = Instantiate(curBow, bowAttackPos);
+        equipedBow.transform.localRotation = Quaternion.identity;
+        equipedBow.transform.localPosition = Vector3.zero;
+    }
+    
 
     void Move()
     {
@@ -402,6 +430,12 @@ public class Player : MonoBehaviour
                 Destroy(equipedWeapon.gameObject);
                 curWeapon.gameObject.SetActive(true);
             }
+
+            if(equipedBow != null)
+            {
+                Destroy(equipedBow.gameObject);
+                curBow.gameObject.SetActive(true);
+            }
         }
 
 
@@ -413,12 +447,22 @@ public class Player : MonoBehaviour
     [SerializeField] Transform arrows;
     void Bow()
     {
-
         if (Input.GetMouseButton(1))
         {
+            if(!pd.bowEquiped)
+            {
+                Debug.Log("장착된 활이 없습니다");
+                return;
+            }
+            BowEquip();
             state = State.Bow;
             if (Input.GetMouseButtonDown(0))
             {
+                if(inven.FindItem(4).data.count==0)
+                {
+                    Debug.Log("화살이 부족합니다.");
+                    return;
+                }
                 GameUI.Instance.arrowUI.SetActive(true);
                 isCharging = true;
                 animator.SetTrigger("Bow");
@@ -429,12 +473,22 @@ public class Player : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
+                if(inven.FindItem(4).data.count==0)
+                {
+                    Debug.Log("화살이 부족합니다.");
+                    return;
+                }
                 //화살 차징
                 ar.ArrowCharge();
             }
 
             if (Input.GetMouseButtonUp(0))
             {
+                if(inven.FindItem(4).data.count==0)
+                {
+                    Debug.Log("화살이 부족합니다.");
+                    return;
+                }
                 //화살 발사
                 ar.gameObject.layer = default;
                 isCharging = false;
@@ -442,6 +496,9 @@ public class Player : MonoBehaviour
                 ar.Fire();
                 ar.transform.SetParent(arrows);
                 ar = null;
+
+                //인벤토리에서 화살 사용 처리
+                inven.UseItem(inven.FindItem(4));
                 GameUI.Instance.arrowUI.SetActive(false);
             }
         }

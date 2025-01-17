@@ -33,11 +33,30 @@ public class ItemInvenOption : MonoBehaviour
 
     public void OnEquipBtn()
     {
-        Inventory.Instance.ItemEquip(item);
+        if(item.data.type.Equals(ItemType.Weapon))
+        {
+            Inventory.Instance.WeaponEquip(item);
+        }
+        else
+        {
+            Inventory.Instance.ItemEquip(item);
+        }
+        Destroy(gameObject);
+        
     }
 
     public void OnDumpBtn()
     {
 
+    }
+
+    public void OnExitBtn()
+    {
+        Destroy(gameObject);
+    }
+
+    public void OnUnEquipBtn()
+    {
+        
     }
 }
