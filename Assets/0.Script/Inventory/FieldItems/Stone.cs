@@ -18,6 +18,7 @@ public class Stone : FieldItem
     public void Initialize()
     {
         transform.localPosition = Vector3.zero;
+        isFind = false;
     }
 
 }

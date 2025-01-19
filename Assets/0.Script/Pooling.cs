@@ -11,12 +11,18 @@ public enum DicKey
 
 public class Pooling : Singleton<Pooling>
 {
+    //오브젝트의 큐 생성
     private Queue<Arrow> arrowQueue = new Queue<Arrow>();
     private Queue<Stone> stoneQueue = new Queue<Stone>();
+
+    //프리팹 오브젝트
     [SerializeField] Arrow arrow;
     [SerializeField] Stone stone;
 
+
+    //pool 딕셔너리 생성
     private Dictionary<DicKey, Queue<GameObject>> pool = new Dictionary<DicKey, Queue<GameObject>>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +49,7 @@ public class Pooling : Singleton<Pooling>
 
         }
 
-        obj.gameObject.SetActive(false);
+        obj.SetActive(false);
         pool[key].Enqueue(obj);
     }
 
@@ -52,7 +58,8 @@ public class Pooling : Singleton<Pooling>
     {
         GameObject obj = null;
 
-        if(pool[key].Count ==0)
+        //Pool에 오브젝트가 없을 경우 새로 생성하고 큐에 집어넣기
+        if(pool[key].Count == 0)
         {
             switch(key)
             {
@@ -72,12 +79,14 @@ public class Pooling : Singleton<Pooling>
             }
         }
 
+        //Queue에서 오브젝트 꺼내기
         obj = pool[key].Dequeue();
-        obj.transform.SetParent(trans);
+
         switch (key)
         {
             case DicKey.arrow:
                 {
+                    obj.transform.SetParent(trans);
                     obj.transform.localRotation = Quaternion.Euler(90, 0, 0);
                     obj.transform.localPosition = Vector3.zero;
                     break;

@@ -74,9 +74,15 @@ public class Inventory : Singleton<Inventory>
     /// <param name="itemData"></param>
     public void GetItem(ItemData itemData)
     {
+        //이미 인벤토리에 중복된 아이템이 있는 경우
         if (itemIdxList.Contains(itemData.itemIdx))
         {
             ItemCheck(itemData);
+            if(itemData.type.Equals(ItemType.Ore))
+            {
+                Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                return;
+            }
             Destroy(itemData.obj);
             return;
         }
@@ -114,12 +120,14 @@ public class Inventory : Singleton<Inventory>
         invenItems.Add(item);
         invenDatas.Add(item.data);
         inventoryData.items.Add(item);
+
         if(itemData.type.Equals(ItemType.Ore))
         {
             Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
             return;
         }
         Destroy(itemData.obj);
+
     }
 
     /// <summary>

@@ -22,7 +22,7 @@ public class FieldItem : MonoBehaviour
     public ItemData itemData;
     protected Player p;
 
-    bool isFind = false;
+    [SerializeField] protected bool isFind = false;
     bool isFull = false;
     float speed;
 
@@ -65,13 +65,13 @@ public class FieldItem : MonoBehaviour
         {
             Debug.Log(dist);
         }
+
         if (dist < 1.5f)
         {
             if (!isFull)
             {
                 isFind = true;
             }
-
         }
         else
         {
