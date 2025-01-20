@@ -77,9 +77,15 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
             {
                 invenOption = Instantiate(itemOptionWindow, transform).gameObject;
                 invenOption.GetComponent<ItemInvenOption>().item = this;
+                if (transform.parent.GetComponent<QuickSlotInven>()
+                ||transform.parent.GetComponent<WeaponSlot>())
+                {
+                    invenOption.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
+                    invenOption.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(3).gameObject.SetActive(true);
+                }
 
                 // 이 사이에 아이템 종류에 따라 목록 다르게 수정하는 코드
-                if(data.type.Equals(ItemType. Weapon))
+                if (data.type.Equals(ItemType. Weapon))
                 {
                     invenOption.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
                 }

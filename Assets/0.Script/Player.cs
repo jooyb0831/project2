@@ -473,7 +473,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                if(inven.FindItem(4).data.count==0)
+                if(inven.FindItem(4).data.count<=0 || inven.FindItem(4) == null)
                 {
                     Debug.Log("화살이 부족합니다.");
                     return;

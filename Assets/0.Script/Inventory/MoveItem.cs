@@ -116,6 +116,7 @@ public class MoveItem : MonoBehaviour
                 if(invenItem.transform.parent.GetComponent<WeaponSlot>())
                 {
                     invenItem.transform.parent.GetComponent<WeaponSlot>().isFilled = false;
+                    invenItem.transform.parent.GetComponent<WeaponSlot>().UnequipWeapon();
                 }
                 /*
                 if (invenItem.transform.parent.GetComponent<BoxSlot>() == true) // �������� �ڽ����� �̵��� ���

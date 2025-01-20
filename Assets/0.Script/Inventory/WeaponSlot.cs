@@ -9,6 +9,8 @@ public class WeaponSlot : MonoBehaviour
     public InvenItem item;
     private Player p;
     private PlayerData pd;
+    private GameObject weaponObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,29 +35,28 @@ public class WeaponSlot : MonoBehaviour
         {
             pd = GameManager.Instance.PlayerData;
         }
-        GameObject obj = null;
         WeaponType type = item.data.fieldItem.GetComponent<Weapon>().weaponData.weaponType;
         switch(type)
         {
             case WeaponType.Sword:
             {
-                obj = Instantiate(item.data.fieldItem, p.weapon1Rest).gameObject;
-                obj.transform.localPosition = new Vector3(0, -0.3f, 0);
-                p.curWeapon = obj.GetComponent<Weapon>();
+                weaponObj = Instantiate(item.data.fieldItem, p.weapon1Rest).gameObject;
+                weaponObj.transform.localPosition = new Vector3(0, -0.3f, 0);
+                p.curWeapon = weaponObj.GetComponent<Weapon>();
                 break;
             }
             case WeaponType.Bow:
             {
-                obj = Instantiate(item.data.fieldItem, p.backWeaponRest).gameObject;
-                obj.transform.localRotation = Quaternion.Euler(0,0,180);
-                obj.transform.localPosition = new Vector3(0.2f, 0,0);
-                p.curBow = obj.GetComponent<Weapon>();
+                weaponObj = Instantiate(item.data.fieldItem, p.backWeaponRest).gameObject;
+                weaponObj.transform.localRotation = Quaternion.Euler(0,0,180);
+                weaponObj.transform.localPosition = new Vector3(0.2f, 0,0);
+                p.curBow = weaponObj.GetComponent<Weapon>();
                 pd.bowEquiped = true;
                 break;
             }
         }
 
-        SetWeapon(obj.GetComponent<Weapon>());
+        SetWeapon(weaponObj.GetComponent<Weapon>());
     }
 
     public void SetWeapon(Weapon weapon)
@@ -71,5 +72,30 @@ public class WeaponSlot : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    public void UnequipWeapon()
+    {
+        WeaponType type = item.data.fieldItem.GetComponent<Weapon>().weaponData.weaponType;
+        switch(type)
+        {
+            case WeaponType.Sword :
+            {
+                p.weaponEquipState = Player.WeaponEquipState.None;
+                p.equipedWeapon = null;
+                p.curWeapon = null;
+                break;
+            }
+
+            case WeaponType.Bow :
+            {
+                p.curBow = null;
+                pd.bowEquiped = false;
+                break;
+            }
+        }
+        isFilled = false;
+        Destroy(weaponObj);
+        item = null;
     }
 }

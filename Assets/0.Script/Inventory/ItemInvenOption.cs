@@ -21,9 +21,10 @@ public class ItemInvenOption : MonoBehaviour
         
     }
 
-    public void OnUeseBtn()
+    public void OnUseBtn()
     {
-
+        //Inventory.Instance.UseItem(item);
+        Destroy(gameObject);
     }
 
     public void OnInfoBtn()
@@ -33,6 +34,7 @@ public class ItemInvenOption : MonoBehaviour
 
     public void OnEquipBtn()
     {
+
         if(item.data.type.Equals(ItemType.Weapon))
         {
             Inventory.Instance.WeaponEquip(item);
@@ -57,6 +59,7 @@ public class ItemInvenOption : MonoBehaviour
 
     public void OnUnEquipBtn()
     {
-        
+        Inventory.Instance.UnequipItem(item);
+        Destroy(gameObject);
     }
 }

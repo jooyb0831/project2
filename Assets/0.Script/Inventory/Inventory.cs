@@ -281,6 +281,11 @@ public class Inventory : Singleton<Inventory>
         }
     }
 
+
+    /// <summary>
+    /// 아이템 삭제
+    /// </summary>
+    /// <param name="item"></param>
     public void DeleteItem(InvenItem item)
     {
         if(item.transform.parent.GetComponent<Slot>())
@@ -433,7 +438,10 @@ public class Inventory : Singleton<Inventory>
         }
     }
 
-
+    /// <summary>
+    /// 퀵 인벤에서 아이템 사용 비활성화
+    /// </summary>
+    /// <param name="item"></param>
     public void QuickUnequiped(QuickInven item)
     {
         ItemType type = item.invenItem.data.type;
@@ -472,8 +480,36 @@ public class Inventory : Singleton<Inventory>
                 item = invenItems[i];
                 break;
             }
+            else
+            {
+                item = null;
+            }
         }
         return item;
+    }
+
+    
+
+    /// <summary>
+    /// 아이템 장착 해제(일반슬롯으로 돌아가는코드)
+    /// </summary>
+    /// <param name="item"></param>
+    public void UnequipItem(InvenItem item)
+    {
+        int x = SlotCheck();
+        item.transform.position = invenSlots[x].transform.position;
+        
+        if (item.transform.parent.GetComponent<QuickSlotInven>())
+        {
+            item.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(item);
+
+        }
+        else if (item.transform.parent.GetComponent<WeaponSlot>())
+        {
+            item.transform.parent.GetComponent<WeaponSlot>().UnequipWeapon();
+        }
+        item.transform.SetParent(invenSlots[x].transform);
+
     }
 
 }
