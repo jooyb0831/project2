@@ -79,6 +79,10 @@ public class Player : MonoBehaviour
             state = State.Gather;
             animator.SetTrigger("Gather");
         }
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            animator.SetTrigger("Skill");
+        }
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (currentTool == null)

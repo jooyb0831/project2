@@ -23,7 +23,7 @@ public class ItemInvenOption : MonoBehaviour
 
     public void OnUseBtn()
     {
-        //Inventory.Instance.UseItem(item);
+        Inventory.Instance.UseItem(item);
         Destroy(gameObject);
     }
 

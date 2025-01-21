@@ -139,7 +139,8 @@ public class Enemy : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
-                Instantiate(item, transform);
+                GameObject obj = Pooling.Instance.GetPool(DicKey.stone, transform);
+                obj.transform.SetParent(null);
                 DestroyEnemy();
             }
         }

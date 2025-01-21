@@ -1074,6 +1074,7 @@ MonoBehaviour:
     itemIdx: 1
     obj: {fileID: 0}
     fItem: {fileID: 8376854902236739952, guid: 31ae857ef4e41ee478882532bd27451e, type: 3}
+  isFind: 0
   sowrdObj: {fileID: 5890757121253714726, guid: a9e2cfbde26b3984eb80380c479f2043, type: 3}
 --- !u!4 &942998241
 Transform:
@@ -1789,6 +1790,7 @@ MonoBehaviour:
     itemIdx: 4
     obj: {fileID: 0}
     fItem: {fileID: 7924033832299249097, guid: 60897e6782ece984eb077aeca3e6dfe7, type: 3}
+  isFind: 0
 --- !u!4 &1339997338
 Transform:
   m_ObjectHideFlags: 0
@@ -12047,6 +12049,7 @@ MonoBehaviour:
     itemIdx: 4
     obj: {fileID: 0}
     fItem: {fileID: 7924033832299249097, guid: 60897e6782ece984eb077aeca3e6dfe7, type: 3}
+  isFind: 0
 --- !u!1 &3317823750846845931
 GameObject:
   m_ObjectHideFlags: 0
@@ -12357,6 +12360,7 @@ MonoBehaviour:
     itemIdx: 2
     obj: {fileID: 0}
     fItem: {fileID: 5642329506163583289, guid: 5f0f00a00b2a6ab4282f61d27314b053, type: 3}
+  isFind: 0
 --- !u!4 &4989585991633833901
 Transform:
   m_ObjectHideFlags: 0
@@ -19281,6 +19285,7 @@ MonoBehaviour:
     itemIdx: 3
     obj: {fileID: 0}
     fItem: {fileID: 6307818527721024232, guid: 2e2470dc3af56b746a534f4d9bf36a37, type: 3}
+  isFind: 0
   effect: {fileID: 7147218489001258344, guid: d27968226cab9ef49b99f33529ed9a17, type: 3}
 --- !u!4 &7680878858050228871
 Transform:
@@ -25111,7 +25116,7 @@ MonoBehaviour:
   arrows: {fileID: 626770139}
   spRecoverStarted: 0
   spRecoverTimer: 1
-  spRecoverDelay: 3
+  spRecoverDelay: 2
   plusTimer: 1
 --- !u!4 &8347404766391272154
 Transform:
@@ -29534,6 +29539,7 @@ MonoBehaviour:
     itemIdx: 6
     obj: {fileID: 0}
     fItem: {fileID: -8515901427925500595, guid: 2180ff67493a649498451b2838a1f28e, type: 3}
+  isFind: 0
 --- !u!23 &8853191197724486120
 MeshRenderer:
   m_ObjectHideFlags: 0
