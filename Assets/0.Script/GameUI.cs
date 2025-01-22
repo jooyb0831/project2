@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using Unity.VisualScripting;
 
 public class GameUI : Singleton<GameUI>
 {
@@ -19,6 +21,9 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] Image lvBarImg;
     [SerializeField] TMP_Text lvTxt;
 
+    [SerializeField] Image mpImg;
+    [SerializeField] TMP_Text mpTxt;
+
     public GameObject spUI;
     [SerializeField] Image spBarImg;
 
@@ -31,9 +36,11 @@ public class GameUI : Singleton<GameUI>
         stBarImg.fillAmount = (float)((float)pd.ST / (float)pd.MAXST);
         lvBarImg.fillAmount = (float)((float)pd.EXP / (float)pd.MAXEXP);
         spBarImg.fillAmount = (float)((float)pd.SP / (float)pd.MAXSP);
+        mpImg.fillAmount = (float)((float)pd.CURMP/(float)pd.MAXMP);
         hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
         stTxt.text = $"{pd.ST}/{pd.MAXST}";
         lvTxt.text = $"Lv.{pd.Level}";
+        mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
     }
     void Update()
     {
@@ -124,7 +131,8 @@ public class GameUI : Singleton<GameUI>
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            hpBarImg.fillAmount = ((float)pd.HP / pd.MAXHP);
+            hpBarImg.DOFillAmount(((float)pd.HP / pd.MAXHP),0.2f);
+            //hpBarImg.fillAmount = ((float)pd.HP / pd.MAXHP);
             hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
         }
     }
@@ -180,9 +188,37 @@ public class GameUI : Singleton<GameUI>
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            spBarImg.fillAmount = ((float)pd.SP / pd.MAXSP);
+            spBarImg.DOFillAmount(((float)pd.SP / pd.MAXSP),1f);
+            //spBarImg.fillAmount = ((float)pd.SP / pd.MAXSP);
         }
     }
     
+    public int CURMP
+    {
+        set
+        {
+            if(pd == null)
+            {
+                pd=GameManager.Instance.PlayerData;
+                return;
+            }
+            mpImg.fillAmount = ((float)pd.CURMP/pd.MAXMP);
+            mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
+        }
+    }
+
+    public int MAXMP
+    {
+        set
+        {
+            if (pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            mpImg.fillAmount = Mathf.Lerp(((float)pd.CURMP / pd.MAXMP),1,1);
+            mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
+        }
+    }
 
 }

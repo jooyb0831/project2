@@ -178,6 +178,34 @@ public class PlayerData : MonoBehaviour
         }
     }
 
+    private int curMP;
+    public int CURMP
+    {
+        get{return curMP;}
+        set
+        {
+            curMP = value;
+            if(GameUI.Instance!=null)
+            {
+                GameUI.Instance.CURMP = curMP;
+            }
+        }
+    }
+
+    private int maxMP;
+    public int MAXMP
+    {
+        get{return maxMP;}
+        set
+        {
+            maxMP = value;
+            if (GameUI.Instance != null)
+            {
+                GameUI.Instance.MAXMP = maxMP;
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -196,6 +224,8 @@ public class PlayerData : MonoBehaviour
         plusSP = 1;
         Speed = 4f;
         BasicAtk = 2;
+        MAXMP = 20;
+        CURMP = MAXMP;
     }
 
     // Update is called once per frame
