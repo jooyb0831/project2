@@ -30,8 +30,8 @@ public class Arrow : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         p = GameManager.Instance.Player;
-        Power = 70;
         ArrowUI.Instance.arrow = this;
+        Power = 70;
     }
 
     // Update is called once per frame
