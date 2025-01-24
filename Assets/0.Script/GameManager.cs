@@ -55,11 +55,14 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(gameSystem == null){
+            if(gameSystem == null)
+            {
                 gameSystem = FindAnyObjectByType<GameSystem>();
             }
             return gameSystem;
         }
     }
+
+    public bool isPaused{get;set;}
 
 }

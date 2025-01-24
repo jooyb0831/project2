@@ -66,6 +66,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.Instance.isPaused)
+        {
+            return;
+        }
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
         RecoverSP();
         Attack();

@@ -27,7 +27,6 @@ public class GameUI : Singleton<GameUI>
     public GameObject spUI;
     [SerializeField] Image spBarImg;
 
-    [SerializeField] GameObject menuObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,30 +43,6 @@ public class GameUI : Singleton<GameUI>
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
-        {
-            menuObj.SetActive(true);
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(menuObj.activeSelf)
-            {
-                menuObj.SetActive(false);
-            }
-        }
-
-        if(menuObj.activeSelf)
-        {
-            //Time.timeScale = 0;
-            Camera.main.GetComponent<CameraMove>().enabled = false;
-
-        }
-        else
-        {
-            //Time.timeScale = 1;
-            Camera.main.GetComponent<CameraMove>().enabled = true;
-        }
         
     }
 
