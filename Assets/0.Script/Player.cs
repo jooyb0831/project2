@@ -66,10 +66,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 메뉴 탭이 열렸을 때는 모든 키 입력 안받게 만들기
         if(GameManager.Instance.isPaused)
         {
+            animator.speed = 0;
             return;
         }
+
+        else
+        {
+            animator.speed = 1;
+        }
+        
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
         RecoverSP();
         Attack();

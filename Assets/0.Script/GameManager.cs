@@ -63,6 +63,20 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private SkillSystem skillSystem;
+    public SkillSystem SkillSystem
+    {
+        get
+        {
+            if(skillSystem == null)
+            {
+                skillSystem = FindAnyObjectByType<SkillSystem>();
+            }
+            return skillSystem;
+        }
+    }
+    
+
     public bool isPaused{get;set;}
 
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 
 public class Enemy0 : Enemy
@@ -27,17 +28,8 @@ public class Enemy0 : Enemy
         base.Init();
     }
     // Update is called once per frame
-    void Update()
-    {
-        if(state == State.Dead)
-        {
-            TakeItem();
-            return;
-        }
-        Move();
-    }
 
-    void Move()
+    protected override void EnemyMove()
     {
         Vector3 targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
         transform.LookAt(targetPos);
@@ -67,6 +59,7 @@ public class Enemy0 : Enemy
             //agent.SetDestination(transform.position);
             
         }
+        base.EnemyMove();
     }
 
     protected override void TakeItem()

@@ -57,6 +57,30 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if(GameManager.Instance.isPaused)
+        {
+            animator.speed = 0;
+            return;
+        }
+        else
+        {
+            animator.speed = 1;
+        }
+        if (state == State.Dead)
+        {
+            TakeItem();
+            return;
+        }
+        EnemyMove();
+    }
+
+    protected virtual void EnemyMove()
+    {
+
+    }
+
     void Hit()
     {
 
