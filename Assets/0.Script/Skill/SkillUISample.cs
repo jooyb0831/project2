@@ -22,10 +22,11 @@ public class SkillUISample : MonoBehaviour
     public bool isUnlock = false;
     public bool isEquiped = false;
     public GameObject skillUIicon;
+    public GameObject skillQuickIcon;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Init();
     }
 
     public virtual void Init()

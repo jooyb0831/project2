@@ -75,6 +75,19 @@ public class GameManager : Singleton<GameManager>
             return skillSystem;
         }
     }
+
+    private JsonData jd;
+    public JsonData JsonData
+    {
+        get
+        {
+            if(jd == null)
+            {
+                jd = FindAnyObjectByType<JsonData>();
+            }
+            return jd;
+        }
+    }
     
 
     public bool isPaused{get;set;}

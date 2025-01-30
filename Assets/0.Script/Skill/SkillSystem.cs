@@ -19,7 +19,19 @@ public class SkillSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //스킬 버튼 누르면 활성화
+    }
+
+    public void SetSkill()
+    {
+        if(qSkill != null)
+        {
+            if(qSkill.GetComponent<Skill>().isSet)
+            {
+                //SkillUISystem.In
+            }
+        }
     }
 
     public void SetSkillUI()

@@ -2,21 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill0 : Skill
+public class SkillQuickIcon : MonoBehaviour
 {
-    [SerializeField] float delay;
-    [SerializeField] float coolTimer;
-    [SerializeField] float timer;
+    public Skill skill;
+    public SkillUISample skillUI;
     // Start is called before the first frame update
     void Start()
     {
-        Init();
-    }
-
-    public override void Init()
-    {
-        base.Init();
-        SetData(0);
+        
     }
 
     // Update is called once per frame

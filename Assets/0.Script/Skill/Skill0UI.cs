@@ -27,7 +27,10 @@ public class Skill0UI : SkillUISample
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            Debug.Log($"{skill.data.SkillTitle}");
+        }
     }
 
 
@@ -35,7 +38,7 @@ public class Skill0UI : SkillUISample
     {
         skillTitleTxt.text = skill.data.SkillTitle;
         skillExplainTxt.text = skill.data.SkillExplain;
-        skillExplainTxt.text =  $"쿨타임 : {skill.data.CoolTime}초\n공격력 : {skill.data.Damage}";
+        skillExplainTxt2.text =  $"쿨타임 : {skill.data.CoolTime}초\n공격력 : {skill.data.Damage}";
         icon.sprite = skill.data.SkillIcon;
         unlockTxt.text = $"레벨 필요 : {skill.data.NeedLv}";
     }

@@ -20,6 +20,7 @@ public class Skill : MonoBehaviour
 
     protected Player p;
     protected PlayerData pd;
+    protected JsonData jd;
     public Data data = new Data();
     public bool isSet = false;
     public int slotIdx;
@@ -27,22 +28,29 @@ public class Skill : MonoBehaviour
     public SkillUISample skillUI;
     public bool isStart =false;
     public bool isWorking = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public virtual void Init()
     {
         p = GameManager.Instance.Player;
         pd = GameManager.Instance.PlayerData;
+        jd = GameManager.Instance.JsonData;
         isSet = false;
+    }
+
+    public virtual void SetData(int idx)
+    {
+        data.SkillTitle = jd.skillData.sData[idx].skilltitle;
+        data.SkillExplain = jd.skillData.sData[idx].skillexplain;
+        data.SkillIndex = jd.skillData.sData[idx].index;
+        data.CoolTime = jd.skillData.sData[idx].cooltime;
+        data.Damage = jd.skillData.sData[idx].damage;
+        data.NeedLv = jd.skillData.sData[idx].needlevel;
+        data.SkillLv = jd.skillData.sData[idx].skilllevel;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
