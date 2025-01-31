@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Skill0 : Skill
 {
+    
     [SerializeField] float delay;
     [SerializeField] float coolTimer;
     [SerializeField] float timer;
@@ -17,11 +18,5 @@ public class Skill0 : Skill
     {
         base.Init();
         SetData(0);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

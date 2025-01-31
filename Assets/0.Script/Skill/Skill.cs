@@ -51,6 +51,13 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!data.Unlocked)
+        {
+            if (pd.Level >= data.NeedLv)
+            {
+                data.Unlocked = true;
+            }
+        }
 
     }
 }

@@ -7,13 +7,13 @@ public class SkillEquipWindow : MonoBehaviour
 {
     private SkillSystem sksystem;
     [SerializeField] Transform Qslot;
-    [SerializeField] Transform Islot;
+    [SerializeField] Transform Rslot;
     public GameObject temp_skill;
     public GameObject skillIcon;
     public GameObject skill_Q;
-    public GameObject skill_I;
+    public GameObject skill_R;
     [SerializeField] Transform qSlot_inGame;
-    [SerializeField] Transform iSlot_inGame;
+    [SerializeField] Transform rSlot_inGame;
     [SerializeField] GameObject clearWindow;
     [SerializeField] GameObject skillQuickIcon;
 
@@ -30,11 +30,11 @@ public class SkillEquipWindow : MonoBehaviour
 
     public void OnIEquipBtn()
     {
-        SkillSet(Islot, iSlot_inGame, ref skill_I, 2);
+        SkillSet(Rslot, rSlot_inGame, ref skill_R, 2);
     }
 
     /// <summary>
-    /// ½ºÅ³°ú UI¼¼ÆÃ
+    /// ï¿½ï¿½Å³ï¿½ï¿½ UIï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="slot"></param>
     /// <param name="quickSlot"></param>
@@ -46,7 +46,7 @@ public class SkillEquipWindow : MonoBehaviour
         SkillUISample skillUI;
         Skill skill;
 
-        //ÀÌ¹Ì ½ºÅ³ÀÌ ÀÖ´Ù¸é ±âÁ¸ ½ºÅ³ »èÁ¦
+        //ï¿½Ì¹ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
         if (activeSlot.isFilled)
         {
             skillUI = skillObj.GetComponent<SkillUISample>();
@@ -57,12 +57,12 @@ public class SkillEquipWindow : MonoBehaviour
             Destroy(slot.GetChild(0).gameObject);
         }
 
-        //½ºÅ³°ú UI ¼¼ÆÃ
+        //ï¿½ï¿½Å³ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
         skillObj = temp_skill;
         skillUI = skillObj.GetComponent<SkillUISample>();
         skill = skillUI.skill;
 
-        //½ºÅ³ UI »ý¼º(¸Þ´º)
+        //ï¿½ï¿½Å³ UI ï¿½ï¿½ï¿½ï¿½(ï¿½Þ´ï¿½)
         GameObject obj = Instantiate(skillIcon, slot);
         obj.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = skill.data.SkillIcon;
         obj.transform.SetAsFirstSibling();
@@ -74,13 +74,13 @@ public class SkillEquipWindow : MonoBehaviour
         obj.GetComponent<SkillIcon>().skill = skillObj;
 
 
-        //°ÔÀÓ È­¸é(Äü)¿¡ UI »ý¼º
+        //ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½(ï¿½ï¿½)ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
         GameObject obj2 = Instantiate(skillUI.skillQuickIcon.gameObject, quickSlot);
         obj2.GetComponent<SkillQuickIcon>().skill = skill;
         obj2.GetComponent<SkillQuickIcon>().skillUI = skillUI;
 
 
-        //½ºÅ³ ½Ã½ºÅÛ¿¡ ½ºÅ³ µî·Ï
+        //ï¿½ï¿½Å³ ï¿½Ã½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½
         if (idx == 1)
         {
             sksystem.qSkill = skill.gameObject;
@@ -90,7 +90,7 @@ public class SkillEquipWindow : MonoBehaviour
             sksystem.rSkill = skill.gameObject;
         }
 
-        //Ã¢ ´Ý±â
+        //Ã¢ ï¿½Ý±ï¿½
         gameObject.SetActive(false);
 
     }
@@ -108,12 +108,12 @@ public class SkillEquipWindow : MonoBehaviour
 
     public void OnISkillSlotClicked()
     {
-        ClearWindowActive(Islot, 2);
+        ClearWindowActive(Rslot, 2);
     }
 
 
     /// <summary>
-    /// ClaerWindowºÒ·¯¿À±â
+    /// ClaerWindowï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="slot"></param>
     /// <param name="idx"></param>
@@ -143,11 +143,11 @@ public class SkillEquipWindow : MonoBehaviour
 
     public void ClearISkill()
     {
-        SkillClear(ref skill_I, Islot, iSlot_inGame, 2);
+        SkillClear(ref skill_R, Rslot, rSlot_inGame, 2);
     }
 
     /// <summary>
-    /// ½ºÅ³ »èÁ¦(Å¬¸®¾î)
+    /// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½(Å¬ï¿½ï¿½ï¿½ï¿½)
     /// </summary>
     /// <param name="skillObj"></param>
     /// <param name="slot"></param>

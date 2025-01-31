@@ -22,15 +22,6 @@ public class Skill0UI : SkillUISample
             isEquiped = true;
         }
         SetUI();
-        
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F9))
-        {
-            Debug.Log($"{skill.data.SkillTitle}");
-        }
     }
 
 

@@ -38,7 +38,16 @@ public class SkillUISample : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(skill.data.Unlocked)
+        {
+            isUnlock = true;
+        }
+
+        if(isUnlock)
+        {
+            unlockCover.SetActive(false);
+            GetComponent<Button>().interactable = true;
+        }
     }
 
     public void OnClickBtn()
