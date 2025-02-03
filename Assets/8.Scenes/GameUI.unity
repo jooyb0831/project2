@@ -2055,42 +2055,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215154534}
   m_CullTransparentMesh: 1
---- !u!1 &215842231
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 215842232}
-  m_Layer: 5
-  m_Name: SkillArea
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &215842232
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215842231}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 860785884}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &224925206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,7 +2519,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 320284889}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 320284892}
+        m_TargetAssemblyTypeName: SkillUISample, Assembly-CSharp
+        m_MethodName: OnClickBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &320284892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2579,8 +2555,8 @@ MonoBehaviour:
   usingCover: {fileID: 0}
   isUnlock: 0
   isEquiped: 0
-  skillUIicon: {fileID: 0}
-  skillQuickIcon: {fileID: 0}
+  skillUIicon: {fileID: 659276450}
+  skillQuickIcon: {fileID: 5683038423625798672, guid: 8332f2aa43287804b8ba4b097e0f1c5e, type: 3}
 --- !u!1 &321166522
 GameObject:
   m_ObjectHideFlags: 0
@@ -3060,6 +3036,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 376773394}
+  - component: {fileID: 376773397}
   - component: {fileID: 376773396}
   - component: {fileID: 376773395}
   m_Layer: 5
@@ -3129,6 +3106,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376773393}
   m_CullTransparentMesh: 1
+--- !u!114 &376773397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376773393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f3adc96e5c90aa4f9afaf578495b75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFilled: 0
 --- !u!1 &399706104
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,6 +3164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 443019053}
+  - component: {fileID: 443019056}
   - component: {fileID: 443019055}
   - component: {fileID: 443019054}
   m_Layer: 5
@@ -3243,6 +3234,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443019052}
   m_CullTransparentMesh: 1
+--- !u!114 &443019056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443019052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f3adc96e5c90aa4f9afaf578495b75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFilled: 0
 --- !u!1 &471065869
 GameObject:
   m_ObjectHideFlags: 0
@@ -4340,6 +4344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 659276451}
+  - component: {fileID: 659276454}
   - component: {fileID: 659276453}
   - component: {fileID: 659276452}
   m_Layer: 5
@@ -4408,6 +4413,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659276450}
   m_CullTransparentMesh: 1
+--- !u!114 &659276454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659276450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e8414c3d3b0b14a9ebeff31c094734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill: {fileID: 0}
 --- !u!1 &668271218
 GameObject:
   m_ObjectHideFlags: 0
@@ -5468,8 +5486,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 215842232}
+  m_Children: []
   m_Father: {fileID: 376773394}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11098,16 +11115,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bf03b086cd6444ca853a5d4cadde8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Qslot: {fileID: 0}
-  Rslot: {fileID: 0}
+  Qslot: {fileID: 376773394}
+  Rslot: {fileID: 443019053}
   temp_skill: {fileID: 0}
-  skillIcon: {fileID: 0}
-  skill_Q: {fileID: 376773393}
-  skill_R: {fileID: 443019052}
+  skillIcon: {fileID: 7979582423118225160, guid: c3714f017965bbf4489f8e3b606ee4ed, type: 3}
+  skill_Q: {fileID: 0}
+  skill_R: {fileID: 0}
   qSlot_inGame: {fileID: 208196557}
   rSlot_inGame: {fileID: 1613517183}
   clearWindow: {fileID: 0}
-  skillQuickIcon: {fileID: 0}
+  skillQuickIcon: {fileID: 5683038423625798672, guid: 8332f2aa43287804b8ba4b097e0f1c5e, type: 3}
 --- !u!1 &1551300412
 GameObject:
   m_ObjectHideFlags: 0
@@ -15272,7 +15289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2073821952
 RectTransform:
   m_ObjectHideFlags: 0

@@ -64,7 +64,7 @@ public class SkillEquipWindow : MonoBehaviour
 
         //��ų UI ����(�޴�)
         GameObject obj = Instantiate(skillIcon, slot);
-        obj.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = skill.data.SkillIcon;
+        obj.transform.GetComponent<Image>().sprite = skill.data.SkillIcon;
         obj.transform.SetAsFirstSibling();
 
         slot.GetComponent<ActiveSkillSlot>().isFilled = true;

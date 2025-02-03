@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
         Jump,
         AttackIdle,
         Attack,
+        Skill,
         Hit,
         Bow,
         Mine,
@@ -35,8 +36,9 @@ public class Player : MonoBehaviour
     }
 
     private Rigidbody rigid;
-    private Animator animator;
+    public Animator animator;
     private PlayerData pd;
+    private SkillSystem skSystem;
     private Inventory inven;
     public State state = State.Idle;
     public WeaponEquipState weaponEquipState = WeaponEquipState.None;
@@ -57,6 +59,7 @@ public class Player : MonoBehaviour
 
         pd = GameManager.Instance.PlayerData;
         inven = GameManager.Instance.Inven;
+        skSystem = GameManager.Instance.SkillSystem;
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         animator.SetTrigger("Idle");
@@ -91,10 +94,16 @@ public class Player : MonoBehaviour
             state = State.Gather;
             animator.SetTrigger("Gather");
         }
-        if(Input.GetKeyDown(KeyCode.P))
+
+        if(Input.GetKeyDown(KeyCode.Q))
         {
-            animator.SetTrigger("Skill");
+            if(skSystem.qSkill==null)
+            {
+                return;
+            }
+            skSystem.qSkill.GetComponent<Skill>().SkillAct();
         }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (currentTool == null)
@@ -132,20 +141,27 @@ public class Player : MonoBehaviour
     /// </summary>
     public void Weapon()
     {
+        //장착한 무기가 없으면 리턴
         if (curWeapon == null)
         {
             return;
         }
         else
         {
+            //장착한 무기가 칼일 경우
             if (weaponEquipState.Equals(WeaponEquipState.Sword))
             {
+                //무기를 손에 들고 있으면 리턴
                 if (equipedWeapon != null)
                 {
                     return;
                 }
+                
+                //무기를 손에 들고 있지 않으면 손에 무기 생성
                 equipedWeapon = Instantiate(curWeapon, swordPos);
                 equipedWeapon.transform.localPosition = Vector3.zero;
+
+                //플레이어에 부착되어있는 무기 시각적으로 비활성화
                 curWeapon.gameObject.SetActive(false);
             }
         }
@@ -441,6 +457,7 @@ public class Player : MonoBehaviour
 
         if (state == State.Idle || state == State.Walk || state == State.Run)
         {
+            //장착한 무기가 있다면
             if (equipedWeapon != null)
             {
                 Destroy(equipedWeapon.gameObject);
@@ -626,6 +643,7 @@ public class Player : MonoBehaviour
         }
         Debug.Log("act");
         state = State.Idle;
+
     }
 
     void Jump()

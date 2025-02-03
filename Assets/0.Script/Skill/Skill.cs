@@ -48,6 +48,11 @@ public class Skill : MonoBehaviour
         data.SkillLv = jd.skillData.sData[idx].skilllevel;
     }
 
+    public virtual void SkillAct()
+    {
+        p.state = Player.State.Skill;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -60,4 +65,6 @@ public class Skill : MonoBehaviour
         }
 
     }
+
+
 }

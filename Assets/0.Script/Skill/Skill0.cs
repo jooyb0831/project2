@@ -18,5 +18,13 @@ public class Skill0 : Skill
     {
         base.Init();
         SetData(0);
+        
+    }
+
+    public override void SkillAct()
+    {
+        base.SkillAct();
+        p.Weapon();
+        p.animator.SetTrigger("Skill0");
     }
 }

@@ -56,6 +56,10 @@ public class SkillUISample : MonoBehaviour
         {
             return;
         }
+        equipWindow.SetActive(true);
+        equipWindow.GetComponent<SkillEquipWindow>().skillIcon = skillUIicon;
+        equipWindow.GetComponent<SkillEquipWindow>().temp_skill = this.gameObject;
+        //equipWindow.transform.position = transform.position;
     }
 
 }

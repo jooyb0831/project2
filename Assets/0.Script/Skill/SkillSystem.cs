@@ -10,9 +10,12 @@ public class SkillSystem : MonoBehaviour
     public GameObject rSkill;
     public SkillUISample qSkillUI;
     public SkillUISample rSkillUI;
+
+    private Player p;
     // Start is called before the first frame update
     void Start()
     {
+        p = GameManager.Instance.Player;
         DontDestroyOnLoad(this);
     }
 
