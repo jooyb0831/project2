@@ -177,7 +177,7 @@ public class GameUI : Singleton<GameUI>
                 pd=GameManager.Instance.PlayerData;
                 return;
             }
-            mpImg.fillAmount = ((float)pd.CURMP/pd.MAXMP);
+            mpImg.DOFillAmount(((float)pd.CURMP/pd.MAXMP), 0.2f);
             mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
         }
     }

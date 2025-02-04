@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
     protected Animator animator;
     protected Player p;
     protected PlayerData pd;
+    protected SkillSystem skSystem;
     public Data data = new Data();
 
     public State state = State.Idle;
@@ -51,6 +52,7 @@ public class Enemy : MonoBehaviour
     {
         p = GameManager.Instance.Player;
         pd = GameManager.Instance.PlayerData;
+        skSystem = GameManager.Instance.SkillSystem;
         animator = GetComponent<Animator>();
         state = State.Idle;
         enemyUI.SetUI(data.EnemyName, data.MAXHP, this);
@@ -116,11 +118,22 @@ public class Enemy : MonoBehaviour
             TakeDamage(pd.BasicAtk);
         }
 
-        if(other.GetComponent<Weapon>() && p.state.Equals(Player.State.Attack))
+        if(other.GetComponent<Weapon>())
         {
-            TakeDamage(other.GetComponent<Weapon>().weaponData.atkDmg);
-        }
+            if(p.state.Equals(Player.State.Attack))
+            {
+                TakeDamage(other.GetComponent<Weapon>().weaponData.atkDmg);
+            }
 
+            else if(p.state.Equals(Player.State.Skill))
+            {
+                if(p.skillState.Equals(Player.SkillState.Qskill))
+                {
+                    TakeDamage(skSystem.qSkill.GetComponent<Skill>().data.Damage);
+                }
+                
+            }
+        }
 
         Arrow arrow = other.GetComponent<Arrow>();
         if(arrow)

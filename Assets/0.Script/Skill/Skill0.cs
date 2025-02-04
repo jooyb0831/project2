@@ -5,9 +5,6 @@ using UnityEngine;
 public class Skill0 : Skill
 {
     
-    [SerializeField] float delay;
-    [SerializeField] float coolTimer;
-    [SerializeField] float timer;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +15,18 @@ public class Skill0 : Skill
     {
         base.Init();
         SetData(0);
-        
     }
 
     public override void SkillAct()
     {
         base.SkillAct();
+        if(p.weaponEquipState.Equals(Player.WeaponEquipState.None))
+        {
+            Debug.Log("무기");
+            p.skillState = Player.SkillState.None;
+            return;
+        }
+        Debug.Log($"{p.state}, {p.weaponEquipState}");
         p.Weapon();
         p.animator.SetTrigger("Skill0");
     }

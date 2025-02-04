@@ -32,6 +32,13 @@ public class Player : MonoBehaviour
         None,
         PickAxe,
         Axe
+    }
+
+    public enum SkillState
+    {
+        None,
+        Qskill,
+        Rskill
 
     }
 
@@ -43,6 +50,7 @@ public class Player : MonoBehaviour
     public State state = State.Idle;
     public WeaponEquipState weaponEquipState = WeaponEquipState.None;
     public ToolEquipState toolEquipState = ToolEquipState.None;
+    public SkillState skillState = SkillState.None;
 
     private float speed;
     [SerializeField] Transform foot;
@@ -80,14 +88,35 @@ public class Player : MonoBehaviour
         {
             animator.speed = 1;
         }
-        
+
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
         RecoverSP();
         Attack();
-        StateCheck();
         Move();
         Bow();
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (skSystem.qSkill == null)
+            {
+                return;
+            }
+
+            if(skSystem.qSkill.GetComponent<Skill>().isWorking)
+            {
+                Debug.Log("쿨타임");
+                return;
+            }
+            if(pd.CURMP<skSystem.qSkill.GetComponent<Skill>().data.MP)
+            {
+                
+                Debug.Log("마력부족");
+                return;
+            }
+            skillState = SkillState.Qskill;
+            skSystem.qSkill.GetComponent<Skill>().SkillAct();
+            
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -95,14 +124,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Gather");
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            if(skSystem.qSkill==null)
-            {
-                return;
-            }
-            skSystem.qSkill.GetComponent<Skill>().SkillAct();
-        }
+
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -131,10 +153,17 @@ public class Player : MonoBehaviour
                 timer = 1;
             }
         }
+
+        StateCheck();
     }
 
+    //현재 장착하고 있는 무기
     public Weapon curWeapon = null;
+
+    //손에 들고 있는 무기
     public Weapon equipedWeapon = null;
+
+    //손에 들고 있는 도구
     public GameObject currentTool = null;
     /// <summary>
     /// 공격시 무기 손에 장착하는 함수
@@ -144,6 +173,7 @@ public class Player : MonoBehaviour
         //장착한 무기가 없으면 리턴
         if (curWeapon == null)
         {
+            Debug.Log("무기");
             return;
         }
         else
@@ -151,9 +181,11 @@ public class Player : MonoBehaviour
             //장착한 무기가 칼일 경우
             if (weaponEquipState.Equals(WeaponEquipState.Sword))
             {
+                Debug.Log("칼 장착중");
                 //무기를 손에 들고 있으면 리턴
                 if (equipedWeapon != null)
                 {
+                    Debug.Log("체크");
                     return;
                 }
                 
@@ -203,13 +235,20 @@ public class Player : MonoBehaviour
 
         transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * speed);
 
+        if(state == State.Skill)
+        {
+            return;
+        }
+
         if (state == State.Jump)
         {
             return;
         }
 
+        //공격 대기 상태일 경우
         if (state == State.AttackIdle)
         {
+            //이동값이 있으면
             if (x != 0 || z != 0)
             {
                 state = State.Walk;
@@ -263,9 +302,11 @@ public class Player : MonoBehaviour
             }
         }
 
+        // 이동 중이 아닐 때(정지상태일 때)
         else
         {
-            if (state == State.Hit || state == State.AttackIdle || state == State.Attack)
+            if (state == State.Hit || state == State.AttackIdle || state == State.Attack 
+                || state==State.Skill)
             {
                 return;
             }
@@ -436,6 +477,7 @@ public class Player : MonoBehaviour
     [SerializeField] float atkIdleTimer;
     void StateCheck()
     {
+        
         if (state == State.AttackIdle)
         {
             atkIdleTimer += Time.deltaTime;
@@ -454,9 +496,15 @@ public class Player : MonoBehaviour
             atkIdleTimer = 0;
         }
 
+        if(state!=State.Skill)
+        {
+            skillState = SkillState.None;
+        }
+
 
         if (state == State.Idle || state == State.Walk || state == State.Run)
         {
+            animator.SetBool("Attacking", false);
             //장착한 무기가 있다면
             if (equipedWeapon != null)
             {
@@ -469,6 +517,7 @@ public class Player : MonoBehaviour
                 Destroy(equipedBow.gameObject);
                 curBow.gameObject.SetActive(true);
             }
+            
         }
 
 
@@ -641,7 +690,12 @@ public class Player : MonoBehaviour
         {
             return;
         }
+        if(state == State.Attack)
+        {
+            return;
+        }
         Debug.Log("act");
+        animator.SetTrigger("Idle");
         state = State.Idle;
 
     }

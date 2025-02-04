@@ -7,13 +7,14 @@ public class Skill : MonoBehaviour
     [System.Serializable]
     public class Data
     {
-        public string SkillTitle{get;set;}
-        public string SkillExplain{get;set;}
-        public int SkillIndex{get;set;}
-        public float CoolTime{get;set;}
-        public int Damage{get;set;}
-        public int NeedLv{get;set;}
-        public int SkillLv{get;set;}
+        public string SkillTitle { get; set; }
+        public string SkillExplain { get; set; }
+        public int SkillIndex { get; set; }
+        public float CoolTime { get; set; }
+        public int MP { get; set; }
+        public int Damage { get; set; }
+        public int NeedLv { get; set; }
+        public int SkillLv { get; set; }
         public bool Unlocked = false;
         public Sprite SkillIcon;
     }
@@ -23,6 +24,8 @@ public class Skill : MonoBehaviour
     protected JsonData jd;
     public Data data = new Data();
     public bool isSet = false;
+
+    protected float coolTimer;
     public int slotIdx;
     public Transform slot;
     public SkillUISample skillUI;
@@ -43,6 +46,7 @@ public class Skill : MonoBehaviour
         data.SkillExplain = jd.skillData.sData[idx].skillexplain;
         data.SkillIndex = jd.skillData.sData[idx].index;
         data.CoolTime = jd.skillData.sData[idx].cooltime;
+        data.MP = jd.skillData.sData[idx].mp;
         data.Damage = jd.skillData.sData[idx].damage;
         data.NeedLv = jd.skillData.sData[idx].needlevel;
         data.SkillLv = jd.skillData.sData[idx].skilllevel;
@@ -51,6 +55,8 @@ public class Skill : MonoBehaviour
     public virtual void SkillAct()
     {
         p.state = Player.State.Skill;
+        isWorking = true;
+        pd.CURMP -= data.MP;
     }
 
     // Update is called once per frame
@@ -62,8 +68,24 @@ public class Skill : MonoBehaviour
             {
                 data.Unlocked = true;
             }
+            return;
         }
 
+        if(isWorking)
+        {
+            CoolTimeCheck();
+        }
+
+    }
+
+    void CoolTimeCheck()
+    {
+        coolTimer += Time.deltaTime;
+        if(coolTimer>=data.CoolTime)
+        {
+            coolTimer = 0;
+            isWorking = false;
+        }
     }
 
 

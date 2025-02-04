@@ -20,6 +20,7 @@ public class SkillData
     public string skillexplain;
     public int index;
     public float cooltime;
+    public int mp;
     public int damage;
     public int needlevel;
     public int skilllevel;

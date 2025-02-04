@@ -5,6 +5,7 @@
             "skillexplain" : "무기를 크게 휘두르며 공격합니다.",
             "index" : 0,
             "cooltime" : 10.0,
+            "mp" : 5,
             "damage" : 7,
             "needlevel" : 3,
             "skilllevel" : 1

@@ -48,6 +48,17 @@ public class SkillUISample : MonoBehaviour
             unlockCover.SetActive(false);
             GetComponent<Button>().interactable = true;
         }
+
+        if(isEquiped)
+        {
+            usingCover.SetActive(true);
+            GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            usingCover.SetActive(false);
+            GetComponent<Button>().interactable = true;
+        }
     }
 
     public void OnClickBtn()
