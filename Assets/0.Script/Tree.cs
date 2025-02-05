@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActiveSkillSlot : MonoBehaviour
+public class Tree : MonoBehaviour
 {
-    public bool isFilled;
-    [SerializeField] bool isQslot;
     // Start is called before the first frame update
     void Start()
     {

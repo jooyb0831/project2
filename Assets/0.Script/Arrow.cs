@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,14 +25,14 @@ public class Arrow : MonoBehaviour
 
     bool isEnd = false;
     
-    [SerializeField] float chargeTimer = 0.5f;
+    [SerializeField] float chargeTimer = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
         p = GameManager.Instance.Player;
         ArrowUI.Instance.arrow = this;
-        Power = 70;
+        Power = 0;
     }
 
     // Update is called once per frame
@@ -59,15 +60,15 @@ public class Arrow : MonoBehaviour
     // 화살 차징
     public void ArrowCharge()
     {
-        if (Power >= 130)
+        if (Power >= 15)
         {
             return;
         }
         chargeTimer -= Time.deltaTime;
         if(chargeTimer<=0)
         {
-            Power += 10;
-            chargeTimer = 0.5f;
+            Power += 1;
+            chargeTimer = 0.1f;
         }
 
         Debug.Log(power);
@@ -80,7 +81,7 @@ public class Arrow : MonoBehaviour
             rigid = GetComponent<Rigidbody>();
         }
         rigid.useGravity = true;
-        Vector3 dir = transform.up * speed * Power;
+        Vector3 dir = transform.up * speed * Power*10;
         rigid.velocity = dir;
 
     }
@@ -104,6 +105,7 @@ public class Arrow : MonoBehaviour
         }
     }
 
+    
 
 
     public void Initialize()
@@ -111,7 +113,7 @@ public class Arrow : MonoBehaviour
         isEnd = false;
         rigid.useGravity = false;
         rigid.velocity = Vector3.zero;
-        Power = 70;
+        Power = 0;
         transform.position = Vector3.zero;
         gameObject.layer = 6;
         chargeTimer = 0.5f;

@@ -195,5 +195,6 @@ public class GameUI : Singleton<GameUI>
             mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
         }
     }
+    
 
 }

@@ -58,6 +58,7 @@ MonoBehaviour:
     itemIdx: 1
     obj: {fileID: 0}
     fItem: {fileID: 8376854902236739952}
+  isFind: 0
   sowrdObj: {fileID: 5890757121253714726, guid: a9e2cfbde26b3984eb80380c479f2043, type: 3}
 --- !u!114 &8275721876175859041
 MonoBehaviour:

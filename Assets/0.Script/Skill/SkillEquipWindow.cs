@@ -34,7 +34,7 @@ public class SkillEquipWindow : MonoBehaviour
     }
 
     /// <summary>
-    /// ��ų�� UI����
+    /// 스킬과 UI세팅
     /// </summary>
     /// <param name="slot"></param>
     /// <param name="quickSlot"></param>
@@ -46,7 +46,7 @@ public class SkillEquipWindow : MonoBehaviour
         SkillUISample skillUI;
         Skill skill;
 
-        //�̹� ��ų�� �ִٸ� ���� ��ų ����
+        //이미 스킬이 있다면 기존 스킬 삭제
         if (activeSlot.isFilled)
         {
             skillUI = skillObj.GetComponent<SkillUISample>();
@@ -57,12 +57,12 @@ public class SkillEquipWindow : MonoBehaviour
             Destroy(slot.GetChild(0).gameObject);
         }
 
-        //��ų�� UI ����
+        //스킬과 UI세팅
         skillObj = temp_skill;
         skillUI = skillObj.GetComponent<SkillUISample>();
         skill = skillUI.skill;
 
-        //��ų UI ����(�޴�)
+        //스킬 UI 생성(메뉴)
         GameObject obj = Instantiate(skillIcon, slot);
         obj.transform.GetComponent<Image>().sprite = skill.data.SkillIcon;
         obj.transform.SetAsFirstSibling();
@@ -74,13 +74,13 @@ public class SkillEquipWindow : MonoBehaviour
         obj.GetComponent<SkillIcon>().skill = skillObj;
 
 
-        //���� ȭ��(��)�� UI ����
+        //게임 화면(퀵)에 UI생성
         GameObject obj2 = Instantiate(skillUI.skillQuickIcon.gameObject, quickSlot);
         obj2.GetComponent<SkillQuickIcon>().skill = skill;
         obj2.GetComponent<SkillQuickIcon>().skillUI = skillUI;
 
 
-        //��ų �ý��ۿ� ��ų ���
+        //스킬 시스템에 스킬 등록 idx가 1이면 q스킬
         if (idx == 1)
         {
             sksystem.qSkill = skill.gameObject;
@@ -90,7 +90,7 @@ public class SkillEquipWindow : MonoBehaviour
             sksystem.rSkill = skill.gameObject;
         }
 
-        //â �ݱ�
+        //창 닫기
         gameObject.SetActive(false);
 
     }
@@ -106,14 +106,14 @@ public class SkillEquipWindow : MonoBehaviour
     }
 
 
-    public void OnISkillSlotClicked()
+    public void OnRSkillSlotClicked()
     {
         ClearWindowActive(Rslot, 2);
     }
 
 
     /// <summary>
-    /// ClaerWindow�ҷ�����
+    /// ClaerWindow불러오기
     /// </summary>
     /// <param name="slot"></param>
     /// <param name="idx"></param>
@@ -141,13 +141,13 @@ public class SkillEquipWindow : MonoBehaviour
         SkillClear(ref skill_Q, Qslot, qSlot_inGame, 1);
     }
 
-    public void ClearISkill()
+    public void ClearRSkill()
     {
         SkillClear(ref skill_R, Rslot, rSlot_inGame, 2);
     }
 
     /// <summary>
-    /// ��ų ����(Ŭ����)
+    /// 스킬 삭제(클리어)
     /// </summary>
     /// <param name="skillObj"></param>
     /// <param name="slot"></param>

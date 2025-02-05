@@ -14,7 +14,7 @@ public class ArrowUI : Singleton<ArrowUI>
         set
         {
             //bar.fillAmount =(float)arrow.Power / (float) 130;
-            bar.DOFillAmount(((float)arrow.Power / (float) 130), 0.5f);
+            bar.DOFillAmount(((float)arrow.Power / (float) 15), 0.5f);
         }
     }
 
