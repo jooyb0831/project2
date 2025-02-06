@@ -61,6 +61,7 @@ public class QuickSlot : MonoBehaviour
                         if (tool != null)
                         {
                             isToolEquiped = true;
+                            p.currentTool = tool.gameObject;
                             //Player가 사용중인 무기가 있을 경우
                             if (p.equipedWeapon != null || p.equipedBow != null)  
                             {

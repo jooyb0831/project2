@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Axe : Tool
 {
-    GameSystem gameSystem;
+    private GameSystem gameSystem;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,5 +18,10 @@ public class Axe : Tool
         data.useST = 5;
         data.lv = 1;
         gameSystem = GameManager.Instance.GameSystem;
+    }
+
+    public override void SetTool()
+    {
+        base.SetTool();
     }
 }

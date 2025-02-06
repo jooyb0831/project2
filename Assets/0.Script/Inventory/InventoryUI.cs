@@ -125,9 +125,9 @@ public class InventoryUI : Singleton<InventoryUI>
         
         inventory.weaponSlot = weaponslot;
         inventory.bowSlot = bowSlot;
-
-
     }
+
+    
     void SetInventory()
     {
         if (inventory == null)
