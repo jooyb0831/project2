@@ -88,6 +88,19 @@ public class GameManager : Singleton<GameManager>
             return jd;
         }
     }
+
+    private SceneChanger sc;
+    public SceneChanger SceneChanger
+    {
+        get
+        {
+            if(sc == null)
+            {
+                sc = FindAnyObjectByType<SceneChanger>();
+            }
+            return sc;
+        }
+    }
     
 
     public bool isPaused{get;set;}
