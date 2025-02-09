@@ -488,6 +488,27 @@ public class Inventory : Singleton<Inventory>
         return item;
     }
 
+    public int FindItemCnt(int itemIdx)
+    {
+        InvenItem item = null;
+        int cnt = 0;
+        for(int i = 0; i<invenItems.Count; i++)
+        {
+            if(invenItems[i].data.itemIdx == itemIdx)
+            {
+                item = invenItems[i];
+                cnt = item.data.count;
+                break;
+            }
+            else
+            {
+                cnt = 0;
+            }
+
+        }
+        return cnt;
+    }
+
     
 
     /// <summary>

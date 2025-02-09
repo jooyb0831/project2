@@ -101,6 +101,19 @@ public class GameManager : Singleton<GameManager>
             return sc;
         }
     }
+
+    private CraftSystem craftSystem;
+    public CraftSystem CraftSystem
+    {
+        get
+        {
+            if(craftSystem == null)
+            {
+                craftSystem = FindAnyObjectByType<CraftSystem>();
+            }
+            return craftSystem;
+        }
+    }
     
 
     public bool isPaused{get;set;}

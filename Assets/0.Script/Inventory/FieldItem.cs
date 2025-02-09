@@ -32,10 +32,12 @@ public class FieldItem : MonoBehaviour
         Init();
     }
 
+
     public virtual void Init()
     {
         p = GameManager.Instance.Player;
         itemData.obj = this.gameObject;
+
     }
 
     // Update is called once per frame

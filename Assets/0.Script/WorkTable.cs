@@ -25,7 +25,8 @@ public class WorkTable : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.F))
             {
-                sc.GoCraftUI();
+                //sc.GoCraftUI();
+                CraftUI.Instance.EnableWindow();
             }
         }
         else
