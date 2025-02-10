@@ -10,8 +10,8 @@ public class NeedItemUI : MonoBehaviour
     [SerializeField] TMP_Text itemTitle;
     [SerializeField] TMP_Text itemCntTxt;
     int needCnt;
-    int curCnt;
-
+    [SerializeField] int curCnt;
+    int createCnt;
     private ItemData data;
     private Inventory inven;
     // Start is called before the first frame update
@@ -28,15 +28,50 @@ public class NeedItemUI : MonoBehaviour
 
     int FindInvenCnt(int itemCodeIdx)
     {
-        return inven.FindItem(itemCodeIdx).data.count;
+        if(inven == null)
+        {
+            inven = GameManager.Instance.Inven;
+        }
+        return inven.FindItemCnt(itemCodeIdx);
     }
 
-    public void SetData(ItemData data, int cnt)
+    public void SetData(ItemData data, int needCnt, int createCnt)
     {
         this.data = data;
-        //int curCnt = FindInvenCnt(data.itemIdx);
+        this.needCnt = needCnt;
+        this.createCnt = createCnt;
+        curCnt = FindInvenCnt(data.itemIdx);
         itemIcon.sprite = data.invenIcon;
         itemTitle.text = data.itemTitle;
-        itemCntTxt.text = $"{curCnt} / {cnt}";
+        itemCntTxt.text = $"{curCnt} / {needCnt * createCnt}";
+    }
+
+    public void SetCnt(int createCnt)
+    {
+        this.createCnt = createCnt;
+        itemCntTxt.text = $"{curCnt} / {needCnt * createCnt}";
+    }
+
+    /// <summary>
+    /// 인벤토리에서 아이템 찾아서 수량 감소
+    /// </summary>
+    public void FindUSeItem(int createCnt)
+    {
+        InvenItem invenItem = inven.FindItem(this.data.itemIdx);
+        inven.InvenItemCntChange(invenItem, needCnt * createCnt);
+    }
+
+    public bool CntCheck()
+    {
+        if (curCnt < needCnt * createCnt)
+        {
+            return false;
+        }
+
+        else
+        {
+            return true;
+        }
+
     }
 }

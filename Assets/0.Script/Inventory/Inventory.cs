@@ -121,12 +121,16 @@ public class Inventory : Singleton<Inventory>
         invenDatas.Add(item.data);
         inventoryData.items.Add(item);
 
-        if(itemData.type.Equals(ItemType.Ore))
+        if(itemData.obj!=null)
         {
-            Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
-            return;
+            if (itemData.type.Equals(ItemType.Ore))
+            {
+                Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                return;
+            }
+            Destroy(itemData.obj);
         }
-        Destroy(itemData.obj);
+
 
     }
 
@@ -136,6 +140,7 @@ public class Inventory : Singleton<Inventory>
     /// <param name="invenItem"></param>
     public void GetItem(InvenItem invenItem)
     {
+        //이미 인벤토리에 중복된 아이템이 있는 경우
         if (itemIdxList.Contains(invenItem.data.itemIdx))
         {
             ItemCheck(invenItem);
@@ -250,7 +255,12 @@ public class Inventory : Singleton<Inventory>
         
     }
 
-    public void UseItem(InvenItem item)
+    /// <summary>
+    /// 아이템 사용
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="cnt"></param>
+    public void UseItem(InvenItem item, int cnt = -1)
     {
         ItemType type = item.data.type;
         
@@ -272,13 +282,24 @@ public class Inventory : Singleton<Inventory>
                 break;
             }
         }
-        item.data.count--;
+        InvenItemCntChange(item, cnt);
+    }
+
+    /// <summary>
+    /// 아이템 수량변경
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="cnt"></param>
+    public void InvenItemCntChange(InvenItem item, int cnt =-1)
+    {
+        item.data.count += cnt;
         item.ItemCntChange(item.data);
-        if(item.data.count==0)
+        if (item.data.count == 0)
         {
             DeleteItem(item);
             Destroy(item.gameObject);
         }
+
     }
 
 
@@ -488,6 +509,11 @@ public class Inventory : Singleton<Inventory>
         return item;
     }
 
+    /// <summary>
+    /// 인벤에 있는 아이템 개수를 리턴
+    /// </summary>
+    /// <param name="itemIdx"></param>
+    /// <returns></returns>
     public int FindItemCnt(int itemIdx)
     {
         InvenItem item = null;

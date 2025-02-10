@@ -26,12 +26,13 @@ public class CreateResoruceUI : MonoBehaviour
 
     [SerializeField] Button createBtn;
 
+    [SerializeField] int createCnt = 1;
+
     // Start is called before the first frame update
     void Start()
     {
         inven = GameManager.Instance.Inven;
     }
-
 
 
     // Update is called once per frame
@@ -48,35 +49,122 @@ public class CreateResoruceUI : MonoBehaviour
             slot.SetActive(true);
         }
 
-        //Á¦ÀÛÇÒ ¾ÆÀÌÅÛÀÇ UI¼¼ÆÃ
+        //ì œì‘í•  ì•„ì´í…œì˜ UIì„¸íŒ…
         this.item = item;
         itemIcon.sprite = item.itemData.invenIcon;
         itemTitle.text = item.itemData.itemTitle;
-        int curCnt = inven.FindItem(item.itemData.itemIdx).data.count;
-        curItemCnt.text = $"º¸À¯ : {curCnt}";
+        int curCnt = inven.FindItemCnt(item.itemData.itemIdx);
+        curItemCnt.text = $"ë³´ìœ  : {curCnt}";
+        createCnt = 1;
+        cntInput.text = createCnt.ToString();
 
-        //Àç·á ¸®½ºÆ® ¿ÀºêÁ§Æ® »ı¼º
+        //ì¬ë£Œ ë¦¬ìŠ¤íŠ¸ ì˜¤ë¸Œì íŠ¸ ìƒì„±
         SetList(data.Resources.Length);
 
-        //¸®½ºÆ® ¿ÀºêÁ§Æ®ÀÇ µ¥ÀÌÅÍ ¼¼ÆÃ
-        //¾ÆÀÌÅÛ ·¹½ÃÇÇ µ¥ÀÌÅÍÀÇ ResourcesÀÇ µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¿Í¾ß ÇÔ.
+        //ë¦¬ìŠ¤íŠ¸ ì˜¤ë¸Œì íŠ¸ì˜ ë°ì´í„° ì„¸íŒ…
+        //ì•„ì´í…œ ë ˆì‹œí”¼ ë°ì´í„°ì˜ Resourcesì˜ ë°ì´í„°ë¥¼ ë°›ì•„ì™€ì•¼ í•¨.
         for(int i = 0; i<needLists.Count; i++)
         {
-            needLists[i].SetData(data.Resources[i].itemData, data.RcCnts[i]);
+            needLists[i].SetData(data.Resources[i].itemData, data.RcCnts[i], createCnt);
         }
     }
 
 
     void SetList(int count)
     {
-        //¿ì¼± ±âÁ¸ÀÇ ¸®½ºÆ® Å¬¸®¾î
-        needLists.Clear();
+        //ê¸°ì¡´ ë¦¬ìŠ¤íŠ¸ ë° ì˜¤ë¸Œì íŠ¸ í´ë¦¬ì–´
+        if(needLists.Count !=0 )
+        {
+            foreach (var item in needLists)
+            {
+                Destroy(item.gameObject);
+            }
+            needLists.Clear();
+        }
 
-        //¸®½ºÆ®¿¡ ¿ÀºêÁ§Æ® »õ·Î »ı¼ºÇÏ°í Add
+
+        //ë¦¬ìŠ¤íŠ¸ì— ì˜¤ë¸Œì íŠ¸ ìƒˆë¡œ ìƒì„±í•˜ê³  Add
         for(int i = 0; i<count; i++)
         {
             NeedItemUI obj = Instantiate(sampleNeedUI, contentArea);
             needLists.Add(obj);
         }
+    }
+
+
+    public void OnInputField()
+    {
+        string cntStr = cntInput.text;
+        createCnt = int.Parse(cntStr);
+        foreach(var item in needLists)
+        {
+            item.SetCnt(createCnt);
+        }
+    }
+
+    public void OnPlusBtn()
+    {
+        int x = int.Parse(cntInput.text);
+        x++;
+        createCnt = x;
+        cntInput.text = $"{createCnt}";
+        foreach(var item in needLists)
+        {
+            item.SetCnt(createCnt);
+        }
+    }
+
+    public void OnMinusBtn()
+    {
+        int x = int.Parse(cntInput.text);
+        if (x <= 1)
+        {
+            return;
+        }
+        x--;
+        createCnt = x;
+        cntInput.text = $"{createCnt}";
+
+        foreach(var item in needLists)
+        {
+            item.SetCnt(createCnt);
+        }
+    }
+
+    public void OnCreateBtn()
+    {
+        //ë§Œì•½ í•˜ë‚˜ë¼ë„ ì¬ë£Œê°€ ë¶€ì¡±í•˜ë‹¤ë©´ ë¦¬í„´
+        foreach(var item in needLists)
+        {
+            bool cntCheck = item.CntCheck();
+            Debug.Log(cntCheck);
+            if(!cntCheck)
+            {
+                Debug.Log("ì¬ë£Œê°€ ë¶€ì¡±");
+                return;
+            }
+        }
+
+        //ì•„ì´í…œ ì¶”ê°€
+        inven.GetItem(item.itemData);
+
+        //ì•„ì´í…œ ì¬ë£Œ ì†Œëª¨ì²˜ë¦¬(ì¸ë²¤ì—ì„œ)
+        foreach(var item in needLists)
+        {
+            item.FindUSeItem(createCnt);
+        }
+
+        //UIë¦¬ì…‹
+        int curCnt = inven.FindItemCnt(item.itemData.itemIdx);
+        curItemCnt.text = $"ë³´ìœ  : {curCnt}";
+        createCnt = 1;
+        cntInput.text = createCnt.ToString();
+        foreach(var item in needLists)
+        {
+            item.SetCnt(createCnt);
+        }
+
+
+
     }
 }

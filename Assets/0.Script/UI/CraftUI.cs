@@ -38,7 +38,7 @@ public class CraftUI : Singleton<CraftUI>
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ·¹½ÃÇÇ ¿ÀºêÁ§Æ® »ı¼º ¹× ¸®½ºÆ®¿¡ ³Ö±â
+    /// ì•„ì´í…œ ë ˆì‹œí”¼ ì˜¤ë¸Œì íŠ¸ ìƒì„± ë° ë¦¬ìŠ¤íŠ¸ì— ë„£ê¸°
     /// </summary>
     void SetListUp()
     {
@@ -51,7 +51,7 @@ public class CraftUI : Singleton<CraftUI>
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ ·¹½ÃÇÇÀÇ µ¥ÀÌÅÍ ¼¼ÆÃ
+    /// ì•„ì´í…œ ë ˆì‹œí”¼ì˜ ë°ì´í„° ì„¸íŒ…
     /// </summary>
     void SetItemListData()
     {
@@ -59,6 +59,7 @@ public class CraftUI : Singleton<CraftUI>
         {
             itemLists[i].SetData(craftSystem.itemRecipeDatas[i]);
             itemLists[i].GetComponent<Toggle>().group = recipeToggleGroup;
+            itemLists[i].GetComponent<Toggle>().isOn = false;
             itemLists[i].resourceBG = this.resourceBG;
         }
     }
