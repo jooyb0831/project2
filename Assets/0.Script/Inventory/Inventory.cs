@@ -293,13 +293,12 @@ public class Inventory : Singleton<Inventory>
     public void InvenItemCntChange(InvenItem item, int cnt =-1)
     {
         item.data.count += cnt;
-        item.ItemCntChange(item.data);
-        if (item.data.count == 0)
+        if (item.data.count <= 0)
         {
             DeleteItem(item);
             Destroy(item.gameObject);
         }
-
+        item.ItemCntChange(item.data);
     }
 
 

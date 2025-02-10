@@ -163,8 +163,5 @@ public class CreateResoruceUI : MonoBehaviour
         {
             item.SetCnt(createCnt);
         }
-
-
-
     }
 }

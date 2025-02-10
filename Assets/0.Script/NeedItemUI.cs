@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class NeedItemUI : MonoBehaviour
@@ -10,8 +8,9 @@ public class NeedItemUI : MonoBehaviour
     [SerializeField] TMP_Text itemTitle;
     [SerializeField] TMP_Text itemCntTxt;
     int needCnt;
-    [SerializeField] int curCnt;
+    int curCnt;
     int createCnt;
+    int itemIdx = -1;
     private ItemData data;
     private Inventory inven;
     // Start is called before the first frame update
@@ -40,6 +39,7 @@ public class NeedItemUI : MonoBehaviour
         this.data = data;
         this.needCnt = needCnt;
         this.createCnt = createCnt;
+        this.itemIdx = data.itemIdx;
         curCnt = FindInvenCnt(data.itemIdx);
         itemIcon.sprite = data.invenIcon;
         itemTitle.text = data.itemTitle;
@@ -49,6 +49,7 @@ public class NeedItemUI : MonoBehaviour
     public void SetCnt(int createCnt)
     {
         this.createCnt = createCnt;
+        curCnt = FindInvenCnt(itemIdx);
         itemCntTxt.text = $"{curCnt} / {needCnt * createCnt}";
     }
 
@@ -58,7 +59,7 @@ public class NeedItemUI : MonoBehaviour
     public void FindUSeItem(int createCnt)
     {
         InvenItem invenItem = inven.FindItem(this.data.itemIdx);
-        inven.InvenItemCntChange(invenItem, needCnt * createCnt);
+        inven.InvenItemCntChange(invenItem, needCnt * createCnt * (-1));
     }
 
     public bool CntCheck()
