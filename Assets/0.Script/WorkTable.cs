@@ -7,6 +7,8 @@ public class WorkTable : MonoBehaviour
     private Player p;
     private SceneChanger sc;
     [SerializeField] GameObject txtObj;
+    Vector3 targetPos;
+    private float dist;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,9 @@ public class WorkTable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float dist = Vector3.Distance(transform.position, p.transform.position);
+        dist = Vector3.Distance(transform.position, p.transform.position);
+        targetPos = new Vector3(txtObj.transform.position.x, txtObj.transform.position.y, p.transform.position.z);
+        txtObj.transform.LookAt(targetPos);
 
         if(dist<2f)
         {
@@ -26,7 +30,10 @@ public class WorkTable : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.F))
             {
                 //sc.GoCraftUI();
+                GameManager.Instance.isPaused = true;
+                Camera.main.GetComponent<CameraMove>().enabled = false;
                 CraftUI.Instance.EnableWindow();
+                
             }
         }
         else

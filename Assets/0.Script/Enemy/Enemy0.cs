@@ -8,6 +8,9 @@ using UnityEngine.EventSystems;
 public class Enemy0 : Enemy
 {
     [SerializeField] NavMeshAgent agent;
+
+    private Vector3 targetPos;
+    float dist;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,10 +34,10 @@ public class Enemy0 : Enemy
 
     protected override void EnemyMove()
     {
-        Vector3 targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
+        targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
         transform.LookAt(targetPos);
 
-        float dist = Vector3.Distance(p.transform.position, transform.position);
+        dist = Vector3.Distance(p.transform.position, transform.position);
 
         if (dist < 10 && dist >1)
         {

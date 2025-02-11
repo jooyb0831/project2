@@ -46,6 +46,7 @@ public class Inventory : Singleton<Inventory>
 {
     private PlayerData pd;
     private Player p;
+
     [SerializeField] InvenItem invenItem;
     public Transform[] invenSlots;
     public Transform[] quickSlotsInven;
@@ -131,7 +132,6 @@ public class Inventory : Singleton<Inventory>
             Destroy(itemData.obj);
         }
 
-
     }
 
     /// <summary>
@@ -157,6 +157,8 @@ public class Inventory : Singleton<Inventory>
         invenDatas.Add(item.data);
         inventoryData.items.Add(item);
     }
+
+
 
     /// <summary>
     /// 슬롯 인덱스

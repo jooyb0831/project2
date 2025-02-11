@@ -34,7 +34,13 @@ public class CraftUI : Singleton<CraftUI>
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(craftWindow.activeSelf)
+            {
+                OnExitBtn();
+            }
+        }
     }
 
     /// <summary>
@@ -72,6 +78,8 @@ public class CraftUI : Singleton<CraftUI>
 
     public void OnExitBtn()
     {
+        GameManager.Instance.isPaused = false;
+        Camera.main.GetComponent<CameraMove>().enabled = true;
         craftWindow.SetActive(false);
     }
 

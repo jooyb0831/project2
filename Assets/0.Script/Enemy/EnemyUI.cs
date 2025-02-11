@@ -7,6 +7,9 @@ using TMPro;
 public class EnemyUI : Singleton<EnemyUI>
 {
     private Player p;
+
+    private Vector3 camPos;
+    private Vector3 targetPos;
     [SerializeField] GameObject hpObj;
     [SerializeField] GameObject deadObj;
     [SerializeField] TMP_Text bossNameTxt;
@@ -41,8 +44,8 @@ public class EnemyUI : Singleton<EnemyUI>
             transform.localScale = new Vector3(-1, 1, 1);
         }
         */
-        Vector3 camPos = Camera.main.transform.position;
-        Vector3 targetPos = new Vector3(camPos.x, transform.position.y, camPos.z);
+        camPos = Camera.main.transform.position;
+        targetPos = new Vector3(camPos.x, transform.position.y, camPos.z);
         transform.LookAt(targetPos);
     }
 

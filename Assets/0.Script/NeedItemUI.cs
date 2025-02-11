@@ -39,18 +39,36 @@ public class NeedItemUI : MonoBehaviour
         this.data = data;
         this.needCnt = needCnt;
         this.createCnt = createCnt;
+        int totalCnt = needCnt * createCnt;
         this.itemIdx = data.itemIdx;
         curCnt = FindInvenCnt(data.itemIdx);
         itemIcon.sprite = data.invenIcon;
         itemTitle.text = data.itemTitle;
-        itemCntTxt.text = $"{curCnt} / {needCnt * createCnt}";
+        itemCntTxt.text = $"{curCnt} / {totalCnt}";
+        if(curCnt < totalCnt)
+        {
+            itemCntTxt.color = Color.red;
+        }
+        else
+        {
+            itemCntTxt.color = Color.white;
+        }
     }
 
     public void SetCnt(int createCnt)
     {
         this.createCnt = createCnt;
+        int totalCnt = needCnt * createCnt;
         curCnt = FindInvenCnt(itemIdx);
-        itemCntTxt.text = $"{curCnt} / {needCnt * createCnt}";
+        itemCntTxt.text = $"{curCnt} / {totalCnt}";
+        if(curCnt<totalCnt)
+        {
+            itemCntTxt.color = Color.red;
+        }
+        else
+        {
+            itemCntTxt.color = Color.white;
+        }
     }
 
     /// <summary>

@@ -27,6 +27,9 @@ public class GameUI : Singleton<GameUI>
     public GameObject spUI;
     [SerializeField] Image spBarImg;
 
+    [SerializeField] ItemInfoArea infoArea;
+    [SerializeField] ItemGetUI itemGetObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -196,5 +199,12 @@ public class GameUI : Singleton<GameUI>
         }
     }
     
+
+    public void GetItem(ItemData data)
+    {
+        //나중에 Pooling으로 수정
+        ItemGetUI obj =Instantiate(itemGetObj, infoArea.transform);
+        obj.SetData(data);
+    }
 
 }
