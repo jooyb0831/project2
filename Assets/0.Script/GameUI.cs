@@ -202,9 +202,22 @@ public class GameUI : Singleton<GameUI>
 
     public void GetItem(ItemData data)
     {
-        //나중에 Pooling으로 수정
-        ItemGetUI obj =Instantiate(itemGetObj, infoArea.transform);
-        obj.SetData(data);
+        bool itemCheck = infoArea.ItemCheck(data);
+        if(itemCheck)
+        {
+            Debug.Log("중복");
+            infoArea.AddData(data);
+        }
+        else
+        {
+            Debug.Log("안중복");
+            //나중에 Pooling으로 수정
+            ItemGetUI obj = Instantiate(itemGetObj, infoArea.transform);
+            obj.SetData(data);
+            infoArea.getUIList.Add(obj);
+            infoArea.itemTitleList.Add(data.itemTitle);
+        }
+
     }
 
 }

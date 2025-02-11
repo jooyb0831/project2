@@ -10,11 +10,12 @@ public class ItemGetUI : MonoBehaviour
     [SerializeField] TMP_Text itemTitleTxt;
     [SerializeField] TMP_Text itemCntTxt;
 
-    private string itemTitleStr;
-
+    public string itemTitleStr;
+    public int itemCnt;
 
     float time = 3f;
     float timer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,7 @@ public class ItemGetUI : MonoBehaviour
         itemIcon.sprite = data.invenIcon;
         itemTitleStr = data.itemTitle;
         itemTitleTxt.text = itemTitleStr;
+        itemCnt = cnt;
         if(cnt>0)
         {
             itemCntTxt.text = $"+{cnt}";
@@ -45,5 +47,10 @@ public class ItemGetUI : MonoBehaviour
             itemCntTxt.text = $"-{cnt}";
         }
 
+    }
+
+    public void ChangeUI(int cnt)
+    {
+        itemCntTxt.text = $"+{cnt}";
     }
 }

@@ -79,7 +79,8 @@ public class Inventory : Singleton<Inventory>
         if (itemIdxList.Contains(itemData.itemIdx))
         {
             ItemCheck(itemData);
-            if(itemData.type.Equals(ItemType.Ore))
+            GameUI.Instance.GetItem(itemData);
+            if (itemData.type.Equals(ItemType.Ore))
             {
                 Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
                 return;
@@ -121,6 +122,8 @@ public class Inventory : Singleton<Inventory>
         invenItems.Add(item);
         invenDatas.Add(item.data);
         inventoryData.items.Add(item);
+
+        GameUI.Instance.GetItem(itemData);
 
         if(itemData.obj!=null)
         {

@@ -5,7 +5,8 @@ using UnityEngine;
 public class ItemInfoArea : MonoBehaviour
 {
     private Inventory inven;
-    public List<ItemGetUI> getUILists;
+    public List<ItemGetUI> getUIList;
+    public List<string> itemTitleList = new List<string>();
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +18,34 @@ public class ItemInfoArea : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool ItemCheck(ItemData data)
+    {
+
+        if (itemTitleList.Contains(data.itemTitle))
+        {
+            Debug.Log("Check");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    public void AddData(ItemData data)
+    {
+        for (int i = 0; i < getUIList.Count; i++)
+        {
+            if (getUIList[i].itemTitleStr.Equals(data.itemTitle))
+            {
+                int x = getUIList[i].itemCnt + data.count;
+                getUIList[i].ChangeUI(x);
+                //getUIList[i].SetData(data, getUIList[i].itemCnt);
+                break;
+            }
+        }
     }
 }
