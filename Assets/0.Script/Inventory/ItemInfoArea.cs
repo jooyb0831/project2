@@ -43,9 +43,17 @@ public class ItemInfoArea : MonoBehaviour
             {
                 int x = getUIList[i].itemCnt + data.count;
                 getUIList[i].ChangeUI(x);
+                getUIList[i].Init();
+                getUIList[i].FadeIn();
                 //getUIList[i].SetData(data, getUIList[i].itemCnt);
                 break;
             }
         }
+    }
+
+    public void DeleteObj(ItemGetUI ui)
+    {
+        itemTitleList.Remove(ui.itemTitleStr);
+        getUIList.Remove(ui);
     }
 }

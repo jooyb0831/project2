@@ -80,12 +80,29 @@ public class Inventory : Singleton<Inventory>
         {
             ItemCheck(itemData);
             GameUI.Instance.GetItem(itemData);
-            if (itemData.type.Equals(ItemType.Ore))
+
+            // 아이템이 물리적으로 존재할 경우 오브젝트 비활성화 및 삭제
+            if (itemData.obj != null)
             {
-                Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
-                return;
+                ItemType type = itemData.type;
+                switch(type)
+                {
+                    case ItemType.Ore :
+                    {
+                        Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                        return;
+                    }
+                    case ItemType.Wood:
+                    {
+                        Pooling.Instance.SetPool(DicKey.wood, itemData.obj);
+                        return;
+                    }
+                    default:
+                        break;
+                }
+                
+                Destroy(itemData.obj);
             }
-            Destroy(itemData.obj);
             return;
         }
 

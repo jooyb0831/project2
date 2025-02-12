@@ -15,13 +15,13 @@ public class Tree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-                if(curHit>=hitCnt)
+        if (curHit >= hitCnt)
         {
             Destroy(gameObject);
         }
@@ -29,14 +29,15 @@ public class Tree : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Axe>())
+        if (other.GetComponent<Axe>())
         {
             curHit++;
-            if(curHit>0)
+            if (curHit > 0)
             {
-                if(curHit%3==0)
+                if (curHit % 3 == 0)
                 {
-                    Instantiate(wood, area);
+                    GameObject obj = Pooling.Instance.GetPool(DicKey.wood, area);
+                    obj.transform.SetParent(woodPooling);
                 }
             }
         }

@@ -38,7 +38,7 @@ public class GameUI : Singleton<GameUI>
         stBarImg.fillAmount = (float)((float)pd.ST / (float)pd.MAXST);
         lvBarImg.fillAmount = (float)((float)pd.EXP / (float)pd.MAXEXP);
         spBarImg.fillAmount = (float)((float)pd.SP / (float)pd.MAXSP);
-        mpImg.fillAmount = (float)((float)pd.CURMP/(float)pd.MAXMP);
+        mpImg.fillAmount = (float)((float)pd.CURMP / (float)pd.MAXMP);
         hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
         stTxt.text = $"{pd.ST}/{pd.MAXST}";
         lvTxt.text = $"Lv.{pd.Level}";
@@ -46,14 +46,14 @@ public class GameUI : Singleton<GameUI>
     }
     void Update()
     {
-        
+
     }
 
     public int Level
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -66,11 +66,11 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd ==  null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
             }
-            lvBarImg.fillAmount = ((float)pd.EXP/pd.MAXEXP);
+            lvBarImg.fillAmount = ((float)pd.EXP / pd.MAXEXP);
         }
     }
 
@@ -78,7 +78,7 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
             }
@@ -109,7 +109,7 @@ public class GameUI : Singleton<GameUI>
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            hpBarImg.DOFillAmount(((float)pd.HP / pd.MAXHP),0.2f);
+            hpBarImg.DOFillAmount(((float)pd.HP / pd.MAXHP), 0.2f);
             //hpBarImg.fillAmount = ((float)pd.HP / pd.MAXHP);
             hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
         }
@@ -119,7 +119,7 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -134,12 +134,12 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd==null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            stBarImg.fillAmount = ((float)pd.ST/pd.MAXST);
+            stBarImg.fillAmount = ((float)pd.ST / pd.MAXST);
             stTxt.text = $"{pd.ST}/{pd.MAXST}";
         }
     }
@@ -148,7 +148,7 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -161,26 +161,26 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            spBarImg.DOFillAmount(((float)pd.SP / pd.MAXSP),1f);
+            spBarImg.DOFillAmount(((float)pd.SP / pd.MAXSP), 1f);
             //spBarImg.fillAmount = ((float)pd.SP / pd.MAXSP);
         }
     }
-    
+
     public int CURMP
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
-                pd=GameManager.Instance.PlayerData;
+                pd = GameManager.Instance.PlayerData;
                 return;
             }
-            mpImg.DOFillAmount(((float)pd.CURMP/pd.MAXMP), 0.2f);
+            mpImg.DOFillAmount(((float)pd.CURMP / pd.MAXMP), 0.2f);
             mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
         }
     }
@@ -194,28 +194,28 @@ public class GameUI : Singleton<GameUI>
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            mpImg.fillAmount = Mathf.Lerp(((float)pd.CURMP / pd.MAXMP),1,1);
+            mpImg.fillAmount = Mathf.Lerp(((float)pd.CURMP / pd.MAXMP), 1, 1);
             mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
         }
     }
-    
+
 
     public void GetItem(ItemData data)
     {
         bool itemCheck = infoArea.ItemCheck(data);
-        if(itemCheck)
+        if (itemCheck)
         {
-            Debug.Log("중복");
             infoArea.AddData(data);
         }
         else
         {
-            Debug.Log("안중복");
-            //나중에 Pooling으로 수정
-            ItemGetUI obj = Instantiate(itemGetObj, infoArea.transform);
-            obj.SetData(data);
+            ItemGetUI obj = Pooling.Instance.GetPool(DicKey.itemGetUI, infoArea.transform).GetComponent<ItemGetUI>();
+            obj.SetData(data, data.count);
+            obj.transform.SetAsLastSibling();
+            obj.FadeIn();
             infoArea.getUIList.Add(obj);
             infoArea.itemTitleList.Add(data.itemTitle);
+            obj.isSet = true;
         }
 
     }

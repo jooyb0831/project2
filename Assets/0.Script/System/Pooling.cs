@@ -1,26 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
 public enum DicKey
 {
     arrow,
-    stone
+    stone,
+    wood,
+    itemGetUI
 }
 
 public class Pooling : Singleton<Pooling>
 {
-    //¿ÀºêÁ§Æ®ÀÇ Å¥ »ı¼º
+    //ì˜¤ë¸Œì íŠ¸ì˜ í ìƒì„±
     private Queue<Arrow> arrowQueue = new Queue<Arrow>();
     private Queue<Stone> stoneQueue = new Queue<Stone>();
+    private Queue<Wood> woodQueue = new Queue<Wood>();
+    private Queue<ItemGetUI> itemGetUIQueue = new Queue<ItemGetUI>();
 
-    //ÇÁ¸®ÆÕ ¿ÀºêÁ§Æ®
+    //í”„ë¦¬íŒ¹ ì˜¤ë¸Œì íŠ¸ í• ë‹¹
     [SerializeField] Arrow arrow;
     [SerializeField] Stone stone;
+    [SerializeField] Wood wood;
+    [SerializeField] ItemGetUI itemGetUI;
 
 
-    //pool µñ¼Å³Ê¸® »ı¼º
+    //Pool ë”•ì…”ë„ˆë¦¬ ìƒì„±
     private Dictionary<DicKey, Queue<GameObject>> pool = new Dictionary<DicKey, Queue<GameObject>>();
 
     // Start is called before the first frame update
@@ -28,6 +35,8 @@ public class Pooling : Singleton<Pooling>
     {
         pool.Add(DicKey.arrow, new Queue<GameObject>());
         pool.Add(DicKey.stone, new Queue<GameObject>());
+        pool.Add(DicKey.wood, new Queue<GameObject>());
+        pool.Add(DicKey.itemGetUI, new Queue<GameObject>());
     }
 
 
@@ -46,6 +55,8 @@ public class Pooling : Singleton<Pooling>
                     obj.GetComponent<Stone>().Initialize();
                 }
                 break;
+            default :
+            break;
 
         }
 
@@ -58,7 +69,7 @@ public class Pooling : Singleton<Pooling>
     {
         GameObject obj = null;
 
-        //Pool¿¡ ¿ÀºêÁ§Æ®°¡ ¾øÀ» °æ¿ì »õ·Î »ı¼ºÇÏ°í Å¥¿¡ Áı¾î³Ö±â
+        //Poolì— ì˜¤ë¸Œì íŠ¸ê°€ ì—†ì„ ê²½ìš° ìƒˆë¡œ ìƒì„±í•˜ê³  íì— ì§‘ì–´ë„£ìŒ
         if(pool[key].Count == 0)
         {
             switch(key)
@@ -76,10 +87,25 @@ public class Pooling : Singleton<Pooling>
                         pool[key].Enqueue(obj);
                     }
                     break;
+                
+                case DicKey.wood:
+                    {
+                        obj = Instantiate(wood, trans).gameObject;
+                        pool[key].Enqueue(obj);
+                    }
+                break;
+
+                case DicKey.itemGetUI:
+                    {
+                    obj = Instantiate(itemGetUI, trans).gameObject;
+                    pool[key].Enqueue(obj);
+                    }
+                    
+                    break;
             }
         }
 
-        //Queue¿¡¼­ ¿ÀºêÁ§Æ® ²¨³»±â
+        //Queueì—ì„œ ì˜¤ë¸Œì íŠ¸ êº¼ë‚´ê¸°
         obj = pool[key].Dequeue();
 
         switch (key)
@@ -96,6 +122,13 @@ public class Pooling : Singleton<Pooling>
                     obj.transform.position = trans.position;
                     break;
                 }
+            case DicKey.wood:
+                {
+                    obj.transform.position = trans.position;
+                    break;
+                }
+            default:
+                break;
         }
         obj.SetActive(true);
         return obj;

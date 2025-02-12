@@ -145,7 +145,9 @@ public class CreateResoruceUI : MonoBehaviour
             }
         }
 
-        //아이템 추가
+        item.itemData.count = createCnt;
+        
+        //인벤토리에 아이템 추가
         inven.GetItem(item.itemData);
 
         //아이템 재료 소모처리(인벤에서)
