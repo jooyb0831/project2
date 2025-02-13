@@ -209,7 +209,7 @@ public class Inventory : Singleton<Inventory>
     /// <summary>
     /// 슬롯 인덱스
     /// </summary>
-    /// <returns></returns>
+    /// <returns>비어있는 가장 작은 슬롯의 인덱스 넘버</returns>
     int SlotCheck()
     {
         int number = -1;
@@ -597,23 +597,27 @@ public class Inventory : Singleton<Inventory>
     
 
     /// <summary>
-    /// 아이템 장착 해제(퀵 슬롯 ->일반슬롯으로 돌아가는코드)
+    /// 아이템 장착 해제(퀵 슬롯/무기슬롯 -> 일반슬롯으로 돌아가는코드)
     /// </summary>
     /// <param name="item"></param>
     public void UnequipItem(InvenItem item)
     {
         int x = SlotCheck();
         item.transform.position = invenSlots[x].transform.position;
+        invenSlots[x].GetComponent<Slot>().isFilled = true;
         
+        //퀵슬롯에 있었을 경우
         if (item.transform.parent.GetComponent<QuickSlotInven>())
         {
             item.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(item);
-
         }
+
+        //무기 슬롯에 있었을 경우
         else if (item.transform.parent.GetComponent<WeaponSlot>())
         {
             item.transform.parent.GetComponent<WeaponSlot>().UnequipWeapon();
         }
+
         item.transform.SetParent(invenSlots[x].transform);
 
     }

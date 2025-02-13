@@ -58,22 +58,18 @@ public class Player : MonoBehaviour
 
     #region 컴포넌트 변수
     private Rigidbody rigid;
-    public Animator animator;
+    [HideInInspector] public Animator animator;
     private PlayerData pd;
     private SkillSystem skSystem;
     private Inventory inven;
     #endregion
 
     #region State변수
-    public State state = State.Idle; //플레이어의 상태
-    public WeaponEquipState weaponEquipState = WeaponEquipState.None; //플레이어 무기 상태
-    public ToolEquipState toolEquipState = ToolEquipState.None; //플레이어 도구 상태
-    public SkillState skillState = SkillState.None; //플레이어 스킬 상태
+    [HideInInspector]public State state = State.Idle; //플레이어의 상태
+    [HideInInspector]public WeaponEquipState weaponEquipState = WeaponEquipState.None; //플레이어 무기 상태
+    [HideInInspector]public ToolEquipState toolEquipState = ToolEquipState.None; //플레이어 도구 상태
+    [HideInInspector]public SkillState skillState = SkillState.None; //플레이어 스킬 상태
     #endregion
-
-    private float speed; //플레이어 스피드
-    private float sprdTimer = 1f; //스태미너 감소 시간(1초)
-    [SerializeField] const float JUMP_POWER = 5f;
 
     #region Transforms
     [SerializeField] Transform foot; //플레이어의 FootTransform
@@ -85,11 +81,11 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Weapons
-    public Weapon curWeapon = null; //현재 장착하고 있는 무기
-    public Weapon equipedWeapon = null; //손에 들고 있는 무기
-    public GameObject currentTool = null; //손에 들고 있는 도구
-    public Weapon curBow = null; //현재 장착중인 활
-    public Weapon equipedBow = null; //손에 있는 활
+    [HideInInspector] public Weapon curWeapon = null; //현재 장착하고 있는 무기
+    [HideInInspector] public Weapon equipedWeapon = null; //손에 들고 있는 무기
+    [HideInInspector] public GameObject currentTool = null; //손에 들고 있는 도구
+    [HideInInspector] public Weapon curBow = null; //현재 장착중인 활
+    [HideInInspector] public Weapon equipedBow = null; //손에 있는 활
     #endregion
 
     #region 공격관련
@@ -103,7 +99,7 @@ public class Player : MonoBehaviour
 
     #region 활 관련 변수
     bool isCharging = false; //화살 차징 중인지 여부
-    [SerializeField] Arrow ar; 
+    Arrow ar;
     [SerializeField] Transform arrows; //화살 오브젝트 모이는 Transform
     #endregion
 
@@ -112,6 +108,11 @@ public class Player : MonoBehaviour
     float spRecoverDelay = 2; //SP회복을 시작할 때 까지의 딜레이
     float plusTimer = 1; //sp증가 타이머(1초)
     #endregion
+
+
+    private float speed; //플레이어 스피드
+    private float sprdTimer = 1f; //스태미너 감소 시간(1초)
+    const float JUMP_POWER = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -155,12 +156,12 @@ public class Player : MonoBehaviour
         //Q스킬 사용
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Skill qSkill = skSystem.qSkill.GetComponent<Skill>();
             if (skSystem.qSkill == null)
             {
                 return;
             }
 
+            Skill qSkill = skSystem.qSkill.GetComponent<Skill>();
             if (qSkill.isWorking)
             {
                 Debug.Log("쿨타임");
@@ -623,7 +624,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 활 차징 중 애니메이션 일시중지
+    /// 활 차징 중 애니메이션 일시중지(Anim)
     /// </summary>
     public void BowAnimationStop()
     {

@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class SkillSystem : MonoBehaviour
 {
-    public Skill[] skills;
-    public SkillUISample[] skillUIs;
-    public GameObject qSkill;
-    public GameObject rSkill;
-    public SkillUISample qSkillUI;
-    public SkillUISample rSkillUI;
+
+    public Skill[] skills; //스킬을 담을 배열
+    public SkillUISample[] skillUIs; //스킬 UI를 담을 배열
+    public GameObject qSkill; //현재 장착된 qSkill
+    public GameObject rSkill; //현재 장착된 rSkill
+    public SkillUISample qSkillUI; //현재 장착된 qSkill의 UI
+    public SkillUISample rSkillUI; //현재 장착된 rSkill의 UI
 
     private Player p;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +25,12 @@ public class SkillSystem : MonoBehaviour
     void Update()
     {
 
-        //스킬 버튼 누르면 활성화
+        
     }
 
+    /// <summary>
+    /// 스킬 세팅하기
+    /// </summary>
     public void SetSkill()
     {
         if(qSkill != null)
@@ -37,6 +42,9 @@ public class SkillSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// SkillUI세팅
+    /// </summary>
     public void SetSkillUI()
     {
         for(int i = 0; i<skills.Length; i++)

@@ -116,6 +116,9 @@ public class GameManager : Singleton<GameManager>
     }
     
 
+    /// <summary>
+    /// 일시정지 : 캐릭터 움직임 중지
+    /// </summary>
     public bool isPaused{get;set;}
 
 }

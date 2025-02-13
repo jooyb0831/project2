@@ -7018,7 +7018,6 @@ MonoBehaviour:
   - {fileID: 1289907247}
   - {fileID: 1203055385}
   - {fileID: 670774245}
-  onIdx: -1
 --- !u!4 &1016426322
 Transform:
   m_ObjectHideFlags: 0
@@ -15236,7 +15235,7 @@ GameObject:
   - component: {fileID: 1904410915}
   - component: {fileID: 1904410914}
   m_Layer: 0
-  m_Name: '[ SKillUI ]'
+  m_Name: '[ SkillUI ]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

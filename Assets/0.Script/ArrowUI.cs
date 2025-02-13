@@ -13,7 +13,6 @@ public class ArrowUI : Singleton<ArrowUI>
     {
         set
         {
-            //bar.fillAmount =(float)arrow.Power / (float) 130;
             bar.DOFillAmount(((float)arrow.Power / (float) 15), 0.5f);
         }
     }
@@ -21,7 +20,7 @@ public class ArrowUI : Singleton<ArrowUI>
     // Start is called before the first frame update
     void Start()
     {
-
+        bar.fillAmount = 0;
     }
 
     // Update is called once per frame

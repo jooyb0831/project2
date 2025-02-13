@@ -5,17 +5,28 @@ using UnityEngine.UI;
 
 public class SkillUISystem : MonoBehaviour
 {
+    
     private SkillSystem sksystem;
+
+    //Slot Transform
     [SerializeField] Transform Qslot;
     [SerializeField] Transform Rslot;
+
+   
     public GameObject skillIcon;
+
     [SerializeField] GameObject skill_Q;
     [SerializeField] GameObject skill_R;
+
     [SerializeField] Transform qSlot_inGame;
     [SerializeField] Transform rSlot_inGame;
+
     [SerializeField] GameObject skillQuickIcon;
+
     [SerializeField] SkillUISample[] skillUIs;
+
     [SerializeField] SkillEquipWindow skillEquipWindow;
+
     //[SerializeField] SkillEquipWindow skEqwindow;
 
     // Start is called before the first frame update
@@ -32,6 +43,9 @@ public class SkillUISystem : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// SkillUI¼¼ÆÃ
+    /// </summary>
     public void SetSkillUIs()
     {
         for(int i = 0; i< skillUIs.Length; i++)

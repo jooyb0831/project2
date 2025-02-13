@@ -93,7 +93,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.92167103
-        functionName: EndAttack
+        functionName: AttackEnd
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 9a91b2b30e82c4e41a825c4f2baf58a3, type: 3}
         floatParameter: 0
@@ -138,6 +138,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    /// <summary>
+    /// Enemy의 Data
+    /// </summary>
     public class Data
     {
         public int MAXHP { get; set; }
@@ -24,6 +27,10 @@ public class Enemy : MonoBehaviour
         public int AtkPower { get; set; }
         public int EXP { get; set; }
     }
+
+    /// <summary>
+    /// Enemy State
+    /// </summary>
     public enum State
     {
         Idle,
@@ -35,13 +42,16 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] protected EnemyUI enemyUI;
     [SerializeField] protected GameObject item;
+
     protected Animator animator;
     protected Player p;
     protected PlayerData pd;
     protected SkillSystem skSystem;
+
     public Data data = new Data();
 
-    public State state = State.Idle;
+    [HideInInspector] public State state = State.Idle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +71,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        //게임이 일시 중지 상태이면 애니메이션 일시 정지하게끔
         if(GameManager.Instance.isPaused)
         {
             animator.speed = 0;
@@ -70,6 +81,8 @@ public class Enemy : MonoBehaviour
         {
             animator.speed = 1;
         }
+
+        //Dead상태일 경우 처리하는 코드
         if (state == State.Dead)
         {
             TakeItem();
@@ -144,6 +157,10 @@ public class Enemy : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 적의 피격 함수
+    /// </summary>
+    /// <param name="damage"></param>
     void TakeDamage(int damage)
     {
         data.CURHP -= damage;
@@ -158,7 +175,9 @@ public class Enemy : MonoBehaviour
         }
     }
     
-    
+    /// <summary>
+    /// 사망 처리 함수
+    /// </summary>
     void Dead()
     {
         pd.EXP+=data.EXP;
@@ -168,12 +187,16 @@ public class Enemy : MonoBehaviour
         enemyUI.DeadUI();
     }
 
+    /// <summary>
+    /// 아이템 드랍 함수_수정필요
+    /// </summary>
     protected virtual void TakeItem()
     {
         float dist = Vector3.Distance(p.transform.position, transform.position);
 
         if(dist<2.5f)
         {
+            //아이템 수집하기
             if(Input.GetKeyDown(KeyCode.E))
             {
                 GameObject obj = Pooling.Instance.GetPool(DicKey.stone, transform);
@@ -183,6 +206,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 제거하기
+    /// </summary>
     void DestroyEnemy()
     {
         Destroy(gameObject, 0.5f);

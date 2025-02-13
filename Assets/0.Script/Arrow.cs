@@ -6,10 +6,17 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    /// <summary>
+    /// 화살의 데미지
+    /// </summary>
     public int Damage { get; set; } = 5;
-    float speed = 0.5f;
-    float deg;
 
+    //화살 속도
+    float speed = 0.5f;
+
+    float deg;
+    
+    //화살의 발사 Power
     private float power;
     public float Power
     {
@@ -20,12 +27,15 @@ public class Arrow : MonoBehaviour
             ArrowUI.Instance.Power = power;
         }
     }
+
     Rigidbody rigid;
     private Player p;
 
     bool isEnd = false;
     
+    //파워 차징 기준 타이머(속도) 0.1초 기준
     [SerializeField] float chargeTimer = 0.1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,14 +84,18 @@ public class Arrow : MonoBehaviour
         Debug.Log(power);
     }
 
+    /// <summary>
+    /// 화살 발사
+    /// </summary>
     public void Fire()
     {
         if(rigid == null)
         {
             rigid = GetComponent<Rigidbody>();
         }
+
         rigid.useGravity = true;
-        Vector3 dir = transform.up * speed * Power*10;
+        Vector3 dir = transform.up * speed * Power * 10;
         rigid.velocity = dir;
 
     }
