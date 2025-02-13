@@ -10,19 +10,22 @@ public class InvenData
     public Sprite iconSprite;
     public Sprite bgSprite;
     public ItemType type;
-    public int count;
-    public int itemIdx;
-    public string itemTitle;
-    public int price;
-    public int slotIdx;
-    public int invenOrderNum;
-    public bool inQuickSlot = false;
-    public int quickSlotIdx;
+    public int count; //아이템 갯수
+    public int itemIdx; //아이템의 고유 idx(코드번호)
+    public string itemTitle; 
+    public int price; //아이템 가격
+    public int slotIdx; //아이템의 인벤토리 슬롯 인덱스
+    public int invenOrderNum; //아이템이 인벤토리에 들어간 순서
+    public bool inQuickSlot = false; //아이템이 퀵인벤에 있는지 여부
+    public int quickSlotIdx; //퀵 인벤 슬롯 인덱스
     public QuickInven qItem;
     public FieldItem fieldItem = null;
 
     public GameObject inGameobj = null;
 }
+/// <summary>
+/// 아이템 종류
+/// </summary>
 public enum ItemType
 {
     Ore,
@@ -47,11 +50,11 @@ public class Inventory : Singleton<Inventory>
     private PlayerData pd;
     private Player p;
 
-    [SerializeField] InvenItem invenItem;
-    public Transform[] invenSlots;
-    public Transform[] quickSlotsInven;
-    public Transform weaponSlot;
-    public Transform bowSlot;
+    [SerializeField] InvenItem invenItem; 
+    public Transform[] invenSlots; //인벤토리 슬롯 리스트
+    public Transform[] quickSlotsInven; //퀵 인벤 슬롯 리스트
+    public Transform weaponSlot; //무기 슬롯
+    public Transform bowSlot; //활 슬롯
 
     public MoveItem moveItem;
 
@@ -84,6 +87,7 @@ public class Inventory : Singleton<Inventory>
             // 아이템이 물리적으로 존재할 경우 오브젝트 비활성화 및 삭제
             if (itemData.obj != null)
             {
+                //아이템 종류에 따라 Pooling작업
                 ItemType type = itemData.type;
                 switch(type)
                 {
@@ -101,25 +105,33 @@ public class Inventory : Singleton<Inventory>
                         break;
                 }
                 
+                //필드의 아이템 게임 오브젝트 삭제
                 Destroy(itemData.obj);
             }
             return;
         }
 
+        //인벤토리가 가득 찼는지 체크
         bool isFull = EmptySlotCheck();
+        //가득 찼다면 아이템 습득 못하게 막기
         if (isFull)
         {
             itemData.obj.GetComponent<FieldItem>().InvenFull(isFull);
             return;
         }
 
-        itemData.obj.GetComponent<FieldItem>().InvenFull(isFull);
+        //리스트에 아이템 데이터 추가
         itemIdxList.Add(itemData.itemIdx);
+        //인벤토리 데이터의 인벤 카운트 증가
         inventoryData.invenCount++;
+        //아이템이 들어갈 인벤토리 인덱스 번호 부여
         int index = SlotCheck();
+        //인벤아이템 생성
         InvenItem item = Instantiate(invenItem, invenSlots[index]);
+        //인벤아이템이 위치한 슬롯의 Filled True로 변경
         invenSlots[index].GetComponent<Slot>().isFilled = true;
 
+        //인벤데이터 생성하고 데이터 집어넣기
         InvenData data = new InvenData
         {
             itemTitle = itemData.itemTitle,
@@ -133,21 +145,35 @@ public class Inventory : Singleton<Inventory>
             fieldItem = itemData.fItem,
             slotIdx = index
         };
+
+        //인벤아이템의 데이터(인벤데이터)가 인벤에 들어간 순서 
         item.data.invenOrderNum = inventoryData.invenCount;
+        //인벤아이템의 데이터 세팅
         item.SetData(data);
         item.SetInventory(this);
+        
+        //인벤아이템 리스트, 데이터 리스트에추가
         invenItems.Add(item);
         invenDatas.Add(item.data);
         inventoryData.items.Add(item);
 
+        //UI쪽에서 아이템 획득하였음을 알려주는 UI표기
         GameUI.Instance.GetItem(itemData);
 
+        //아이템 획득시 실물 게임 오브젝트가 있는 경우 오브젝트 제거
         if(itemData.obj!=null)
         {
-            if (itemData.type.Equals(ItemType.Ore))
+            ItemType type = itemData.type;
+            switch(type)
             {
-                Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
-                return;
+                case ItemType.Ore :
+                    Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                    return;
+                case ItemType.Wood:
+                    Pooling.Instance.SetPool(DicKey.wood, itemData.obj);
+                    return;
+                default :
+                    break;
             }
             Destroy(itemData.obj);
         }
@@ -189,8 +215,8 @@ public class Inventory : Singleton<Inventory>
         int number = -1;
         for (int i = 0; i < invenSlots.Length; i++)
         {
-            if (!invenSlots[i].GetComponent<Slot>().isFilled
-                && !invenSlots[i].GetComponent<Slot>().isLocked)
+            Slot slot = invenSlots[i].GetComponent<Slot>();
+            if (!slot.isFilled && !slot.isLocked)
             {
                 number = i;
                 break;
@@ -338,7 +364,9 @@ public class Inventory : Singleton<Inventory>
         {
             item.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(item);
         }
+
         int itemIdx = -1;
+
         for(int i =0; i<invenItems.Count; i++)
         {
             if(invenItems[i].data.itemIdx == item.data.itemIdx)
@@ -349,10 +377,6 @@ public class Inventory : Singleton<Inventory>
             }
         }
         itemIdxList.Remove(item.data.itemIdx);
-        if(item.data.slotIdx!=-1)
-        {
-
-        }
         invenItems.RemoveAt(item.data.invenOrderNum);
         invenDatas.RemoveAt(item.data.invenOrderNum);
     }
@@ -394,6 +418,10 @@ public class Inventory : Singleton<Inventory>
         */
     }
 
+    /// <summary>
+    /// 인벤토리에 있는 무기 장착하는 함수
+    /// </summary>
+    /// <param name="item"></param>
     public void WeaponEquip(InvenItem item)
     {
         WeaponSlot wSlot = null;
@@ -418,7 +446,7 @@ public class Inventory : Singleton<Inventory>
 
         if(wSlot.isFilled)
         {
-            //교환
+            //교환코드(추후 작성)
         }
         wSlot.isFilled = true;
         item.transform.parent.GetComponent<Slot>().isFilled = false;
@@ -431,6 +459,12 @@ public class Inventory : Singleton<Inventory>
     }
 
 
+    /// <summary>
+    /// 인벤토리에서 아이템 옮기는 코드
+    /// </summary>
+    /// <param name="isShow"></param>
+    /// <param name="pos"></param>
+    /// <param name="data"></param>
     public void ItemMove(bool isShow, Vector3 pos, InvenData data = null)
     {
         if(data!=null)
@@ -441,6 +475,10 @@ public class Inventory : Singleton<Inventory>
         moveItem.transform.position = pos;
     }
 
+    /// <summary>
+    /// 마우스 포인트를 뗐을 때 작동
+    /// </summary>
+    /// <param name="invenItem"></param>
     public void PointUp(InvenItem invenItem)
     {
         moveItem.MoveSlot(invenItem);
@@ -559,7 +597,7 @@ public class Inventory : Singleton<Inventory>
     
 
     /// <summary>
-    /// 아이템 장착 해제(일반슬롯으로 돌아가는코드)
+    /// 아이템 장착 해제(퀵 슬롯 ->일반슬롯으로 돌아가는코드)
     /// </summary>
     /// <param name="item"></param>
     public void UnequipItem(InvenItem item)

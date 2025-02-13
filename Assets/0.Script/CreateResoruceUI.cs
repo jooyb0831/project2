@@ -70,6 +70,10 @@ public class CreateResoruceUI : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 리스트 생성 및 세팅
+    /// </summary>
+    /// <param name="count"></param>
     void SetList(int count)
     {
         //기존 리스트 및 오브젝트 클리어
@@ -82,7 +86,6 @@ public class CreateResoruceUI : MonoBehaviour
             needLists.Clear();
         }
 
-
         //리스트에 오브젝트 새로 생성하고 Add
         for(int i = 0; i<count; i++)
         {
@@ -91,7 +94,9 @@ public class CreateResoruceUI : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// 인풋필드
+    /// </summary>
     public void OnInputField()
     {
         string cntStr = cntInput.text;
@@ -102,6 +107,9 @@ public class CreateResoruceUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// PlusBtn
+    /// </summary>
     public void OnPlusBtn()
     {
         int x = int.Parse(cntInput.text);
@@ -114,6 +122,9 @@ public class CreateResoruceUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// MinusBtn
+    /// </summary>
     public void OnMinusBtn()
     {
         int x = int.Parse(cntInput.text);
@@ -131,6 +142,9 @@ public class CreateResoruceUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// CreateBtn
+    /// </summary>
     public void OnCreateBtn()
     {
         //만약 하나라도 재료가 부족하다면 리턴
@@ -145,6 +159,7 @@ public class CreateResoruceUI : MonoBehaviour
             }
         }
 
+        //추가될 아이템의 갯수 데이터 설정
         item.itemData.count = createCnt;
         
         //인벤토리에 아이템 추가
@@ -156,7 +171,7 @@ public class CreateResoruceUI : MonoBehaviour
             item.FindUSeItem(createCnt);
         }
 
-        //UI리셋
+        //UI 세팅
         int curCnt = inven.FindItemCnt(item.itemData.itemIdx);
         curItemCnt.text = $"보유 : {curCnt}";
         createCnt = 1;

@@ -33,7 +33,6 @@ public class WorkTable : MonoBehaviour
                 GameManager.Instance.isPaused = true;
                 Camera.main.GetComponent<CameraMove>().enabled = false;
                 CraftUI.Instance.EnableWindow();
-                
             }
         }
         else

@@ -200,6 +200,10 @@ public class GameUI : Singleton<GameUI>
     }
 
 
+    /// <summary>
+    /// 아이템 획득 시 UI표기
+    /// </summary>
+    /// <param name="data"></param>
     public void GetItem(ItemData data)
     {
         bool itemCheck = infoArea.ItemCheck(data);
