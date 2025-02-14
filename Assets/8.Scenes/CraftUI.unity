@@ -5606,7 +5606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1436040711
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6401,7 +6401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1626762491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7065,7 +7065,7 @@ GameObject:
   - component: {fileID: 1721935058}
   - component: {fileID: 1721935059}
   m_Layer: 5
-  m_Name: default
+  m_Name: defaultToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7955,7 +7955,7 @@ GameObject:
   - component: {fileID: 1999137941}
   - component: {fileID: 1999137940}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: itemIndexTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

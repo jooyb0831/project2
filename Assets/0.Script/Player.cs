@@ -114,6 +114,8 @@ public class Player : MonoBehaviour
     private float sprdTimer = 1f; //스태미너 감소 시간(1초)
     const float JUMP_POWER = 5f;
 
+    public Camera charUICam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -137,12 +139,10 @@ public class Player : MonoBehaviour
         // 메뉴 탭이 열렸을 때는 모든 키 입력 안받게 만들기
         if (GameManager.Instance.isPaused)
         {
-            animator.speed = 0;
+            animator.SetBool("Attacking", false);
+            animator.SetTrigger("Idle");
+            state = State.Idle;
             return;
-        }
-        else
-        {
-            animator.speed = 1;
         }
 
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);

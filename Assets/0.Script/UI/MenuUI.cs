@@ -11,39 +11,43 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Toggle[] menuTabs;
     [SerializeField] GameObject[] menuUIs;
 
+    private Player p;
+
     int onIdx = -1;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        p = GameManager.Instance.Player;        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //¸Ş´ºÃ¢ ¿­±â(TabÅ°)
+        //ë©”ë‰´ì°½ ì—´ê¸°(Tabí‚¤)
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             menuObj.SetActive(true);
 
-            //Ä«¸Ş¶ó ¿òÁ÷ÀÓ, Ä³¸¯ÅÍ ¿òÁ÷ÀÓ Á¤Áö
+            //ì¹´ë©”ë¼ ì›€ì§ì„, ìºë¦­í„° ì›€ì§ì„ ì •ì§€
             GameManager.Instance.isPaused = true;
             Camera.main.GetComponent<CameraMove>().enabled = false;
+            p.charUICam.gameObject.SetActive(true);
         }
 
-        //ESC¸¦ ´©¸£¸é ¸Ş´º ´İ±â
+        //ESCë¥¼ ëˆ„ë¥´ë©´ ë©”ë‰´ ë‹«ê¸°
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if(menuObj.activeSelf)
             {
+                p.charUICam.gameObject.SetActive(false);
                 OnExitBtn();
             }
         }
     }
 
     /// <summary>
-    /// Ã¢ ´İ±â
+    /// ì°½ ë‹«ê¸°
     /// </summary>
     public void OnExitBtn()
     {
@@ -53,12 +57,12 @@ public class MenuUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Åä±Û¿¡ µû¶ó¼­ UI¼¼ÆÃ
+    /// í† ê¸€ì— ë”°ë¼ì„œ UIì„¸íŒ…
     /// </summary>
     /// <param name="idx"></param>
     public void OnToggleChanged(int idx)
     {
-        //Toggle.isOnÀÌ¸é ÇØ´çÇÏ´Â UI Active
+        //Toggle.isOnì´ë©´ í•´ë‹¹í•˜ëŠ” UI Active
         if(menuTabs[idx].isOn)
         {
             menuUIs[idx].SetActive(true);

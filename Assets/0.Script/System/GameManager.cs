@@ -29,7 +29,7 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(pd ==null)
+            if (pd == null)
             {
                 pd = FindAnyObjectByType<PlayerData>();
             }
@@ -42,7 +42,7 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(inven==null)
+            if (inven == null)
             {
                 inven = FindAnyObjectByType<Inventory>();
             }
@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(gameSystem == null)
+            if (gameSystem == null)
             {
                 gameSystem = FindAnyObjectByType<GameSystem>();
             }
@@ -68,7 +68,7 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(skillSystem == null)
+            if (skillSystem == null)
             {
                 skillSystem = FindAnyObjectByType<SkillSystem>();
             }
@@ -81,7 +81,7 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(jd == null)
+            if (jd == null)
             {
                 jd = FindAnyObjectByType<JsonData>();
             }
@@ -94,7 +94,7 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(sc == null)
+            if (sc == null)
             {
                 sc = FindAnyObjectByType<SceneChanger>();
             }
@@ -107,18 +107,18 @@ public class GameManager : Singleton<GameManager>
     {
         get
         {
-            if(craftSystem == null)
+            if (craftSystem == null)
             {
                 craftSystem = FindAnyObjectByType<CraftSystem>();
             }
             return craftSystem;
         }
     }
-    
+
 
     /// <summary>
-    /// ÀÏ½ÃÁ¤Áö : Ä³¸¯ÅÍ ¿òÁ÷ÀÓ ÁßÁö
+    /// ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ : Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    public bool isPaused{get;set;}
+    public bool isPaused { get; set; }
 
 }

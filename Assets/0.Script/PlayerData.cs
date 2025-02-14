@@ -17,6 +17,10 @@ public class PlayerData : MonoBehaviour
             {
                 GameUI.Instance.Level = level;
             }
+            if (CharUI.Instance != null)
+            {
+                CharUI.Instance.Level = level;
+            }
         }
     }
 
@@ -30,6 +34,10 @@ public class PlayerData : MonoBehaviour
             if(GameUI.Instance != null)
             {
                 GameUI.Instance.MAXEXP = maxEXP;
+            }
+            if (CharUI.Instance != null)
+            {
+                CharUI.Instance.MAXEXP = maxEXP;
             }
         }
 
@@ -46,6 +54,10 @@ public class PlayerData : MonoBehaviour
             {
                 GameUI.Instance.EXP = exp;
             }
+            if (CharUI.Instance != null)
+            {
+                CharUI.Instance.EXP = EXP;
+            }
         }
 
     }
@@ -60,12 +72,10 @@ public class PlayerData : MonoBehaviour
             {
                 GameUI.Instance.MAXHP = maxHP;
             }
-            /*
-            if (StatUI.Instance != null)
+            if (CharUI.Instance != null)
             {
-                StatUI.Instance.HP = maxHP;
+                CharUI.Instance.HP = maxHP;
             }
-            */
 
         }
     }
@@ -96,6 +106,10 @@ public class PlayerData : MonoBehaviour
             {
                 GameUI.Instance.MAXST = maxST;
             }
+            if (CharUI.Instance != null)
+            {
+                CharUI.Instance.ST = maxST;
+            }
         }
     }
 
@@ -123,6 +137,10 @@ public class PlayerData : MonoBehaviour
             if (GameUI.Instance != null)
             {
                 GameUI.Instance.MAXSP = maxSP;
+            }
+            if (CharUI.Instance != null)
+            {
+                CharUI.Instance.SP = maxSP;
             }
         }
     }
@@ -157,12 +175,12 @@ public class PlayerData : MonoBehaviour
         set
         {
             speed = value;
-            /*
-            if (StatUI.Instance != null)
+            
+            if (CharUI.Instance != null)
             {
-                StatUI.Instance.Speed = (int)speed;
+                CharUI.Instance.Speed = (int)speed;
             }
-            */
+            
         }
     }
 
@@ -175,6 +193,10 @@ public class PlayerData : MonoBehaviour
         set
         {
             basicAtk = value;
+            if (CharUI.Instance != null)
+            {
+                CharUI.Instance.ATK = basicAtk;
+            }
         }
     }
 
@@ -202,6 +224,10 @@ public class PlayerData : MonoBehaviour
             if (GameUI.Instance != null)
             {
                 GameUI.Instance.MAXMP = maxMP;
+            }
+            if (CharUI.Instance != null)
+            {
+                CharUI.Instance.MP = maxMP;
             }
         }
     }
