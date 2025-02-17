@@ -26,4 +26,10 @@ public class SceneChanger : Singleton<SceneChanger>
         SceneManager.LoadScene("CraftUI", LoadSceneMode.Additive);
         //SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
     }
+
+    public void GoStage1()
+    {
+        SceneManager.LoadScene("Stage1");
+        SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
+    }
 }

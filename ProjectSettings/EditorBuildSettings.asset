@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/8.Scenes/SampleScene.unity
+    path: Assets/8.Scenes/Sample.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/8.Scenes/GameUI.unity
@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/8.Scenes/CraftUI.unity
     guid: 7266f0c9857707a48a20b5671acaecf5
+  - enabled: 1
+    path: Assets/8.Scenes/Stage1.unity
+    guid: 372815acc457c7a4e936598226cc17b2
   m_configObjects: {}
