@@ -1,11 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveScene : MonoBehaviour
 {
+    enum GoType
+    {
+        Mine,
+        Stage,
+        Forest,
+        Lobby
+
+    }
     private Player p;
     private SceneChanger sc;
+    [SerializeField] GoType goType;
 
     [SerializeField] GameObject txtObj;
 
@@ -28,12 +38,26 @@ public class MoveScene : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.E))
             {
-                sc.GoStage1();
+                GoScene(goType);
             }
         }
         else
         {
             txtObj.SetActive(false);
+        }
+    }
+
+    void GoScene(GoType type)
+    {
+        switch(type)
+        {
+            case GoType.Mine:
+                sc.GoMine();
+                break;
+            
+            case GoType.Stage:
+                sc.GoStage1();
+                break;
         }
     }
 }

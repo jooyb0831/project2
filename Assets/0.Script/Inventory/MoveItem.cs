@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class MoveItem : MonoBehaviour
 {
@@ -88,6 +89,7 @@ public class MoveItem : MonoBehaviour
 
             invenItem.transform.position = coll.transform.position;
             invenItem.transform.SetParent(coll.transform);
+            invenItem.data.inWeaponSlot = true;
             coll.GetComponent<WeaponSlot>().isFilled = true;
             coll.GetComponent<WeaponSlot>().item = invenItem;
             coll.GetComponent<WeaponSlot>().Equip();
@@ -116,6 +118,7 @@ public class MoveItem : MonoBehaviour
                 if(invenItem.transform.parent.GetComponent<WeaponSlot>())
                 {
                     invenItem.transform.parent.GetComponent<WeaponSlot>().isFilled = false;
+                    invenItem.data.inWeaponSlot = false;
                     invenItem.transform.parent.GetComponent<WeaponSlot>().UnequipWeapon();
                 }
                 /*

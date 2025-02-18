@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +31,13 @@ public class SceneChanger : Singleton<SceneChanger>
     public void GoStage1()
     {
         SceneManager.LoadScene("Stage1");
+        SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
+        
+    }
+
+    public void GoMine()
+    {
+        SceneManager.LoadScene("Mine");
         SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
     }
 }

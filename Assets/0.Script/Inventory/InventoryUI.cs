@@ -20,6 +20,7 @@ public class InventoryUI : Singleton<InventoryUI>
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("check");
         Init();
         SetInventory();
     }
@@ -122,9 +123,10 @@ public class InventoryUI : Singleton<InventoryUI>
         {
             inventory.quickSlotsInven[i] = quickSlotsInven[i];
         }
+
+        inventory.weaponSlot = this.weaponslot;
+        inventory.bowSlot = this.bowSlot;
         
-        inventory.weaponSlot = weaponslot;
-        inventory.bowSlot = bowSlot;
     }
 
     
@@ -144,6 +146,7 @@ public class InventoryUI : Singleton<InventoryUI>
         {
             SetData(invenData[i]);
         }
+        
 
         /*
         SceneType type = SceneChanger.Instance.sceneType;
@@ -162,22 +165,59 @@ public class InventoryUI : Singleton<InventoryUI>
     void SetData(InvenData data)
     {
         InvenItem item = null;
-        item = Instantiate(sampleInvenItem, slots[data.slotIdx]);
-        item.SetData(data);
-        item.SetInventory(inventory);
-        item.transform.parent.gameObject.GetComponent<Slot>().isFilled = true;
-        inventory.invenItems.Add(item);
-
-
         if (data.inQuickSlot)
         {
-            QuickInven quickItem = null;
-            quickItem = Instantiate(quickItem, quickSlots[data.quickSlotIdx]);
-            quickItem.SetData(item);
-            quickItem.SetInvenItem(item);
+            item = Instantiate(sampleInvenItem, quickSlotsInven[data.quickSlotIdx]);
+            item.transform.parent.GetComponent<QuickSlotInven>().isFilled = true;
+            item.SetData(data);
+            item.SetInventory(inventory);
+            inventory.invenItems.Add(item);
+            QuickInven quickInvenItem = Instantiate(quickItem, quickSlots[data.quickSlotIdx]);
+            quickInvenItem.transform.SetAsFirstSibling();
+            quickInvenItem.SetData(item);
+            quickInvenItem.SetInvenItem(item);
             quickSlots[data.quickSlotIdx].GetComponent<QuickSlot>().isFilled = true;
             data.qItem = quickItem;
         }
+        else if (data.inWeaponSlot)
+        {
+            WeaponType type = data.fieldItem.GetComponent<Weapon>().weaponData.weaponType;
+            switch(type)
+            {
+                case WeaponType.Sword:
+                    {
+                        item = Instantiate(sampleInvenItem, weaponslot);
+                        item.SetData(data);
+                        item.SetInventory(inventory);
+                        inventory.invenItems.Add(item);
+                        weaponslot.GetComponent<WeaponSlot>().item = item;
+                        weaponslot.GetComponent<WeaponSlot>().Equip();
+
+                        break;
+                    }
+                case WeaponType.Bow:
+                    {
+                        item = Instantiate(sampleInvenItem, bowSlot);
+                        item.SetData(data);
+                        item.SetInventory(inventory);
+                        inventory.invenItems.Add(item);
+                        weaponslot.GetComponent<WeaponSlot>().item = item;
+                        weaponslot.GetComponent<WeaponSlot>().Equip();
+                        break;
+                    }
+            }
+
+        }
+        else
+        {
+            item = Instantiate(sampleInvenItem, slots[data.slotIdx]);
+            item.transform.parent.GetComponent<Slot>().isFilled = true;
+            item.SetData(data);
+            item.SetInventory(inventory);
+            inventory.invenItems.Add(item);
+        }
+
+
 
 
     }

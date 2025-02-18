@@ -9837,7 +9837,7 @@ MonoBehaviour:
   weaponslot: {fileID: 1863836308}
   bowSlot: {fileID: 1926528267}
   inventory: {fileID: 0}
-  quickItem: {fileID: 0}
+  quickItem: {fileID: 7745125645568108703, guid: 8d16be7f84880e940978e80f499160e1, type: 3}
   sampleInvenItem: {fileID: 7074396693919224216, guid: 0012ae0a856161d468c13f17471ca5df, type: 3}
   pd: {fileID: 0}
   moveitem: {fileID: 4255470024440623068}

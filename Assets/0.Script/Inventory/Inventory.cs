@@ -17,10 +17,10 @@ public class InvenData
     public int slotIdx; //아이템의 인벤토리 슬롯 인덱스
     public int invenOrderNum; //아이템이 인벤토리에 들어간 순서
     public bool inQuickSlot = false; //아이템이 퀵인벤에 있는지 여부
+    public bool inWeaponSlot = false; //아이템이 무기슬롯에 있는지 여부
     public int quickSlotIdx; //퀵 인벤 슬롯 인덱스
     public QuickInven qItem;
     public FieldItem fieldItem = null;
-
     public GameObject inGameobj = null;
 }
 /// <summary>
