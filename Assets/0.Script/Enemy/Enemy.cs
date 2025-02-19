@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     /// <summary>
-    /// EnemyÀÇ Data
+    /// Enemyì˜ Data
     /// </summary>
     public class Data
     {
@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        //°ÔÀÓÀÌ ÀÏ½Ã ÁßÁö »óÅÂÀÌ¸é ¾Ö´Ï¸ŞÀÌ¼Ç ÀÏ½Ã Á¤ÁöÇÏ°Ô²û
+        //ê²Œì„ì´ ì¼ì‹œ ì¤‘ì§€ ìƒíƒœì´ë©´ ì• ë‹ˆë©”ì´ì…˜ ì¼ì‹œ ì •ì§€í•˜ê²Œë”
         if(GameManager.Instance.isPaused)
         {
             animator.speed = 0;
@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
             animator.speed = 1;
         }
 
-        //Dead»óÅÂÀÏ °æ¿ì Ã³¸®ÇÏ´Â ÄÚµå
+        //Deadìƒíƒœì¼ ê²½ìš° ì²˜ë¦¬í•˜ëŠ” ì½”ë“œ
         if (state == State.Dead)
         {
             TakeItem();
@@ -158,7 +158,7 @@ public class Enemy : MonoBehaviour
 
 
     /// <summary>
-    /// ÀûÀÇ ÇÇ°İ ÇÔ¼ö
+    /// ì ì˜ í”¼ê²© í•¨ìˆ˜
     /// </summary>
     /// <param name="damage"></param>
     void TakeDamage(int damage)
@@ -176,7 +176,7 @@ public class Enemy : MonoBehaviour
     }
     
     /// <summary>
-    /// »ç¸Á Ã³¸® ÇÔ¼ö
+    /// ì‚¬ë§ ì²˜ë¦¬ í•¨ìˆ˜
     /// </summary>
     void Dead()
     {
@@ -188,7 +188,7 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ µå¶ø ÇÔ¼ö_¼öÁ¤ÇÊ¿ä
+    /// ì•„ì´í…œ ë“œë í•¨ìˆ˜_ìˆ˜ì •í•„ìš”
     /// </summary>
     protected virtual void TakeItem()
     {
@@ -196,7 +196,7 @@ public class Enemy : MonoBehaviour
 
         if(dist<2.5f)
         {
-            //¾ÆÀÌÅÛ ¼öÁıÇÏ±â
+            //ì•„ì´í…œ ìˆ˜ì§‘í•˜ê¸°
             if(Input.GetKeyDown(KeyCode.E))
             {
                 GameObject obj = Pooling.Instance.GetPool(DicKey.stone, transform);
@@ -207,7 +207,7 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// Á¦°ÅÇÏ±â
+    /// ì œê±°í•˜ê¸°
     /// </summary>
     void DestroyEnemy()
     {

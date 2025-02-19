@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
     float plusTimer = 1; //sp증가 타이머(1초)
     #endregion
 
-
+    
     private float speed; //플레이어 스피드
     private float sprdTimer = 1f; //스태미너 감소 시간(1초)
     const float JUMP_POWER = 5f;

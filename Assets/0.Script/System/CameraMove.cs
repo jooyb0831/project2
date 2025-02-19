@@ -8,6 +8,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField] float rotSpeed;
     [SerializeField] float camSpeed;
     [SerializeField] float maxDist;
+    [SerializeField] float obstaclDist = 0.5f;
     float camDist;
     Vector3 pos;
     Vector3 rot;
@@ -21,11 +22,19 @@ public class CameraMove : MonoBehaviour
         camDist = maxDist;
     }
 
+    void Update()
+    {
+        Obstacle();
+        pos = p.transform.position - transform.forward * camDist;
+        rot = new Vector3(this.transform.rotation.eulerAngles.x, p.transform.rotation.eulerAngles.y, 0);
+        pos.y += 1f;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
         CameraView();
-
+        
         if(Input.GetMouseButton(1))
         {
             ZoomIn();
@@ -100,9 +109,15 @@ public class CameraMove : MonoBehaviour
         RaycastHit hit;
         Vector3 dir = transform.position - p.transform.position;
         Debug.DrawRay(p.transform.position, dir.normalized * dir.magnitude, Color.red);
-        if(Physics.Raycast(p.transform.position, dir.normalized, out hit, dir.magnitude))
+        if(Physics.Raycast(p.transform.position, dir.normalized, out hit, dir.magnitude, LayerMask.GetMask("Wall")))
         {
             Debug.Log(hit.transform.name);
+            Vector3 dist = hit.point - p.transform.position;
+            camDist = dist.magnitude * obstaclDist;
+        }
+        else
+        {
+            camDist = Mathf.Clamp(camDist + camSpeed * Time.deltaTime , 1f, maxDist);
         }
     }
 
