@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -112,9 +113,9 @@ public class Player : MonoBehaviour
     
     private float speed; //플레이어 스피드
     private float sprdTimer = 1f; //스태미너 감소 시간(1초)
-    const float JUMP_POWER = 5f;
+    const float JUMP_POWER = 5f; //점프 파워
 
-    public Camera charUICam;
+    public Camera charUICam; //Inventory창에 띄울 캐릭터 카메라
 
     // Start is called before the first frame update
     void Start()
@@ -136,6 +137,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(state.Equals(State.Dead))
+        {
+            return;
+        }
         // 메뉴 탭이 열렸을 때는 모든 키 입력 안받게 만들기
         if (GameManager.Instance.isPaused)
         {
@@ -803,7 +808,7 @@ public class Player : MonoBehaviour
     /// 플레이어 피격 함수
     /// </summary>
     /// <param name="damage"></param>
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         pd.HP -= damage;
         if (pd.HP <= 0)

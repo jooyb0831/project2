@@ -8,7 +8,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField] float rotSpeed;
     [SerializeField] float camSpeed;
     [SerializeField] float maxDist;
-    [SerializeField] float obstaclDist = 0.5f;
+    [SerializeField] float obstacleDist = 1.2f;
     float camDist;
     Vector3 pos;
     Vector3 rot;
@@ -113,7 +113,7 @@ public class CameraMove : MonoBehaviour
         {
             Debug.Log(hit.transform.name);
             Vector3 dist = hit.point - p.transform.position;
-            camDist = dist.magnitude * obstaclDist;
+            camDist = dist.magnitude * obstacleDist;
         }
         else
         {

@@ -14,7 +14,7 @@ public class EnemyUI : Singleton<EnemyUI>
     [SerializeField] GameObject deadObj;
     [SerializeField] TMP_Text bossNameTxt;
     [SerializeField] Image hpBar;
-    Enemy enemy = null;
+    [SerializeField] Enemy enemy = null;
     // Start is called before the first frame update
     void Start()
     {

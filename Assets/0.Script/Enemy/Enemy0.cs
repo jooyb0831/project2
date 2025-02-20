@@ -26,8 +26,10 @@ public class Enemy0 : Enemy
         data.Speed = JsonData.Instance.enemyData.eData[0].speed;
         data.AtkPower = JsonData.Instance.enemyData.eData[0].atkPower;
         data.EXP = JsonData.Instance.enemyData.eData[0].exp;
+        data.enemyUI = enemyUI;
         agent.speed = data.Speed;
         base.Init();
+        enemyUI.SetUI(data.EnemyName, data.MAXHP, this);
     }
     // Update is called once per frame
 

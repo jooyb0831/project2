@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public class Data
     {
+        public EnemyUI enemyUI;
         public int MAXHP { get; set; }
 
         private int hp;
@@ -18,7 +19,11 @@ public class Enemy : MonoBehaviour
             set
             {
                 hp = value;
-                EnemyUI.Instance.HP = hp;
+                if(enemyUI!=null)
+                {
+                    enemyUI.HP = hp;
+                }
+                
             }
         }
         public string EnemyName { get; set; }
@@ -40,7 +45,7 @@ public class Enemy : MonoBehaviour
         Dead
     }
 
-    [SerializeField] protected EnemyUI enemyUI;
+    [SerializeField] public EnemyUI enemyUI;
     [SerializeField] protected GameObject item;
 
     protected Animator animator;
@@ -65,8 +70,6 @@ public class Enemy : MonoBehaviour
         skSystem = GameManager.Instance.SkillSystem;
         animator = GetComponent<Animator>();
         state = State.Idle;
-        enemyUI.SetUI(data.EnemyName, data.MAXHP, this);
-
     }
 
     void Update()
