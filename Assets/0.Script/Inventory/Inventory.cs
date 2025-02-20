@@ -377,8 +377,9 @@ public class Inventory : Singleton<Inventory>
             }
         }
         itemIdxList.Remove(item.data.itemIdx);
-        invenItems.RemoveAt(item.data.invenOrderNum);
         invenDatas.RemoveAt(item.data.invenOrderNum);
+        invenItems.RemoveAt(item.data.invenOrderNum);
+        
     }
 
 

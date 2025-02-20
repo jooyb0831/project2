@@ -6,7 +6,15 @@
       "index": 0,
       "speed": 4.0,
       "atkPower": 5,
-      "exp" :  5
+      "exp": 5
+    },
+    {
+      "maxHP": 20,
+      "enemyName": "엘리트 해골",
+      "index": 1,
+      "speed": 5.0,
+      "atkPower": 7,
+      "exp": 7
     }
   ]
 }

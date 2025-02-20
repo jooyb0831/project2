@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 
-
-public class Enemy0 : Enemy
+public class Enemy1 : Enemy
 {
     [SerializeField] NavMeshAgent agent;
-
     private Vector3 targetPos;
     float dist;
     // Start is called before the first frame update
@@ -19,13 +16,13 @@ public class Enemy0 : Enemy
 
     public override void Init()
     {
-        data.MAXHP = JsonData.Instance.enemyData.eData[0].maxHP;
+        data.MAXHP = JsonData.Instance.enemyData.eData[1].maxHP;
         data.CURHP = data.MAXHP;
-        data.EnemyName = JsonData.Instance.enemyData.eData[0].enemyName;
-        data.Index = JsonData.Instance.enemyData.eData[0].index;
-        data.Speed = JsonData.Instance.enemyData.eData[0].speed;
-        data.AtkPower = JsonData.Instance.enemyData.eData[0].atkPower;
-        data.EXP = JsonData.Instance.enemyData.eData[0].exp;
+        data.EnemyName = JsonData.Instance.enemyData.eData[1].enemyName;
+        data.Index = JsonData.Instance.enemyData.eData[1].index;
+        data.Speed = JsonData.Instance.enemyData.eData[1].speed;
+        data.AtkPower = JsonData.Instance.enemyData.eData[1].atkPower;
+        data.EXP = JsonData.Instance.enemyData.eData[1].exp;
         data.enemyUI = enemyUI;
         agent.speed = data.Speed;
         base.Init();
@@ -87,5 +84,4 @@ public class Enemy0 : Enemy
         }
 
     }
-
 }

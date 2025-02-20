@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
 
     public Data data = new Data();
 
-    [HideInInspector] public State state = State.Idle;
+    public State state = State.Idle;
 
     // Start is called before the first frame update
     void Start()
@@ -202,7 +202,15 @@ public class Enemy : MonoBehaviour
             //아이템 수집하기
             if(Input.GetKeyDown(KeyCode.E))
             {
-                GameObject obj = Pooling.Instance.GetPool(DicKey.stone, transform);
+                GameObject obj = null;
+                if(item.GetComponent<FieldItem>().itemData.type.Equals(ItemType.Ore))
+                {
+                    obj = Pooling.Instance.GetPool(DicKey.stone, transform);
+                }
+                else
+                {
+                    obj = Instantiate(item, transform);
+                }
                 obj.transform.SetParent(null);
                 DestroyEnemy();
             }

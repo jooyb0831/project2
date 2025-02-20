@@ -844,14 +844,26 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("EnemyWeapon"))
         {
+            if(other.GetComponent<ArrowTrap>())
+            {
+                return;
+            }
+
+            Enemy enemy = other.GetComponent<EnemyWeapon>().enemy;
             if (state == State.Hit)
             {
                 return;
             }
-            int dmg = other.gameObject.GetComponent<EnemyWeapon>().enemy.data.AtkPower;
-            TakeDamage(dmg);
+
+            if(enemy.state.Equals(Enemy.State.Attack))
+            {
+                int dmg = enemy.data.AtkPower;
+                TakeDamage(dmg);
+            }
+
         }
     }
 

@@ -8,7 +8,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField] float rotSpeed;
     [SerializeField] float camSpeed;
     [SerializeField] float maxDist;
-    [SerializeField] float obstacleDist = 1.2f;
+    [SerializeField] float obstacleDist;
     float camDist;
     Vector3 pos;
     Vector3 rot;
