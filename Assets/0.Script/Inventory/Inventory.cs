@@ -356,10 +356,12 @@ public class Inventory : Singleton<Inventory>
     /// <param name="item"></param>
     public void DeleteItem(InvenItem item)
     {
+        //아이템이 일반 슬롯에 있을 경우
         if(item.transform.parent.GetComponent<Slot>())
         {
             item.transform.parent.GetComponent<Slot>().isFilled = false;
         }
+        //아이템이 퀵슬롯에 있을 경우
         else if(item.transform.parent.GetComponent<QuickSlotInven>())
         {
             item.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(item);
@@ -367,6 +369,7 @@ public class Inventory : Singleton<Inventory>
 
         int itemIdx = -1;
 
+        //인벤아이템 
         for(int i =0; i<invenItems.Count; i++)
         {
             if(invenItems[i].data.itemIdx == item.data.itemIdx)
@@ -376,9 +379,9 @@ public class Inventory : Singleton<Inventory>
                 break;
             }
         }
-        itemIdxList.Remove(item.data.itemIdx);
-        invenDatas.RemoveAt(item.data.invenOrderNum);
-        invenItems.RemoveAt(item.data.invenOrderNum);
+        itemIdxList.Remove(itemIdx);
+        invenDatas.RemoveAt(itemIdx);
+        invenItems.RemoveAt(itemIdx);
         
     }
 

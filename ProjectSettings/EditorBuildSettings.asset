@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/8.Scenes/Sample.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/8.Scenes/Lobby.unity
+    guid: a4ffd55a5deab10408bbc002899f75a9
+  - enabled: 1
     path: Assets/8.Scenes/GameUI.unity
     guid: c955293cc96f7744a8dbdf43bca9d967
   - enabled: 1

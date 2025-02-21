@@ -28,7 +28,7 @@ public class InventoryUI : Singleton<InventoryUI>
     public void Update()
     {
         WheelScroll();
-        
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SelectItem(0);
@@ -45,27 +45,34 @@ public class InventoryUI : Singleton<InventoryUI>
         {
             SelectItem(3);
         }
-        
+
     }
 
+
+    /// <summary>
+    /// 휠스크롤 아이템 선택 변경 코드
+    /// </summary>
     [SerializeField] int selectedIdx = 0;
     void WheelScroll()
     {
         float wheelInput = Input.GetAxis("Mouse ScrollWheel");
 
-        if(wheelInput>0)
+        //휠 인풋값이 0보다 클경우 : 위로 올릴 때
+        if (wheelInput > 0)
         {
             selectedIdx++;
-            if(selectedIdx>3)
+            if (selectedIdx > 3)
             {
                 selectedIdx = 0;
             }
             SelectItem(selectedIdx);
         }
-        else if(wheelInput<0)
+
+        //휠 아래로 내릴 때
+        else if (wheelInput < 0)
         {
             selectedIdx--;
-            if(selectedIdx<0)
+            if (selectedIdx < 0)
             {
                 selectedIdx = 3;
             }
@@ -73,12 +80,19 @@ public class InventoryUI : Singleton<InventoryUI>
         }
     }
 
+    /// <summary>
+    /// 아이템 선택-토글활성화
+    /// </summary>
+    /// <param name="idx">퀵슬롯 인덱스</param>
     void SelectItem(int idx)
     {
-        foreach(var item in quickSlots)
+        //모든 퀵슬롯의 토글 isOn 다 끄기
+        foreach (var item in quickSlots)
         {
             item.GetComponent<Toggle>().isOn = false;
         }
+        
+        //현재 선택된 인덱스의 토글만 isOn을 True로
         quickSlots[idx].GetComponent<Toggle>().isOn = true;
     }
 
@@ -96,12 +110,15 @@ public class InventoryUI : Singleton<InventoryUI>
         inventory.moveItem = this.moveitem;
         SetInvenSlot();
         InventoryCheck();
-
     }
 
 
+    /// <summary>
+    /// 인벤토리 세팅(InvenUi-Inventory연결)
+    /// </summary>
     void SetInvenSlot()
     {
+        //현재 해제된 인벤 슬롯의 개수
         int curSlotNum = inventory.inventoryData.curInvenSlots;
 
         for (int i = 0; i < curSlotNum; i++)
@@ -119,6 +136,7 @@ public class InventoryUI : Singleton<InventoryUI>
             }
         }
 
+        //숫자 4 : 퀵슬롯 인덱스
         for (int i = 0; i < 4; i++)
         {
             inventory.quickSlotsInven[i] = quickSlotsInven[i];
@@ -126,10 +144,12 @@ public class InventoryUI : Singleton<InventoryUI>
 
         inventory.weaponSlot = this.weaponslot;
         inventory.bowSlot = this.bowSlot;
-        
+
     }
 
-    
+    /// <summary>
+    /// 인벤토리 세팅
+    /// </summary>
     void SetInventory()
     {
         if (inventory == null)
@@ -146,7 +166,7 @@ public class InventoryUI : Singleton<InventoryUI>
         {
             SetData(invenData[i]);
         }
-        
+
 
         /*
         SceneType type = SceneChanger.Instance.sceneType;
@@ -162,9 +182,15 @@ public class InventoryUI : Singleton<InventoryUI>
         */
     }
 
+    /// <summary>
+    /// 인벤아이템 세팅, 데이터 세팅
+    /// </summary>
+    /// <param name="data"></param>
     void SetData(InvenData data)
     {
         InvenItem item = null;
+
+        //만약 item이 퀵슬롯에 있다면
         if (data.inQuickSlot)
         {
             item = Instantiate(sampleInvenItem, quickSlotsInven[data.quickSlotIdx]);
@@ -179,10 +205,12 @@ public class InventoryUI : Singleton<InventoryUI>
             quickSlots[data.quickSlotIdx].GetComponent<QuickSlot>().isFilled = true;
             data.qItem = quickItem;
         }
+
+        //무기슬롯에 있을 경우
         else if (data.inWeaponSlot)
         {
             WeaponType type = data.fieldItem.GetComponent<Weapon>().weaponData.weaponType;
-            switch(type)
+            switch (type)
             {
                 case WeaponType.Sword:
                     {
@@ -192,7 +220,6 @@ public class InventoryUI : Singleton<InventoryUI>
                         inventory.invenItems.Add(item);
                         weaponslot.GetComponent<WeaponSlot>().item = item;
                         weaponslot.GetComponent<WeaponSlot>().Equip();
-
                         break;
                     }
                 case WeaponType.Bow:
@@ -208,7 +235,9 @@ public class InventoryUI : Singleton<InventoryUI>
             }
 
         }
-        else
+
+        //나머지 경우(슬롯인덱스 값이 -1이 아니어야 오류 발생 X)
+        else if (data.slotIdx != -1)
         {
             item = Instantiate(sampleInvenItem, slots[data.slotIdx]);
             item.transform.parent.GetComponent<Slot>().isFilled = true;
@@ -216,19 +245,20 @@ public class InventoryUI : Singleton<InventoryUI>
             item.SetInventory(inventory);
             inventory.invenItems.Add(item);
         }
-
-
-
-
     }
 
 
+    /// <summary>
+    /// 슬롯의 fill여부 체크
+    /// </summary>
     void InventoryCheck()
     {
         foreach (var item in slots)
         {
+            //Slot의 하위에 오브젝트가 있다면
             if (item.childCount >= 1)
-            {
+            {   
+                //Slot이 filled 인것으로 판단
                 item.GetComponent<Slot>().isFilled = true;
             }
         }

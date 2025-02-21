@@ -19,11 +19,11 @@ public class Enemy : MonoBehaviour
             set
             {
                 hp = value;
-                if(enemyUI!=null)
+                if (enemyUI != null)
                 {
                     enemyUI.HP = hp;
                 }
-                
+
             }
         }
         public string EnemyName { get; set; }
@@ -45,14 +45,15 @@ public class Enemy : MonoBehaviour
         Dead
     }
 
-    [SerializeField] public EnemyUI enemyUI;
-    [SerializeField] protected GameObject item;
+    [SerializeField] public EnemyUI enemyUI; //UI
+    [SerializeField] protected GameObject item; //드랍 아이템
 
+    #region 컴포넌트 변수 
     protected Animator animator;
     protected Player p;
     protected PlayerData pd;
     protected SkillSystem skSystem;
-
+    #endregion
     public Data data = new Data();
 
     public State state = State.Idle;
@@ -75,7 +76,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         //게임이 일시 중지 상태이면 애니메이션 일시 정지하게끔
-        if(GameManager.Instance.isPaused)
+        if (GameManager.Instance.isPaused)
         {
             animator.speed = 0;
             return;
@@ -94,12 +95,10 @@ public class Enemy : MonoBehaviour
         EnemyMove();
     }
 
+    /// <summary>
+    /// 적 이동 함수
+    /// </summary>
     protected virtual void EnemyMove()
-    {
-
-    }
-
-    void Hit()
     {
 
     }
@@ -129,30 +128,33 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Punch") && p.state.Equals(Player.State.Attack))
+        //플레이어 펀치에 맞았을 경우
+        if (other.CompareTag("Punch") && p.state.Equals(Player.State.Attack))
         {
             TakeDamage(pd.BasicAtk);
         }
 
-        if(other.GetComponent<Weapon>())
+        //플레이어 무기에 맞았을 경우
+        if (other.GetComponent<Weapon>())
         {
-            if(p.state.Equals(Player.State.Attack))
+            if (p.state.Equals(Player.State.Attack))
             {
                 TakeDamage(other.GetComponent<Weapon>().weaponData.atkDmg);
             }
 
-            else if(p.state.Equals(Player.State.Skill))
+            else if (p.state.Equals(Player.State.Skill))
             {
-                if(p.skillState.Equals(Player.SkillState.Qskill))
+                if (p.skillState.Equals(Player.SkillState.Qskill))
                 {
                     TakeDamage(skSystem.qSkill.GetComponent<Skill>().data.Damage);
                 }
-                
+
             }
         }
 
+        //플레이어 화살에 맞았을 경우
         Arrow arrow = other.GetComponent<Arrow>();
-        if(arrow)
+        if (arrow)
         {
             Pooling.Instance.SetPool(DicKey.arrow, arrow.gameObject);
             TakeDamage(arrow.Damage);
@@ -167,7 +169,7 @@ public class Enemy : MonoBehaviour
     void TakeDamage(int damage)
     {
         data.CURHP -= damage;
-        if(data.CURHP<=0)
+        if (data.CURHP <= 0)
         {
             Dead();
         }
@@ -177,13 +179,13 @@ public class Enemy : MonoBehaviour
             animator.SetTrigger("Hit");
         }
     }
-    
+
     /// <summary>
     /// 사망 처리 함수
     /// </summary>
     void Dead()
     {
-        pd.EXP+=data.EXP;
+        pd.EXP += data.EXP;
         Debug.Log(pd.EXP);
         state = State.Dead;
         animator.SetTrigger("Fall");
@@ -197,19 +199,28 @@ public class Enemy : MonoBehaviour
     {
         float dist = Vector3.Distance(p.transform.position, transform.position);
 
-        if(dist<2.5f)
+        if (dist < 2.5f)
         {
             //아이템 수집하기
-            if(Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
+                ItemType type = item.GetComponent<FieldItem>().itemData.type;
                 GameObject obj = null;
-                if(item.GetComponent<FieldItem>().itemData.type.Equals(ItemType.Ore))
+                switch(type)
                 {
-                    obj = Pooling.Instance.GetPool(DicKey.stone, transform);
-                }
-                else
-                {
-                    obj = Instantiate(item, transform);
+                    case ItemType.Ore:
+                    {
+                        obj = Pooling.Instance.GetPool(DicKey.stone, transform);
+                        break;
+                    }
+                    case ItemType.Wood:
+                    {
+                        obj = Pooling.Instance.GetPool(DicKey.wood, transform);
+                        break;
+                    }
+                    default :
+                        obj = Instantiate(item, transform);
+                        break;
                 }
                 obj.transform.SetParent(null);
                 DestroyEnemy();

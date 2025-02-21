@@ -45,7 +45,9 @@ public class HPPotion : FieldItem
         {
             p =GameManager.Instance.Player;
         }
+        
         Instantiate(effect, p.transform);
+
         if(pd.MAXHP-pd.HP>=Recover)
         {
             pd.HP+=Recover;

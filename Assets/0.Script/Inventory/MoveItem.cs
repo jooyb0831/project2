@@ -7,16 +7,18 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class MoveItem : MonoBehaviour
 {
+#region UI변수
     [SerializeField] Image frameImg;
     [SerializeField] Image bgImg;
     [SerializeField] Image icon;
     [SerializeField] TMP_Text countTxt;
     [SerializeField] GameObject countBG;
+#endregion
 
     public InvenData data;
-    public Collider2D coll;
-
+    public Collider2D coll; //콜리더 담을 변수
     private Inventory inven;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +28,18 @@ public class MoveItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Inventory.Instance.moveItem == null)
+        if(inven.moveItem == null)
         {
-            Inventory.Instance.moveItem = this;
+            inven.moveItem = this;
             return;
         }
     }
 
+
+    /// <summary>
+    /// UI에 들어갈 데이터 세팅
+    /// </summary>
+    /// <param name="data"></param>
     public void SetData(InvenData data)
     {
         this.data = data;
@@ -42,6 +49,11 @@ public class MoveItem : MonoBehaviour
         countBG.SetActive(data.count <= 1 ? false : true);
     }
 
+
+    /// <summary>
+    /// 아이템 세팅
+    /// </summary>
+    /// <param name="item"></param>
     public void SetItem(InvenItem item)
     {
         this.data = item.data;

@@ -40,4 +40,10 @@ public class SceneChanger : Singleton<SceneChanger>
         SceneManager.LoadScene("Mine");
         SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
     }
+
+    public void GoLobby()
+    {
+        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
+    }
 }

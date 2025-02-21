@@ -303,6 +303,7 @@ public class Player : MonoBehaviour
         //float Input
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
+        
         //기본 움직임
         transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * speed);
 
