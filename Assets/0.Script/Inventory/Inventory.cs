@@ -39,7 +39,7 @@ public enum ItemType
 public class InventoryData
 {
     public int curInvenSlots = 10;
-    public int invenCount = 0;
+    public int invenCount = -1;
     public List<InvenItem> items = new();
     public bool invenFull = false;
 }
@@ -60,7 +60,7 @@ public class Inventory : Singleton<Inventory>
 
     public InventoryData inventoryData = new();
     public List<InvenItem> invenItems = new();
-    private List<int> itemIdxList = new();
+    [SerializeField] List<int> itemIdxList = new();
     public List<InvenData> invenDatas = new();
 
     // Start is called before the first frame update
@@ -142,12 +142,12 @@ public class Inventory : Singleton<Inventory>
             price = itemData.price,
             //usage = itemData.usage,
             itemIdx = itemData.itemIdx,
+            //인벤아이템의 데이터(인벤데이터)가 인벤에 들어간 순서 
+            invenOrderNum = inventoryData.invenCount,
             fieldItem = itemData.fItem,
             slotIdx = index
         };
 
-        //인벤아이템의 데이터(인벤데이터)가 인벤에 들어간 순서 
-        item.data.invenOrderNum = inventoryData.invenCount;
         //인벤아이템의 데이터 세팅
         item.SetData(data);
         item.SetInventory(this);
@@ -177,7 +177,7 @@ public class Inventory : Singleton<Inventory>
             }
             Destroy(itemData.obj);
         }
-
+        Debug.Log($"invenCont = {inventoryData.invenCount}");
     }
 
     /// <summary>
@@ -379,10 +379,10 @@ public class Inventory : Singleton<Inventory>
                 break;
             }
         }
-        itemIdxList.Remove(itemIdx);
-        invenDatas.RemoveAt(itemIdx);
-        invenItems.RemoveAt(itemIdx);
-        
+        itemIdxList.RemoveAt(item.data.invenOrderNum);
+        invenDatas.RemoveAt(item.data.invenOrderNum);
+        invenItems.RemoveAt(item.data.invenOrderNum);
+        inventoryData.invenCount--;
     }
 
 

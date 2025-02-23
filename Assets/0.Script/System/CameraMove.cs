@@ -145,7 +145,7 @@ public class CameraMove : MonoBehaviour
         Debug.DrawRay(p.transform.position, dir.normalized * dir.magnitude, Color.red);
         if(Physics.Raycast(p.transform.position, dir.normalized, out hit, dir.magnitude, LayerMask.GetMask("Wall")))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
             Vector3 dist = hit.point - p.transform.position;
             camDist = dist.magnitude * obstacleDist;
         }
