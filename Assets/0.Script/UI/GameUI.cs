@@ -12,6 +12,7 @@ public class GameUI : Singleton<GameUI>
 
     public GameObject arrowUI;
 
+    [SerializeField] GameObject UI;
     [SerializeField] Image hpBarImg;
     [SerializeField] TMP_Text hpTxt;
 
@@ -47,6 +48,19 @@ public class GameUI : Singleton<GameUI>
     void Update()
     {
 
+    }
+
+    public void UISwitch(bool isOn)
+    {
+        if(isOn)
+        {
+            UI.SetActive(false);
+        }
+        else
+        {
+            UI.SetActive(true);
+        }
+        
     }
 
     public int Level

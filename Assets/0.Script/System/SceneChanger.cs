@@ -46,4 +46,17 @@ public class SceneChanger : Singleton<SceneChanger>
         SceneManager.LoadScene("Lobby");
         SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
     }
+
+    public void GoNPC(bool isLoad)
+    {
+        if(isLoad)
+        {
+            SceneManager.LoadScene("NPC", LoadSceneMode.Additive);
+        }
+        else
+        {
+            SceneManager.UnloadSceneAsync("NPC");
+        }
+        
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WeaponSlot : MonoBehaviour
@@ -55,7 +56,7 @@ public class WeaponSlot : MonoBehaviour
                 break;
             }
         }
-
+        item.data.inWeaponSlot = true;
         SetWeapon(weaponObj.GetComponent<Weapon>());
     }
 
@@ -94,6 +95,7 @@ public class WeaponSlot : MonoBehaviour
                 break;
             }
         }
+        item.data.inWeaponSlot = false;
         isFilled = false;
         Destroy(weaponObj);
         item = null;
