@@ -22,7 +22,8 @@ public class QuestManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad(this);
+        pd = GameManager.Instance.PlayerData;
     }
 
     // Update is called once per frame
