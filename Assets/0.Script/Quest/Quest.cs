@@ -5,25 +5,35 @@ using UnityEngine;
 [System.Serializable]
 public class QuestData
 {
-    public bool isStart = false;
-    public string QuestTitle;
-    public int QuestNumber;
-    public bool isDone;
-    public bool isEnd;
-    public int maxCount;
-    public int curCount;
-    public int exp;
-    public int gold;
     public QuestType qType;
-    public int objIndex;
+    public QuestState qState = QuestState.None;
+    public string QuestTitle;
+    public int QuestNumber; //퀘스트 넘버
+    public int MAXCNT;
+    public int CURCNT;
+    public int EXP; //퀘스트 보상 경험치
+    public int Gold; //퀘스트 보상 골드
+    public GameObject rewardItem = null; //퀘스트 보상 아이템
+    public int ObjIndex; //퀘스트 대상 오브젝트의 고유코드번호(수집, 몬스터)
     public string QuestExplain;
     public string QuestRewardTxt;
 
+    //퀘스트 대사 다이얼로그 모음
     public string[] basicDialogue;
     public string[] yesDialogue;
     public string[] noDialogue;
 }
 
+/// <summary>
+/// 퀘스트의 진행상황
+/// </summary>
+public enum QuestState
+{
+    None, //시작하지 않음
+    Start, //시작함(퀘스트 수주)
+    Done, //완료함(조건충족)
+    End //종료됨(보상수령->완전종료)
+}
 public enum QuestType
 {
     Kill,
@@ -42,6 +52,8 @@ public class Quest : MonoBehaviour
     protected GameUI gi;
     protected MenuUI menuUI;
     protected PlayerData pData;
+    protected QuestManager qMgr;
+    protected JsonData jsonData;
 
 
     public string qTitle;
@@ -50,6 +62,10 @@ public class Quest : MonoBehaviour
 
     public virtual void Init()
     {
+        if(pData == null)
+        {
+            pData = GameManager.Instance.PlayerData;
+        }
         if (gi == null)
         {
             gi = GameManager.Instance.GameUI;
@@ -58,7 +74,16 @@ public class Quest : MonoBehaviour
         {
             menuUI = GameManager.Instance.MenuUI;
         }
-        data.curCount = 0;
+        if(jsonData == null)
+        {
+            jsonData = GameManager.Instance.JsonData;
+        }
+        if(qMgr==null)
+        {
+            qMgr = GameManager.Instance.QuestManager;
+        }
+
+        data.CURCNT = 0;
     }
 
     /// <summary>

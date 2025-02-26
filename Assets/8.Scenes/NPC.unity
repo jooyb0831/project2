@@ -344,6 +344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 687847626}
+  - component: {fileID: 687847629}
   - component: {fileID: 687847628}
   - component: {fileID: 687847627}
   m_Layer: 5
@@ -415,6 +416,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687847625}
   m_CullTransparentMesh: 1
+--- !u!114 &687847629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687847625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b522564143936041b332a5e1d52673f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringArea: {fileID: 1699003927}
+  basicDialogue: []
+  yesDialogue: []
+  noDialogue: []
+  currentDialogue: []
+  answerWindow: {fileID: 2086047424}
+  nextBtn: {fileID: 2090220552}
+  isBasicDialogue: 1
+  curQuest: {fileID: 0}
 --- !u!1 &785975259
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,14 +915,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb1799c09ad798469e779889dc06b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stringArea: {fileID: 1699003927}
+  window: {fileID: 0}
   basicDialogue: []
   yesDialogue: []
   noDialogue: []
-  currentDalogue: []
-  answerWindow: {fileID: 0}
-  nextBtn: {fileID: 2090220552}
-  isBasicDialogue: 1
+  questGoingDialogue: []
+  questEndDialogue: []
+  noQuestDialogue: []
+  curQuest: {fileID: 0}
+  onGoingQuest: {fileID: 0}
+  allDone: 0
 --- !u!1 &1699003925
 GameObject:
   m_ObjectHideFlags: 0

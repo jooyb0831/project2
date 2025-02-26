@@ -25,11 +25,14 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] Image mpImg;
     [SerializeField] TMP_Text mpTxt;
 
+    [SerializeField] TMP_Text goldTxt;
+
     public GameObject spUI;
     [SerializeField] Image spBarImg;
 
     [SerializeField] ItemInfoArea infoArea;
     [SerializeField] ItemGetUI itemGetObj;
+    public Transform questArea;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +47,7 @@ public class GameUI : Singleton<GameUI>
         stTxt.text = $"{pd.ST}/{pd.MAXST}";
         lvTxt.text = $"Lv.{pd.Level}";
         mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
+        goldTxt.text = $"{pd.Gold}";
     }
     void Update()
     {
@@ -210,6 +214,19 @@ public class GameUI : Singleton<GameUI>
             }
             mpImg.fillAmount = Mathf.Lerp(((float)pd.CURMP / pd.MAXMP), 1, 1);
             mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
+        }
+    }
+
+    public int Gold
+    {
+        set
+        {
+            if(pd == null)
+            {
+                pd = GameManager.Instance.PlayerData;
+                return;
+            }
+            goldTxt.text = $"{pd.Gold}";
         }
     }
 

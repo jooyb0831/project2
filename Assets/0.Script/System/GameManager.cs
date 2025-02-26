@@ -141,9 +141,22 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private QuestManager questManager;
+    public QuestManager QuestManager
+    {
+        get
+        {
+            if(questManager == null)
+            {
+                questManager = FindAnyObjectByType<QuestManager>();
+            }
+            return questManager;
+        }
+    }
+
 
     /// <summary>
-    /// �Ͻ����� : ĳ���� ������ ����
+    /// 게임 일시정지 체크여부
     /// </summary>
     public bool isPaused { get; set; }
 

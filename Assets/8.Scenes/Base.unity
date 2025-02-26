@@ -167,6 +167,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &251596625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 251596626}
+  - component: {fileID: 251596627}
+  m_Layer: 0
+  m_Name: Quest0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &251596626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251596625}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1176162769}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &251596627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251596625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddc5ba78cd0e8e47b0ef408919c9102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    qType: 1
+    qState: 0
+    QuestTitle: 
+    QuestNumber: 0
+    MAXCNT: 0
+    CURCNT: 0
+    EXP: 0
+    Gold: 0
+    rewardItem: {fileID: 0}
+    ObjIndex: 0
+    QuestExplain: 
+    QuestRewardTxt: 
+    basicDialogue: []
+    yesDialogue: []
+    noDialogue: []
+  questUI: {fileID: 0}
+  qMenuUI: {fileID: 0}
+  thisQuestUI: {fileID: 0}
+  thisQuestMenuUI: {fileID: 0}
+  qTitle: 
+  curCnt: 0
+  maxCnt: 0
 --- !u!1 &472934530
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +313,7 @@ MonoBehaviour:
   questLists: []
   onGoingQuestLists: []
   questUILists: []
+  questMenuUILists: []
   enemyKillCnt: 
 --- !u!4 &1176162769
 Transform:
@@ -258,7 +326,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 251596626}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -458,10 +527,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyJson: {fileID: 4900000, guid: a376a6e5bc0edc640a901321f7df962e, type: 3}
   skillJson: {fileID: 4900000, guid: 7911ab814cf4fcf4a8fc21011e0cedce, type: 3}
+  questDialogueJson: {fileID: 4900000, guid: 79f61f2cbea115549a93c5361d83b422, type: 3}
   enemyData:
     eData: []
   skillData:
     sData: []
+  questDialogueData:
+    questDialogueData: []
 --- !u!4 &1705452795
 Transform:
   m_ObjectHideFlags: 0
@@ -550,6 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0efd93a49f847641a251891784a24c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StageCleared: 000000
   bowEquiped: 0
 --- !u!4 &1854295094
 Transform:

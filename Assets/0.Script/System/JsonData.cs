@@ -38,19 +38,36 @@ public class SkillJsonData
     public List<SkillData> sData = new List<SkillData>();
 }
 
+[System.Serializable]
+public class QuestDialogueData
+{
+    [System.Serializable]
+    public class QuestDialogue
+    {
+        public string[] questBasic; //일반적으로 출력되는 퀘스트 대사
+        public string[] questY; //"Yes"를 선택했을 때 출력되는 퀘스트 대사
+        public string[] questN; //"NO"를 선택했을 때 출력되는 퀘스트 대사
+    }
+    public List<QuestDialogue> questDialogueData = new List<QuestDialogue>();
+}
+
 public class JsonData : Singleton<JsonData>
 {
     [SerializeField] private TextAsset enemyJson;
     [SerializeField] private TextAsset skillJson;
+    [SerializeField] private TextAsset questDialogueJson;
 
     public EnemyJsonData enemyData = new EnemyJsonData();
     public SkillJsonData skillData = new SkillJsonData();
+    public QuestDialogueData questDialogueData = new QuestDialogueData();
 
     private void Awake()
     {
         DontDestroyOnLoad(this);
         enemyData = JsonUtility.FromJson<EnemyJsonData>(enemyJson.text);
         skillData = JsonUtility.FromJson<SkillJsonData>(skillJson.text);
+        questDialogueData = JsonUtility.FromJson<QuestDialogueData>(questDialogueJson.text);
+
     }
     // Start is called before the first frame update
     void Start()

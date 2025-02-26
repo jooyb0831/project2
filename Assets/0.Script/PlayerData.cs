@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+    public bool[] StageCleared = {false, false, false};
     public bool bowEquiped = false;
 
     private int level;
@@ -231,6 +232,22 @@ public class PlayerData : MonoBehaviour
             }
         }
     }
+
+    private int gold;
+    public int Gold
+    {
+        get{return gold;}
+        set
+        {
+            gold = value;
+            if (GameUI.Instance != null)
+            {
+                GameUI.Instance.Gold = gold;
+            }
+
+        }
+    }
+    
 
     // Start is called before the first frame update
     void Start()

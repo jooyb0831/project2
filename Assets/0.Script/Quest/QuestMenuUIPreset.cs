@@ -7,7 +7,7 @@ using TMPro;
 public class QuestMenuUIPreset : Singleton<QuestMenuUIPreset>
 {
     public Quest quest;
-
+    public int questIdx;
     bool isAdd = false;
     public string questTitle;
     public int index;
@@ -38,12 +38,12 @@ public class QuestMenuUIPreset : Singleton<QuestMenuUIPreset>
     {
 
         questTitle = data.QuestTitle;
-        index = data.QuestNumber;
-        curCnt = data.curCount;
-        maxCnt = data.maxCount;
-        exp = data.exp;
-        gold = data.gold;
-        objIndex = data.objIndex;
+        questIdx = data.QuestNumber;
+        curCnt = data.CURCNT;
+        maxCnt = data.MAXCNT;
+        exp = data.EXP;
+        gold = data.Gold;
+        objIndex = data.ObjIndex;
         questTitleTxt.text = $"{questTitle} ({curCnt}/{maxCnt})";
         questExplain = data.QuestExplain;
         questReward = data.QuestRewardTxt;

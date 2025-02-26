@@ -10,6 +10,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] GameObject menuObj;
     [SerializeField] Toggle[] menuTabs;
     [SerializeField] GameObject[] menuUIs;
+    public Transform questArea;
 
     private Player p;
 
