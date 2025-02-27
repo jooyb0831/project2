@@ -25,7 +25,7 @@ public class SkillSystem : MonoBehaviour
     void Update()
     {
 
-        
+
     }
 
     /// <summary>
@@ -33,13 +33,7 @@ public class SkillSystem : MonoBehaviour
     /// </summary>
     public void SetSkill()
     {
-        if(qSkill != null)
-        {
-            if(qSkill.GetComponent<Skill>().isSet)
-            {
-                //SkillUISystem.In
-            }
-        }
+        
     }
 
     /// <summary>
@@ -47,7 +41,7 @@ public class SkillSystem : MonoBehaviour
     /// </summary>
     public void SetSkillUI()
     {
-        for(int i = 0; i<skills.Length; i++)
+        for (int i = 0; i < skills.Length; i++)
         {
             skills[i].skillUI = skillUIs[i];
         }

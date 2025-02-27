@@ -7,23 +7,25 @@ using UnityEngine.UI;
 public class NPCDialogue : MonoBehaviour
 {
     private QuestManager qmgr;
+    private SceneChanger sc;
     public TMP_Text stringArea;//다이얼로그 표시하는 TMP
     int idx = 0; //텍스트 넘어가는 번호 체크용 변수
-    public List<string> basicDialogue;
-    public List<string> yesDialogue;
-    public List<string> noDialogue;
-    [SerializeField] List<string> currentDialogue;
-    [SerializeField] GameObject answerWindow;
-    [SerializeField] GameObject nextBtn;
-    [SerializeField] bool isBasicDialogue = true;
+    public List<string> basicDialogue; //기본 다이얼로그 담는 리스트
+    public List<string> yesDialogue; //'Yes'를 선택했을 때의 다이얼로그 리스트
+    public List<string> noDialogue; //'NO'를 선택했을 때의 다이얼로그 리스트
+    [SerializeField] List<string> currentDialogue; // 현재의 다이얼로그
+    [SerializeField] GameObject answerWindow; //대답창
+    [SerializeField] GameObject nextBtn; //버튼
+    [SerializeField] bool isBasicDialogue = true; //기본 다이얼로그인지에 대한 체크 여부
 
     void Start()
     {
         qmgr = GameManager.Instance.QuestManager;
+        sc = GameManager.Instance.SceneChanger;
     }
     public Quest curQuest = null;
 
-     /// <summary>
+    /// <summary>
     /// UI 다이얼로그 세팅
     /// </summary>
     /// <param name="dialogue"></param>
@@ -66,16 +68,13 @@ public class NPCDialogue : MonoBehaviour
             //퀘스트 수락 중 조건 미달성 시
             else if(curQuest.data.qState.Equals(QuestState.Start))
             {
-                Time.timeScale = 1;
-                gameObject.SetActive(false);
-               
+                ExitScene();
             }
             
             //모든 퀘스트 종료했을 경우
             else if (NPCUI.Instance.allDone)
             {
-                Time.timeScale = 1;
-                gameObject.SetActive(false);
+                ExitScene();
             }
 
             //퀘스트 미수락 상태
@@ -86,18 +85,33 @@ public class NPCDialogue : MonoBehaviour
                 {
                     //수락 창 활성화
                     answerWindow.SetActive(true);
+
+                    //버튼 사라짐
                     nextBtn.gameObject.SetActive(false);
                 }
 
                 //기본 다이얼로그가 아닌 상태 : 대화 종료
                 else
                 {
+                    isBasicDialogue = true;
+                    ExitScene();
+                    /*
                     Time.timeScale = 1;
                     gameObject.SetActive(false);
                     isBasicDialogue = true;
+                    */
                 }
             }
         }
+    }
+
+    void ExitScene()
+    {
+        if(sc == null)
+        {
+            sc = GameManager.Instance.SceneChanger;
+        }
+        sc.GoNPC(false);
     }
 
     /// <summary>

@@ -227,8 +227,8 @@ MonoBehaviour:
     basicDialogue: []
     yesDialogue: []
     noDialogue: []
-  questUI: {fileID: 0}
-  qMenuUI: {fileID: 0}
+  questUI: {fileID: 6483829893791713174, guid: b2fe6a9004c5c8b45b34f37f7f6bf6fc, type: 3}
+  qMenuUI: {fileID: 5531110491692303767, guid: 21c59d6b35d053742ba86f78daa7a3f2, type: 3}
   thisQuestUI: {fileID: 0}
   thisQuestMenuUI: {fileID: 0}
   qTitle: 
@@ -310,7 +310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c4269433812a847a48c9a182426448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questLists: []
+  questLists:
+  - {fileID: 251596627}
   onGoingQuestLists: []
   questUILists: []
   questMenuUILists: []

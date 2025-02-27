@@ -32,12 +32,13 @@ public class NPCUI : Singleton<NPCUI>
         questEndDialogue.Add("고맙다. 여기 약속한 보상이야.");
         noQuestDialogue.Add("아직은 부탁할 일이 없어.");
 
-        if(qm.onGoingQuestLists.Count!=0 && !allDone)
+        if (qm.onGoingQuestLists.Count != 0 && !allDone)
         {
             onGoingQuest = qm.onGoingQuestLists[0];
         }
-        
-        if(curQuest == null)
+        else
+
+        if (curQuest == null)
         {
             allDone = true;
         }
@@ -46,31 +47,32 @@ public class NPCUI : Singleton<NPCUI>
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetQuest()
     {
         for (int i = 0; i < qm.questLists.Count; i++)
         {
-            if (qm.questLists[i].data.qState!=QuestState.End)
+            if (qm.questLists[i].data.qState != QuestState.End)
             {
                 curQuest = qm.questLists[i];
                 break;
             }
         }
         window.curQuest = curQuest;
+        SetString();
     }
 
     public void SetString()
     {
-        if(allDone)
+        if (allDone)
         {
             window.SetCurDialogue(noQuestDialogue);
             return;
         }
 
-        if(onGoingQuest == null && !allDone)
+        if (onGoingQuest == null && !allDone)
         {
             for (int i = 0; i < curQuest.data.basicDialogue.Length; i++)
             {
@@ -91,21 +93,18 @@ public class NPCUI : Singleton<NPCUI>
             window.SetCurDialogue(basicDialogue);
         }
 
-        else if(onGoingQuest!=null)
+        else if (onGoingQuest != null)
         {
-            if(curQuest.data.qState.Equals(QuestState.Done))
+            if (curQuest.data.qState.Equals(QuestState.Done))
             {
                 window.SetCurDialogue(questEndDialogue);
-                
+
             }
             else
             {
                 window.SetCurDialogue(questGoingDialogue);
             }
-            
         }
-
-        
     }
 
     public void QuestReset()

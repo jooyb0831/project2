@@ -180,7 +180,7 @@ public class SkillEquipWindow : MonoBehaviour
         skillObj = null;
 
         Destroy(slot.GetChild(0).gameObject);
-        Destroy(quickSlot.GetChild(0).gameObject);
+        Destroy(quickSlot.GetChild(1).gameObject);
 
     }
 }

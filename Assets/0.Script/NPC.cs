@@ -9,7 +9,7 @@ public class NPC : MonoBehaviour
     private GameUI gameUI;
     private SceneChanger sc;
     [SerializeField] GameObject textObj;
-    [SerializeField] Camera npcCam;
+    public Camera npcCam;
     float dist;
     Vector3 targetPos;
     // Start is called before the first frame update
@@ -40,13 +40,17 @@ public class NPC : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.Escape))
             {
-                npcCam.gameObject.SetActive(false);
                 sc.GoNPC(false);
             }
         }
         else
         {
             textObj.SetActive(false);
+        }
+
+        if(!sc.sceneType.Equals(SceneType.NPC))
+        {
+            npcCam.gameObject.SetActive(false);
         }
 
     }

@@ -175,7 +175,6 @@ public class Player : MonoBehaviour
 
             if (pd.CURMP < qSkill.data.MP)
             {
-
                 Debug.Log("마력부족");
                 return;
             }

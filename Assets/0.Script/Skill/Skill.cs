@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
     /// <summary>
-    /// SkillÀÇ Data
+    /// Skillï¿½ï¿½ Data
     /// </summary>
     [System.Serializable]
     public class Data
@@ -28,13 +28,13 @@ public class Skill : MonoBehaviour
 
     public Data data = new Data();
 
-    public bool isSet = false; //½ºÅ³ÀÌ ¼¼ÆÃµÇ¾ú´ÂÁö ¿©ºÎ
-    protected float coolTimer; //½ºÅ³ CoolTimeÃ¼Å©ÇÏ´Â Timer
-    public int slotIdx; //½ºÅ³ÀÇ ÀåÂø SlotÀÇ Index
-    public Transform slot; //½ºÅ³ÀÌ ÀåÂøµÈ Slot
-    public SkillUISample skillUI; //½ºÅ³ÀÇ UI
-    public bool isStart =false; //½ºÅ³ÀÌ ½ÃÀÛµÇ¾ú´ÂÁö ¿©ºÎ
-    public bool isWorking = false; //½ºÅ³ÀÌ ÀÛµ¿ÁßÀÎÁö ¿©ºÎ
+    public bool isSet = false; //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    protected float coolTimer; //ï¿½ï¿½Å³ CoolTimeÃ¼Å©ï¿½Ï´ï¿½ Timer
+    public int slotIdx; //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Slotï¿½ï¿½ Index
+    public Transform slot; //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Slot
+    public SkillUISample skillUI; //ï¿½ï¿½Å³ï¿½ï¿½ UI
+    public bool isStart =false; //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public bool isWorking = false; //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
     public virtual void Init()
@@ -47,7 +47,7 @@ public class Skill : MonoBehaviour
 
     public virtual void SetData(int idx)
     {
-        //JsonDataÀÇ SkillData¸¦ ¹Þ¾Æ¼­ ½ºÅ³ÀÇ idx³Ñ¹ö¿¡ µû¶ó ¼¼ÆÃ
+        //JsonDataï¿½ï¿½ SkillDataï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ idxï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         data.SkillTitle = jd.skillData.sData[idx].skilltitle;
         data.SkillExplain = jd.skillData.sData[idx].skillexplain;
         data.SkillIndex = jd.skillData.sData[idx].index;
@@ -59,10 +59,14 @@ public class Skill : MonoBehaviour
     }
 
     /// <summary>
-    /// ½ºÅ³ ÀÛµ¿
+    /// ï¿½ï¿½Å³ ï¿½Ûµï¿½
     /// </summary>
     public virtual void SkillAct()
     {
+        if(p == null)
+        {
+            p = GameManager.Instance.Player;
+        }
         p.state = Player.State.Skill;
         isWorking = true;
         pd.CURMP -= data.MP;
@@ -71,10 +75,10 @@ public class Skill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //½ºÅ³ÀÌ ÇØÁ¦µÇÁö ¾Ê¾ÒÀ» °æ¿ì(Àá±Ý»óÅÂ)
+        //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½Ý»ï¿½ï¿½ï¿½)
         if (!data.Unlocked)
         {
-            //½ºÅ³ÀÇ ¿ä±¸ ·¹º§¿¡ µµ´ÞÇÏ¿´À¸¸é ÇØÁ¦
+            //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ä±¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (pd.Level >= data.NeedLv)
             {
                 data.Unlocked = true;
@@ -82,7 +86,7 @@ public class Skill : MonoBehaviour
             return;
         }
 
-        //½ºÅ³ÀÌ ÀÛµ¿ÁßÀÌ¸é CooltimeÃ¼Å© ½ÃÀÛ
+        //ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ CooltimeÃ¼Å© ï¿½ï¿½ï¿½ï¿½
         if(isWorking)
         {
             CoolTimeCheck();
@@ -91,7 +95,7 @@ public class Skill : MonoBehaviour
     }
     
     /// <summary>
-    /// ½ºÅ³ ÄðÅ¸ÀÓ Ã¼Å©
+    /// ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ Ã¼Å©
     /// </summary>
     void CoolTimeCheck()
     {

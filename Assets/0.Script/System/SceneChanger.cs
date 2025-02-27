@@ -10,11 +10,14 @@ using UnityEngine.SceneManagement;
 public enum SceneType
 {
     GameStart,
+    Lobby,
     SampleScene,
-    CraftUI
+    CraftUI,
+    NPC
 }
 public class SceneChanger : Singleton<SceneChanger>
 {
+    public SceneType sceneType = SceneType.Lobby;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,10 +55,13 @@ public class SceneChanger : Singleton<SceneChanger>
         if(isLoad)
         {
             SceneManager.LoadScene("NPC", LoadSceneMode.Additive);
+            sceneType = SceneType.NPC;
         }
         else
         {
             SceneManager.UnloadSceneAsync("NPC");
+            sceneType = SceneType.Lobby;
+            
         }
         
     }
