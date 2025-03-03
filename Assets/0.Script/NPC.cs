@@ -28,7 +28,7 @@ public class NPC : MonoBehaviour
         targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
         transform.LookAt(targetPos);
 
-        if (dist<2f)
+        if (dist < 2f)
         {
             textObj.SetActive(true);
             if(Input.GetKeyDown(KeyCode.E))

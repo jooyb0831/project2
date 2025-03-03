@@ -36,13 +36,14 @@ public class NPCUI : Singleton<NPCUI>
         {
             onGoingQuest = qm.onGoingQuestLists[0];
         }
-        else
+        
 
         if (curQuest == null)
         {
             allDone = true;
         }
 
+        SetString();
     }
     // Update is called once per frame
     void Update()
@@ -61,7 +62,7 @@ public class NPCUI : Singleton<NPCUI>
             }
         }
         window.curQuest = curQuest;
-        SetString();
+       
     }
 
     public void SetString()
@@ -95,12 +96,12 @@ public class NPCUI : Singleton<NPCUI>
 
         else if (onGoingQuest != null)
         {
-            if (curQuest.data.qState.Equals(QuestState.Done))
+            if (onGoingQuest.data.qState.Equals(QuestState.Done))
             {
                 window.SetCurDialogue(questEndDialogue);
 
             }
-            else
+            if(onGoingQuest.data.qState.Equals(QuestState.Start))
             {
                 window.SetCurDialogue(questGoingDialogue);
             }
