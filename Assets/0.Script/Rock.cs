@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
+    private Player p;
     [SerializeField] int hitCnt = 12;
     [SerializeField] int curHit = 0;
     [SerializeField] GameObject stone;
@@ -13,13 +14,13 @@ public class Rock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        p = GameManager.Instance.Player;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(curHit>=hitCnt)
+        if (curHit >= hitCnt)
         {
             Destroy(gameObject);
         }
@@ -28,10 +29,10 @@ public class Rock : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<PickAxe>())
+        if (other.GetComponent<PickAxe>() && p.state.Equals(Player.State.Mine))
         {
             curHit += 1;
-            
+
             effect.SetActive(true);
             Invoke(nameof(ResetEffect), 0.2f);
             if (curHit > 0)
