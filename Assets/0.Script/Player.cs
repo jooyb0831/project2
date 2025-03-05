@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region State변수
-    [HideInInspector]public State state = State.Idle; //플레이어의 상태
+    public State state = State.Idle; //플레이어의 상태
     [HideInInspector]public WeaponEquipState weaponEquipState = WeaponEquipState.None; //플레이어 무기 상태
     [HideInInspector]public ToolEquipState toolEquipState = ToolEquipState.None; //플레이어 도구 상태
     [HideInInspector]public SkillState skillState = SkillState.None; //플레이어 스킬 상태
@@ -388,6 +388,7 @@ public class Player : MonoBehaviour
                 case State.AttackIdle:
                 case State.Attack:
                 case State.Skill:
+                case State.Mine:
                     return;
 
                 default :

@@ -17,7 +17,7 @@ public class PickAxe : Tool
     {
         base.Init();
         data.toolNmae = "곡괭이";
-        data.useST = 5;
+        data.useST = 1;
         data.lv = 1;
         gameSystem = GameManager.Instance.GameSystem;
     }
