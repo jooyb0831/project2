@@ -4,40 +4,59 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
-    private Player p;
-    [SerializeField] int hitCnt = 12;
-    [SerializeField] int curHit = 0;
-    [SerializeField] GameObject stone;
-    [SerializeField] Transform area;
-    [SerializeField] Transform stonePooling;
-    [SerializeField] GameObject effect;
+    public class Data
+    {
+        public int HitCnt;
+        public int CurHit = 0;
+        public int NeedHitCnt;
+        public int EXP;
+    }
+    protected Player p;
+    protected JsonData jsonData;
+    public Data data = new Data();
+    [SerializeField] protected GameObject stone;
+    [SerializeField] protected Transform area;
+    [SerializeField] protected Transform stonePooling;
+    [SerializeField] protected GameObject effect;
     // Start is called before the first frame update
     void Start()
     {
-        p = GameManager.Instance.Player;
+
     }
 
+    public virtual void Init()
+    {
+        p = GameManager.Instance.Player;
+        jsonData = GameManager.Instance.JsonData;
+    }
+
+    public virtual void SetData(int idx)
+    {
+        data.HitCnt = jsonData.rockData.rData[idx].maxHit;
+        data.NeedHitCnt = jsonData.rockData.rData[idx].needHit;
+        data.EXP = jsonData.rockData.rData[idx].exp;
+    }
     // Update is called once per frame
     void Update()
     {
-        if (curHit >= hitCnt)
+        if (data.CurHit >= data.HitCnt)
         {
             Destroy(gameObject);
         }
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PickAxe>() && p.state.Equals(Player.State.Mine))
         {
-            curHit += 1;
+            data.CurHit++;
 
             effect.SetActive(true);
             Invoke(nameof(ResetEffect), 0.2f);
-            if (curHit > 0)
+            if (data.CurHit > 0)
             {
-                if (curHit % 3 == 0)
+                if (data.CurHit % data.NeedHitCnt == 0)
                 {
                     //Pooling으로 처리할것
                     GameObject obj = Pooling.Instance.GetPool(DicKey.stone, area);

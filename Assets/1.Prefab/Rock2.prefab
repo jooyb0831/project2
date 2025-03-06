@@ -19550,7 +19550,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1281752817855939430}
-  - component: {fileID: 2328193656239407786}
+  - component: {fileID: 573360733543494571}
   - component: {fileID: 8636786323552866579}
   - component: {fileID: 2328193656239407783}
   - component: {fileID: 2328193656239407785}
@@ -19579,7 +19579,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2328193656239407786
+--- !u!114 &573360733543494571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19588,15 +19588,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8351883387330530077}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78e01ecff057af04f979a2a0718bfe05, type: 3}
+  m_Script: {fileID: 11500000, guid: 4cf1e7ac41e12c942aa8ffb6c5f8007b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitCnt: 12
-  curHit: 0
   stone: {fileID: 7037879318253885711, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
-  area: {fileID: 0}
+  area: {fileID: 6371151706004002772}
   stonePooling: {fileID: 0}
-  effect: {fileID: 0}
+  effect: {fileID: 6371151707638168397}
 --- !u!33 &8636786323552866579
 MeshFilter:
   m_ObjectHideFlags: 0

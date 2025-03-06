@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9692079505a37d4ea68a13f9e26d73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneType: 1
 --- !u!4 &214880437
 Transform:
   m_ObjectHideFlags: 0
@@ -529,12 +530,15 @@ MonoBehaviour:
   enemyJson: {fileID: 4900000, guid: a376a6e5bc0edc640a901321f7df962e, type: 3}
   skillJson: {fileID: 4900000, guid: 7911ab814cf4fcf4a8fc21011e0cedce, type: 3}
   questDialogueJson: {fileID: 4900000, guid: 79f61f2cbea115549a93c5361d83b422, type: 3}
+  rockJson: {fileID: 4900000, guid: c60b020a6a29a8c45bcebef2b8bdadea, type: 3}
   enemyData:
     eData: []
   skillData:
     sData: []
   questDialogueData:
     questDialogueData: []
+  rockData:
+    rData: []
 --- !u!4 &1705452795
 Transform:
   m_ObjectHideFlags: 0

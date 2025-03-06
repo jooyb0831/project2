@@ -8,6 +8,7 @@ public enum DicKey
 {
     arrow,
     stone,
+    ironOre,
     wood,
     itemGetUI
 }

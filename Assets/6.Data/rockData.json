@@ -1,0 +1,14 @@
+﻿{
+  "rData": [
+    {
+      "maxHit": 12,
+      "needHit": 3,
+      "exp": 1
+    },
+    {
+      "maxHit": 8,
+      "needHit": 4,
+      "exp": 2
+    }
+  ]
+}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
     /// <summary>
-    /// Skill�� Data
+    /// Skill의 Data
     /// </summary>
     [System.Serializable]
     public class Data
@@ -28,13 +28,13 @@ public class Skill : MonoBehaviour
 
     public Data data = new Data();
 
-    public bool isSet = false; //��ų�� ���õǾ����� ����
-    protected float coolTimer; //��ų CoolTimeüũ�ϴ� Timer
-    public int slotIdx; //��ų�� ���� Slot�� Index
-    public Transform slot; //��ų�� ������ Slot
-    public SkillUISample skillUI; //��ų�� UI
-    public bool isStart =false; //��ų�� ���۵Ǿ����� ����
-    public bool isWorking = false; //��ų�� �۵������� ����
+    public bool isSet = false; //스킬이 세팅되었는지 여부 체크
+    protected float coolTimer; //쿨타임의 타이머
+    public int slotIdx; //스킬이 들어간 슬롯의 인덱스
+    public Transform slot; //스킬이 들어간 슬롯의 Transform
+    public SkillUISample skillUI; //스킬 UI
+    public bool isStart =false; //스킬 작동이 시작되었는지 체크
+    public bool isWorking = false; //스킬이 작동중인지 여부
 
 
     public virtual void Init()

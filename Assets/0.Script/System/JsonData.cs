@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class EnemyData
 {
@@ -24,6 +25,14 @@ public class SkillData
     public int damage;
     public int needlevel;
     public int skilllevel;
+}
+
+[System.Serializable]
+public class RockData
+{
+    public int maxHit;
+    public int needHit;
+    public int exp;
 }
 
 [System.Serializable]
@@ -51,15 +60,22 @@ public class QuestDialogueData
     public List<QuestDialogue> questDialogueData = new List<QuestDialogue>();
 }
 
+[System.Serializable]
+public class RockJsonData
+{
+    public List<RockData> rData = new List<RockData>();
+}
 public class JsonData : Singleton<JsonData>
 {
     [SerializeField] private TextAsset enemyJson;
     [SerializeField] private TextAsset skillJson;
     [SerializeField] private TextAsset questDialogueJson;
+    [SerializeField] private TextAsset rockJson;
 
     public EnemyJsonData enemyData = new EnemyJsonData();
     public SkillJsonData skillData = new SkillJsonData();
     public QuestDialogueData questDialogueData = new QuestDialogueData();
+    public RockJsonData rockData = new RockJsonData();
 
     private void Awake()
     {
@@ -67,6 +83,7 @@ public class JsonData : Singleton<JsonData>
         enemyData = JsonUtility.FromJson<EnemyJsonData>(enemyJson.text);
         skillData = JsonUtility.FromJson<SkillJsonData>(skillJson.text);
         questDialogueData = JsonUtility.FromJson<QuestDialogueData>(questDialogueJson.text);
+        rockData = JsonUtility.FromJson<RockJsonData>(rockJson.text);
 
     }
     // Start is called before the first frame update
