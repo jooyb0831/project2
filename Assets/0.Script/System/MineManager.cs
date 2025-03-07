@@ -5,28 +5,54 @@ using UnityEngine;
 
 public class MineManager : MonoBehaviour
 {
+    private SceneChanger sc;
+    private Player p;
+    [SerializeField] GameObject sign;
     [SerializeField] Rock[] normalRockPrefabs;
-    [SerializeField] int number;
-    [SerializeField] Transform Ground;
+    [SerializeField] Rock ironRockPrefab;
+    private int number;
+    [SerializeField] List<Transform> spawnPos;
     [SerializeField] List<Vector3> positions;
     // Start is called before the first frame update
     void Start()
     {
+        p = GameManager.Instance.Player;
+        sc = GameManager.Instance.SceneChanger;
         SetMaps();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        float dist = Vector3.Distance(sign.transform.position, p.transform.position);
+        if(dist<2f)
+        {
+            sign.transform.GetChild(0).gameObject.SetActive(true);
+
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                sc.GoLobby();
+            }
+        }
+        else
+        {
+            sign.transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 
     void SetMaps()
     {
-        for(int i = 0; i < number; i++)
+
+        for (int i = 0; i < 2; i++)
         {
-            int idx = Random.Range(0,2);
-            Instantiate(normalRockPrefabs[idx], RandPos(), Quaternion.Euler(RandRotation()));
+            int rand = Random.Range(0, spawnPos.Count + 1);
+            Instantiate(ironRockPrefab, spawnPos[rand].position, Quaternion.Euler(RandRotation()));
+            spawnPos.RemoveAt(rand);
+        }
+        for (int i = 0; i < spawnPos.Count; i++)
+        {
+            int idx = Random.Range(0, 2);
+            Instantiate(normalRockPrefabs[idx], spawnPos[i].position, Quaternion.Euler(RandRotation()));
         }
     }
 

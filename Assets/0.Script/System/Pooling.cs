@@ -20,12 +20,14 @@ public class Pooling : Singleton<Pooling>
     private Queue<Stone> stoneQueue = new Queue<Stone>();
     private Queue<Wood> woodQueue = new Queue<Wood>();
     private Queue<ItemGetUI> itemGetUIQueue = new Queue<ItemGetUI>();
+    private Queue<IronOre> ironOreQueue = new Queue<IronOre>();
 
     //프리팹 오브젝트 할당
     [SerializeField] Arrow arrow;
     [SerializeField] Stone stone;
     [SerializeField] Wood wood;
     [SerializeField] ItemGetUI itemGetUI;
+    [SerializeField] IronOre ironOre;
 
 
     //Pool 딕셔너리 생성
@@ -38,12 +40,13 @@ public class Pooling : Singleton<Pooling>
         pool.Add(DicKey.stone, new Queue<GameObject>());
         pool.Add(DicKey.wood, new Queue<GameObject>());
         pool.Add(DicKey.itemGetUI, new Queue<GameObject>());
+        pool.Add(DicKey.ironOre, new Queue<GameObject>());
     }
 
 
     public void SetPool(DicKey key, GameObject obj)
     {
-        switch(key)
+        switch (key)
         {
             case DicKey.arrow:
                 {
@@ -56,8 +59,14 @@ public class Pooling : Singleton<Pooling>
                     obj.GetComponent<Stone>().Initialize();
                 }
                 break;
-            default :
-            break;
+
+            case DicKey.ironOre:
+                {
+                    obj.GetComponent<IronOre>().Initialize();
+                }
+                break;
+            default:
+                break;
 
         }
 
@@ -71,9 +80,9 @@ public class Pooling : Singleton<Pooling>
         GameObject obj = null;
 
         //Pool에 오브젝트가 없을 경우 새로 생성하고 큐에 집어넣음
-        if(pool[key].Count == 0)
+        if (pool[key].Count == 0)
         {
-            switch(key)
+            switch (key)
             {
                 case DicKey.arrow:
                     {
@@ -88,20 +97,25 @@ public class Pooling : Singleton<Pooling>
                         pool[key].Enqueue(obj);
                     }
                     break;
-                
+
                 case DicKey.wood:
                     {
                         obj = Instantiate(wood, trans).gameObject;
                         pool[key].Enqueue(obj);
                     }
-                break;
+                    break;
 
                 case DicKey.itemGetUI:
                     {
-                    obj = Instantiate(itemGetUI, trans).gameObject;
-                    pool[key].Enqueue(obj);
+                        obj = Instantiate(itemGetUI, trans).gameObject;
+                        pool[key].Enqueue(obj);
                     }
-                    
+                    break;
+                case DicKey.ironOre:
+                    {
+                        obj = Instantiate(ironOre, trans).gameObject;
+                        pool[key].Enqueue(obj);
+                    }
                     break;
             }
         }
@@ -124,6 +138,11 @@ public class Pooling : Singleton<Pooling>
                     break;
                 }
             case DicKey.wood:
+                {
+                    obj.transform.position = trans.position;
+                    break;
+                }
+            case DicKey.ironOre:
                 {
                     obj.transform.position = trans.position;
                     break;

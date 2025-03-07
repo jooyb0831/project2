@@ -58,8 +58,17 @@ public class Rock : MonoBehaviour
             {
                 if (data.CurHit % data.NeedHitCnt == 0)
                 {
-                    //Pooling으로 처리할것
-                    GameObject obj = Pooling.Instance.GetPool(DicKey.stone, area);
+                    GameObject obj = null;
+                    if (stone.GetComponent<Stone>())
+                    {
+                        //Pooling으로 처리할것
+                        obj = Pooling.Instance.GetPool(DicKey.stone, area);
+                    }
+                    else if (stone.GetComponent<IronOre>())
+                    {
+                        obj = Pooling.Instance.GetPool(DicKey.ironOre, area);
+                    }
+
                     obj.transform.SetParent(stonePooling);
                 }
             }

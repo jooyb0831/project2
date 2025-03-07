@@ -20,9 +20,5 @@ public class IronOre : FieldItem
         isFind = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

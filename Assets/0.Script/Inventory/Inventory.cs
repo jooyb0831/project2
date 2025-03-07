@@ -93,7 +93,14 @@ public class Inventory : Singleton<Inventory>
                 {
                     case ItemType.Ore :
                     {
-                        Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                        if(itemData.fItem.GetComponent<Stone>())
+                        {
+                            Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                        }
+                        else if(itemData.fItem.GetComponent<IronOre>())
+                        {
+                            Pooling.Instance.SetPool(DicKey.ironOre, itemData.obj);
+                        }
                         return;
                     }
                     case ItemType.Wood:
@@ -167,8 +174,18 @@ public class Inventory : Singleton<Inventory>
             switch(type)
             {
                 case ItemType.Ore :
-                    Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
-                    return;
+                {
+                        if (itemData.fItem.GetComponent<Stone>())
+                        {
+                            Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                        }
+                        else if (itemData.fItem.GetComponent<IronOre>())
+                        {
+                            Pooling.Instance.SetPool(DicKey.ironOre, itemData.obj);
+                        }
+                        return;
+                    }
+
                 case ItemType.Wood:
                     Pooling.Instance.SetPool(DicKey.wood, itemData.obj);
                     return;
