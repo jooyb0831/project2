@@ -15,6 +15,14 @@
       "speed": 5.0,
       "atkPower": 7,
       "exp": 7
+    },
+    {
+      "maxHP": 15,
+      "enemyName": "일반 슬라임",
+      "index": 2,
+      "speed": 2.0,
+      "atkPower": 8,
+      "exp": 6
     }
   ]
 }

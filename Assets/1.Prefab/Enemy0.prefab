@@ -1296,7 +1296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434005193308128091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.1100445, y: 1.868, z: -9.940111}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1319,6 +1319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUI: {fileID: 5808758412553438157}
+  item: {fileID: 0}
   state: 0
   agent: {fileID: 527721698439358599}
   atkCoolTime: 3
@@ -1885,8 +1886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e2d2ed4ade98a41ac70bc142bbfa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpObj: {fileID: 0}
+  deadObj: {fileID: 0}
   bossNameTxt: {fileID: 5808758413712495290}
   hpBar: {fileID: 5808758414462863144}
+  enemy: {fileID: 0}
 --- !u!1 &5808758413437965998
 GameObject:
   m_ObjectHideFlags: 0

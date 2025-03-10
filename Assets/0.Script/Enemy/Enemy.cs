@@ -53,6 +53,8 @@ public class Enemy : MonoBehaviour
     protected Player p;
     protected PlayerData pd;
     protected SkillSystem skSystem;
+
+    protected JsonData jd;
     #endregion
     public Data data = new Data();
 
@@ -69,8 +71,27 @@ public class Enemy : MonoBehaviour
         p = GameManager.Instance.Player;
         pd = GameManager.Instance.PlayerData;
         skSystem = GameManager.Instance.SkillSystem;
+        jd = GameManager.Instance.JsonData;
         animator = GetComponent<Animator>();
         state = State.Idle;
+    }
+
+    /// <summary>
+    /// Json(EnemyData)의 데이터를 오브젝트에 세팅
+    /// </summary>
+    /// <param name="idx"></param>
+    public virtual void SetData(int idx)
+    {
+        EnemyData enemyData = jd.enemyData.eData[idx];
+        data.MAXHP = enemyData.maxHP;
+        data.CURHP = data.MAXHP;
+        data.EnemyName = enemyData.enemyName;
+        data.Index = enemyData.index;
+        data.Speed = enemyData.speed;
+        data.AtkPower = enemyData.atkPower;
+        data.EXP = enemyData.exp;
+        data.enemyUI = enemyUI;
+      
     }
 
     void Update()

@@ -19,19 +19,12 @@ public class Enemy0 : Enemy
 
     public override void Init()
     {
-        data.MAXHP = JsonData.Instance.enemyData.eData[0].maxHP;
-        data.CURHP = data.MAXHP;
-        data.EnemyName = JsonData.Instance.enemyData.eData[0].enemyName;
-        data.Index = JsonData.Instance.enemyData.eData[0].index;
-        data.Speed = JsonData.Instance.enemyData.eData[0].speed;
-        data.AtkPower = JsonData.Instance.enemyData.eData[0].atkPower;
-        data.EXP = JsonData.Instance.enemyData.eData[0].exp;
-        data.enemyUI = enemyUI;
-        agent.speed = data.Speed;
         base.Init();
+        SetData(0);
+        agent.speed = data.Speed;
         enemyUI.SetUI(data.EnemyName, data.MAXHP, this);
     }
-    // Update is called once per frame
+
 
     protected override void EnemyMove()
     {
