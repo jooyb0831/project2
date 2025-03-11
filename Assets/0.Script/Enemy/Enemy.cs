@@ -46,13 +46,14 @@ public class Enemy : MonoBehaviour
     }
 
     [SerializeField] public EnemyUI enemyUI; //UI
-    [SerializeField] protected GameObject item; //드랍 아이템
+    [SerializeField] protected FieldItem item; //드랍 아이템
 
     #region 컴포넌트 변수 
     protected Animator animator;
     protected Player p;
     protected PlayerData pd;
     protected SkillSystem skSystem;
+    protected Pooling pooling;
 
     protected JsonData jd;
     #endregion
@@ -72,6 +73,7 @@ public class Enemy : MonoBehaviour
         pd = GameManager.Instance.PlayerData;
         skSystem = GameManager.Instance.SkillSystem;
         jd = GameManager.Instance.JsonData;
+        pooling = GameManager.Instance.Pooling;
         animator = GetComponent<Animator>();
         state = State.Idle;
     }
@@ -177,7 +179,7 @@ public class Enemy : MonoBehaviour
         Arrow arrow = other.GetComponent<Arrow>();
         if (arrow)
         {
-            Pooling.Instance.SetPool(DicKey.arrow, arrow.gameObject);
+            pooling.SetPool(DicKey.arrow, arrow.gameObject);
             TakeDamage(arrow.Damage);
         }
     }
@@ -231,16 +233,24 @@ public class Enemy : MonoBehaviour
                 {
                     case ItemType.Ore:
                     {
-                        obj = Pooling.Instance.GetPool(DicKey.stone, transform);
+                        if(item.itemData.fItem.GetComponent<Stone>())
+                        {
+                            obj = pooling.GetPool(DicKey.stone, transform);
+                        }
+                        else if(item.itemData.fItem.GetComponent<IronOre>())
+                        {
+                            obj = pooling.GetPool(DicKey.ironOre, transform);
+                        }
+                        
                         break;
                     }
                     case ItemType.Wood:
                     {
-                        obj = Pooling.Instance.GetPool(DicKey.wood, transform);
+                        obj = pooling.GetPool(DicKey.wood, transform);
                         break;
                     }
                     default :
-                        obj = Instantiate(item, transform);
+                        obj = Instantiate(item.gameObject, transform);
                         break;
                 }
                 obj.transform.SetParent(null);

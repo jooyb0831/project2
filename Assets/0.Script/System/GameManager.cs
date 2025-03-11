@@ -154,6 +154,19 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private Pooling pooling;
+    public Pooling Pooling
+    {
+        get
+        {
+            if(pooling == null)
+            {
+                pooling = FindAnyObjectByType<Pooling>();
+            }
+            return pooling;
+        }
+    }
+
 
     /// <summary>
     /// 게임 일시정지 체크여부

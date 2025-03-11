@@ -7,6 +7,8 @@ using UnityEngine.AI;
 public class Enemy2 : Enemy
 {
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] SlimeBall slimeBall;
+    [SerializeField] Transform firePos;
 
     private Vector3 targetPos;
     float dist;
@@ -64,7 +66,8 @@ public class Enemy2 : Enemy
 
     [SerializeField] float atkCoolTime;
     [SerializeField] float atkTimer;
-    [SerializeField] GameObject slimeBall;
+    
+    bool isFire = false;
     void Attack()
     {
         atkTimer += Time.deltaTime;
@@ -72,6 +75,9 @@ public class Enemy2 : Enemy
         {
             atkTimer = 0;
             state = State.Attack;
+            SlimeBall ball = pooling.GetPool(DicKey.slimeBall, firePos).GetComponent<SlimeBall>();
+            ball.Fire();
+            ball.transform.SetParent(null);
             animator.SetTrigger("Attack");
         }
         else

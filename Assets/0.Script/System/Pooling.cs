@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -10,7 +11,8 @@ public enum DicKey
     stone,
     ironOre,
     wood,
-    itemGetUI
+    itemGetUI,
+    slimeBall
 }
 
 public class Pooling : Singleton<Pooling>
@@ -21,6 +23,7 @@ public class Pooling : Singleton<Pooling>
     private Queue<Wood> woodQueue = new Queue<Wood>();
     private Queue<ItemGetUI> itemGetUIQueue = new Queue<ItemGetUI>();
     private Queue<IronOre> ironOreQueue = new Queue<IronOre>();
+    private Queue<SlimeBall> slimeBallQueue = new Queue<SlimeBall>();
 
     //프리팹 오브젝트 할당
     [SerializeField] Arrow arrow;
@@ -28,6 +31,7 @@ public class Pooling : Singleton<Pooling>
     [SerializeField] Wood wood;
     [SerializeField] ItemGetUI itemGetUI;
     [SerializeField] IronOre ironOre;
+    [SerializeField] SlimeBall slimeBall;
 
 
     //Pool 딕셔너리 생성
@@ -41,6 +45,7 @@ public class Pooling : Singleton<Pooling>
         pool.Add(DicKey.wood, new Queue<GameObject>());
         pool.Add(DicKey.itemGetUI, new Queue<GameObject>());
         pool.Add(DicKey.ironOre, new Queue<GameObject>());
+        pool.Add(DicKey.slimeBall, new Queue<GameObject>());
     }
 
 
@@ -63,6 +68,11 @@ public class Pooling : Singleton<Pooling>
             case DicKey.ironOre:
                 {
                     obj.GetComponent<IronOre>().Initialize();
+                }
+                break;
+            case DicKey.slimeBall:
+                {
+                    obj.GetComponent<SlimeBall>().Initialize();
                 }
                 break;
             default:
@@ -117,6 +127,12 @@ public class Pooling : Singleton<Pooling>
                         pool[key].Enqueue(obj);
                     }
                     break;
+                case DicKey.slimeBall:
+                    {
+                        obj = Instantiate(slimeBall, trans).gameObject;
+                        pool[key].Enqueue(obj);
+                    }
+                    break;
             }
         }
 
@@ -147,6 +163,12 @@ public class Pooling : Singleton<Pooling>
                     obj.transform.position = trans.position;
                     break;
                 }
+            case DicKey.slimeBall:
+                {
+                    obj.transform.localPosition = Vector3.zero;
+                    //obj.transform.SetParent(null);
+                }
+                break;
             default:
                 break;
         }
