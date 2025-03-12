@@ -165,6 +165,7 @@ public class Pooling : Singleton<Pooling>
                 }
             case DicKey.slimeBall:
                 {
+                    obj.transform.SetParent(trans);
                     obj.transform.localPosition = Vector3.zero;
                     //obj.transform.SetParent(null);
                 }

@@ -7,7 +7,7 @@ public class SlimeBall : MonoBehaviour
     //데미지
     public int damage = 10;
     //발사 Power
-    private float power = 10f;
+    private float power = 5f;
 
     private Rigidbody rigid;
 
@@ -32,7 +32,7 @@ public class SlimeBall : MonoBehaviour
         transform.rotation = Quaternion.identity;
     }
 
-    public void Fire()
+    public void Fire(Vector3 dir)
     {
         if(rigid == null)
         {
@@ -40,7 +40,7 @@ public class SlimeBall : MonoBehaviour
         }
 
         Vector3 force = transform.forward * power * Time.deltaTime;
-        rigid.AddForce(transform.forward * power, ForceMode.Impulse);
+        rigid.AddForce(dir * power, ForceMode.Impulse);
     }
 
     public void OnTriggerEnter(Collider other)

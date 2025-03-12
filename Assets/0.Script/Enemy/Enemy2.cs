@@ -34,7 +34,7 @@ public class Enemy2 : Enemy
 
         dist = Vector3.Distance(p.transform.position, transform.position);
 
-        if (dist < 6 && dist > 1.5f)
+        if (dist < 10 && dist > 3f)
         {
             state = State.Walk;
             animator.SetTrigger("Walk");
@@ -43,7 +43,7 @@ public class Enemy2 : Enemy
 
         }
 
-        else if (dist <= 1.5f)
+        else if (dist <= 3f)
         {
             agent.SetDestination(transform.position);
             Attack();
@@ -76,7 +76,7 @@ public class Enemy2 : Enemy
             atkTimer = 0;
             state = State.Attack;
             SlimeBall ball = pooling.GetPool(DicKey.slimeBall, firePos).GetComponent<SlimeBall>();
-            ball.Fire();
+            ball.Fire(transform.forward);
             ball.transform.SetParent(null);
             animator.SetTrigger("Attack");
         }
