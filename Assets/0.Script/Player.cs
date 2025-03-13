@@ -112,6 +112,8 @@ public class Player : MonoBehaviour
 
     
     private float speed; //플레이어 스피드
+    private float nomalSpeed;
+    private float runSpeed;
     private float sprdTimer = 1f; //스태미너 감소 시간(1초)
     const float JUMP_POWER = 5f; //점프 파워
 
@@ -131,6 +133,8 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         animator.SetTrigger("Idle");
+        nomalSpeed = pd.Speed;
+        runSpeed = pd.RunSpeed;
     }
 
     
@@ -413,7 +417,7 @@ public class Player : MonoBehaviour
         {
             case State.Walk:
                 {
-                    speed = pd.Speed;
+                    speed = nomalSpeed;
                     animator.SetFloat("floatX", dir.x * 0.5f);
                     animator.SetFloat("floatZ", dir.z * 0.5f);
                     break;
@@ -421,7 +425,7 @@ public class Player : MonoBehaviour
 
             case State.Run:
                 {
-                    speed = pd.RunSpeed;
+                    speed = runSpeed;
                     animator.SetFloat("floatX", dir.x);
                     animator.SetFloat("floatZ", dir.z);
                     break;
@@ -868,4 +872,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ChangeSpeed(bool isInstant = false)
+    {
+        nomalSpeed = pd.Speed / 2;
+        runSpeed = pd.RunSpeed / 2;
+
+        if(isInstant) 
+        {
+            Invoke("ResetSpeed", 2f);
+        }
+    }
+
+    public void ResetSpeed()
+    {
+        nomalSpeed = pd.Speed;
+        runSpeed = pd.RunSpeed;;
+    }
 }

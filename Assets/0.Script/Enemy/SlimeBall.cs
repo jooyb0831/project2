@@ -28,6 +28,7 @@ public class SlimeBall : MonoBehaviour
         {
             pooling = GameManager.Instance.Pooling;
         }
+        rigid.velocity = Vector3.zero;
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
     }
@@ -54,6 +55,7 @@ public class SlimeBall : MonoBehaviour
         if(p)
         {
             p.TakeDamage(damage);
+            p.ChangeSpeed(true);
             pooling.SetPool(DicKey.slimeBall, gameObject);
         }
     }

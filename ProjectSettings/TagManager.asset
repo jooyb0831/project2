@@ -8,6 +8,7 @@ TagManager:
   - Punch
   - EnemyWeapon
   - Wall
+  - FallFloor
   layers:
   - Default
   - TransparentFX
