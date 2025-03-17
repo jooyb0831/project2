@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 
 public class Enemy2 : Enemy
@@ -10,6 +11,7 @@ public class Enemy2 : Enemy
     [SerializeField] SlimeBall slimeBall;
     [SerializeField] Transform firePos;
 
+    private SphereCollider coll;
     private Vector3 targetPos;
     float dist;
 
@@ -21,6 +23,7 @@ public class Enemy2 : Enemy
     public override void Init()
     {
         base.Init();
+        coll = GetComponent<SphereCollider>();
         SetData(2);
         agent.speed = data.Speed;
         enemyUI.SetUI(data.EnemyName, data.MAXHP, this);
@@ -34,7 +37,7 @@ public class Enemy2 : Enemy
 
         dist = Vector3.Distance(p.transform.position, transform.position);
 
-        if (dist < 10 && dist > 5f)
+        if (dist < 15 && dist > 5f)
         {
             state = State.Walk;
             animator.SetTrigger("Walk");
@@ -43,7 +46,7 @@ public class Enemy2 : Enemy
 
         }
 
-        else if (dist <= 5f || dist > 3f)
+        else if (dist <= 5f && dist > 3f)
         {
             agent.SetDestination(transform.position);
             Attack(1);
@@ -52,7 +55,7 @@ public class Enemy2 : Enemy
         else if (dist<=3f)
         {
             agent.SetDestination(transform.position);
-            Attack(1);
+            Attack(2);
         }
 
         else
@@ -95,9 +98,11 @@ public class Enemy2 : Enemy
         }
         else if (number == 2)
         {
-
+            state = State.Attack;
+            animator.SetTrigger("Attack2");
         }
 
-
     }
+
+
 }

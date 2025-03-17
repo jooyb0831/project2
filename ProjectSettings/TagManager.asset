@@ -9,6 +9,7 @@ TagManager:
   - EnemyWeapon
   - Wall
   - FallFloor
+  - DeadZone
   layers:
   - Default
   - TransparentFX

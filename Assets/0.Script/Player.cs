@@ -330,7 +330,7 @@ public class Player : MonoBehaviour
         #region 점프
         RaycastHit hit;
         //foot.position에서 Vector3.down으로 Ray를 0.1만큼 쏘았을 때
-        if (Physics.Raycast(foot.position, Vector3.down * 0.1f, out hit))
+        if (Physics.Raycast(foot.position, Vector3.down * 0.05f, out hit))
         {
             if (!hit.collider.CompareTag("Ground")) //Ground가 아니라면
             {
@@ -888,4 +888,5 @@ public class Player : MonoBehaviour
         nomalSpeed = pd.Speed;
         runSpeed = pd.RunSpeed;;
     }
+
 }

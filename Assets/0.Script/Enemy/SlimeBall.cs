@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SlimeBall : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class SlimeBall : MonoBehaviour
 
     private Rigidbody rigid;
 
+    private SphereCollider coll;
+
     private Pooling pooling;
+    
 
 
 
@@ -20,6 +24,7 @@ public class SlimeBall : MonoBehaviour
     {
         pooling = GameManager.Instance.Pooling;
         rigid = GetComponent<Rigidbody>();
+        coll = GetComponent<SphereCollider>();
     }
 
     public void Initialize()
@@ -28,7 +33,9 @@ public class SlimeBall : MonoBehaviour
         {
             pooling = GameManager.Instance.Pooling;
         }
+        coll.isTrigger = true;
         rigid.velocity = Vector3.zero;
+        transform.localScale = Vector3.one * 0.5f;
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
     }
@@ -48,7 +55,9 @@ public class SlimeBall : MonoBehaviour
     {
         if(other.CompareTag("Ground"))
         {
-            pooling.SetPool(DicKey.slimeBall, gameObject);
+            coll.isTrigger = false;
+            transform.DOScale(Vector3.one * 0.1f, 1.0f)
+            .OnComplete(() => BallRetrun());
         }
 
         Player p = other.GetComponent<Player>();
@@ -59,6 +68,12 @@ public class SlimeBall : MonoBehaviour
             pooling.SetPool(DicKey.slimeBall, gameObject);
         }
     }
+
+    void BallRetrun()
+    {
+        pooling.SetPool(DicKey.slimeBall, gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {

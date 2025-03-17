@@ -23,6 +23,14 @@
       "speed": 2.0,
       "atkPower": 8,
       "exp": 6
+    },
+    {
+      "maxHP": 40,
+      "enemyName": "스톤 골렘",
+      "index": 3,
+      "speed": 5.0,
+      "atkPower": 10,
+      "exp": 15
     }
   ]
 }
