@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,35 +31,71 @@ public class BossEnemy : Enemy
 
         dist = Vector3.Distance(p.transform.position, transform.position);
 
-        if (dist < 10f && dist > 3f)
+        //추적
+        if (dist < 15f && dist > 10f)
         {
             state = State.Walk;
             animator.SetTrigger("Walk");
             agent.SetDestination(p.transform.position);
         }
+        else if (dist <= 10f && dist > 5f)
+        {
+           
+            Attack(1);
+            agent.SetDestination(transform.position);
 
-        else if (dist <= 3.0f)
+        }
+        /*
+        else if (dist <= 5)
         {
             agent.SetDestination(transform.position);
-            Attack();
+            //Attack(1);
         }
+        */
         base.EnemyMove();
     }
 
+    [SerializeField] Transform stoneArea;
     [SerializeField] float atkCoolTime;
     [SerializeField] float atkTimer;
-    void Attack()
+
+    [SerializeField] float atk2CoolTime;
+    [SerializeField] float atk2Timer;
+    void Attack(int num)
     {
-        atkTimer += Time.deltaTime;
-        if (atkTimer >= atkCoolTime)
+        if (num == 1)
         {
-            atkTimer = 0;
-            state = State.Attack;
-            animator.SetTrigger("Attack");
+            atkTimer += Time.deltaTime;
+            if (atkTimer >= atkCoolTime)
+            {
+                EnemyRock rock = pooling.GetPool(DicKey.enemyRock, stoneArea).GetComponent<EnemyRock>();
+                rock.ThrowRock(transform.forward);
+                rock.transform.localScale = Vector3.one * 5f;
+                atkTimer = 0;
+                state = State.Attack;
+                animator.SetTrigger("Attack");
+            }
+            else
+            {
+                animator.SetTrigger("Idle");
+            }
         }
-        else
+
+        else if (num == 2)
         {
-            animator.SetTrigger("Idle");
+            atk2Timer += Time.deltaTime;
+            if (atk2Timer >= atk2CoolTime)
+            {
+                atk2Timer = 0;
+                state = State.Attack;
+                animator.SetTrigger("Attack2");
+            }
+            else
+            {
+                animator.SetTrigger("Idle");
+            }
         }
     }
+
+
 }

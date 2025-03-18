@@ -8785,6 +8785,9 @@ MonoBehaviour:
   stone: {fileID: 8224540129649935743, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
   wood: {fileID: 7777382695887781675, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   itemGetUI: {fileID: 1962432253350317307, guid: 45adcb6611df46c41b8a4a906c61281e, type: 3}
+  ironOre: {fileID: 0}
+  slimeBall: {fileID: 0}
+  fallRock: {fileID: 0}
 --- !u!4 &485170893
 Transform:
   m_ObjectHideFlags: 0
@@ -11834,7 +11837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUI: {fileID: 325980027}
-  item: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
+  item: {fileID: 7777382695887781675, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   state: 0
   agent: {fileID: 586987578}
   atkCoolTime: 1
@@ -13228,7 +13231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUI: {fileID: 1110382116}
-  item: {fileID: 7037879318253885711, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
+  item: {fileID: 8224540129649935743, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
   state: 0
   agent: {fileID: 640272165}
   atkCoolTime: 3
@@ -15594,7 +15597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUI: {fileID: 1313958251}
-  item: {fileID: 7037879318253885711, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
+  item: {fileID: 8224540129649935743, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
   state: 0
   agent: {fileID: 775971259}
   atkCoolTime: 3
@@ -24591,7 +24594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUI: {fileID: 789033580}
-  item: {fileID: 1654019618856642743, guid: 2e2470dc3af56b746a534f4d9bf36a37, type: 3}
+  item: {fileID: 6307818527721024232, guid: 2e2470dc3af56b746a534f4d9bf36a37, type: 3}
   state: 0
   agent: {fileID: 1274321754}
   atkCoolTime: 3

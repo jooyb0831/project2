@@ -45,7 +45,7 @@ public class MineManager : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            int rand = Random.Range(0, spawnPos.Count + 1);
+            int rand = Random.Range(0, spawnPos.Count);
             Instantiate(ironRockPrefab, spawnPos[rand].position, Quaternion.Euler(RandRotation()));
             spawnPos.RemoveAt(rand);
         }
