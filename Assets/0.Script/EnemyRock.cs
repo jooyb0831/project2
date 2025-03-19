@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class EnemyRock : MonoBehaviour
@@ -8,7 +9,7 @@ public class EnemyRock : MonoBehaviour
     public int damage = 15;
     
     //발사 Power
-    private float power = 50f;
+    private float power = 500f;
 
     private Rigidbody rigid;
     private Pooling pooling;
@@ -27,7 +28,7 @@ public class EnemyRock : MonoBehaviour
         {
             pooling = GameManager.Instance.Pooling;
         }
-        coll.isTrigger = true;
+        //coll.isTrigger = true;
         rigid.velocity = Vector3.zero;
         //transform.localScale = Vector3.one;
         transform.position = Vector3.zero;
@@ -36,11 +37,12 @@ public class EnemyRock : MonoBehaviour
 
     public void ThrowRock(Vector3 dir)
     {
+        Debug.Log("c");
         if(coll == null)
         {
             coll = GetComponent<CapsuleCollider>();
         }
-        coll.isTrigger = false;
+        //coll.isTrigger = false;
         if(rigid == null)
         {
             rigid = GetComponent<Rigidbody>();
@@ -55,9 +57,24 @@ public class EnemyRock : MonoBehaviour
         if(player)
         {
             player.TakeDamage(damage);
-            pooling.SetPool(DicKey.enemyRock, gameObject);
+            Invoke(nameof(ReturnItem), 1f);
         }
+      
 
+    }
+
+    public void OnTriggerEnter(Collider coll)
+    {
+        if (coll.CompareTag("DeadZone"))
+        {
+            Invoke(nameof(ReturnItem), 1f);
+        }
+    }
+
+
+    void ReturnItem()
+    {
+        pooling.SetPool(DicKey.enemyRock, gameObject);
     }
     // Update is called once per frame
     void Update()

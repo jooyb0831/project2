@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - FallFloor
   - DeadZone
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Player
   - Wall
   - Ceiling
-  - 
-  - 
+  - EnemyWeapon
+  - Enemy
   - 
   - 
   - 

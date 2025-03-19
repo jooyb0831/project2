@@ -34,6 +34,8 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] ItemGetUI itemGetObj;
     public Transform questArea;
 
+    [SerializeField] GameObject gameOverPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,11 @@ public class GameUI : Singleton<GameUI>
     void Update()
     {
 
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 
     public void UISwitch(bool isOn)

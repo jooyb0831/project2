@@ -38,20 +38,20 @@ public class BossEnemy : Enemy
             animator.SetTrigger("Walk");
             agent.SetDestination(p.transform.position);
         }
-        else if (dist <= 10f && dist > 5f)
+        else if (dist <= 10f && dist > 7f)
         {
-           
-            Attack(1);
+
             agent.SetDestination(transform.position);
+            Attack(1);
 
         }
-        /*
+        
         else if (dist <= 5)
         {
             agent.SetDestination(transform.position);
-            //Attack(1);
+            Attack(2);
         }
-        */
+        
         base.EnemyMove();
     }
 
@@ -68,15 +68,13 @@ public class BossEnemy : Enemy
             atkTimer += Time.deltaTime;
             if (atkTimer >= atkCoolTime)
             {
-                EnemyRock rock = pooling.GetPool(DicKey.enemyRock, stoneArea).GetComponent<EnemyRock>();
-                rock.ThrowRock(transform.forward);
-                rock.transform.localScale = Vector3.one * 5f;
                 atkTimer = 0;
                 state = State.Attack;
                 animator.SetTrigger("Attack");
             }
             else
             {
+                state = State.Idle;
                 animator.SetTrigger("Idle");
             }
         }
@@ -95,6 +93,13 @@ public class BossEnemy : Enemy
                 animator.SetTrigger("Idle");
             }
         }
+    }
+
+    public void ThrowRock()
+    {
+        EnemyRock rock = pooling.GetPool(DicKey.enemyRock, stoneArea).GetComponent<EnemyRock>();
+        rock.ThrowRock(transform.forward);
+        rock.transform.localScale = Vector3.one * 5f;
     }
 
 
