@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    public bool[] StageCleared = {false, false, false};
+    //스테이지를 클리어했는지 체크하는 bool값의 배열
+    public bool[] StageCleared = { false, false };
+
+    //활을 장착하고 있는지를 체크하는 bool값
     public bool bowEquiped = false;
 
     private int level;
     public int Level
     {
-        get{return level;}
+        get { return level; }
         set
         {
             level = value;
-            if(GameUI.Instance !=null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.Level = level;
             }
@@ -28,11 +31,11 @@ public class PlayerData : MonoBehaviour
     private int maxEXP;
     public int MAXEXP
     {
-        get{return maxEXP;}
+        get { return maxEXP; }
         set
         {
             maxEXP = value;
-            if(GameUI.Instance != null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.MAXEXP = maxEXP;
             }
@@ -47,11 +50,11 @@ public class PlayerData : MonoBehaviour
     private int exp;
     public int EXP
     {
-        get{return exp;}
+        get { return exp; }
         set
         {
             exp = value;
-            if(GameUI.Instance!=null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.EXP = exp;
             }
@@ -103,7 +106,7 @@ public class PlayerData : MonoBehaviour
         set
         {
             maxST = value;
-            if(GameUI.Instance!=null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.MAXST = maxST;
             }
@@ -117,11 +120,11 @@ public class PlayerData : MonoBehaviour
     private int st;
     public int ST
     {
-        get{return st;}
+        get { return st; }
         set
         {
             st = value;
-            if(GameUI.Instance!=null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.ST = st;
             }
@@ -176,12 +179,12 @@ public class PlayerData : MonoBehaviour
         set
         {
             speed = value;
-            
+
             if (CharUI.Instance != null)
             {
                 CharUI.Instance.Speed = (int)speed;
             }
-            
+
         }
     }
 
@@ -204,11 +207,11 @@ public class PlayerData : MonoBehaviour
     private int curMP;
     public int CURMP
     {
-        get{return curMP;}
+        get { return curMP; }
         set
         {
             curMP = value;
-            if(GameUI.Instance!=null)
+            if (GameUI.Instance != null)
             {
                 GameUI.Instance.CURMP = curMP;
             }
@@ -218,7 +221,7 @@ public class PlayerData : MonoBehaviour
     private int maxMP;
     public int MAXMP
     {
-        get{return maxMP;}
+        get { return maxMP; }
         set
         {
             maxMP = value;
@@ -236,7 +239,7 @@ public class PlayerData : MonoBehaviour
     private int gold;
     public int Gold
     {
-        get{return gold;}
+        get { return gold; }
         set
         {
             gold = value;
@@ -247,7 +250,7 @@ public class PlayerData : MonoBehaviour
 
         }
     }
-    
+
 
     // Start is called before the first frame update
     void Awake()
@@ -283,7 +286,7 @@ public class PlayerData : MonoBehaviour
 
     void LevelUp()
     {
-        if(EXP>=MAXEXP)
+        if (EXP >= MAXEXP)
         {
             Level++;
             EXP = MAXEXP - EXP;

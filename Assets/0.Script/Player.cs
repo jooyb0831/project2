@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
     private PlayerData pd;
     private SkillSystem skSystem;
     private Inventory inven;
+    private GameUI gameUI;
     #endregion
 
     #region State변수
@@ -130,6 +132,7 @@ public class Player : MonoBehaviour
         pd = GameManager.Instance.PlayerData;
         inven = GameManager.Instance.Inven;
         skSystem = GameManager.Instance.SkillSystem;
+        gameUI = GameManager.Instance.GameUI;
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         animator.SetTrigger("Idle");
@@ -836,6 +839,7 @@ public class Player : MonoBehaviour
         }
         state = State.Dead;
         animator.SetTrigger("Dead");
+        gameUI.GameOver();
     }
 
 
@@ -869,6 +873,11 @@ public class Player : MonoBehaviour
                 TakeDamage(dmg);
             }
 
+        }
+
+        if(other.CompareTag("DeadZone"))
+        {
+            Dead();
         }
     }
 

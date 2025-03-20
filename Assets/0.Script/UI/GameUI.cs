@@ -8,9 +8,16 @@ using Unity.VisualScripting;
 
 public class GameUI : Singleton<GameUI>
 {
+    //플레이어 데이터 받아오는 변수값
     private PlayerData pd;
-
+    
+#region 변수선언
+    //화살 UI 연결 변수
     public GameObject arrowUI;
+
+    //QuestUI배치할 Transform
+    public Transform questArea;
+
 
     [SerializeField] GameObject UI;
     [SerializeField] Image hpBarImg;
@@ -32,9 +39,9 @@ public class GameUI : Singleton<GameUI>
 
     [SerializeField] ItemInfoArea infoArea;
     [SerializeField] ItemGetUI itemGetObj;
-    public Transform questArea;
 
-    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] GameOverUI gameOverUI;
+#endregion
 
     // Start is called before the first frame update
     void Start()
@@ -51,16 +58,19 @@ public class GameUI : Singleton<GameUI>
         mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
         goldTxt.text = $"{pd.Gold}";
     }
-    void Update()
-    {
 
-    }
-
+    /// <summary>
+    /// 게임오버시 호출되는 함수
+    /// </summary>
     public void GameOver()
     {
-        gameOverPanel.SetActive(true);
+        gameOverUI.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// QuestQuickUI 스위치하는 함수
+    /// </summary>
+    /// <param name="isOn"></param>
     public void UISwitch(bool isOn)
     {
         if(isOn)

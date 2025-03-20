@@ -1566,7 +1566,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 126042499}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 767547128}
+        m_TargetAssemblyTypeName: GameOverUI, Assembly-CSharp
+        m_MethodName: OnRestartBtnClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &126042499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1580,7 +1592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6415094, g: 0.4725769, b: 0.41456032, a: 1}
+  m_Color: {r: 0.6415094, g: 0.4725769, b: 0.41456032, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3934,7 +3946,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 93}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 400.01, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &406360564
 MonoBehaviour:
@@ -3979,8 +3991,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282005247
-  m_fontColor: {r: 1, g: 0.21226418, b: 0.22753508, a: 1}
+    rgba: 3815167
+  m_fontColor: {r: 1, g: 0.21226418, b: 0.22753508, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5608,7 +5620,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 120.01, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &621233272
 MonoBehaviour:
@@ -5654,7 +5666,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5758,7 +5770,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 210.01, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &633668573
 MonoBehaviour:
@@ -5804,7 +5816,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278764287
-  m_fontColor: {r: 1, g: 0.7612625, b: 0.033018887, a: 1}
+  m_fontColor: {r: 1, g: 0.7612625, b: 0.033018887, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6849,6 +6861,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 767547125}
+  - component: {fileID: 767547128}
   - component: {fileID: 767547127}
   - component: {fileID: 767547126}
   m_Layer: 5
@@ -6857,7 +6870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &767547125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6894,7 +6907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.84313726}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.19607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6919,6 +6932,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767547124}
   m_CullTransparentMesh: 1
+--- !u!114 &767547128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767547124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef50759f52d37b46972f454a35321a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 767547126}
+  deadTxt: {fileID: 406360565}
+  restartBtn: {fileID: 126042498}
+  restartTxt: {fileID: 633668574}
+  exitBtn: {fileID: 1069637225}
+  exitTxt: {fileID: 621233273}
 --- !u!1 &780164888
 GameObject:
   m_ObjectHideFlags: 0
@@ -9335,7 +9366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+  m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17902,7 +17933,7 @@ MonoBehaviour:
   infoArea: {fileID: 750204873}
   itemGetObj: {fileID: 1962432253350317307, guid: 45adcb6611df46c41b8a4a906c61281e, type: 3}
   questArea: {fileID: 1802904307}
-  gameOverPanel: {fileID: 0}
+  gameOverUI: {fileID: 767547128}
 --- !u!4 &1880610702
 Transform:
   m_ObjectHideFlags: 0

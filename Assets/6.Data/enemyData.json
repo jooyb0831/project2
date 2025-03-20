@@ -31,6 +31,14 @@
       "speed": 5.0,
       "atkPower": 10,
       "exp": 15
+    },
+    {
+      "maxHP": 17,
+      "enemyName": "해골 병사",
+      "index": 4,
+      "speed": 6.0,
+      "atkPower": 8,
+      "exp": 8
     }
   ]
 }
