@@ -39,6 +39,14 @@
       "speed": 6.0,
       "atkPower": 8,
       "exp": 8
+    },
+    {
+      "maxHP": 500,
+      "enemyName": "좀비",
+      "index": 5,
+      "speed": 8.0,
+      "atkPower": 10,
+      "exp": 8
     }
   ]
 }

@@ -17918,6 +17918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowUI: {fileID: 1781516717}
+  questArea: {fileID: 1802904307}
   UI: {fileID: 907418612}
   hpBarImg: {fileID: 1243937195}
   hpTxt: {fileID: 2012031859}
@@ -17932,7 +17933,6 @@ MonoBehaviour:
   spBarImg: {fileID: 729151618}
   infoArea: {fileID: 750204873}
   itemGetObj: {fileID: 1962432253350317307, guid: 45adcb6611df46c41b8a4a906c61281e, type: 3}
-  questArea: {fileID: 1802904307}
   gameOverUI: {fileID: 767547128}
 --- !u!4 &1880610702
 Transform:
