@@ -262,7 +262,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// 제거하기
     /// </summary>
-    void DestroyEnemy()
+    protected virtual void DestroyEnemy()
     {
         Destroy(gameObject, 0.5f);
     }

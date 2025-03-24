@@ -33,5 +33,7 @@ public class Portal : MonoBehaviour
         {
             uiObj.SetActive(false);
         }
+        
     }
+
 }

@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class BossEnemy : Enemy
 {
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Portal portal;
     private Vector3 targetPos;
     float dist;
 
@@ -94,6 +95,13 @@ public class BossEnemy : Enemy
             }
         }
     }
+
+    protected override void DestroyEnemy()
+    {
+        Instantiate(portal, transform.position, portal.transform.rotation);
+        base.DestroyEnemy();
+    }
+
 
     public void ThrowRock()
     {
