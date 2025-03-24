@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class Enemy5 : Enemy
 {
-    [SerializeField] NavMeshAgent agent;
 
     [SerializeField] Transform tirggerZone;
 

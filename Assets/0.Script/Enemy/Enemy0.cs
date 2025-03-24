@@ -7,10 +7,8 @@ using UnityEngine.EventSystems;
 
 public class Enemy0 : Enemy
 {
-    [SerializeField] NavMeshAgent agent;
-
     private Vector3 targetPos;
-    float dist;
+    private float dist;
     // Start is called before the first frame update
     void Start()
     {

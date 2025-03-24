@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class BossEnemy : Enemy
 {
-    [SerializeField] NavMeshAgent agent;
     [SerializeField] Portal portal;
     private Vector3 targetPos;
     float dist;
@@ -27,10 +26,18 @@ public class BossEnemy : Enemy
 
     protected override void EnemyMove()
     {
+        if (state.Equals(State.Dead))
+        {
+            GetComponent<CapsuleCollider>().enabled = false;
+            agent.SetDestination(transform.position);
+            return;
+        }
+
         targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
         transform.LookAt(targetPos);
 
         dist = Vector3.Distance(p.transform.position, transform.position);
+
 
         //추적
         if (dist < 15f && dist > 10f)
@@ -98,7 +105,8 @@ public class BossEnemy : Enemy
 
     protected override void DestroyEnemy()
     {
-        Instantiate(portal, transform.position, portal.transform.rotation);
+        GameObject obj = Instantiate(portal, transform).gameObject;
+        obj.transform.SetParent(null);
         base.DestroyEnemy();
     }
 

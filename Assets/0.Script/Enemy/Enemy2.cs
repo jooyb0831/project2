@@ -7,7 +7,6 @@ using DG.Tweening;
 
 public class Enemy2 : Enemy
 {
-    [SerializeField] NavMeshAgent agent;
     [SerializeField] SlimeBall slimeBall;
     [SerializeField] Transform firePos;
 

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     /// <summary>
@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
     protected PlayerData pd;
     protected SkillSystem skSystem;
     protected Pooling pooling;
+    protected NavMeshAgent agent;
 
     protected JsonData jd;
     #endregion
@@ -75,6 +76,7 @@ public class Enemy : MonoBehaviour
         jd = GameManager.Instance.JsonData;
         pooling = GameManager.Instance.Pooling;
         animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
         state = State.Idle;
     }
 
@@ -113,6 +115,12 @@ public class Enemy : MonoBehaviour
         if (state == State.Dead)
         {
             TakeItem();
+            agent.SetDestination(transform.position);
+            if(GetComponent<CapsuleCollider>())
+            {
+                GetComponent<CapsuleCollider>().enabled = false;
+            }
+           
             return;
         }
         EnemyMove();

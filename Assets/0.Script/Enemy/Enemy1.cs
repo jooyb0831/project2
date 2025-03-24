@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy1 : Enemy
 {
-    [SerializeField] NavMeshAgent agent;
+
     private Vector3 targetPos;
     float dist;
     // Start is called before the first frame update
