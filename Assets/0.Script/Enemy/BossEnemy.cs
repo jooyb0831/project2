@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,25 +8,42 @@ using UnityEngine.AI;
 public class BossEnemy : Enemy
 {
     [SerializeField] Portal portal;
+    
+    private bool isTriggered;
     private Vector3 targetPos;
-    float dist;
+    private float dist;
+
+    private SceneChanger sceneChanger;
 
     // Start is called before the first frame update
     void Start()
     {
         Init();
     }
-
+    
     public override void Init()
     {
         base.Init();
         SetData(3);
         agent.speed = data.Speed;
-        enemyUI.SetUI(data.EnemyName, data.MAXHP, this);
+        sceneChanger = GameManager.Instance.SceneChanger;
+        //enemyUI.SetUI(data.EnemyName, data.MAXHP, this);
+    }
+
+    public void TriggerBoss()
+    {
+        isTriggered = true;
+        BossEnemyUI.Instance.SetUI(this);
+        //sceneChanger.AddBossUI(this);
     }
 
     protected override void EnemyMove()
     {
+        if(!isTriggered)
+        {
+            return;
+        }
+
         if (state.Equals(State.Dead))
         {
             GetComponent<CapsuleCollider>().enabled = false;
@@ -117,6 +135,4 @@ public class BossEnemy : Enemy
         rock.ThrowRock(transform.forward);
         rock.transform.localScale = Vector3.one * 5f;
     }
-
-
 }

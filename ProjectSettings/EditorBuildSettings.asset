@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/8.Scenes/Stage1.unity
     guid: 8dd514bba17e94648a0868854e377a42
+  - enabled: 1
+    path: Assets/8.Scenes/Stage2.unity
+    guid: a716480e2d08a464298bd0b5b49ebc07
+  - enabled: 1
+    path: Assets/8.Scenes/BossEnemyUI.unity
+    guid: 827f55374e57bf1499f3893e589cb99b
   m_configObjects: {}

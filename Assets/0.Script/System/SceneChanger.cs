@@ -63,6 +63,5 @@ public class SceneChanger : Singleton<SceneChanger>
             sceneType = SceneType.Lobby;
             
         }
-        
     }
 }

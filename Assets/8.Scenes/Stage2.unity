@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3606,7 +3606,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -3659,7 +3658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &175082222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,7 +5027,6 @@ MonoBehaviour:
   enemyUI: {fileID: 1783393631}
   item: {fileID: 0}
   state: 0
-  agent: {fileID: 249956739}
   tirggerZone: {fileID: 959199357}
   coll: {fileID: 0}
   isAwaken: 0
@@ -10057,7 +10055,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -11403,7 +11400,6 @@ MonoBehaviour:
   enemyUI: {fileID: 152975885}
   item: {fileID: 827655737798694868, guid: 8bfc1d5060468dc459ebfb7e32f3749c, type: 3}
   state: 0
-  agent: {fileID: 653321908}
   slimeBall: {fileID: 5631699214115455401, guid: 6bd0fa4d8d9b6fd41aa22f90554ba1e5, type: 3}
   firePos: {fileID: 1733698802}
   atkCoolTime: 2
@@ -13610,7 +13606,6 @@ MonoBehaviour:
   enemyUI: {fileID: 1326059454}
   item: {fileID: 0}
   state: 0
-  agent: {fileID: 750424640}
   tirggerZone: {fileID: 376718808}
   coll: {fileID: 0}
   isAwaken: 0
@@ -14242,7 +14237,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -18862,7 +18856,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -20274,6 +20267,65 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1167311621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1167311623}
+  - component: {fileID: 1167311624}
+  - component: {fileID: 1167311622}
+  m_Layer: 0
+  m_Name: BossTriggerZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1167311622
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167311621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 4.662178, z: 10.768848}
+  m_Center: {x: 0, y: 1.831089, z: -3.2145023}
+--- !u!4 &1167311623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167311621}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.95, y: 3.28, z: -16.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1167311624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167311621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a141f923660a0441a2c541391910316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 6052276219669567782}
 --- !u!1 &1168353447
 GameObject:
   m_ObjectHideFlags: 0
@@ -23645,7 +23697,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -24691,7 +24742,6 @@ MonoBehaviour:
   enemyUI: {fileID: 1468179805}
   item: {fileID: 0}
   state: 0
-  agent: {fileID: 1433521562}
   atkCoolTime: 1.5
   atkTimer: 0
 --- !u!1 &1438245059
@@ -28451,7 +28501,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -36169,7 +36218,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -36645,7 +36693,6 @@ MonoBehaviour:
   enemyUI: {fileID: 23301403157994955}
   item: {fileID: 827655737798694868, guid: 8bfc1d5060468dc459ebfb7e32f3749c, type: 3}
   state: 0
-  agent: {fileID: 23301402821312882}
   slimeBall: {fileID: 5631699214115455401, guid: 6bd0fa4d8d9b6fd41aa22f90554ba1e5, type: 3}
   firePos: {fileID: 23301403867349812}
   atkCoolTime: 2
@@ -37433,7 +37480,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -39498,7 +39544,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -40386,7 +40431,6 @@ MonoBehaviour:
   enemyUI: {fileID: 3847413589219888611}
   item: {fileID: 827655737798694868, guid: 8bfc1d5060468dc459ebfb7e32f3749c, type: 3}
   state: 0
-  agent: {fileID: 3847413588903367002}
   slimeBall: {fileID: 5631699214115455401, guid: 6bd0fa4d8d9b6fd41aa22f90554ba1e5, type: 3}
   firePos: {fileID: 3847413587840488220}
   atkCoolTime: 2
@@ -41685,7 +41729,6 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -42371,7 +42414,6 @@ MonoBehaviour:
   enemyUI: {fileID: 4629988980118461394}
   item: {fileID: 827655737798694868, guid: 8bfc1d5060468dc459ebfb7e32f3749c, type: 3}
   state: 0
-  agent: {fileID: 4629988980589447019}
   slimeBall: {fileID: 5631699214115455401, guid: 6bd0fa4d8d9b6fd41aa22f90554ba1e5, type: 3}
   firePos: {fileID: 4629988979543311661}
   atkCoolTime: 2
@@ -42785,7 +42827,6 @@ MonoBehaviour:
   enemyUI: {fileID: 370824779}
   item: {fileID: 0}
   state: 0
-  agent: {fileID: 5866666021680252912}
   tirggerZone: {fileID: 1928663216}
   coll: {fileID: 0}
   isAwaken: 0
@@ -43319,10 +43360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73ab7b31c978be4c872b1392b65ea12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUI: {fileID: 175082222}
+  enemyUI: {fileID: 0}
   item: {fileID: 6307818527721024232, guid: 2e2470dc3af56b746a534f4d9bf36a37, type: 3}
   state: 0
-  agent: {fileID: 6052276219669567781}
   portal: {fileID: 4661405839108456991, guid: 85c344bbb74e5a44e94aeb140e5766a0, type: 3}
   stoneArea: {fileID: 1678146963}
   atkCoolTime: 4

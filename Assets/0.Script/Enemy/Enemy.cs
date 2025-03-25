@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public class Data
     {
         public EnemyUI enemyUI;
+        public BossEnemyUI bossUI;
         public int MAXHP { get; set; }
 
         private int hp;
@@ -22,6 +23,10 @@ public class Enemy : MonoBehaviour
                 if (enemyUI != null)
                 {
                     enemyUI.HP = hp;
+                }
+                if (bossUI != null)
+                {
+                    bossUI.HP = hp;
                 }
 
             }
@@ -45,7 +50,8 @@ public class Enemy : MonoBehaviour
         Dead
     }
 
-    [SerializeField] public EnemyUI enemyUI; //UI
+    public EnemyUI enemyUI; //UI
+    public BossEnemyUI bossUI;
     [SerializeField] protected FieldItem item; //드랍 아이템
 
     #region 컴포넌트 변수 
