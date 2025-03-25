@@ -30,9 +30,17 @@ public class BossEnemyUI : Singleton<BossEnemyUI>
     {
         set
         {
-            if(boss==null) return;
-            hpBar.fillAmount = (float) boss.data.CURHP / boss.data.MAXHP;
+            if(boss == null)
+            {
+                return;
+            }
+            hpBar.fillAmount = ((float) boss.data.CURHP / boss.data.MAXHP);
         }
+    }
+
+    public void HPBarCheck()
+    {
+        hpBar.fillAmount = ((float)boss.data.CURHP / boss.data.MAXHP);
     }
 
     // Update is called once per frame

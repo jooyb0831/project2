@@ -73,4 +73,5 @@ public class EnemyUI : Singleton<EnemyUI>
             hpBar.fillAmount = ((float)enemy.data.CURHP / enemy.data.MAXHP);
         }
     }
+
 }

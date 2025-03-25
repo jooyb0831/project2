@@ -100,8 +100,16 @@ public class Enemy : MonoBehaviour
         data.Speed = enemyData.speed;
         data.AtkPower = enemyData.atkPower;
         data.EXP = enemyData.exp;
-        data.enemyUI = enemyUI;
-      
+        if(enemyUI!=null)
+        {
+            data.enemyUI = enemyUI;
+        }
+        if(bossUI!=null)
+        {
+            data.bossUI = bossUI;
+        }
+
+        
     }
 
     void Update()
@@ -206,6 +214,10 @@ public class Enemy : MonoBehaviour
     void TakeDamage(int damage)
     {
         data.CURHP -= damage;
+        if(bossUI!=null)
+        {
+            bossUI.HPBarCheck();
+        }
         if (data.CURHP <= 0)
         {
             Dead();
@@ -226,7 +238,12 @@ public class Enemy : MonoBehaviour
         Debug.Log(pd.EXP);
         state = State.Dead;
         animator.SetTrigger("Fall");
-        enemyUI.DeadUI();
+
+        if(enemyUI!=null)
+        {
+            enemyUI.DeadUI();
+        }
+
     }
 
     /// <summary>
