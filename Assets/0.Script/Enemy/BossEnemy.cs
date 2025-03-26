@@ -8,7 +8,8 @@ using UnityEngine.AI;
 public class BossEnemy : Enemy
 {
     [SerializeField] Portal portal;
-    
+    [SerializeField] GameObject deadUI;
+
     private bool isTriggered;
     private Vector3 targetPos;
     private float dist;
@@ -48,6 +49,11 @@ public class BossEnemy : Enemy
         {
             GetComponent<CapsuleCollider>().enabled = false;
             agent.SetDestination(transform.position);
+            if(!deadUI.activeSelf)
+            {
+                deadUI.SetActive(true);
+            }
+            bossUI.TurnOffUI();
             return;
         }
 

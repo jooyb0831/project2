@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    Player p;
-    SceneChanger sc;
+    private Player p;
+    private SceneChanger sc;
+    private Vector3 camPos;
+    private Vector3 targetPos;
+
     private float dist;
 
     [SerializeField] GameObject uiObj;
@@ -24,6 +27,10 @@ public class Portal : MonoBehaviour
         if(dist < 2.5f)
         {
             uiObj.SetActive(true);
+            camPos = Camera.main.transform.position;
+            targetPos = new Vector3(camPos.x, transform.position.y, camPos.z);
+            uiObj.transform.LookAt(targetPos);
+
             if(Input.GetKeyDown(KeyCode.E))
             {
                 sc.GoLobby();
