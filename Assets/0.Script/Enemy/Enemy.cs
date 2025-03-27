@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour
     protected SkillSystem skSystem;
     protected Pooling pooling;
     protected NavMeshAgent agent;
+    protected Rigidbody rigid;
 
     protected JsonData jd;
     #endregion
@@ -83,6 +84,7 @@ public class Enemy : MonoBehaviour
         pooling = GameManager.Instance.Pooling;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        rigid = GetComponent<Rigidbody>();
         state = State.Idle;
     }
 
@@ -129,10 +131,14 @@ public class Enemy : MonoBehaviour
         if (state == State.Dead)
         {
             TakeItem();
-            agent.SetDestination(transform.position);
+            if(agent!=null)
+            {
+                agent.SetDestination(transform.position);
+            }
+
             if(GetComponent<CapsuleCollider>())
             {
-                GetComponent<CapsuleCollider>().enabled = false;
+                GetComponent<CapsuleCollider>().isTrigger = true;
             }
            
             return;
@@ -242,6 +248,10 @@ public class Enemy : MonoBehaviour
         if(enemyUI!=null)
         {
             enemyUI.DeadUI();
+        }
+        if(!rigid.useGravity)
+        {
+            rigid.useGravity = true;
         }
 
     }

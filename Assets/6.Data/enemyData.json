@@ -47,6 +47,14 @@
       "speed": 4.0,
       "atkPower": 10,
       "exp": 8
+    },
+    {
+      "maxHP": 20,
+      "enemyName": "말벌 몬스터",
+      "index": 6,
+      "speed": 7.0,
+      "atkPower": 15,
+      "exp": 10
     }
   ]
 }
