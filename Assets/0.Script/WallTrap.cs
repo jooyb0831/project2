@@ -9,6 +9,8 @@ public class WallTrap : MonoBehaviour
     
     //발사되었는지 여부 체크
     bool isTriggered = false;
+
+
     // Start is called before the first frame update
     void Start()
     {

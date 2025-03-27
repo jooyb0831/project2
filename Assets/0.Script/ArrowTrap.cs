@@ -13,24 +13,38 @@ public class ArrowTrap : MonoBehaviour
     //파워
     private float power = 10;
 
+    public bool isOneShot;
 
     private Rigidbody rigid;
+    private Pooling pooling;
     // Start is called before the first frame update
     void Start()
     {
+        pooling = GameManager.Instance.Pooling;
         rigid = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Fire();
+        if(isOneShot)
+        {
+            Fire();
+        }
+
+    }
+
+    public void Initialize()
+    {
+        rigid.velocity = Vector3.zero;
+        rigid.useGravity = false;
+        transform.position = Vector3.zero;
     }
 
     /// <summary>
     /// 화살 발사
     /// </summary>
-    void Fire()
+    public void Fire()
     {
         //rigid가 없다면 받아올것
         if (rigid == null)
@@ -52,11 +66,31 @@ public class ArrowTrap : MonoBehaviour
         {
             Debug.Log("ss");
             player.TakeDamage(damage);
-            Destroy(gameObject);
+            if(isOneShot)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                ReturnObj();
+            }
+
         }
-        else if (other.GetComponent<WallTrap>())
+        else if (other.GetComponent<WallTrap2>())
         {
-            Destroy(gameObject, 1.5f);
+            if (isOneShot)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Invoke(nameof(ReturnObj), 1.5f);
+            }
         }
+    }
+
+    void ReturnObj()
+    {
+        pooling.SetPool(DicKey.arrowTrap, gameObject);
     }
 }

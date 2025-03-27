@@ -14,7 +14,8 @@ public enum DicKey
     itemGetUI,
     slimeBall,
     fallRock,
-    enemyRock
+    enemyRock,
+    arrowTrap
 }
 
 public class Pooling : Singleton<Pooling>
@@ -28,6 +29,7 @@ public class Pooling : Singleton<Pooling>
     private Queue<SlimeBall> slimeBallQueue = new Queue<SlimeBall>();
     private Queue<GameObject> fallRockQueue = new Queue<GameObject>();
     private Queue<EnemyRock> enemyRockQueue = new Queue<EnemyRock>();
+    private Queue<ArrowTrap> arrowTrapQueue = new Queue<ArrowTrap>();
 
     //프리팹 오브젝트 할당
     [SerializeField] Arrow arrow;
@@ -38,6 +40,7 @@ public class Pooling : Singleton<Pooling>
     [SerializeField] SlimeBall slimeBall;
     [SerializeField] GameObject fallRock;
     [SerializeField] EnemyRock enemyRock;
+    [SerializeField] ArrowTrap arrowTrap;
 
 
     //Pool 딕셔너리 생성
@@ -54,6 +57,7 @@ public class Pooling : Singleton<Pooling>
         pool.Add(DicKey.slimeBall, new Queue<GameObject>());
         pool.Add(DicKey.fallRock, new Queue<GameObject>());
         pool.Add(DicKey.enemyRock, new Queue<GameObject>());
+        pool.Add(DicKey.arrowTrap, new Queue<GameObject>());
     }
 
 
@@ -93,6 +97,11 @@ public class Pooling : Singleton<Pooling>
                     obj.GetComponent<EnemyRock>().Initialize();
                 }
                 break;
+            case DicKey.arrowTrap:
+                {
+                    obj.GetComponent<ArrowTrap>().Initialize();
+                    break;
+                }
 
             default:
                 break;
@@ -163,6 +172,12 @@ public class Pooling : Singleton<Pooling>
                         pool[key].Enqueue(obj);
                     }
                     break;
+                case DicKey.arrowTrap:
+                    {
+                        obj = Instantiate(arrowTrap, trans).gameObject;
+                        pool[key].Enqueue(obj);
+                    }
+                    break;
             }
         }
 
@@ -210,6 +225,13 @@ public class Pooling : Singleton<Pooling>
             case DicKey.fallRock:
                 {
                     obj.transform.position = trans.position;
+                    break;
+                }
+            case DicKey.arrowTrap:
+                {
+                    obj.transform.SetParent(trans);
+                    obj.transform.localPosition = Vector3.zero;
+                    obj.transform.SetParent(null);
                     break;
                 }
             default:
