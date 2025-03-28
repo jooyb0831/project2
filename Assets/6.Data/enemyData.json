@@ -55,6 +55,14 @@
       "speed": 7.0,
       "atkPower": 15,
       "exp": 10
+    },
+    {
+      "maxHP": 25,
+      "enemyName": "비행 슬라임",
+      "index": 7,
+      "speed": 8.0,
+      "atkPower": 17,
+      "exp": 12
     }
   ]
 }
