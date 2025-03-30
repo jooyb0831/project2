@@ -24,6 +24,11 @@ public class BossEnemyDeadUi : MonoBehaviour
         if (enemy.state.Equals(Enemy.State.Dead))
         {
             float dist = Vector3.Distance(transform.position, p.transform.position);
+            deadObj.SetActive(true);
+            camPos = Camera.main.transform.position;
+            targetPos = new Vector3(camPos.x, transform.position.y, camPos.z);
+            transform.LookAt(targetPos);
+            /*
             if (dist < 2f)
             {
                 deadObj.SetActive(true);
@@ -35,6 +40,7 @@ public class BossEnemyDeadUi : MonoBehaviour
             {
                 deadObj.SetActive(false);
             }
+            */
 
         }
 

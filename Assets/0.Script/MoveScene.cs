@@ -32,7 +32,7 @@ public class MoveScene : MonoBehaviour
     {
         dist = Vector3.Distance(transform.position, p.transform.position);
 
-        if(dist<5f)
+        if(dist<2f)
         {
             txtObj.SetActive(true);
 
@@ -57,6 +57,9 @@ public class MoveScene : MonoBehaviour
             
             case GoType.Stage:
                 sc.GoStage1();
+                break;
+            case GoType.Lobby:
+                sc.GoLobby();
                 break;
         }
     }

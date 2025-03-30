@@ -361,7 +361,7 @@ public class Inventory : Singleton<Inventory>
         if (item.data.count <= 0)
         {
             DeleteItem(item);
-            Destroy(item.gameObject);
+            return;
         }
         item.ItemCntChange(item.data);
     }
@@ -400,6 +400,7 @@ public class Inventory : Singleton<Inventory>
         invenDatas.RemoveAt(item.data.invenOrderNum);
         invenItems.RemoveAt(item.data.invenOrderNum);
         inventoryData.invenCount--;
+        Destroy(item.gameObject);
     }
 
 

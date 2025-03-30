@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    [SerializeField] int npcIdx;
     private Player p;
     private GameUI gameUI;
     private SceneChanger sc;
@@ -33,14 +34,12 @@ public class NPC : MonoBehaviour
             textObj.SetActive(true);
             if(Input.GetKeyDown(KeyCode.E))
             {
-                npcCam.gameObject.SetActive(true);
-                sc.GoNPC(true);
-                //gameUI.UISwitch(true);
+                CheckNPC(npcIdx);
             }
 
             if(Input.GetKeyDown(KeyCode.Escape))
             {
-                sc.GoNPC(false);
+                //sc.GoNPC(false);
             }
         }
         else
@@ -50,9 +49,30 @@ public class NPC : MonoBehaviour
 
         if(!sc.sceneType.Equals(SceneType.NPC))
         {
-            npcCam.gameObject.SetActive(false);
+            if(npcIdx==1)
+            {
+                npcCam.gameObject.SetActive(false);
+            }
+
         }
 
+    }
+
+    void CheckNPC(int num)
+    {
+        if(num == 1)
+        {
+            npcCam.gameObject.SetActive(true);
+            sc.GoNPC(true);
+        }
+        else if (num == 2)
+        {
+            //카메라 움직임, 캐릭터 움직임 정지
+            GameManager.Instance.isPaused = true;
+            Camera.main.GetComponent<CameraMove>().enabled = false;
+            ShopUI.Instance.SetShopInven();
+            ShopUI.Instance.window.SetActive(true);
+        }
     }
 
     

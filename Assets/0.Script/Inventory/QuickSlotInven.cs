@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class QuickSlotInven : MonoBehaviour
 {
+    public bool isInven;
     public int quickSlotIdx;
     public bool isFilled;
+    public bool isShopSlot;
     public QuickSlot quickSlot;
     [SerializeField] QuickInven quickItem;
     [SerializeField] QuickInven quickInvenSample;
@@ -37,8 +39,15 @@ public class QuickSlotInven : MonoBehaviour
         isFilled = false;
         item.data.inQuickSlot = false;
         item.data.qItem = null;
-        quickSlot.isFilled = false;
-        Destroy(quickItem.gameObject);
+        if(quickSlot!=null)
+        {
+            quickSlot.isFilled = false;
+        }
+        if(quickItem!=null)
+        {
+            Destroy(quickItem.gameObject);
+        }
+
     }
 
     public void TransferItem(InvenItem item)

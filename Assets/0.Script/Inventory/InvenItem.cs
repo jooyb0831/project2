@@ -14,6 +14,9 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     [SerializeField] GameObject cntBG;
     [SerializeField] TMP_Text cntTxt;
 
+    [SerializeField] GameObject itemSellWindow;
+    [SerializeField] GameObject itemBuyWindow;
+
     [SerializeField] ItemInvenOption itemOptionWindow;
 
     private Inventory inventory;
@@ -103,9 +106,40 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
 
         else if(Input.GetMouseButton(0))
         {
-            if(transform.parent.GetComponent<Slot>() 
-            || transform.parent.GetComponent<QuickSlotInven>()
-            || transform.parent.GetComponent<WeaponSlot>())
+            if (transform.parent.GetComponent<Slot>())
+            {
+                if (transform.parent.GetComponent<Slot>().isInven)
+                {
+                    inventory.ItemMove(true, eventData.position, data);
+                }
+                else if (transform.parent.GetComponent<Slot>().isShopSlot)
+                {
+                    GameObject window = Instantiate(itemSellWindow, transform.parent.parent.parent.parent);
+                    window.transform.SetAsLastSibling();
+                    window.GetComponent<ItemSellWindow>().SetItem(this);
+                }
+                else if (transform.parent.GetComponent<Slot>().isMerchantSlot)
+                {
+                    GameObject window = Instantiate(itemBuyWindow, transform.parent.parent.parent.parent);
+                    window.transform.SetAsLastSibling();
+                    window.GetComponent<ItemBuyWindow>().SetItem(this);
+                }
+            }
+
+            else if(transform.parent.GetComponent<QuickSlotInven>())
+            {
+                if(transform.parent.GetComponent<QuickSlotInven>().isInven)
+                {
+                    inventory.ItemMove(true, eventData.position, data);
+                }
+                else if (transform.parent.GetComponent<QuickSlotInven>().isShopSlot)
+                {
+                    GameObject window = Instantiate(itemSellWindow, transform.parent.parent.parent.parent);
+                    window.transform.SetAsLastSibling();
+                    window.GetComponent<ItemSellWindow>().SetItem(this);
+                }
+            }
+            else if (transform.parent.GetComponent<WeaponSlot>())
             {
                 inventory.ItemMove(true, eventData.position, data);
             }
@@ -128,9 +162,15 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
             {
                 cntBG.SetActive(true);
             }
-            if(transform.parent.GetComponent<Slot>() 
-            || transform.parent.GetComponent<QuickSlotInven>()
-            || transform.parent.GetComponent<WeaponSlot>())
+            if(transform.parent.GetComponent<Slot>() && transform.parent.GetComponent<Slot>().isInven)
+            {
+                inventory.PointUp(this);
+            }
+            else if (transform.parent.GetComponent<QuickSlotInven>() && transform.parent.GetComponent<QuickSlotInven>().isInven)
+            {
+                inventory.PointUp(this);
+            }
+            else if (transform.parent.GetComponent<WeaponSlot>())
             {
                 inventory.PointUp(this);
             }

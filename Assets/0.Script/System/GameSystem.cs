@@ -22,5 +22,10 @@ public class GameSystem : MonoBehaviour
         {
             pd.Level ++;
         }
+
+        if(Input.GetKeyDown(KeyCode.F6))
+        {
+            pd.EXP += 10;
+        }
     }
 }

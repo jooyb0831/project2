@@ -440,6 +440,8 @@ MonoBehaviour:
   itemIcon: {fileID: 6209183622733918042}
   cntBG: {fileID: 4558733989176242841}
   cntTxt: {fileID: 5256498863055404994}
+  itemSellWindow: {fileID: 4800494104447716721, guid: 60ff155c5b8ba1c40b1a3294cbc1c7fb, type: 3}
+  itemBuyWindow: {fileID: 4800494104447716721, guid: 763de34676262824ab79205ba40a4c08, type: 3}
   itemOptionWindow: {fileID: 2040604059165980424, guid: 005b880636a313e41b4a2bce30173842, type: 3}
   invenOption: {fileID: 0}
   data:
@@ -451,10 +453,13 @@ MonoBehaviour:
     itemTitle: 
     price: 0
     slotIdx: 0
+    invenOrderNum: 0
     inQuickSlot: 0
+    inWeaponSlot: 0
     quickSlotIdx: 0
     qItem: {fileID: 0}
     fieldItem: {fileID: 0}
+    inGameobj: {fileID: 0}
 --- !u!61 &-2410918407265884268
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ using DG.Tweening;
 public class BossEnemyUI : Singleton<BossEnemyUI>
 {   
     private Player p;
-    public BossEnemy boss;
+    public Enemy boss;
     public GameObject bossUI;
     [SerializeField] TMP_Text bossNameTxt;
     [SerializeField] Image hpBar;
@@ -19,7 +19,7 @@ public class BossEnemyUI : Singleton<BossEnemyUI>
         p = GameManager.Instance.Player;
     }
 
-    public void SetUI(BossEnemy boss)
+    public void SetUI(Enemy boss)
     {
         this.boss = boss;
         boss.bossUI = this;

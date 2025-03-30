@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
+    public bool isInven;
     public bool isFilled;
     public bool isLocked;
+    public bool isShopSlot;
+    public bool isMerchantSlot;
     public int indexNum;
     // Start is called before the first frame update
     void Start()

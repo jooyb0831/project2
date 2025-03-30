@@ -48,6 +48,8 @@ public class SceneChanger : Singleton<SceneChanger>
     {
         SceneManager.LoadScene("Lobby");
         SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
+        SceneManager.LoadScene("CraftUI", LoadSceneMode.Additive);
     }
 
     public void GoNPC(bool isLoad)

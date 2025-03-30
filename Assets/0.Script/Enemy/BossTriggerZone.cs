@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class BossTriggerZone : MonoBehaviour
 {
-    [SerializeField] BossEnemy boss;
+    [SerializeField] Enemy boss;
 
     void OnTriggerEnter(Collider other)
     {
         if(other.GetComponent<Player>())
         {
-            boss.TriggerBoss();
+            if(boss.gameObject.GetComponent<BossEnemy>())
+            {
+                boss.gameObject.GetComponent<BossEnemy>().TriggerBoss();
+            }
+            else if (boss.gameObject.GetComponent<Enemy8>())
+            {
+                boss.gameObject.GetComponent<Enemy8>().TriggerBoss();
+            }
+            
             GetComponent<BoxCollider>().enabled = false;
         }   
     }

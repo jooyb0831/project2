@@ -279,7 +279,7 @@ public class PlayerData : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F8))
         {
-            Debug.Log(SP);
+            Debug.Log(MAXHP);
         }
         LevelUp();
     }
@@ -291,6 +291,12 @@ public class PlayerData : MonoBehaviour
             Level++;
             EXP = MAXEXP - EXP;
             MAXEXP += 10;
+            MAXHP += 10;
+            HP = MAXHP;
+            MAXST += 10;
+            ST = MAXST;
+            MAXMP += 5;
+            CURMP = MAXMP;
         }
     }
 }
