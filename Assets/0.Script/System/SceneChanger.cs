@@ -13,43 +13,71 @@ public enum SceneType
     Lobby,
     SampleScene,
     CraftUI,
-    NPC
+    NPC,
+    Loading,
+    Shop,
+    Stage1,
+    Stage2,
+    Stage3,
+    Mine,
+    Forest
 }
+
 public class SceneChanger : Singleton<SceneChanger>
 {
-    public SceneType sceneType = SceneType.Lobby;
-    // Start is called before the first frame update
+    public SceneType sceneType = SceneType.GameStart;
+    
     void Start()
     {
         DontDestroyOnLoad(this);
-
     }
 
+    //각 씬별로 이동할 때 참조할 수 있도록 함수 생성
     public void GoCraftUI()
     {
         SceneManager.LoadScene("CraftUI", LoadSceneMode.Additive);
-        //SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
     }
 
     public void GoStage1()
     {
-        SceneManager.LoadScene("Stage1");
-        SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
-        
+        LoadingSceneManger.LoadScene("Stage1");
+        sceneType = SceneType.Stage1;
+    }
+
+    public void GoStage2()
+    {
+        LoadingSceneManger.LoadScene("Stage2");
+        sceneType = SceneType.Stage2;
+    }
+
+    public void GoStage3()
+    {
+        LoadingSceneManger.LoadScene("Stage3");
+        sceneType = SceneType.Stage3;
     }
 
     public void GoMine()
     {
-        SceneManager.LoadScene("Mine");
-        SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
+        LoadingSceneManger.LoadScene("Mine");
+        sceneType = SceneType.Mine;
+    }
+
+    public void GoForest()
+    {
+        LoadingSceneManger.LoadScene("Forest");
+        sceneType = SceneType.Forest;
+    }
+
+    public void GoGameStart()
+    {
+        LoadingSceneManger.LoadScene("GameStart");
+        sceneType = SceneType.GameStart;
     }
 
     public void GoLobby()
     {
-        SceneManager.LoadScene("Lobby");
-        SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
-        SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
-        SceneManager.LoadScene("CraftUI", LoadSceneMode.Additive);
+        LoadingSceneManger.LoadScene("Lobby");
+        sceneType = SceneType.Lobby;
     }
 
     public void GoNPC(bool isLoad)
@@ -63,7 +91,6 @@ public class SceneChanger : Singleton<SceneChanger>
         {
             SceneManager.UnloadSceneAsync("NPC");
             sceneType = SceneType.Lobby;
-            
         }
     }
 }

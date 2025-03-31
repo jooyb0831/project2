@@ -10,7 +10,7 @@ public class MoveScene : MonoBehaviour
         Mine,
         Stage,
         Forest,
-        Lobby
+        Lobby,
 
     }
     private Player p;
@@ -32,7 +32,7 @@ public class MoveScene : MonoBehaviour
     {
         dist = Vector3.Distance(transform.position, p.transform.position);
 
-        if(dist<2f)
+        if(dist < 3f)
         {
             txtObj.SetActive(true);
 
@@ -56,10 +56,15 @@ public class MoveScene : MonoBehaviour
                 break;
             
             case GoType.Stage:
-                sc.GoStage1();
+                StageSelect.Instance.TurnOnMap();
                 break;
+
             case GoType.Lobby:
                 sc.GoLobby();
+                break;
+
+            case GoType.Forest:
+                sc.GoForest();
                 break;
         }
     }

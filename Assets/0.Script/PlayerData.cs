@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerData : MonoBehaviour
 {
     //스테이지를 클리어했는지 체크하는 bool값의 배열
-    public bool[] StageCleared = { false, false };
+    public bool[] StageCleared = { false, false, false };
 
     //활을 장착하고 있는지를 체크하는 bool값
     public bool bowEquiped = false;
