@@ -10,6 +10,8 @@ public class GameUI : Singleton<GameUI>
 {
     //플레이어 데이터 받아오는 변수값
     private PlayerData pd;
+
+    private Pooling pooling;
     
 #region 변수선언
     //화살 UI 연결 변수
@@ -40,6 +42,9 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] ItemInfoArea infoArea;
     [SerializeField] ItemGetUI itemGetObj;
 
+    [SerializeField] NoticeInfoArea noticeArea;
+    [SerializeField] NoticeUI noticeObj;
+
     [SerializeField] GameOverUI gameOverUI;
 #endregion
 
@@ -47,6 +52,7 @@ public class GameUI : Singleton<GameUI>
     void Start()
     {
         pd = GameManager.Instance.PlayerData;
+        pooling = GameManager.Instance.Pooling;
         hpBarImg.fillAmount = (float)((float)pd.HP / (float)pd.MAXHP);
         stBarImg.fillAmount = (float)((float)pd.ST / (float)pd.MAXST);
         lvBarImg.fillAmount = (float)((float)pd.EXP / (float)pd.MAXEXP);
@@ -261,7 +267,7 @@ public class GameUI : Singleton<GameUI>
         }
         else
         {
-            ItemGetUI obj = Pooling.Instance.GetPool(DicKey.itemGetUI, infoArea.transform).GetComponent<ItemGetUI>();
+            ItemGetUI obj = pooling.GetPool(DicKey.itemGetUI, infoArea.transform).GetComponent<ItemGetUI>();
             obj.SetData(data, data.count);
             obj.transform.SetAsLastSibling();
             obj.FadeIn();
@@ -269,7 +275,20 @@ public class GameUI : Singleton<GameUI>
             infoArea.itemTitleList.Add(data.itemTitle);
             obj.isSet = true;
         }
+    }
 
+    string[] noticeTxtList = {"기력이 부족합니다.", "금액이 부족합니다.", "재료가 부족합니다.", "아직 스킬을 사용할 수 없습니다."};
+
+    /// <summary>
+    /// UI에 정보 표시하기
+    /// </summary>
+    public void DisplayInfo(int messageCode)
+    {
+        NoticeUI obj = pooling.GetPool(DicKey.noticeUI, noticeArea.transform).GetComponent<NoticeUI>();
+        obj.SetMessage(noticeTxtList[messageCode]);
+        obj.transform.SetAsLastSibling();
+        obj.FadeIn();
+        obj.isSet = true;
     }
 
 }

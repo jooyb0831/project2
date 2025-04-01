@@ -12,6 +12,7 @@ public enum DicKey
     ironOre,
     wood,
     itemGetUI,
+    noticeUI,
     slimeBall,
     fallRock,
     enemyRock,
@@ -25,6 +26,7 @@ public class Pooling : Singleton<Pooling>
     private Queue<Stone> stoneQueue = new Queue<Stone>();
     private Queue<Wood> woodQueue = new Queue<Wood>();
     private Queue<ItemGetUI> itemGetUIQueue = new Queue<ItemGetUI>();
+    private Queue<NoticeUI> noticeUIQueue = new Queue<NoticeUI>();
     private Queue<IronOre> ironOreQueue = new Queue<IronOre>();
     private Queue<SlimeBall> slimeBallQueue = new Queue<SlimeBall>();
     private Queue<GameObject> fallRockQueue = new Queue<GameObject>();
@@ -36,6 +38,7 @@ public class Pooling : Singleton<Pooling>
     [SerializeField] Stone stone;
     [SerializeField] Wood wood;
     [SerializeField] ItemGetUI itemGetUI;
+    [SerializeField] NoticeUI noticeUI;
     [SerializeField] IronOre ironOre;
     [SerializeField] SlimeBall slimeBall;
     [SerializeField] GameObject fallRock;
@@ -53,6 +56,7 @@ public class Pooling : Singleton<Pooling>
         pool.Add(DicKey.stone, new Queue<GameObject>());
         pool.Add(DicKey.wood, new Queue<GameObject>());
         pool.Add(DicKey.itemGetUI, new Queue<GameObject>());
+        pool.Add(DicKey.noticeUI, new Queue<GameObject>());
         pool.Add(DicKey.ironOre, new Queue<GameObject>());
         pool.Add(DicKey.slimeBall, new Queue<GameObject>());
         pool.Add(DicKey.fallRock, new Queue<GameObject>());
@@ -145,6 +149,12 @@ public class Pooling : Singleton<Pooling>
                 case DicKey.itemGetUI:
                     {
                         obj = Instantiate(itemGetUI, trans).gameObject;
+                        pool[key].Enqueue(obj);
+                    }
+                    break;
+                case DicKey.noticeUI:
+                    {
+                        obj = Instantiate(noticeUI, trans).gameObject;
                         pool[key].Enqueue(obj);
                     }
                     break;

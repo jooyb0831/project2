@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.10826455, g: 0.268006, b: 0.427005, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000008, guid: 1f574ed23797f664b9c22a577f235cfe, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -922,8 +922,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 5
 --- !u!1 &143833672
 GameObject:
@@ -1231,8 +1234,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 13
 --- !u!1 &244496310
 GameObject:
@@ -1729,8 +1735,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 11
 --- !u!1 &382398292
 GameObject:
@@ -2516,8 +2525,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 16
 --- !u!1 &488259942
 GameObject:
@@ -2636,8 +2648,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 19
 --- !u!1 &513645469
 GameObject:
@@ -2756,8 +2771,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 15
 --- !u!1 &599379758
 GameObject:
@@ -2876,8 +2894,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 12
 --- !u!1 &619154926
 GameObject:
@@ -2995,8 +3016,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 4
 --- !u!1 &701952540
 GameObject:
@@ -3381,8 +3405,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 17
 --- !u!1 &837445493
 GameObject:
@@ -3650,8 +3677,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 3
 --- !u!1 &906197349
 GameObject:
@@ -3874,8 +3904,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 9
 --- !u!1 &953516787
 GameObject:
@@ -3994,8 +4027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 14
 --- !u!1 &979435173
 GameObject:
@@ -4114,8 +4150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 10
 --- !u!1 &992414909
 GameObject:
@@ -4517,8 +4556,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 8
 --- !u!1 &1064782032
 GameObject:
@@ -5479,8 +5521,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 7
 --- !u!1 &1417360249
 GameObject:
@@ -6183,8 +6228,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 2
 --- !u!1 &1565417797
 GameObject:
@@ -6302,8 +6350,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a427d8283ebeec49a02b0912fa43fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   quickSlotIdx: 3
   isFilled: 0
+  isShopSlot: 0
   quickSlot: {fileID: 0}
   quickItem: {fileID: 0}
   quickInvenSample: {fileID: 7745125645568108703, guid: 8d16be7f84880e940978e80f499160e1, type: 3}
@@ -6974,8 +7024,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 1
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 18
 --- !u!1 &1716415434
 GameObject:
@@ -7333,8 +7386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 6
 --- !u!1 &1852919062
 GameObject:
@@ -7529,8 +7585,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 1
 --- !u!1 &1961401689
 GameObject:
@@ -8194,8 +8253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   isFilled: 0
   isLocked: 0
+  isShopSlot: 0
+  isMerchantSlot: 0
   indexNum: 0
 --- !u!1 &2041558086
 GameObject:
@@ -8389,8 +8451,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a427d8283ebeec49a02b0912fa43fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   quickSlotIdx: 0
   isFilled: 0
+  isShopSlot: 0
   quickSlot: {fileID: 0}
   quickItem: {fileID: 0}
   quickInvenSample: {fileID: 7745125645568108703, guid: 8d16be7f84880e940978e80f499160e1, type: 3}
@@ -8510,8 +8574,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a427d8283ebeec49a02b0912fa43fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   quickSlotIdx: 2
   isFilled: 0
+  isShopSlot: 0
   quickSlot: {fileID: 0}
   quickItem: {fileID: 0}
   quickInvenSample: {fileID: 7745125645568108703, guid: 8d16be7f84880e940978e80f499160e1, type: 3}
@@ -8784,8 +8850,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a427d8283ebeec49a02b0912fa43fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInven: 0
   quickSlotIdx: 1
   isFilled: 0
+  isShopSlot: 0
   quickSlot: {fileID: 0}
   quickItem: {fileID: 0}
   quickInvenSample: {fileID: 7745125645568108703, guid: 8d16be7f84880e940978e80f499160e1, type: 3}

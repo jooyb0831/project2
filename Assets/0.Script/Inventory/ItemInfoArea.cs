@@ -7,17 +7,11 @@ public class ItemInfoArea : MonoBehaviour
     private Inventory inven;
     public List<ItemGetUI> getUIList;
     public List<string> itemTitleList = new List<string>();
+
     // Start is called before the first frame update
     void Start()
     {
         inven = GameManager.Instance.Inven;
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public bool ItemCheck(ItemData data)
