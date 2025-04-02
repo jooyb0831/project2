@@ -26,15 +26,15 @@ public class NoticeUI : MonoBehaviour
 
     public void FadeIn()
     {
-        bg.DOFade(1, 0.5f);
-        messageTxt.DOFade(1, 0.5f);
+        bg.DOFade(0.7f, 0.5f);
+        messageTxt.DOFade(1f, 0.5f);
     }
 
     public void FadeOut()
     {
         isSet = false;
-        messageTxt.DOFade(0,1f);
-        bg.DOFade(0, 1f).OnComplete (() => 
+        messageTxt.DOFade(0, 1f);
+        bg.DOFade(0, 1f).OnComplete(() =>
         pooling.SetPool(DicKey.noticeUI, this.gameObject));
     }
     // Start is called before the first frame update
@@ -46,15 +46,16 @@ public class NoticeUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isSet)
+        if (isSet)
         {
             timer += Time.deltaTime;
-            if(timer >- time)
+            if (timer >= time)
             {
                 timer = 0;
+                FadeOut();
             }
         }
     }
 
-    
+
 }

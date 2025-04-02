@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c25503b0063fe774394c5900dbce5b83, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.10826455, g: 0.268006, b: 0.427005, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 28b11ca7df47af446aefb8dbf282f7c1, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -862,6 +862,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 879052483}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &172366681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,11 +1025,13 @@ MonoBehaviour:
   stone: {fileID: 8224540129649935743, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
   wood: {fileID: 7777382695887781675, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   itemGetUI: {fileID: 1962432253350317307, guid: 45adcb6611df46c41b8a4a906c61281e, type: 3}
+  noticeUI: {fileID: 9124804212175738492, guid: 64348b77b07396049960d7fb792957c4, type: 3}
   ironOre: {fileID: 827655737798694868, guid: 8bfc1d5060468dc459ebfb7e32f3749c, type: 3}
   slimeBall: {fileID: 5631699214115455401, guid: 6bd0fa4d8d9b6fd41aa22f90554ba1e5, type: 3}
   fallRock: {fileID: 1178168180461229795, guid: e6e0221289790a34ebfa6dd13dee2688, type: 3}
   enemyRock: {fileID: 4149605066403755493, guid: 930e3d9d652ecb3459837b60405230a3, type: 3}
   arrowTrap: {fileID: 4232704200888914767, guid: 69a19d107c3d3fe46ab23e70439849a9, type: 3}
+  woodParticle: {fileID: 1200782695426052889, guid: 52cf632ce7cdf144f8a8d50b680c6e10, type: 3}
 --- !u!4 &223254440
 Transform:
   m_ObjectHideFlags: 0
@@ -1045,7 +1048,7 @@ Transform:
   - {fileID: 1559382931}
   - {fileID: 883128023}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261349773
 GameObject:
@@ -1479,6 +1482,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 882859306}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &427395633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,6 +1600,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 1825541721}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &473443688
 GameObject:
   m_ObjectHideFlags: 0
@@ -2850,67 +2855,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &845210921
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -225.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967132, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967133, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_Name
-      value: Sky
-      objectReference: {fileID: 0}
-    - target: {fileID: 6819976231926967133, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 128f04e2546823e4b99a863b4f04b745, type: 3}
 --- !u!1 &856347730
 GameObject:
   m_ObjectHideFlags: 0
@@ -3331,6 +3275,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 801852556}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &925021330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,6 +3393,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 1374814882}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &926886490
 GameObject:
   m_ObjectHideFlags: 0
@@ -3628,6 +3574,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 1702760795}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &996519044
 GameObject:
   m_ObjectHideFlags: 0
@@ -3783,7 +3730,7 @@ Transform:
   - {fileID: 595448458}
   - {fileID: 328610663}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011517740
 GameObject:
@@ -4102,6 +4049,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 578585469}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &1088477622
 GameObject:
   m_ObjectHideFlags: 0
@@ -4498,6 +4446,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 2062005597}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &1163132124
 GameObject:
   m_ObjectHideFlags: 0
@@ -5579,6 +5528,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 823394804}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &1462182351
 GameObject:
   m_ObjectHideFlags: 0
@@ -5926,6 +5876,7 @@ MonoBehaviour:
   tool: {fileID: 0}
   obj: {fileID: 0}
   isEquiped: 0
+  woodParticle: {fileID: 0}
 --- !u!114 &1470715083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6226,7 +6177,7 @@ Transform:
   m_Children:
   - {fileID: 2034984719}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1517704094
 MonoBehaviour:
@@ -6847,6 +6798,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 856347731}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &1667828049
 GameObject:
   m_ObjectHideFlags: 0
@@ -7726,7 +7678,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1829255541
 GameObject:
@@ -8327,6 +8279,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 1896068714}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &1989867787
 GameObject:
   m_ObjectHideFlags: 0
@@ -33134,6 +33087,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 2144616043}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!1 &6959370412896777530
 GameObject:
   m_ObjectHideFlags: 0
@@ -33943,6 +33897,7 @@ MonoBehaviour:
   wood: {fileID: 5090376133075172451, guid: 80f32b7670602cc469a68087419240b8, type: 3}
   area: {fileID: 7877757982150594013}
   woodPooling: {fileID: 883128023}
+  woodParticle: {fileID: 0}
 --- !u!136 &7864801438088490506
 CapsuleCollider:
   m_ObjectHideFlags: 0

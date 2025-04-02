@@ -277,7 +277,9 @@ public class GameUI : Singleton<GameUI>
         }
     }
 
-    string[] noticeTxtList = {"기력이 부족합니다.", "금액이 부족합니다.", "재료가 부족합니다.", "아직 스킬을 사용할 수 없습니다."};
+    private string[] noticeTxtList = 
+    {"기력이 부족합니다.", "마력이 부족합니다", "골드가 부족합니다.", "재료가 부족합니다.", "아직 스킬을 사용할 수 없습니다.",
+    "장착된 활이 없습니다.", "화살이 부족합니다."};
 
     /// <summary>
     /// UI에 정보 표시하기

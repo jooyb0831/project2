@@ -9,13 +9,15 @@ public class Tree : MonoBehaviour
     [SerializeField] GameObject wood;
     [SerializeField] Transform area;
     [SerializeField] Transform woodPooling;
+    [SerializeField] ParticleSystem woodParticle;
 
+    private Pooling pooling;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        pooling = GameManager.Instance.Pooling;
     }
 
     // Update is called once per frame
@@ -27,6 +29,7 @@ public class Tree : MonoBehaviour
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Axe>())
@@ -36,10 +39,12 @@ public class Tree : MonoBehaviour
             {
                 if (curHit % 3 == 0)
                 {
-                    GameObject obj = Pooling.Instance.GetPool(DicKey.wood, area);
+                    GameObject obj = pooling.GetPool(DicKey.wood, area);
                     obj.transform.SetParent(woodPooling);
                 }
             }
+
         }
     }
+
 }

@@ -16,7 +16,8 @@ public enum DicKey
     slimeBall,
     fallRock,
     enemyRock,
-    arrowTrap
+    arrowTrap,
+    woodParticle
 }
 
 public class Pooling : Singleton<Pooling>
@@ -32,6 +33,7 @@ public class Pooling : Singleton<Pooling>
     private Queue<GameObject> fallRockQueue = new Queue<GameObject>();
     private Queue<EnemyRock> enemyRockQueue = new Queue<EnemyRock>();
     private Queue<ArrowTrap> arrowTrapQueue = new Queue<ArrowTrap>();
+    private Queue<ParticleSystem> woodParticleQueue = new Queue<ParticleSystem>();
 
     //프리팹 오브젝트 할당
     [SerializeField] Arrow arrow;
@@ -44,6 +46,7 @@ public class Pooling : Singleton<Pooling>
     [SerializeField] GameObject fallRock;
     [SerializeField] EnemyRock enemyRock;
     [SerializeField] ArrowTrap arrowTrap;
+    [SerializeField] ParticleSystem woodParticle;
 
 
     //Pool 딕셔너리 생성
@@ -106,7 +109,6 @@ public class Pooling : Singleton<Pooling>
                     obj.GetComponent<ArrowTrap>().Initialize();
                     break;
                 }
-
             default:
                 break;
 
@@ -246,6 +248,39 @@ public class Pooling : Singleton<Pooling>
                 }
             default:
                 break;
+        }
+        obj.SetActive(true);
+        return obj;
+    }
+
+    public GameObject GetPool(DicKey key, Vector3 pos, Quaternion rot)
+    {
+        GameObject obj = null;
+
+        if (pool[key].Count == 0)
+        {
+            switch (key)
+            {
+                case DicKey.woodParticle:
+                    {
+                        obj = Instantiate(woodParticle, pos, rot).gameObject;
+                        pool[key].Enqueue(obj);
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+        obj = pool[key].Dequeue();
+
+        switch(key)
+        {
+            case DicKey.woodParticle:
+                {
+                    obj.transform.position = pos;
+                    obj.transform.rotation = rot;
+                    break;
+                }
         }
         obj.SetActive(true);
         return obj;

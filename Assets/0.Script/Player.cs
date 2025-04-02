@@ -176,12 +176,14 @@ public class Player : MonoBehaviour
             Skill qSkill = skSystem.qSkill.GetComponent<Skill>();
             if (qSkill.isWorking)
             {
+                gameUI.DisplayInfo(4);
                 Debug.Log("쿨타임");
                 return;
             }
 
             if (pd.CURMP < qSkill.data.MP)
             {
+                gameUI.DisplayInfo(1);
                 Debug.Log("마력부족");
                 return;
             }
@@ -207,6 +209,7 @@ public class Player : MonoBehaviour
             int toolST = currentTool.GetComponent<Tool>().data.useST;
             if (pd.ST < toolST)
             {
+                gameUI.DisplayInfo(0);
                 Debug.Log("스태미너가 부족합니다.");
                 return;
             }
@@ -559,6 +562,7 @@ public class Player : MonoBehaviour
                 //인벤토리에 화살이 부족할 경우 리턴
                 if (inven.FindItem(4).data.count == 0)
                 {
+                    gameUI.DisplayInfo(5);
                     Debug.Log("화살이 부족합니다.");
                     return;
                 }
@@ -577,6 +581,7 @@ public class Player : MonoBehaviour
                  // 인벤토리에 화살이 부족할 경우 리턴
                 if (inven.FindItem(4).data.count == 0 || inven.FindItem(4) == null)
                 {
+                    gameUI.DisplayInfo(6);
                     Debug.Log("화살이 부족합니다.");
                     return;
                 }
@@ -591,6 +596,7 @@ public class Player : MonoBehaviour
                 //인벤에 화살 없으면 리턴
                 if (inven.FindItem(4).data.count == 0)
                 {
+                    gameUI.DisplayInfo(5);
                     Debug.Log("화살이 부족합니다.");
                     return;
                 }
