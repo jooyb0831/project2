@@ -20,10 +20,16 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     [SerializeField] ItemInvenOption itemOptionWindow;
 
     private Inventory inventory;
+    private GameUI gameUI;
     public GameObject invenOption = null;
     public InvenData data;
 
-    public void Update()
+
+    void Start()
+    {
+        gameUI = GameManager.Instance.GameUI;
+    }
+    void Update()
     {
         if(transform.parent.GetComponent<QuickSlot>())
         {
@@ -199,11 +205,11 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-
+        gameUI.ShowItemExplainWindow(this, this.transform.parent);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
+        gameUI.HideItemExplainWindow();
     }
 }

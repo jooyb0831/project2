@@ -7,6 +7,7 @@ using TMPro;
 public class InvenItemInfo : MonoBehaviour
 {
     [SerializeField] TMP_Text itemTitleTxt;
+    [SerializeField] TMP_Text itemPriceTxt;
     [SerializeField] TMP_Text itemInfoTxt;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,8 @@ public class InvenItemInfo : MonoBehaviour
 
     public void SetData(InvenItem item)
     {
-        itemTitleTxt.text = $"가격 : {item.data.price} 골드";
+        itemTitleTxt.text = $"<{item.data.itemTitle}>";
+        itemPriceTxt.text = $"가격 : {item.data.price} 골드";
         itemInfoTxt.text = "설명 설명";
     }
 }

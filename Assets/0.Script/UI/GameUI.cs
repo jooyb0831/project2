@@ -46,6 +46,9 @@ public class GameUI : Singleton<GameUI>
     [SerializeField] NoticeUI noticeObj;
 
     [SerializeField] GameOverUI gameOverUI;
+
+    [SerializeField] InvenItemInfo itemExplainWindow;
+    [SerializeField] Transform menuTransform;
 #endregion
 
     // Start is called before the first frame update
@@ -293,4 +296,18 @@ public class GameUI : Singleton<GameUI>
         obj.isSet = true;
     }
 
+    public void ShowItemExplainWindow(InvenItem item, Transform slot)
+    {
+        itemExplainWindow.transform.SetParent(slot);
+        itemExplainWindow.transform.localPosition = new Vector3(-175f, 0f, 0f);
+        itemExplainWindow.transform.SetParent(menuTransform);
+        itemExplainWindow.transform.SetAsLastSibling();
+        itemExplainWindow.SetData(item);
+        itemExplainWindow.gameObject.SetActive(true);
+    }
+
+    public void HideItemExplainWindow()
+    {
+        itemExplainWindow.gameObject.SetActive(false);
+    }
 }
