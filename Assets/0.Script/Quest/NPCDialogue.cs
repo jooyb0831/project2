@@ -62,6 +62,7 @@ public class NPCDialogue : MonoBehaviour
                 curQuest = null;
                 NPCUI.Instance.QuestReset();
                 idx = 0;
+                ExitScene();
                 return;
             }
             
@@ -95,11 +96,6 @@ public class NPCDialogue : MonoBehaviour
                 {
                     isBasicDialogue = true;
                     ExitScene();
-                    /*
-                    Time.timeScale = 1;
-                    gameObject.SetActive(false);
-                    isBasicDialogue = true;
-                    */
                 }
             }
         }
@@ -157,10 +153,4 @@ public class NPCDialogue : MonoBehaviour
         nextBtn.SetActive(true);
     }
     
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

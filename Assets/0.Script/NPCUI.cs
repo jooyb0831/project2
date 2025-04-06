@@ -99,7 +99,6 @@ public class NPCUI : Singleton<NPCUI>
             if (onGoingQuest.data.qState.Equals(QuestState.Done))
             {
                 window.SetCurDialogue(questEndDialogue);
-
             }
             if(onGoingQuest.data.qState.Equals(QuestState.Start))
             {
