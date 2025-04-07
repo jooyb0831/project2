@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using UnityEngine;
 
 
@@ -20,9 +21,13 @@ public class ItemData
 public class FieldItem : MonoBehaviour
 {
     public ItemData itemData;
+    protected GameUI gameUI;
+    protected Inventory inven;
     protected Player p;
+    protected PlayerData pd;
 
     [SerializeField] protected bool isFind = false;
+    [SerializeField] protected GameObject getUI;
     bool isFull = false;
     float speed;
 
@@ -36,14 +41,17 @@ public class FieldItem : MonoBehaviour
     public virtual void Init()
     {
         p = GameManager.Instance.Player;
+        pd = GameManager.Instance.PlayerData;
+        inven = GameManager.Instance.Inven;
+        gameUI = GameManager.Instance.GameUI;
         itemData.obj = this.gameObject;
 
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        if(itemData.type.Equals(ItemType.Tool))
+        if(itemData.type.Equals(ItemType.Plant))
         {
             ItemGet();
         }
@@ -61,12 +69,8 @@ public class FieldItem : MonoBehaviour
         {
             p = GameManager.Instance.Player;
         }
-        float dist = Vector3.Distance(p.transform.position, transform.position);
 
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            Debug.Log(dist);
-        }
+        float dist = Vector3.Distance(p.transform.position, transform.position);
 
         if (dist < 1.5f)
         {
@@ -86,11 +90,11 @@ public class FieldItem : MonoBehaviour
 
         if (dist < 0.2f)
         {
-            Inventory.Instance.GetItem(itemData);
+            inven.GetItem(itemData);
         }
     }
 
-    void ItemGet()
+    public virtual void ItemGet()
     {
         if(p == null)
         {
@@ -99,11 +103,19 @@ public class FieldItem : MonoBehaviour
 
         float dist = Vector3.Distance(p.transform.position, transform.position);
 
-        if(dist<2f)
+        if(dist < 2f)
         {
-            if(Input.GetKeyDown(KeyCode.Y))
+            getUI.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E))
             {
-                Inventory.Instance.GetItem(itemData);
+                if(pd.ST < 2)
+                {
+                    gameUI.DisplayInfo(0);
+                    Debug.Log("기력이 부족합니다.");
+                    return;
+                }
+                pd.ST-=2;
+                inven.GetItem(itemData);
             }
         }
            
@@ -113,6 +125,7 @@ public class FieldItem : MonoBehaviour
         isFull = invenFull;
         if(invenFull)
         {
+            gameUI.DisplayInfo(8);
             Debug.Log("인벤토리가 가득 찼습니다.");
         }
     }

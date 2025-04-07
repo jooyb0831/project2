@@ -282,7 +282,7 @@ public class GameUI : Singleton<GameUI>
 
     private string[] noticeTxtList = 
     {"기력이 부족합니다.", "마력이 부족합니다", "골드가 부족합니다.", "재료가 부족합니다.", "아직 스킬을 사용할 수 없습니다.",
-    "장착된 활이 없습니다.", "화살이 부족합니다."};
+    "장착된 활이 없습니다.", "화살이 부족합니다.", "인벤토리가 가득 찼습니다."};
 
     /// <summary>
     /// UI에 정보 표시하기
@@ -296,6 +296,11 @@ public class GameUI : Singleton<GameUI>
         obj.isSet = true;
     }
 
+    /// <summary>
+    /// 아이템 설명 창 보이기
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="slot"></param>
     public void ShowItemExplainWindow(InvenItem item, Transform slot)
     {
         itemExplainWindow.transform.SetParent(slot);
@@ -306,6 +311,9 @@ public class GameUI : Singleton<GameUI>
         itemExplainWindow.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// 아이템 설명창 끄기
+    /// </summary>
     public void HideItemExplainWindow()
     {
         itemExplainWindow.gameObject.SetActive(false);

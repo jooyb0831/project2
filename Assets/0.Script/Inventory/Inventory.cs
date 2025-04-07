@@ -33,7 +33,8 @@ public enum ItemType
     Tool,
     Weapon,
     Potion,
-    Arrow
+    Arrow,
+    Plant
 }
 
 public class InventoryData

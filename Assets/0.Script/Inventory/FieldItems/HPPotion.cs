@@ -4,9 +4,8 @@ using System.IO.Pipes;
 using UnityEngine;
 
 public class HPPotion : FieldItem
-{   
-    public int Recover {get;set;} = 10;
-    private PlayerData pd;
+{
+    public int Recover { get; set; } = 10;
 
     [SerializeField] GameObject effect;
     // Start is called before the first frame update
@@ -18,19 +17,14 @@ public class HPPotion : FieldItem
     public override void Init()
     {
         base.Init();
-        pd = GameManager.Instance.PlayerData;
     }
 
-    
+
     public override bool ItemUseCheck()
     {
-        if(pd == null)
+        if (pd.HP == pd.MAXHP)
         {
-            pd=GameManager.Instance.PlayerData;
-        }
-        if(pd.HP==pd.MAXHP)
-        {
-            return false;;
+            return false;
         }
         else
         {
@@ -41,16 +35,16 @@ public class HPPotion : FieldItem
 
     public override void UseItem()
     {
-        if(p == null)
+        if (p == null)
         {
-            p =GameManager.Instance.Player;
+            p = GameManager.Instance.Player;
         }
-        
+
         Instantiate(effect, p.transform);
 
-        if(pd.MAXHP-pd.HP>=Recover)
+        if (pd.MAXHP - pd.HP >= Recover)
         {
-            pd.HP+=Recover;
+            pd.HP += Recover;
         }
         else
         {
