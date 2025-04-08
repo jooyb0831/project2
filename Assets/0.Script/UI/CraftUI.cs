@@ -7,6 +7,7 @@ public class CraftUI : Singleton<CraftUI>
 {
     private CraftSystem craftSystem;
 
+#region UI관련 변수
     [SerializeField] GameObject craftWindow;
 
     [SerializeField] CreateItemIndexUI sample;
@@ -18,8 +19,10 @@ public class CraftUI : Singleton<CraftUI>
     [SerializeField] ToggleGroup recipeToggleGroup;
 
     [SerializeField] CreateResoruceUI resourceBG;
+#endregion
+    
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         craftSystem = GameManager.Instance.CraftSystem;
@@ -31,7 +34,6 @@ public class CraftUI : Singleton<CraftUI>
         SetListUp();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
