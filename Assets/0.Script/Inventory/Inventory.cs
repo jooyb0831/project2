@@ -50,6 +50,7 @@ public class Inventory : Singleton<Inventory>
 {
     private PlayerData pd;
     private Player p;
+    private Pooling pooling;
 
     [SerializeField] InvenItem invenItem; 
     public Transform[] invenSlots; //인벤토리 슬롯 리스트
@@ -70,6 +71,7 @@ public class Inventory : Singleton<Inventory>
         DontDestroyOnLoad(this);
         pd = GameManager.Instance.PlayerData;
         p = GameManager.Instance.Player;
+        pooling = GameManager.Instance.Pooling;
     }
 
 
@@ -96,17 +98,17 @@ public class Inventory : Singleton<Inventory>
                     {
                         if(itemData.fItem.GetComponent<Stone>())
                         {
-                            Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                            pooling.SetPool(DicKey.stone, itemData.obj);
                         }
                         else if(itemData.fItem.GetComponent<IronOre>())
                         {
-                            Pooling.Instance.SetPool(DicKey.ironOre, itemData.obj);
+                            pooling.SetPool(DicKey.ironOre, itemData.obj);
                         }
                         return;
                     }
                     case ItemType.Wood:
                     {
-                        Pooling.Instance.SetPool(DicKey.wood, itemData.obj);
+                        pooling.SetPool(DicKey.wood, itemData.obj);
                         return;
                     }
                     default:
@@ -178,17 +180,17 @@ public class Inventory : Singleton<Inventory>
                 {
                         if (itemData.fItem.GetComponent<Stone>())
                         {
-                            Pooling.Instance.SetPool(DicKey.stone, itemData.obj);
+                            pooling.SetPool(DicKey.stone, itemData.obj);
                         }
                         else if (itemData.fItem.GetComponent<IronOre>())
                         {
-                            Pooling.Instance.SetPool(DicKey.ironOre, itemData.obj);
+                            pooling.SetPool(DicKey.ironOre, itemData.obj);
                         }
                         return;
                     }
 
                 case ItemType.Wood:
-                    Pooling.Instance.SetPool(DicKey.wood, itemData.obj);
+                    pooling.SetPool(DicKey.wood, itemData.obj);
                     return;
                 default :
                     break;

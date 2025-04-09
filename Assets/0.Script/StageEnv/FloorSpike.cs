@@ -12,13 +12,7 @@ public class FloorSpike : MonoBehaviour
     private float restTime = 1.5f;
     private float minY = -0.45f;
     private float maxY = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         MoveUpDown();
@@ -62,9 +56,9 @@ public class FloorSpike : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Player player = other.GetComponent<Player>();
-        if(player)
+        if(other.CompareTag("Player"))
         {
+            Player player = other.transform.parent.parent.GetComponent<Player>();
             player.TakeDamage(3);
         }
     }

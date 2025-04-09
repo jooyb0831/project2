@@ -9,13 +9,12 @@ public class FallingRockCtrl : MonoBehaviour
     private float timer;
 
     private Pooling pooling;
-    // Start is called before the first frame update
+
     void Start()
     {
         pooling = GameManager.Instance.Pooling;
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;

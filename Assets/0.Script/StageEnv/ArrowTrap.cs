@@ -60,12 +60,10 @@ public class ArrowTrap : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Player player = other.GetComponent<Player>();
-
-        if (player)
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("ss");
-            player.TakeDamage(damage);
+            Player p = other.transform.parent.parent.GetComponent<Player>();
+            p.TakeDamage(damage);
             if(isOneShot)
             {
                 Destroy(gameObject);

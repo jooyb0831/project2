@@ -6,35 +6,20 @@ using UnityEngine;
 public class SlimeFloor : MonoBehaviour
 {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     void OnTriggerEnter(Collider collision)
     {
-        Player player = collision.GetComponent<Player>();
-
-        if(player)
+        if(collision.CompareTag("Player"))
         {
+            Player player = collision.transform.parent.parent.GetComponent<Player>();
             player.ChangeSpeed();
         }
     }
 
     void OnTriggerExit(Collider collision)
     {
-        Player player = collision.GetComponent<Player>();
-
-        if(player)
+        if(collision.CompareTag("Player"))
         {
+            Player player = collision.transform.parent.parent.GetComponent<Player>();
             player.ResetSpeed();
         }
     }

@@ -111,7 +111,6 @@ public class Enemy : MonoBehaviour
             data.bossUI = bossUI;
         }
 
-        
     }
 
     void Update()
@@ -154,40 +153,21 @@ public class Enemy : MonoBehaviour
 
     }
 
-    /*
-    private void OnCollisionEnter(Collision collision)
-    {
-        Player p = collision.gameObject.GetComponent<Player>();
-        if (p)
-        {
-            data.CURHP -= pd.BasicAtk;
-            if (data.CURHP <= 0)
-            {
-                state = State.Dead;
-                animator.SetTrigger("Fall");
-            }
-            else
-            {
-                state = State.Hit;
-                animator.SetTrigger("Hit");
-            }
-
-            
-        }
-    }
-    */
 
     private void OnTriggerEnter(Collider other)
     {
         //플레이어 펀치에 맞았을 경우
         if (other.CompareTag("Punch") && p.state.Equals(Player.State.Attack))
         {
+            if(state.Equals(State.Hit)) return;
             TakeDamage(pd.BasicAtk);
         }
 
         //플레이어 무기에 맞았을 경우
         if (other.GetComponent<Weapon>())
         {
+            if(state.Equals(State.Hit)) return;
+
             if (p.state.Equals(Player.State.Attack))
             {
                 TakeDamage(other.GetComponent<Weapon>().weaponData.atkDmg);
@@ -207,6 +187,7 @@ public class Enemy : MonoBehaviour
         Arrow arrow = other.GetComponent<Arrow>();
         if (arrow)
         {
+            if(state.Equals(State.Hit)) return;
             pooling.SetPool(DicKey.arrow, arrow.gameObject);
             TakeDamage(arrow.Damage);
         }
@@ -257,7 +238,7 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 아이템 드랍 함수_수정필요
+    /// 아이템 드랍 
     /// </summary>
     protected virtual void TakeItem()
     {
@@ -265,46 +246,30 @@ public class Enemy : MonoBehaviour
 
         if (dist < 2.5f)
         {
-            //아이템 수집하기
+            //드랍 아이템 활성화하기
             if (Input.GetKeyDown(KeyCode.E))
             {
-                ItemType type = item.GetComponent<FieldItem>().itemData.type;
-                GameObject obj = null;
-                switch(type)
-                {
-                    case ItemType.Ore:
-                    {
-                        if(item.itemData.fItem.GetComponent<Stone>())
-                        {
-                            obj = pooling.GetPool(DicKey.stone, transform);
-                        }
-                        else if(item.itemData.fItem.GetComponent<IronOre>())
-                        {
-                            obj = pooling.GetPool(DicKey.ironOre, transform);
-                        }
-                        
-                        break;
-                    }
-                    case ItemType.Wood:
-                    {
-                        obj = pooling.GetPool(DicKey.wood, transform);
-                        break;
-                    }
-                    default :
-                        obj = Instantiate(item.gameObject, transform);
-                        break;
-                }
-                obj.transform.SetParent(null);
+                p.GatherAnim(false);
+                item.transform.SetParent(null);
+                item.gameObject.SetActive(true);
                 DestroyEnemy();
             }
         }
     }
 
     /// <summary>
-    /// 제거하기
+    /// 적 제거하기
     /// </summary>
     protected virtual void DestroyEnemy()
     {
         Destroy(gameObject, 0.5f);
+    }
+
+    /// <summary>
+    /// Idle 상태로 돌아가기
+    /// </summary>
+    public virtual void ToIdleState()
+    {
+        state = State.Idle;
     }
 }

@@ -10,27 +10,19 @@ public class FallingFloor : MonoBehaviour
     private Rigidbody rigid;
     [SerializeField] float timer;
     [SerializeField] float destroyTime;
-    // Start is called before the first frame update
+
     void Start()
     {
         coll = GetComponent<BoxCollider>();
         rigid = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnCollisionEnter(Collision collision)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
-
-        if(player)
+        if(collision.gameObject.CompareTag("Player"))
         {
-            //player.transform.SetParent(transform);
-            Invoke("DestroyFloor", destroyTime);
+            Player player = collision.transform.parent.parent.GetComponent<Player>();
+            Invoke(nameof(DestroyFloor), destroyTime);
         }
     }
 

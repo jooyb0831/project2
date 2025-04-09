@@ -42,7 +42,7 @@ public class GameOverUI : MonoBehaviour
         exitBtn.GetComponent<Image>().color = new Color(84, 84, 84, 0);
         exitTxt.color = new Color(255, 255, 255, 0);
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         sceneChanger = GameManager.Instance.SceneChanger;
@@ -60,6 +60,6 @@ public class GameOverUI : MonoBehaviour
 
     public void OnExitBtnClicked()
     {
-        //추후작성_게임시작화면 만들고 나면
+        sceneChanger.GoGameStart();
     }
 }

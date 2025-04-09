@@ -5,16 +5,10 @@ using UnityEngine;
 public class FallRock : MonoBehaviour
 {
     private Pooling pooling;
-    // Start is called before the first frame update
+
     void Start()
     {
         pooling = GameManager.Instance.Pooling;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void OnTriggerEnter(Collider other)

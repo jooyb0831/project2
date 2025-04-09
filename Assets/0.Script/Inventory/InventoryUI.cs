@@ -157,6 +157,7 @@ public class InventoryUI : Singleton<InventoryUI>
             inventory = GameManager.Instance.Inven;
         }
         inventory.invenItems.Clear();
+
         List<InvenData> invenData = inventory.invenDatas;
         if (invenData.Count == 0)
         {
@@ -189,7 +190,6 @@ public class InventoryUI : Singleton<InventoryUI>
     void SetData(InvenData data)
     {
         InvenItem item = null;
-
         //만약 item이 퀵슬롯에 있다면
         if (data.inQuickSlot)
         {
@@ -203,6 +203,7 @@ public class InventoryUI : Singleton<InventoryUI>
             quickInvenItem.SetData(item);
             quickInvenItem.SetInvenItem(item);
             quickSlots[data.quickSlotIdx].GetComponent<QuickSlot>().isFilled = true;
+            item.data.fieldItem = data.fieldItem;
             data.qItem = quickItem;
         }
 
@@ -215,6 +216,7 @@ public class InventoryUI : Singleton<InventoryUI>
                 case WeaponType.Sword:
                     {
                         item = Instantiate(sampleInvenItem, weaponslot);
+                        item.data.fieldItem = data.fieldItem;
                         item.SetData(data);
                         item.SetInventory(inventory);
                         inventory.invenItems.Add(item);
@@ -225,6 +227,7 @@ public class InventoryUI : Singleton<InventoryUI>
                 case WeaponType.Bow:
                     {
                         item = Instantiate(sampleInvenItem, bowSlot);
+                        item.data.fieldItem = data.fieldItem;
                         item.SetData(data);
                         item.SetInventory(inventory);
                         inventory.invenItems.Add(item);
@@ -241,6 +244,7 @@ public class InventoryUI : Singleton<InventoryUI>
         {
             item = Instantiate(sampleInvenItem, slots[data.slotIdx]);
             item.transform.parent.GetComponent<Slot>().isFilled = true;
+            item.data.fieldItem = data.fieldItem;
             item.SetData(data);
             item.SetInventory(inventory);
             inventory.invenItems.Add(item);

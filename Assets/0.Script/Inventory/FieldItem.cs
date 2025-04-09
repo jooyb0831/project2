@@ -114,9 +114,13 @@ public class FieldItem : MonoBehaviour
                     Debug.Log("기력이 부족합니다.");
                     return;
                 }
-                pd.ST-=2;
+                p.GatherAnim(true, 2);
                 inven.GetItem(itemData);
             }
+        }
+        else
+        {
+            getUI.SetActive(false);
         }
            
     }

@@ -26,6 +26,8 @@ public class Enemy0 : Enemy
 
     protected override void EnemyMove()
     {
+        if(state.Equals(State.Attack) || state.Equals(State.Hit)) return;
+
         targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
         transform.LookAt(targetPos);
 
@@ -35,7 +37,6 @@ public class Enemy0 : Enemy
         {
             state = State.Walk;
             animator.SetTrigger("Walk");
-            //transform.position = Vector3.MoveTowards(transform.position, p.transform.position, Time.deltaTime* data.Speed);
             agent.SetDestination(p.transform.position);
 
         }
@@ -77,6 +78,11 @@ public class Enemy0 : Enemy
             animator.SetTrigger("Idle");
         }
 
+    }
+
+    public override void ToIdleState()
+    {
+        base.ToIdleState();
     }
 
 }

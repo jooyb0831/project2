@@ -8,7 +8,7 @@ public class BossTriggerZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Player>())
+        if(other.CompareTag("Player"))
         {
             if(boss.gameObject.GetComponent<BossEnemy>())
             {
@@ -17,6 +17,10 @@ public class BossTriggerZone : MonoBehaviour
             else if (boss.gameObject.GetComponent<Enemy8>())
             {
                 boss.gameObject.GetComponent<Enemy8>().TriggerBoss();
+            }
+            else if (boss.gameObject.GetComponent<Enemy1>())
+            {
+                boss.gameObject.GetComponent<Enemy1>().isTriggered = true;
             }
             
             GetComponent<BoxCollider>().enabled = false;

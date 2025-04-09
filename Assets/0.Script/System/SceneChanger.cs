@@ -33,6 +33,7 @@ public class SceneChanger : Singleton<SceneChanger>
     }
 
     //각 씬별로 이동할 때 참조할 수 있도록 함수 생성
+
     public void GoCraftUI()
     {
         SceneManager.LoadScene("CraftUI", LoadSceneMode.Additive);

@@ -55,8 +55,10 @@ MonoBehaviour:
     count: 1
     price: 7
     itemIdx: 3
-    obj: {fileID: 0}
+    obj: {fileID: 1654019618856642743}
     fItem: {fileID: 6307818527721024232}
+  isFind: 0
+  getUI: {fileID: 0}
   effect: {fileID: 7147218489001258344, guid: d27968226cab9ef49b99f33529ed9a17, type: 3}
 --- !u!33 &3031003009623883176
 MeshFilter:

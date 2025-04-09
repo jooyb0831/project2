@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
         Walk,
         Run,
         Jump,
+        Roll,
         AttackIdle,
         Attack,
         Skill,
@@ -158,9 +159,14 @@ public class Player : MonoBehaviour
         }
 
         Debug.DrawRay(foot.position, Vector3.down * 0.1f, Color.red);
+
+        //움직임 받기
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
+
         RecoverSP();
         Attack();
-        Move();
+        Move(x, z);
         Bow();
 
         #region 키 이벤트
@@ -191,14 +197,6 @@ public class Player : MonoBehaviour
             qSkill.SkillAct();
         }
 
-        //아이템 수집
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            state = State.Gather;
-            animator.SetTrigger("Gather");
-        }
-
-
         //도구 및 아이템 사용(상호작용)
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -217,9 +215,19 @@ public class Player : MonoBehaviour
             state = State.Mine;
             animator.SetTrigger("Mine");
         }
+
+        //구르기
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            if(pd.SP<5) return;
+            gameUI.spUI.SetActive(true);
+            pd.SP-=5;
+            RollAnimatorSet(new Vector3(x, 0, z));
+            
+        }
         #endregion
 
-        //달리기 시 스태미너 감소 처리
+        //달리기 시 SP 감소 처리
         if (state == State.Run)
         {
             sprdTimer -= Time.deltaTime;
@@ -233,7 +241,24 @@ public class Player : MonoBehaviour
         StateCheck();
     }
 
-    
+    /// <summary>
+    /// 아이템 수집하는 애니메이션 호출
+    /// </summary>
+    public void GatherAnim(bool isST, int ST = 0)
+    {
+        if(state.Equals(State.Walk) || state.Equals(State.Run))
+        {
+            animator.ResetTrigger("Walk");
+        }
+        state = State.Gather;
+        animator.SetTrigger("Gather");
+
+        if (isST)
+        {
+            pd.ST -= ST;
+        }
+    }
+
     /// <summary>
     /// 공격시 무기 손에 장착하는 함수
     /// </summary>
@@ -294,7 +319,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 플레이어 움직임
     /// </summary>
-    void Move()
+    void Move(float x, float z)
     {   
         //특정 State의 경우에는 움직이지 못하도록 Return
         switch (state)
@@ -308,10 +333,6 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
-
-        //float Input
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
         
         //기본 움직임
         transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * speed);
@@ -377,10 +398,10 @@ public class Player : MonoBehaviour
                 else
                 {
                     state = State.Run;
-                    GameUI.Instance.spUI.SetActive(true); //SP관련 UI Active
+                    gameUI.spUI.SetActive(true); //SP관련 UI Active
                 }
             }
-
+            
             else
             {
                 state = State.Walk;
@@ -438,6 +459,13 @@ public class Player : MonoBehaviour
                 }
         }
 
+    }
+
+    void RollAnimatorSet(Vector3 dir)
+    {
+        animator.SetTrigger("Roll");
+        animator.SetFloat("floatX", dir.x);
+        animator.SetFloat("floatZ", dir.z);
     }
 
 
@@ -567,7 +595,7 @@ public class Player : MonoBehaviour
                     return;
                 }
 
-                GameUI.Instance.arrowUI.SetActive(true); //활 UI 활성화
+                gameUI.arrowUI.SetActive(true); //활 UI 활성화
                 isCharging = true; //차징 상태
                 animator.SetTrigger("Bow"); //애니메이션 세팅
 
@@ -611,7 +639,7 @@ public class Player : MonoBehaviour
 
                 //인벤토리에서 화살 사용 처리
                 inven.UseItem(inven.FindItem(4));
-                GameUI.Instance.arrowUI.SetActive(false);
+                gameUI.arrowUI.SetActive(false);
             }
         }
 
@@ -758,9 +786,15 @@ public class Player : MonoBehaviour
             return;
         }
 
+        if(pd.SP<3)
+        {
+            return;
+        }
+
         //점프
         rigid.AddForce(Vector3.up * JUMP_POWER, ForceMode.Impulse);
-
+        pd.SP -= 3;
+        gameUI.spUI.SetActive(true);
         //달리기 중에 점프했을 경우 JumpRun애니메이션 트리거
         if (state.Equals(State.Run))
         {
@@ -770,7 +804,7 @@ public class Player : MonoBehaviour
         {
             animator.SetTrigger("Jump");
         }
-        state = State.Jump;
+        gameUI.spUI.SetActive(true);
 
     }
 
@@ -785,7 +819,7 @@ public class Player : MonoBehaviour
             //SP가 다 충전되었다면 리턴
             if (pd.SP >= pd.MAXSP)
             {
-                GameUI.Instance.spUI.SetActive(false);
+                gameUI.spUI.SetActive(false);
                 spRecoverStarted = false;
                 return;
             }

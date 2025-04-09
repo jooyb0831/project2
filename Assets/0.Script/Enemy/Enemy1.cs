@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class Enemy1 : Enemy
 {
-
+    public bool isTriggered;
     private Vector3 targetPos;
-    float dist;
-    // Start is called before the first frame update
+    private float dist;
+
     void Start()
     {
         Init();
@@ -25,6 +25,9 @@ public class Enemy1 : Enemy
 
     protected override void EnemyMove()
     {
+        //트리거되지 않으면 움직이지 않음
+        if(!isTriggered) return;
+
         targetPos = new Vector3(p.transform.position.x, transform.position.y, p.transform.position.z);
         transform.LookAt(targetPos);
 
@@ -34,7 +37,6 @@ public class Enemy1 : Enemy
         {
             state = State.Walk;
             animator.SetTrigger("Walk");
-            //transform.position = Vector3.MoveTowards(transform.position, p.transform.position, Time.deltaTime* data.Speed);
             agent.SetDestination(p.transform.position);
 
         }

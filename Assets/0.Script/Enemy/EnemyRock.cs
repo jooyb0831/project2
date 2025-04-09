@@ -37,12 +37,11 @@ public class EnemyRock : MonoBehaviour
 
     public void ThrowRock(Vector3 dir)
     {
-        Debug.Log("c");
         if(coll == null)
         {
             coll = GetComponent<CapsuleCollider>();
         }
-        //coll.isTrigger = false;
+
         if(rigid == null)
         {
             rigid = GetComponent<Rigidbody>();
@@ -53,14 +52,12 @@ public class EnemyRock : MonoBehaviour
 
     public void OnCollisionEnter(Collision coll)
     {
-        Player player = coll.gameObject.GetComponent<Player>();
-        if(player)
+        if(coll.gameObject.CompareTag("Player"))
         {
+            Player player = coll.transform.parent.parent.GetComponent<Player>();
             player.TakeDamage(damage);
             Invoke(nameof(ReturnItem), 1f);
         }
-      
-
     }
 
     public void OnTriggerEnter(Collider coll)

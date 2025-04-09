@@ -14,7 +14,7 @@ public class ZombieTriggerZone : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Player>())
+        if(other.CompareTag("Player"))
         {
             enemy.isAwaken = true;
             GetComponent<BoxCollider>().enabled = false;

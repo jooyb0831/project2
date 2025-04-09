@@ -22,6 +22,11 @@ public class HPPotion : FieldItem
 
     public override bool ItemUseCheck()
     {
+        if(pd == null)
+        {
+            pd = GameManager.Instance.PlayerData;
+        }
+        
         if (pd.HP == pd.MAXHP)
         {
             return false;

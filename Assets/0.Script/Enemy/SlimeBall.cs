@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class SlimeBall : MonoBehaviour
 {
@@ -60,9 +61,9 @@ public class SlimeBall : MonoBehaviour
             .OnComplete(() => BallRetrun());
         }
 
-        Player p = other.GetComponent<Player>();
-        if(p)
+        if(other.CompareTag("Player"))
         {
+            Player p = other.transform.parent.parent.GetComponent<Player>();
             p.TakeDamage(damage);
             p.ChangeSpeed(true);
             pooling.SetPool(DicKey.slimeBall, gameObject);

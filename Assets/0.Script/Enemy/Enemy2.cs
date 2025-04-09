@@ -40,7 +40,6 @@ public class Enemy2 : Enemy
         {
             state = State.Walk;
             animator.SetTrigger("Walk");
-            //transform.position = Vector3.MoveTowards(transform.position, p.transform.position, Time.deltaTime* data.Speed);
             agent.SetDestination(p.transform.position);
 
         }
@@ -74,6 +73,9 @@ public class Enemy2 : Enemy
 
     [SerializeField] float atkCoolTime;
     [SerializeField] float atkTimer;
+
+    [SerializeField] float atk2CoolTime;
+    [SerializeField] float atk2Timer;
     
     bool isFire = false;
     void Attack(int number)
@@ -97,8 +99,18 @@ public class Enemy2 : Enemy
         }
         else if (number == 2)
         {
-            state = State.Attack;
-            animator.SetTrigger("Attack2");
+            atk2Timer+= Time.deltaTime;
+            if(atk2Timer>=atk2CoolTime)
+            {
+                atk2Timer = 0;
+                state = State.Attack;
+                animator.SetTrigger("Attack2");
+            }
+            else
+            {
+                animator.SetTrigger("Idle");
+            }
+
         }
 
     }
