@@ -22,9 +22,12 @@ public class Skill : MonoBehaviour
         public Sprite SkillIcon;
     }
 
+#region 컴포넌트 변수    
     protected Player p;
     protected PlayerData pd;
     protected JsonData jd;
+    protected GameUI gameUI;
+#endregion
 
     public Data data = new Data();
 
@@ -42,12 +45,13 @@ public class Skill : MonoBehaviour
         p = GameManager.Instance.Player;
         pd = GameManager.Instance.PlayerData;
         jd = GameManager.Instance.JsonData;
+        gameUI = GameManager.Instance.GameUI;
         isSet = false;
     }
 
     public virtual void SetData(int idx)
     {
-        //JsonData�� SkillData�� �޾Ƽ� ��ų�� idx�ѹ��� ���� ����
+        //Json 형식의 Skill의 데이터를 받아서 적용
         data.SkillTitle = jd.skillData.sData[idx].skilltitle;
         data.SkillExplain = jd.skillData.sData[idx].skillexplain;
         data.SkillIndex = jd.skillData.sData[idx].index;
@@ -59,7 +63,7 @@ public class Skill : MonoBehaviour
     }
 
     /// <summary>
-    /// ��ų �۵�
+    /// 스킬 작동동
     /// </summary>
     public virtual void SkillAct()
     {
@@ -72,13 +76,12 @@ public class Skill : MonoBehaviour
         pd.CURMP -= data.MP;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //��ų�� �������� �ʾ��� ���(��ݻ���)
+        //스킬이 해제되지 않았다면면
         if (!data.Unlocked)
         {
-            //��ų�� �䱸 ������ �����Ͽ����� ����
+            //필요 레벨보다 플레이어 레벨 높으면 해제제
             if (pd.Level >= data.NeedLv)
             {
                 data.Unlocked = true;
@@ -86,7 +89,7 @@ public class Skill : MonoBehaviour
             return;
         }
 
-        //��ų�� �۵����̸� Cooltimeüũ ����
+        //스킬이 작동중이면 Cooltime체크
         if(isWorking)
         {
             CoolTimeCheck();
@@ -95,7 +98,7 @@ public class Skill : MonoBehaviour
     }
     
     /// <summary>
-    /// ��ų ��Ÿ�� üũ
+    /// 스킬의 쿨타임 체크
     /// </summary>
     void CoolTimeCheck()
     {

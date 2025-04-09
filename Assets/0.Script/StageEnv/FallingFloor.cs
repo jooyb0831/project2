@@ -21,7 +21,7 @@ public class FallingFloor : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            Player player = collision.transform.parent.parent.GetComponent<Player>();
+            Player player = collision.gameObject.GetComponent<Player>();
             Invoke(nameof(DestroyFloor), destroyTime);
         }
     }

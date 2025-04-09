@@ -12,7 +12,8 @@ public class InvenData
     public ItemType type;
     public int count; //아이템 갯수
     public int itemIdx; //아이템의 고유 idx(코드번호)
-    public string itemTitle; 
+    public string itemTitle;
+    public string itemExplain;
     public int price; //아이템 가격
     public int slotIdx; //아이템의 인벤토리 슬롯 인덱스
     public int invenOrderNum; //아이템이 인벤토리에 들어간 순서
@@ -145,6 +146,7 @@ public class Inventory : Singleton<Inventory>
         InvenData data = new InvenData
         {
             itemTitle = itemData.itemTitle,
+            itemExplain = itemData.itemExplain,
             iconSprite = itemData.invenIcon,
             bgSprite = itemData.bgSprite,
             type = itemData.type,

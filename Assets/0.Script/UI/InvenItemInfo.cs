@@ -25,6 +25,6 @@ public class InvenItemInfo : MonoBehaviour
     {
         itemTitleTxt.text = $"<{item.data.itemTitle}>";
         itemPriceTxt.text = $"가격 : {item.data.price} 골드";
-        itemInfoTxt.text = "설명 설명";
+        itemInfoTxt.text = item.data.itemExplain;
     }
 }

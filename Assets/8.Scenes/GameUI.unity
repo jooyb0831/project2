@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 688d6af1b50c08643b685dc992b240d0, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 1df1154c9ff54ed49ac6d197dd27bd6c, type: 2}
 --- !u!1 &1594409
 GameObject:
   m_ObjectHideFlags: 0
@@ -5399,7 +5399,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 610241967}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1547380818}
+        m_TargetAssemblyTypeName: SkillEquipWindow, Assembly-CSharp
+        m_MethodName: OnREquipBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &610241967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8395,6 +8407,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0

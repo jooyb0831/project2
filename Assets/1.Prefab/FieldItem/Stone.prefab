@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     itemTitle: "\uB3CC"
+    itemExplain: "\uAC00\uC7A5 \uAE30\uBCF8\uC801\uC774\uACE0 \uD754\uD55C \uC790\uC6D0\uC785\uB2C8\uB2E4."
     invenIcon: {fileID: 21300000, guid: 583675a75bcb2a941ac555b9ccd513a9, type: 3}
     bgSprite: {fileID: 21300000, guid: 4f033cdd2b09f9a43b139729d09d002c, type: 3}
     type: 0
@@ -59,6 +60,7 @@ MonoBehaviour:
     obj: {fileID: 0}
     fItem: {fileID: 8224540129649935743}
   isFind: 0
+  getUI: {fileID: 0}
 --- !u!33 &6723762963144510480
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -21,5 +21,6 @@ public class ItemRecipeData : MonoBehaviour
     public void SetData()
     {
         ItemTitle = Item.GetComponent<FieldItem>().itemData.itemTitle;
+        ItemExplain = Item.GetComponent<FieldItem>().itemData.itemExplain;
     }
 }

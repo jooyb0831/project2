@@ -14,7 +14,7 @@ public class Enemy2 : Enemy
     private Vector3 targetPos;
     float dist;
 
-     void Start()
+    void Start()
     {
         Init();
     }
@@ -50,7 +50,7 @@ public class Enemy2 : Enemy
             Attack(1);
         }
 
-        else if (dist<=3f)
+        else if (dist <= 3f)
         {
             agent.SetDestination(transform.position);
             Attack(2);
@@ -76,7 +76,7 @@ public class Enemy2 : Enemy
 
     [SerializeField] float atk2CoolTime;
     [SerializeField] float atk2Timer;
-    
+
     bool isFire = false;
     void Attack(int number)
     {
@@ -99,8 +99,8 @@ public class Enemy2 : Enemy
         }
         else if (number == 2)
         {
-            atk2Timer+= Time.deltaTime;
-            if(atk2Timer>=atk2CoolTime)
+            atk2Timer += Time.deltaTime;
+            if (atk2Timer >= atk2CoolTime)
             {
                 atk2Timer = 0;
                 state = State.Attack;

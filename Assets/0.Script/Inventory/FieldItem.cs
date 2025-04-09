@@ -8,6 +8,7 @@ using UnityEngine;
 public class ItemData
 {
     public string itemTitle;
+    public string itemExplain;
     public Sprite invenIcon;
     public Sprite bgSprite;
     public ItemType type;

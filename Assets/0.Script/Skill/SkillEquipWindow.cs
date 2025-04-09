@@ -28,7 +28,7 @@ public class SkillEquipWindow : MonoBehaviour
         SkillSet(Qslot, qSlot_inGame, ref skill_Q, 1);
     }
 
-    public void OnIEquipBtn()
+    public void OnREquipBtn()
     {
         SkillSet(Rslot, rSlot_inGame, ref skill_R, 2);
     }

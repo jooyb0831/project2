@@ -28,9 +28,6 @@ public class SkillUISystem : MonoBehaviour
     [SerializeField] SkillEquipWindow skillEquipWindow;
     [SerializeField] SkillClearWindow skillClaerWindow;
 
-    //[SerializeField] SkillEquipWindow skEqwindow;
-
-    // Start is called before the first frame update
     void Start()
     {
         sksystem = GameManager.Instance.SkillSystem;
@@ -56,12 +53,6 @@ public class SkillUISystem : MonoBehaviour
                 SetRSkill(sksystem.rSkill.GetComponent<Skill>());
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     /// <summary>

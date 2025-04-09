@@ -42,7 +42,7 @@ public class Enemy6 : Enemy
         }
 
         //플레이어와의 거리가 7미만일 경우부터 접근
-        if (dist < 7 && dist > 1.5f)
+        if (dist < 7 && dist > 1.3f)
         {   
             transform.localScale = Vector3.one;
             isTriggerd = true;
@@ -53,7 +53,7 @@ public class Enemy6 : Enemy
             transform.position = Vector3.MoveTowards(transform.position, targetPos, data.Speed * Time.deltaTime);
         }
         //거리가 5 미만일 경우 공격
-        else if (dist <= 1.5f)
+        else if (dist <= 1.3f)
         {
             Attack();
         }

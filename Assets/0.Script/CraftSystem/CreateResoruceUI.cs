@@ -28,19 +28,17 @@ public class CreateResoruceUI : MonoBehaviour
 
     [SerializeField] int createCnt = 1;
 
-    // Start is called before the first frame update
     void Start()
     {
         inven = GameManager.Instance.Inven;
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// 제작 아이템의 데이터를 받아와서 세팅
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="data"></param>
     public void SetData(FieldItem item, ItemRecipeData data)
     {
         if(cover.activeSelf)

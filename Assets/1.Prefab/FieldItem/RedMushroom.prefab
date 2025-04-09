@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     itemTitle: "\uBD89\uC740\uBC84\uC12F"
+    itemExplain: "\uD68C\uBCF5\uBB3C\uC57D\uC744 \uC81C\uC791\uD558\uB294\uB370 \uC4F0\uC785\uB2C8\uB2E4."
     invenIcon: {fileID: 21300000, guid: 6270d46c6c1104b448fb5bac5bede74d, type: 3}
     bgSprite: {fileID: 21300000, guid: 4f033cdd2b09f9a43b139729d09d002c, type: 3}
     type: 0
@@ -59,6 +60,7 @@ MonoBehaviour:
     obj: {fileID: 0}
     fItem: {fileID: 0}
   isFind: 0
+  getUI: {fileID: 0}
 --- !u!33 &1450358470306360996
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -181,6 +183,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0

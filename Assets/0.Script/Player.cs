@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
 
     public Camera charUICam; //Inventory창에 띄울 캐릭터 카메라
 
-    // Start is called before the first frame update
+
     void Start()
     {
         Init();
@@ -141,8 +141,7 @@ public class Player : MonoBehaviour
         runSpeed = pd.RunSpeed;
     }
 
-    
-    // Update is called once per frame
+
     void Update()
     {
         if(state.Equals(State.Dead))
@@ -195,6 +194,31 @@ public class Player : MonoBehaviour
             }
             skillState = SkillState.Qskill;
             qSkill.SkillAct();
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if (skSystem.rSkill == null)
+            {
+                return;
+            }
+
+            Skill rSkill = skSystem.rSkill.GetComponent<Skill>();
+            if (rSkill.isWorking)
+            {
+                gameUI.DisplayInfo(4);
+                Debug.Log("쿨타임");
+                return;
+            }
+
+            if (pd.CURMP < rSkill.data.MP)
+            {
+                gameUI.DisplayInfo(1);
+                Debug.Log("마력부족");
+                return;
+            }
+            skillState = SkillState.Qskill;
+            rSkill.SkillAct();
         }
 
         //도구 및 아이템 사용(상호작용)
@@ -275,7 +299,6 @@ public class Player : MonoBehaviour
             //장착한 무기가 칼일 경우
             if (weaponEquipState.Equals(WeaponEquipState.Sword))
             {
-                
                 //무기를 손에 들고 있으면 리턴
                 if (equipedWeapon != null)
                 {

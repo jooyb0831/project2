@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     itemTitle: "\uD65C"
+    itemExplain: "\uAC00\uC7A5 \uAE30\uBCF8\uC801\uC778 \uD65C."
     invenIcon: {fileID: 21300000, guid: 8f908a0041a1aee4c8b02d9449ebd224, type: 3}
     bgSprite: {fileID: 21300000, guid: 4f033cdd2b09f9a43b139729d09d002c, type: 3}
     type: 3
@@ -59,6 +60,8 @@ MonoBehaviour:
     itemIdx: 6
     obj: {fileID: 0}
     fItem: {fileID: -8515901427925500595}
+  isFind: 0
+  getUI: {fileID: 0}
 --- !u!114 &6091585157762142457
 MonoBehaviour:
   m_ObjectHideFlags: 0

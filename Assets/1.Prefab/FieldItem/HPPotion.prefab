@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2143593270444978701}
   - component: {fileID: 6307818527721024232}
+  - component: {fileID: 443752977342143672}
   - component: {fileID: 3031003009623883176}
   - component: {fileID: 1005637954855864674}
   - component: {fileID: 5594575991626628652}
@@ -49,17 +50,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     itemTitle: "\uD68C\uBCF5\uC57D"
+    itemExplain: "\uCD08\uAE09 \uD68C\uBCF5\uBB3C\uC57D. \uD68C\uBCF5\uB7C9 : 10"
     invenIcon: {fileID: 21300000, guid: b91c79b920bc1a3429a64aca6cc2c9af, type: 3}
     bgSprite: {fileID: 21300000, guid: 4f033cdd2b09f9a43b139729d09d002c, type: 3}
     type: 4
     count: 1
     price: 7
     itemIdx: 3
-    obj: {fileID: 1654019618856642743}
+    obj: {fileID: 0}
     fItem: {fileID: 6307818527721024232}
   isFind: 0
   getUI: {fileID: 0}
   effect: {fileID: 7147218489001258344, guid: d27968226cab9ef49b99f33529ed9a17, type: 3}
+--- !u!114 &443752977342143672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654019618856642743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473e27ed11401384ea30083e7aa1cae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemIcon: {fileID: 21300000, guid: fef1f120b08ee5746859c1ed267d1947, type: 3}
+  Resources:
+  - {fileID: 1450358470307131018, guid: e2a07e70d2fc88040902cc42d7fa4ceb, type: 3}
+  RcCnts: 02000000
+  Item: {fileID: 1654019618856642743}
 --- !u!33 &3031003009623883176
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     /// <summary>
-    /// Enemy의 Data
+    /// Enemy의 Data 클래스
     /// </summary>
     public class Data
     {
@@ -62,14 +62,12 @@ public class Enemy : MonoBehaviour
     protected Pooling pooling;
     protected NavMeshAgent agent;
     protected Rigidbody rigid;
-
     protected JsonData jd;
     #endregion
     public Data data = new Data();
 
     public State state = State.Idle;
 
-    // Start is called before the first frame update
     void Start()
     {
         Init();
@@ -102,11 +100,11 @@ public class Enemy : MonoBehaviour
         data.Speed = enemyData.speed;
         data.AtkPower = enemyData.atkPower;
         data.EXP = enemyData.exp;
-        if(enemyUI!=null)
+        if (enemyUI != null)
         {
             data.enemyUI = enemyUI;
         }
-        if(bossUI!=null)
+        if (bossUI != null)
         {
             data.bossUI = bossUI;
         }
@@ -130,16 +128,16 @@ public class Enemy : MonoBehaviour
         if (state == State.Dead)
         {
             TakeItem();
-            if(agent!=null)
+            if (agent != null)
             {
                 agent.SetDestination(transform.position);
             }
 
-            if(GetComponent<CapsuleCollider>())
+            if (GetComponent<CapsuleCollider>())
             {
                 GetComponent<CapsuleCollider>().isTrigger = true;
             }
-           
+
             return;
         }
         EnemyMove();
@@ -159,14 +157,14 @@ public class Enemy : MonoBehaviour
         //플레이어 펀치에 맞았을 경우
         if (other.CompareTag("Punch") && p.state.Equals(Player.State.Attack))
         {
-            if(state.Equals(State.Hit)) return;
+            if (state.Equals(State.Hit)) return;
             TakeDamage(pd.BasicAtk);
         }
 
         //플레이어 무기에 맞았을 경우
         if (other.GetComponent<Weapon>())
         {
-            if(state.Equals(State.Hit)) return;
+            if (state.Equals(State.Hit)) return;
 
             if (p.state.Equals(Player.State.Attack))
             {
@@ -179,7 +177,6 @@ public class Enemy : MonoBehaviour
                 {
                     TakeDamage(skSystem.qSkill.GetComponent<Skill>().data.Damage);
                 }
-
             }
         }
 
@@ -187,7 +184,7 @@ public class Enemy : MonoBehaviour
         Arrow arrow = other.GetComponent<Arrow>();
         if (arrow)
         {
-            if(state.Equals(State.Hit)) return;
+            if (state.Equals(State.Hit)) return;
             pooling.SetPool(DicKey.arrow, arrow.gameObject);
             TakeDamage(arrow.Damage);
         }
@@ -201,7 +198,7 @@ public class Enemy : MonoBehaviour
     void TakeDamage(int damage)
     {
         data.CURHP -= damage;
-        if(bossUI!=null)
+        if (bossUI != null)
         {
             bossUI.HPBarCheck();
         }
@@ -222,15 +219,14 @@ public class Enemy : MonoBehaviour
     void Dead()
     {
         pd.EXP += data.EXP;
-        Debug.Log(pd.EXP);
         state = State.Dead;
         animator.SetTrigger("Fall");
 
-        if(enemyUI!=null)
+        if (enemyUI != null)
         {
             enemyUI.DeadUI();
         }
-        if(!rigid.useGravity)
+        if (!rigid.useGravity)
         {
             rigid.useGravity = true;
         }

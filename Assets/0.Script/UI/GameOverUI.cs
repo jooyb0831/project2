@@ -60,6 +60,7 @@ public class GameOverUI : MonoBehaviour
 
     public void OnExitBtnClicked()
     {
+        pd.HP = pd.MAXHP;
         sceneChanger.GoGameStart();
     }
 }

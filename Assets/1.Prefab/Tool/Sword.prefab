@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     itemTitle: "\uB179\uC2A8 \uCE7C"
+    itemExplain: "\uC544\uC8FC \uBB34\uB518 \uAC80. \uACF5\uACA9\uB825 : 3"
     invenIcon: {fileID: 21300000, guid: d9e60910a669ccf41800976c96607250, type: 3}
     bgSprite: {fileID: 21300000, guid: 4f033cdd2b09f9a43b139729d09d002c, type: 3}
     type: 3
@@ -78,6 +79,7 @@ MonoBehaviour:
     obj: {fileID: 0}
     fItem: {fileID: 8376854902236739952}
   isFind: 0
+  getUI: {fileID: 0}
   sowrdObj: {fileID: 5890757121253714726, guid: a9e2cfbde26b3984eb80380c479f2043, type: 3}
 --- !u!114 &8275721876175859041
 MonoBehaviour:

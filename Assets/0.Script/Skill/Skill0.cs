@@ -5,7 +5,6 @@ using UnityEngine;
 public class Skill0 : Skill
 {
     
-    // Start is called before the first frame update
     void Start()
     {
         Init();
@@ -19,15 +18,16 @@ public class Skill0 : Skill
 
     public override void SkillAct()
     {
-        base.SkillAct();
+        //플레이어가 무기 장착하고 있지 않으면 작동X
         if(p.weaponEquipState.Equals(Player.WeaponEquipState.None))
         {
-            Debug.Log("무기");
+            gameUI.DisplayInfo(8);
             p.skillState = Player.SkillState.None;
             return;
         }
         Debug.Log($"{p.state}, {p.weaponEquipState}");
         p.Weapon();
         p.animator.SetTrigger("Skill0");
+        base.SkillAct();
     }
 }
