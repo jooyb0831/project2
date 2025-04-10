@@ -12,9 +12,10 @@ public class Arrow : MonoBehaviour
     public int Damage { get; set; } = 5;
 
     //화살 속도
-    float speed = 0.5f;
+    private float speed = 0.5f;
 
-    float deg;
+    //화살 차징의 최대 파워
+    private const int MAX_POWER = 15;
     
     //화살의 발사 Power
     private float power;
@@ -27,61 +28,46 @@ public class Arrow : MonoBehaviour
             ArrowUI.Instance.Power = power;
         }
     }
-
-    Rigidbody rigid;
-    private Player p;
-
-    bool isEnd = false;
     
     //파워 차징 기준 타이머(속도) 0.1초 기준
     [SerializeField] float chargeTimer = 0.1f;
 
-    // Start is called before the first frame update
+    private Rigidbody rigid;
+    private Player p;
+    bool isEnd = false;
+
+
     void Start()
+    {
+        Init();
+    }
+
+    void Init()
     {
         rigid = GetComponent<Rigidbody>();
         p = GameManager.Instance.Player;
+
+        //화살 UI에 화살 세팅
         ArrowUI.Instance.arrow = this;
         Power = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-        /*
-        if(isEnd)
-        {
-            float angle = Mathf.Atan2(rigid.velocity.y, rigid.velocity.x) * Mathf.Rad2Deg;
-            transform.eulerAngles = new Vector3(0, 0, angle);
-        }
-        else
-        {
-            return;
-        }
-        */
-        
-    }
-
-    // 화살 차징
+    /// <summary>
+    /// 화살 차징
+    /// </summary>
     public void ArrowCharge()
     {
-        if (Power >= 15)
-        {
-            return;
-        }
+        // 화살의 현재 차징 파워가 MAX_POWER보다 크면 차징 중지(Return)
+        if (Power >= MAX_POWER) return;
+
+        //화살 차징 타이머 계산
         chargeTimer -= Time.deltaTime;
+
         if(chargeTimer<=0)
         {
             Power += 1;
             chargeTimer = 0.1f;
         }
-
-        Debug.Log(power);
     }
 
     /// <summary>
@@ -89,16 +75,16 @@ public class Arrow : MonoBehaviour
     /// </summary>
     public void Fire()
     {
-        if(rigid == null)
-        {
-            rigid = GetComponent<Rigidbody>();
-        }
-
+        //rigid가 없으면 rigid 받기
+        if(rigid == null) rigid = GetComponent<Rigidbody>();
+        //중력 활성화
         rigid.useGravity = true;
+        //방향 설정
         Vector3 dir = transform.up * speed * Power * 10;
         rigid.velocity = dir;
 
     }
+
 
     public void End(Transform trans)
     {
@@ -121,7 +107,9 @@ public class Arrow : MonoBehaviour
 
     
 
-
+    /// <summary>
+    /// 초기화 함수
+    /// </summary>
     public void Initialize()
     {
         isEnd = false;

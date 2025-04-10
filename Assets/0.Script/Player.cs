@@ -66,13 +66,14 @@ public class Player : MonoBehaviour
     private SkillSystem skSystem;
     private Inventory inven;
     private GameUI gameUI;
+    private Pooling pooling;
     #endregion
 
     #region State변수
     public State state = State.Idle; //플레이어의 상태
-    [HideInInspector]public WeaponEquipState weaponEquipState = WeaponEquipState.None; //플레이어 무기 상태
-    [HideInInspector]public ToolEquipState toolEquipState = ToolEquipState.None; //플레이어 도구 상태
-    [HideInInspector]public SkillState skillState = SkillState.None; //플레이어 스킬 상태
+    [HideInInspector] public WeaponEquipState weaponEquipState = WeaponEquipState.None; //플레이어 무기 상태
+    [HideInInspector] public ToolEquipState toolEquipState = ToolEquipState.None; //플레이어 도구 상태
+    [HideInInspector] public SkillState skillState = SkillState.None; //플레이어 스킬 상태
     #endregion
 
     #region Transforms
@@ -113,10 +114,10 @@ public class Player : MonoBehaviour
     float plusTimer = 1; //sp증가 타이머(1초)
     #endregion
 
-    
+
     private float speed; //플레이어 스피드
-    private float nomalSpeed;
-    private float runSpeed;
+    private float nomalSpeed; //원래 스피드 저장용 변수
+    private float runSpeed; //원래의 달리기 스피드 저장용 변수
     private float sprdTimer = 1f; //스태미너 감소 시간(1초)
     const float JUMP_POWER = 5f; //점프 파워
 
@@ -132,6 +133,7 @@ public class Player : MonoBehaviour
     {
         pd = GameManager.Instance.PlayerData;
         inven = GameManager.Instance.Inven;
+        pooling = GameManager.Instance.Pooling;
         skSystem = GameManager.Instance.SkillSystem;
         gameUI = GameManager.Instance.GameUI;
         rigid = GetComponent<Rigidbody>();
@@ -144,10 +146,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(state.Equals(State.Dead))
+        if (state.Equals(State.Dead))
         {
             return;
         }
+
         // 메뉴 탭이 열렸을 때는 모든 키 입력 안받게 만들기
         if (GameManager.Instance.isPaused)
         {
@@ -169,34 +172,35 @@ public class Player : MonoBehaviour
         Bow();
 
         #region 키 이벤트
-
         //Q스킬 사용
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (skSystem.qSkill == null)
+            //현재 장착한 qSkill이 null일 경우 리턴
+            if (skSystem.qSkill == null) 
             {
                 return;
             }
 
             Skill qSkill = skSystem.qSkill.GetComponent<Skill>();
+            //스킬 쿨타임이 안 됐을 경우(작동중일 경우)
             if (qSkill.isWorking)
             {
-                gameUI.DisplayInfo(4);
-                Debug.Log("쿨타임");
+                gameUI.DisplayInfo(4); //UI에 쿨타임이 안됐음을 표시
                 return;
             }
-
+            //MP가 부족할 경우
             if (pd.CURMP < qSkill.data.MP)
             {
-                gameUI.DisplayInfo(1);
-                Debug.Log("마력부족");
+                gameUI.DisplayInfo(1); //UI에 MP가 부족함을 표시
                 return;
             }
+            //스킬 사용 State로 변경
             skillState = SkillState.Qskill;
-            qSkill.SkillAct();
+            qSkill.SkillAct(); //스킬 작동
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        //R스킬 사용
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if (skSystem.rSkill == null)
             {
@@ -206,15 +210,13 @@ public class Player : MonoBehaviour
             Skill rSkill = skSystem.rSkill.GetComponent<Skill>();
             if (rSkill.isWorking)
             {
-                gameUI.DisplayInfo(4);
-                Debug.Log("쿨타임");
+                gameUI.DisplayInfo(4); //UI에 쿨타임이 안됐음을 표시
                 return;
             }
 
             if (pd.CURMP < rSkill.data.MP)
             {
-                gameUI.DisplayInfo(1);
-                Debug.Log("마력부족");
+                gameUI.DisplayInfo(1); //UI에 MP가 부족함을 표시
                 return;
             }
             skillState = SkillState.Qskill;
@@ -224,15 +226,17 @@ public class Player : MonoBehaviour
         //도구 및 아이템 사용(상호작용)
         if (Input.GetKeyDown(KeyCode.F))
         {
+            //현재 장착한 도구가 없다면 리턴
             if (currentTool == null)
             {
                 return;
             }
+            // 현재 장착한 Tool의 데이터 중 ST 차감 받아오기
             int toolST = currentTool.GetComponent<Tool>().data.useST;
+            //ST가 부족하다면
             if (pd.ST < toolST)
             {
-                gameUI.DisplayInfo(0);
-                Debug.Log("스태미너가 부족합니다.");
+                gameUI.DisplayInfo(0); //스태미너가 부족함을 UI에 표시
                 return;
             }
             pd.ST -= toolST;
@@ -241,13 +245,13 @@ public class Player : MonoBehaviour
         }
 
         //구르기
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            if(pd.SP<5) return;
+            if (pd.SP < 5) return;
             gameUI.spUI.SetActive(true);
-            pd.SP-=5;
+            pd.SP -= 5;
             RollAnimatorSet(new Vector3(x, 0, z));
-            
+
         }
         #endregion
 
@@ -270,7 +274,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public void GatherAnim(bool isST, int ST = 0)
     {
-        if(state.Equals(State.Walk) || state.Equals(State.Run))
+        if (state.Equals(State.Walk) || state.Equals(State.Run))
         {
             animator.ResetTrigger("Walk");
         }
@@ -315,7 +319,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+
     /// <summary>
     /// 활 장착하는 코드
     /// </summary>
@@ -343,7 +347,7 @@ public class Player : MonoBehaviour
     /// 플레이어 움직임
     /// </summary>
     void Move(float x, float z)
-    {   
+    {
         //특정 State의 경우에는 움직이지 못하도록 Return
         switch (state)
         {
@@ -356,11 +360,11 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
-        
+
         //기본 움직임
         transform.Translate(new Vector3(x, 0, z) * Time.deltaTime * speed);
 
-        switch(state)
+        switch (state)
         {
             case State.Skill:
             case State.Jump:
@@ -416,7 +420,6 @@ public class Player : MonoBehaviour
                 if (pd.SP <= 0)
                 {
                     state = State.Walk;
-
                 }
                 else
                 {
@@ -424,7 +427,7 @@ public class Player : MonoBehaviour
                     gameUI.spUI.SetActive(true); //SP관련 UI Active
                 }
             }
-            
+
             else
             {
                 state = State.Walk;
@@ -445,7 +448,7 @@ public class Player : MonoBehaviour
                 case State.Mine:
                     return;
 
-                default :
+                default:
                     break;
             }
             animator.SetTrigger("Idle"); //Idle 애니메이션 Trigger
@@ -481,9 +484,12 @@ public class Player : MonoBehaviour
                     break;
                 }
         }
-
     }
 
+    /// <summary>
+    /// 구르기 애니메이션 세팅 함수
+    /// </summary>
+    /// <param name="dir"></param>
     void RollAnimatorSet(Vector3 dir)
     {
         animator.SetTrigger("Roll");
@@ -510,14 +516,14 @@ public class Player : MonoBehaviour
                 animator.SetBool("Attacking", true); //애니메이션 Set
 
                 //무기 상태에 따라 구분
-                switch(weaponEquipState)
+                switch (weaponEquipState)
                 {
                     case WeaponEquipState.None:
                         {
                             animator.SetTrigger("Punch");
                             break;
                         }
-                        
+
                     case WeaponEquipState.Sword:
                         {
                             Weapon();
@@ -564,7 +570,7 @@ public class Player : MonoBehaviour
         //스킬 실행상태가 아니면
         if (state != State.Skill)
         {
-             //스킬상태 None으로 변경
+            //스킬상태 None으로 변경
             skillState = SkillState.None;
         }
 
@@ -590,7 +596,7 @@ public class Player : MonoBehaviour
 
     }
 
-    
+
     /// <summary>
     /// 활 작동 함수
     /// </summary>
@@ -600,21 +606,19 @@ public class Player : MonoBehaviour
         {
             if (!pd.bowEquiped) // 장착된 활이 없으면 리턴
             {
-                Debug.Log("장착된 활이 없습니다");
                 return;
             }
 
             BowEquip(); //화살 장착
             state = State.Bow; //상태 변경
 
-            //좌클릭 시 화살 생성
+            //마우스 좌클릭 시 화살 생성
             if (Input.GetMouseButtonDown(0))
             {
                 //인벤토리에 화살이 부족할 경우 리턴
                 if (inven.FindItem(4).data.count == 0)
                 {
-                    gameUI.DisplayInfo(5);
-                    Debug.Log("화살이 부족합니다.");
+                    gameUI.DisplayInfo(5); //UI에 화살이 부족함을 표시하는 코드
                     return;
                 }
 
@@ -623,17 +627,16 @@ public class Player : MonoBehaviour
                 animator.SetTrigger("Bow"); //애니메이션 세팅
 
                 //화살 생성
-                ar = Pooling.Instance.GetPool(DicKey.arrow, Camera.main.transform).GetComponent<Arrow>();
+                ar =pooling.GetPool(DicKey.arrow, Camera.main.transform).GetComponent<Arrow>();
             }
 
             //좌클릭을 꾹 누르고 있으면 화살 차징
             if (Input.GetMouseButton(0))
-            {   
-                 // 인벤토리에 화살이 부족할 경우 리턴
+            {
+                // 인벤토리에 화살이 없거나 부족할 경우 리턴
                 if (inven.FindItem(4).data.count == 0 || inven.FindItem(4) == null)
                 {
-                    gameUI.DisplayInfo(6);
-                    Debug.Log("화살이 부족합니다.");
+                    gameUI.DisplayInfo(5); //UI에 화살이 부족함을 표시하는 코드
                     return;
                 }
 
@@ -647,8 +650,7 @@ public class Player : MonoBehaviour
                 //인벤에 화살 없으면 리턴
                 if (inven.FindItem(4).data.count == 0)
                 {
-                    gameUI.DisplayInfo(5);
-                    Debug.Log("화살이 부족합니다.");
+                    gameUI.DisplayInfo(5); //UI에 화살이 부족함을 표시하는 코드
                     return;
                 }
 
@@ -658,10 +660,12 @@ public class Player : MonoBehaviour
                 animator.speed = 1; //애니메이션 재생
                 ar.Fire(); //화살 발사
                 ar.transform.SetParent(arrows); //부모 오브젝트 변경
-                ar = null; //활 비우기
+                ar = null; //화살 비우기
 
                 //인벤토리에서 화살 사용 처리
                 inven.UseItem(inven.FindItem(4));
+
+                //활 UI 비활성화(끄기)
                 gameUI.arrowUI.SetActive(false);
             }
         }
@@ -682,13 +686,11 @@ public class Player : MonoBehaviour
             }
 
             //화살이 생성되었다면 화살 삭제
-            if(ar!=null)
+            if (ar != null)
             {
-                Pooling.Instance.SetPool(DicKey.arrow, ar.gameObject);
+                pooling.SetPool(DicKey.arrow, ar.gameObject);
                 ar = null;
             }
-
-            //animator.SetTrigger("Idle");
             state = State.Idle;
         }
     }
@@ -713,38 +715,18 @@ public class Player : MonoBehaviour
         // 콤보가 가능한 상태에서 공격키를 눌렀을 때
         if (isComboEnable)
         {
-            //콤보 불가능
+            //콤보 불가능으로 바꾸고
             isComboEnable = false;
-
             //콤보가 있다는 것으로 인식
             isComboExist = true;
-
             return;
         }
 
         // 공격중이었다면 리턴
-        if (isAttacking)    
-        {
-            return;
-        }
+        if (isAttacking) return;
 
+        //공격중으로 변경
         isAttacking = true;
-    }
-
-    /// <summary>
-    /// 콤보 가능한 상태 함수(Animation호출)
-    /// </summary>
-    public void Combo_Enable()
-    {
-        isComboEnable = true;
-    }
-
-    /// <summary>
-    /// 콤보 불가능한 상태 함수(Animation호출)
-    /// </summary>
-    public void Combo_Disable()
-    {
-        isComboEnable = false;
     }
 
     /// <summary>
@@ -762,14 +744,28 @@ public class Player : MonoBehaviour
         //콤보가 있다면
         else
         {
-            //콤보 인덱스 숫자 올리기
-            comboIndex++;
             //콤보 트리거 발동
             animator.SetTrigger("Combo");
             isAttacking = false;
             //콤보 없는 것으로 바꾸기
             isComboExist = false;
         }
+    }
+
+    /// <summary>
+    /// 콤보 가능한 상태 함수(Animation에서 호출)
+    /// </summary>
+    public void Combo_Enable()
+    {
+        isComboEnable = true;
+    }
+
+    /// <summary>
+    /// 콤보 불가능한 상태 함수(Animation에서 호출)
+    /// </summary>
+    public void Combo_Disable()
+    {
+        isComboEnable = false;
     }
 
     /// <summary>
@@ -802,22 +798,24 @@ public class Player : MonoBehaviour
     /// 점프구현 함수
     /// </summary>
     void Jump()
-    {   
+    {
         //이미 점프 중인 상태일 경우 리턴
         if (state.Equals(State.Jump))
         {
             return;
         }
 
-        if(pd.SP<3)
+        //SP가 3보다 작으면 점프X
+        if (pd.SP < 3)
         {
             return;
         }
 
-        //점프
+        //점프 물리
         rigid.AddForce(Vector3.up * JUMP_POWER, ForceMode.Impulse);
-        pd.SP -= 3;
-        gameUI.spUI.SetActive(true);
+        pd.SP -= 3; // SP 감소
+        gameUI.spUI.SetActive(true); //GameUI에서 SP UI 표시
+        state = State.Jump;
         //달리기 중에 점프했을 경우 JumpRun애니메이션 트리거
         if (state.Equals(State.Run))
         {
@@ -827,7 +825,6 @@ public class Player : MonoBehaviour
         {
             animator.SetTrigger("Jump");
         }
-        gameUI.spUI.SetActive(true);
 
     }
 
@@ -835,7 +832,7 @@ public class Player : MonoBehaviour
     /// SP회복함수
     /// </summary>
     void RecoverSP()
-    {   
+    {
         //달리는 상태가 아닐 때
         if (state != State.Run)
         {
@@ -854,7 +851,7 @@ public class Player : MonoBehaviour
                 spRecoverDelay -= Time.deltaTime;
 
                 if (spRecoverDelay <= 0)
-                {   
+                {
                     spRecoverDelay = pd.delaySP; //대기시간 초기화
                     spRecoverStarted = true; //회복상태로 변경
                 }
@@ -862,7 +859,7 @@ public class Player : MonoBehaviour
 
             //SP회복중일경우
             else
-            {   
+            {
                 //1초당 pd.plusSP만큼씩 회복
                 plusTimer -= Time.deltaTime;
                 if (plusTimer <= 0)
@@ -908,6 +905,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.gameObject.CompareTag("Ground"))
         {
             state = State.Idle;
@@ -916,49 +914,65 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
+        //적 무기와 접촉했을 경우
         if (other.CompareTag("EnemyWeapon"))
         {
-            if(other.GetComponent<ArrowTrap>())
+            if (other.GetComponent<ArrowTrap>())
             {
                 return;
             }
 
+            //해당 Enemy를 받아옴.
             Enemy enemy = other.GetComponent<EnemyWeapon>().enemy;
             if (state == State.Hit)
             {
                 return;
             }
 
-            if(enemy.state.Equals(Enemy.State.Attack))
+            //적이 공격 상태일 때만 데미지 받게끔
+            if (enemy.state.Equals(Enemy.State.Attack))
             {
+                //Enemy의 공격력을 받아옴
                 int dmg = enemy.data.AtkPower;
-                TakeDamage(dmg);
+                TakeDamage(dmg); //피격 처리
             }
 
         }
 
-        if(other.CompareTag("DeadZone"))
+        //DeadZone에 접촉했을 경우 바로 사망처리
+        if (other.CompareTag("DeadZone"))
         {
             Dead();
         }
     }
 
+
+    /// <summary>
+    /// 플레이어의 속도 변화 처리 함수
+    /// </summary>
+    /// <param name="isInstant">일시성여부</param>
     public void ChangeSpeed(bool isInstant = false)
     {
+        //기존의 Speed값의 반으로
         nomalSpeed = pd.Speed / 2;
         runSpeed = pd.RunSpeed / 2;
 
-        if(isInstant) 
+        //일시적일 경우
+        if (isInstant)
         {
-            Invoke("ResetSpeed", 2f);
+            Invoke(nameof(ResetSpeed), 2f);
         }
     }
 
+
+    /// <summary>
+    /// 플레이어의 스피드 원래대로 돌리기
+    /// </summary>
     public void ResetSpeed()
     {
         nomalSpeed = pd.Speed;
-        runSpeed = pd.RunSpeed;;
+        runSpeed = pd.RunSpeed; ;
     }
 
 }

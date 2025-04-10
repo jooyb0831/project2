@@ -41,10 +41,8 @@ public class ItemSellWindow : MonoBehaviour
         int x = int.Parse(numStr);
         totalPrice = x * price;
         totalPriceTxt.text = $"{totalPrice}";
-        Debug.Log($"수량 : {x}");
-        Debug.Log($"가격 : {price}");
     }
-
+    
     public void OnSellBtn()
     {
         if (int.Parse(numInputField.text) > invenItem.data.count)

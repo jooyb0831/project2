@@ -20,6 +20,7 @@ public class WallTrap2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //트리거 되었을 때만 작동
         if(isTriggered)
         {
             timer += Time.deltaTime;
@@ -35,7 +36,7 @@ public class WallTrap2 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>()&&!isTriggered)
+        if (other.CompareTag("Player") && !isTriggered)
         {
             isTriggered = true;
         }

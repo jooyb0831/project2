@@ -32,7 +32,6 @@ public class FieldItem : MonoBehaviour
     bool isFull = false;
     float speed;
 
-    // Start is called before the first frame update
     void Start()
     {
         Init();

@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5090376133075394627
 Transform:
   m_ObjectHideFlags: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
     count: 1
     price: 3
     itemIdx: 8
-    obj: {fileID: 0}
+    obj: {fileID: 5090376133075172451}
     fItem: {fileID: 7777382695887781675}
   isFind: 0
   getUI: {fileID: 0}

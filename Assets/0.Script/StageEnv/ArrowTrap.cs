@@ -34,6 +34,9 @@ public class ArrowTrap : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 화살의 초기화
+    /// </summary>
     public void Initialize()
     {
         rigid.velocity = Vector3.zero;
@@ -61,19 +64,22 @@ public class ArrowTrap : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
+        {   
+            //플레이어 받아오기
             Player p = other.transform.parent.parent.GetComponent<Player>();
-            p.TakeDamage(damage);
+            p.TakeDamage(damage); //피격처리
+
+            //한 번만 발사되는 경우
             if(isOneShot)
             {
-                Destroy(gameObject);
+                Destroy(gameObject); //삭제
             }
             else
             {
-                ReturnObj();
+                ReturnObj(); //풀로 리턴
             }
-
         }
+
         else if (other.GetComponent<WallTrap2>())
         {
             if (isOneShot)
@@ -87,6 +93,10 @@ public class ArrowTrap : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 화살을 풀로 돌려놓기
+    /// </summary>
     void ReturnObj()
     {
         pooling.SetPool(DicKey.arrowTrap, gameObject);

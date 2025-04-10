@@ -824,7 +824,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1588,7 +1588,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2164,6 +2164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5883471830299177761}
+  - component: {fileID: 7088769230366597910}
   - component: {fileID: 8751365402371845320}
   - component: {fileID: 5031897663200811716}
   - component: {fileID: 2634323421456309524}
@@ -2197,6 +2198,24 @@ RectTransform:
   m_AnchoredPosition: {x: 178.4, y: -11.1}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7088769230366597910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8256027730990288107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d47a69aa28fee409f5cc0fe2ab3233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInven: 0
+  isFilled: 0
+  isLocked: 0
+  isShopSlot: 1
+  isMerchantSlot: 0
+  indexNum: 0
 --- !u!114 &8751365402371845320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2225,6 +2244,7 @@ MonoBehaviour:
     count: 0
     itemIdx: 0
     itemTitle: 
+    itemExplain: 
     price: 0
     slotIdx: 0
     invenOrderNum: 0
@@ -2234,6 +2254,7 @@ MonoBehaviour:
     qItem: {fileID: 0}
     fieldItem: {fileID: 0}
     inGameobj: {fileID: 0}
+  canMove: 0
 --- !u!61 &5031897663200811716
 BoxCollider2D:
   m_ObjectHideFlags: 0

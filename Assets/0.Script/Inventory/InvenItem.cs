@@ -24,10 +24,14 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     public GameObject invenOption = null;
     public InvenData data;
 
-
+    [SerializeField] bool canMove = false;
+    
     void Start()
     {
         gameUI = GameManager.Instance.GameUI;
+        Slot slot = transform.parent.GetComponent<Slot>();
+        canMove = (slot != null) ? slot.isInven : false;
+        
     }
     void Update()
     {
@@ -74,14 +78,6 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     {
         if(Input.GetMouseButtonDown(1))
         {
-            /*
-            if(transform.parent.GetComponent<Slot>().isMerchantInven
-                || transform.parent.GetComponent<Slot>().isSellInven)
-            {
-                return;
-            }
-            */
-
             if(invenOption == null)
             {
                 invenOption = Instantiate(itemOptionWindow, transform).gameObject;
@@ -180,14 +176,14 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
             {
                 inventory.PointUp(this);
             }
-
-
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(Input.GetMouseButton(0))
+        
+
+        if(Input.GetMouseButton(0) && canMove)
         {
             itemFrame.color = Color.clear;
             itemBG.color = Color.clear;

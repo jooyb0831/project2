@@ -13,18 +13,22 @@ public class ItemBuyWindow : MonoBehaviour
     public TMP_Text totalPriceTxt;
 
     private PlayerData pd;
+    private GameUI gameUI;
+    private Inventory inven;
     [SerializeField] InvenItem invenItem;
     [SerializeField] int price;
     // Start is called before the first frame update
     void Start()
     {
         pd = GameManager.Instance.PlayerData;
+        gameUI = GameManager.Instance.GameUI;
+        inven = GameManager.Instance.Inven;
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Init()
     {
-
+        numInputField.text = 1.ToString();
     }
 
     public void SetItem(InvenItem item)
@@ -49,12 +53,13 @@ public class ItemBuyWindow : MonoBehaviour
         {
             //GameUI.Instance.fullInvenObj.SetActive(true);
             //GameUI.Instance.fullInvenObj.GetComponent<FullInvenObj>().Act(4);
+            gameUI.DisplayInfo(2);
             return;
         }
 
         for (int i = 0; i < int.Parse(numInputField.text); i++)
         {
-            Inventory.Instance.GetItem(invenItem);
+            inven.GetItem(invenItem.data.fieldItem.itemData);
         }
         pd.Gold -= totalPrice;
         ShopUI.Instance.SetShopInven();
@@ -65,10 +70,6 @@ public class ItemBuyWindow : MonoBehaviour
     public void OnPlusBtn()
     {
         int x = int.Parse(numInputField.text);
-        if (x >= invenItem.data.count)
-        {
-            return;
-        }
         x += 1;
         numInputField.text = $"{x}";
     }

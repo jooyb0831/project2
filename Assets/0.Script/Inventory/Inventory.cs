@@ -82,6 +82,10 @@ public class Inventory : Singleton<Inventory>
     /// <param name="itemData"></param>
     public void GetItem(ItemData itemData)
     {
+        if(pooling == null)
+        {
+            pooling = GameManager.Instance.Pooling;
+        }
         //이미 인벤토리에 중복된 아이템이 있는 경우
         if (itemIdxList.Contains(itemData.itemIdx))
         {
@@ -115,7 +119,6 @@ public class Inventory : Singleton<Inventory>
                     default:
                         break;
                 }
-                
                 //필드의 아이템 게임 오브젝트 삭제
                 Destroy(itemData.obj);
             }
