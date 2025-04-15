@@ -8,6 +8,7 @@ using DG.Tweening;
 public class ItemGetUI : MonoBehaviour
 {
     private Pooling pooling;
+
     [SerializeField] Image itemIcon;
     [SerializeField] TMP_Text itemTitleTxt;
     [SerializeField] TMP_Text itemCntTxt;
@@ -17,22 +18,21 @@ public class ItemGetUI : MonoBehaviour
 
     private ItemInfoArea itemInfoArea;
     public bool isSet;
-    float time = 3f;
-    float timer;
+    private float time = 3f;
+    private float timer;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         pooling = GameManager.Instance.Pooling;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //세팅 되었다면
         if (isSet)
         {
-            //디스플레이 시간체크하여 투명하게 만들고 화면에서 안 보이게 처리
+            //표시되는 시간을 체크하여 투명하게 만들고 화면에서 안 보이게 처리
             timer += Time.deltaTime;
             if (timer >= time)
             {
@@ -55,7 +55,6 @@ public class ItemGetUI : MonoBehaviour
     /// <param name="cnt"></param>
     public void SetData(ItemData data, int cnt = 1)
     {
-
         itemIcon.sprite = data.invenIcon;
         itemTitleStr = data.itemTitle;
         itemTitleTxt.text = itemTitleStr;
@@ -102,6 +101,7 @@ public class ItemGetUI : MonoBehaviour
     /// <param name="cnt"></param>
     public void ChangeUI(int cnt)
     {
+        itemCnt = cnt;
         itemCntTxt.text = $"+{cnt}";
     }
 }

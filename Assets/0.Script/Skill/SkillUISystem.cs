@@ -67,6 +67,10 @@ public class SkillUISystem : MonoBehaviour
         sksystem.SetSkillUI();
     }
 
+    /// <summary>
+    /// Q스킬 세팅
+    /// </summary>
+    /// <param name="skill"></param>
     public void SetQSkill(Skill skill)
     {
         GameObject obj = Instantiate(skillIcon, Qslot);

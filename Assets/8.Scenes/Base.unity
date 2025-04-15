@@ -267,7 +267,9 @@ MonoBehaviour:
   itemRecipeDatas:
   - {fileID: 7210597207409544393, guid: 60897e6782ece984eb077aeca3e6dfe7, type: 3}
   - {fileID: 8021231370507461453, guid: 31ae857ef4e41ee478882532bd27451e, type: 3}
+  foodRecipeDatas:
   - {fileID: 443752977342143672, guid: 2e2470dc3af56b746a534f4d9bf36a37, type: 3}
+  - {fileID: 1276622097185936253, guid: 9d4451c8dd1e2344fb85d3f6808f3ed7, type: 3}
 --- !u!4 &472934532
 Transform:
   m_ObjectHideFlags: 0

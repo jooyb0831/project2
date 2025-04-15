@@ -108,7 +108,6 @@ public class Enemy : MonoBehaviour
         {
             data.bossUI = bossUI;
         }
-
     }
 
     void Update()
@@ -155,6 +154,61 @@ public class Enemy : MonoBehaviour
     protected virtual void EnemyMove()
     {
         //내부 구현은 상속받는 각각의 Enemy 클래스에서 구현
+    }
+
+    /// <summary>
+    /// 적의 피격 함수
+    /// </summary>
+    /// <param name="damage"></param>
+    void TakeDamage(int damage)
+    {
+        data.CURHP -= damage; //체력 감소
+
+        //bossUI가 있다면
+        if (bossUI != null)
+        {
+            bossUI.HPBarCheck();
+        }
+
+        if (data.CURHP <= 0)
+        {
+            Dead();
+            return;
+        }
+        else
+        {
+            state = State.Hit;
+            animator.SetTrigger("Hit");
+        }
+    }
+
+    /// <summary>
+    /// 사망 처리 함수
+    /// </summary>
+    void Dead()
+    {
+        if(state == State.Attack)
+        {
+            animator.ResetTrigger("Attack");
+        }
+        
+        //죽음 처리
+        state = State.Dead;
+        animator.SetTrigger("Fall");
+
+        //enemyUI가 있다면
+        if (enemyUI != null)
+        {
+            enemyUI.DeadUI(); //죽은 후 표기될 UI로 변경
+        }
+
+        //중력 작용 안 받았을 경우
+        if (!rigid.useGravity)
+        {
+            //중력 영향 받게
+            rigid.useGravity = true;
+        }
+        pd.EXP += data.EXP; //경험치 증가
     }
 
 
@@ -208,60 +262,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 적의 피격 함수
-    /// </summary>
-    /// <param name="damage"></param>
-    void TakeDamage(int damage)
-    {   
-        data.CURHP -= damage; //체력 감소
-        
-        //bossUI가 있다면
-        if (bossUI != null)
-        {
-            bossUI.HPBarCheck();
-        }
 
-        if (data.CURHP <= 0)
-        {
-            Dead();
-            return;
-        }
-        else
-        {
-            state = State.Hit;
-            animator.SetTrigger("Hit");
-        }
-    }
-
-    /// <summary>
-    /// 사망 처리 함수
-    /// </summary>
-    void Dead()
-    {
-        if(state == State.Attack)
-        {
-            animator.ResetTrigger("Attack");
-        }
-        
-        //죽음 처리
-        state = State.Dead;
-        animator.SetTrigger("Fall");
-
-        //enemyUI가 있다면
-        if (enemyUI != null)
-        {
-            enemyUI.DeadUI(); //죽은 후 표기될 UI로 변경
-        }
-
-        //중력 작용 안 받았을 경우
-        if (!rigid.useGravity)
-        {
-            //중력 영향 받게
-            rigid.useGravity = true;
-        }
-        pd.EXP += data.EXP; //경험치 증가
-    }
 
     /// <summary>
     /// 아이템 드랍 

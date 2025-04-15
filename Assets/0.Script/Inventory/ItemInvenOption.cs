@@ -6,30 +6,24 @@ using UnityEngine.EventSystems;
 
 public class ItemInvenOption : MonoBehaviour
 {
+    private Inventory inven;
     public InvenItem item;
     [SerializeField] private GameObject canvas;
+    [SerializeField] GameObject[] buttonList;
+    [SerializeField] GameObject useBtn;
+    [SerializeField] GameObject equipBtn;
+    [SerializeField] GameObject unequipBtn;
+    [SerializeField] GameObject dumpBtn;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        inven = GameManager.Instance.Inven;   
     }
 
     public void OnUseBtn()
     {
-        Inventory.Instance.UseItem(item);
+        inven.UseItem(item);
         Destroy(gameObject);
-    }
-
-    public void OnInfoBtn()
-    {
-
     }
 
     public void OnEquipBtn()
@@ -37,11 +31,11 @@ public class ItemInvenOption : MonoBehaviour
 
         if(item.data.type.Equals(ItemType.Weapon))
         {
-            Inventory.Instance.WeaponEquip(item);
+            inven.WeaponEquip(item);
         }
         else
         {
-            Inventory.Instance.ItemEquip(item);
+            inven.ItemEquip(item);
         }
         Destroy(gameObject);
         
@@ -59,7 +53,47 @@ public class ItemInvenOption : MonoBehaviour
 
     public void OnUnEquipBtn()
     {
-        Inventory.Instance.UnequipItem(item);
+        inven.UnequipItem(item);
         Destroy(gameObject);
+    }
+
+    public void SetInvenButton()
+    {
+        foreach(var button in buttonList)
+        {
+            button.SetActive(false);
+        }
+
+        //아이템이 퀵슬롯이나 무기 슬롯에 있을 경우 Unequip만 보이게 설정정
+        if(item.transform.parent.GetComponent<QuickSlotInven>()
+        || item.transform.parent.GetComponent<WeaponSlot>())
+        {
+            buttonList[2].SetActive(true);
+        }
+
+        else if(item.transform.parent.GetComponent<Slot>())
+        {
+            ItemType type = item.data.type;
+
+            switch(type)
+            {
+                case ItemType.Weapon :
+                {
+                    buttonList[1].SetActive(true);
+                    break;
+                }
+                case ItemType.Potion :
+                case ItemType.Food :
+                {
+                    buttonList[0].SetActive(true);
+                    break;
+                }
+                default :
+                {
+                    break;
+                }
+            }
+            buttonList[3].SetActive(true);
+        }
     }
 }

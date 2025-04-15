@@ -67,34 +67,28 @@ public class RockJsonData
 }
 public class JsonData : Singleton<JsonData>
 {
+#region 각 Json파일을 받을 TextAsset 변수
     [SerializeField] private TextAsset enemyJson;
     [SerializeField] private TextAsset skillJson;
     [SerializeField] private TextAsset questDialogueJson;
     [SerializeField] private TextAsset rockJson;
+#endregion
 
+#region JsonDataClass
     public EnemyJsonData enemyData = new EnemyJsonData();
     public SkillJsonData skillData = new SkillJsonData();
     public QuestDialogueData questDialogueData = new QuestDialogueData();
     public RockJsonData rockData = new RockJsonData();
+#endregion
 
     private void Awake()
     {
         DontDestroyOnLoad(this);
+        //JsonUtility 클래스의 FromJson을 활용하여 입력
         enemyData = JsonUtility.FromJson<EnemyJsonData>(enemyJson.text);
         skillData = JsonUtility.FromJson<SkillJsonData>(skillJson.text);
         questDialogueData = JsonUtility.FromJson<QuestDialogueData>(questDialogueJson.text);
         rockData = JsonUtility.FromJson<RockJsonData>(rockJson.text);
 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

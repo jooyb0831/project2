@@ -263,7 +263,9 @@ public class GameUI : Singleton<GameUI>
     /// <param name="data"></param>
     public void GetItem(ItemData data)
     {
+        //이미 아이템이 존재하는지를 체크함
         bool itemCheck = infoArea.ItemCheck(data);
+        //중복된 아이템이 있을 경우
         if (itemCheck)
         {
             infoArea.AddData(data);
@@ -282,7 +284,7 @@ public class GameUI : Singleton<GameUI>
 
     private string[] noticeTxtList = 
     {"기력이 부족합니다.", "마력이 부족합니다", "골드가 부족합니다.", "재료가 부족합니다.", "아직 스킬을 사용할 수 없습니다.",
-    "장착된 활이 없습니다.", "화살이 부족합니다.", "인벤토리가 가득 찼습니다.", "장착된 무기가 없습니다."};
+    "장착된 활이 없습니다.", "화살이 부족합니다.", "인벤토리가 가득 찼습니다.", "장착된 무기가 없습니다.", "아직 사용할 수 없습니다."};
 
     /// <summary>
     /// UI에 정보 표시하기

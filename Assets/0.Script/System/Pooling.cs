@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
-
+/// <summary>
+/// 오브젝트의 DictionaryKey Enum
+/// </summary>
 public enum DicKey
 {
     arrow,
@@ -22,7 +22,7 @@ public enum DicKey
 
 public class Pooling : Singleton<Pooling>
 {
-    //오브젝트의 큐 생성
+#region 오브젝트의 큐 생성
     private Queue<Arrow> arrowQueue = new Queue<Arrow>();
     private Queue<Stone> stoneQueue = new Queue<Stone>();
     private Queue<Wood> woodQueue = new Queue<Wood>();
@@ -34,8 +34,9 @@ public class Pooling : Singleton<Pooling>
     private Queue<EnemyRock> enemyRockQueue = new Queue<EnemyRock>();
     private Queue<ArrowTrap> arrowTrapQueue = new Queue<ArrowTrap>();
     private Queue<ParticleSystem> woodParticleQueue = new Queue<ParticleSystem>();
+#endregion
 
-    //프리팹 오브젝트 할당
+#region 프리팹 오브젝트 할당
     [SerializeField] Arrow arrow;
     [SerializeField] Stone stone;
     [SerializeField] Wood wood;
@@ -47,6 +48,7 @@ public class Pooling : Singleton<Pooling>
     [SerializeField] EnemyRock enemyRock;
     [SerializeField] ArrowTrap arrowTrap;
     [SerializeField] ParticleSystem woodParticle;
+#endregion
 
 
     //Pool 딕셔너리 생성
@@ -68,6 +70,11 @@ public class Pooling : Singleton<Pooling>
     }
 
 
+    /// <summary>
+    /// 아이템을 Pool로 되돌리기
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="obj"></param>
     public void SetPool(DicKey key, GameObject obj)
     {
         switch (key)
@@ -117,7 +124,13 @@ public class Pooling : Singleton<Pooling>
         obj.SetActive(false);
         pool[key].Enqueue(obj);
     }
-
+    
+    /// <summary>
+    /// 아이템을 Pool에서 가져오기
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="trans"></param>
+    /// <returns></returns>
     public GameObject GetPool(DicKey key, Transform trans = null)
     {
         GameObject obj = null;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -122,6 +123,10 @@ public class Player : MonoBehaviour
     const float JUMP_POWER = 5f; //점프 파워
 
     public Camera charUICam; //Inventory창에 띄울 캐릭터 카메라
+
+    [SerializeField] CapsuleCollider playerColl; //플레이어의 콜리더
+    private const float COLL_ORIGIN_RAD = 0.25f;
+    private const float COLL_ORIGIN_HEIGHT = 1.8f;
 
 
     void Start()
@@ -247,6 +252,7 @@ public class Player : MonoBehaviour
         //구르기
         if (Input.GetKeyDown(KeyCode.C))
         {
+            //SP가 5 미만일 경우 구르지 못함
             if (pd.SP < 5) return;
             gameUI.spUI.SetActive(true);
             pd.SP -= 5;
@@ -383,12 +389,14 @@ public class Player : MonoBehaviour
 
         #region 점프
         RaycastHit hit;
-        //foot.position에서 Vector3.down으로 Ray를 0.1만큼 쏘았을 때
+        //foot.position에서 Vector3.down으로 Ray를 0.05만큼 쏘았을 때
         if (Physics.Raycast(foot.position, Vector3.down * 0.05f, out hit))
         {
-            if (!hit.collider.CompareTag("Ground")) //Ground가 아니라면
+            //Ground가 아니라면
+            if (!hit.collider.CompareTag("Ground")) 
             {
-                state = State.Jump; //점프중인 상태
+                 //점프중인 상태
+                state = State.Jump;
             }
         }
 
@@ -495,6 +503,18 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Roll");
         animator.SetFloat("floatX", dir.x);
         animator.SetFloat("floatZ", dir.z);
+    }
+
+    public void ColliderSmall()
+    {
+        playerColl.radius = 0.1f;
+        playerColl.height = 1f;
+    }
+
+    public void ColliderOrigin()
+    {
+        playerColl.radius = COLL_ORIGIN_RAD;
+        playerColl.height = COLL_ORIGIN_HEIGHT;
     }
 
 

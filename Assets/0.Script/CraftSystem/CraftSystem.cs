@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class CraftSystem : MonoBehaviour
 {
     public List<ItemRecipeData> itemRecipeDatas;
+    public List<ItemRecipeData> foodRecipeDatas;
 
-    // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -21,11 +21,10 @@ public class CraftSystem : MonoBehaviour
         {
             item.SetData();
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach(var item in foodRecipeDatas)
+        {
+            item.SetData();
+        }
     }
 }

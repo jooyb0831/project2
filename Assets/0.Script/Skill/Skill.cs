@@ -49,6 +49,10 @@ public class Skill : MonoBehaviour
         isSet = false;
     }
 
+    /// <summary>
+    /// 스킬의 데이터 세팅
+    /// </summary>
+    /// <param name="idx">스킬의 인덱스</param>
     public virtual void SetData(int idx)
     {
         //Json 형식의 Skill의 데이터를 받아서 적용
@@ -63,7 +67,7 @@ public class Skill : MonoBehaviour
     }
 
     /// <summary>
-    /// 스킬 작동동
+    /// 스킬을 작동하는 함수
     /// </summary>
     public virtual void SkillAct()
     {
@@ -71,9 +75,14 @@ public class Skill : MonoBehaviour
         {
             p = GameManager.Instance.Player;
         }
+        //플레이어의 상태를 스킬 사용중인 상태로 변경
         p.state = Player.State.Skill;
+        //스킬이 작동중인 상태로 변경
         isWorking = true;
+        //스킬의 사용 MP만큼 차감
         pd.CURMP -= data.MP;
+
+        //기타 실질적인 스킬 작동은 상속받는 클래스에서 입력
     }
 
     void Update()

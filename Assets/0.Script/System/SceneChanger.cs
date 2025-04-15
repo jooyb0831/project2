@@ -20,7 +20,8 @@ public enum SceneType
     Stage2,
     Stage3,
     Mine,
-    Forest
+    Forest,
+    Fishing
 }
 
 public class SceneChanger : Singleton<SceneChanger>
@@ -93,5 +94,11 @@ public class SceneChanger : Singleton<SceneChanger>
             SceneManager.UnloadSceneAsync("NPC");
             sceneType = SceneType.Lobby;
         }
+    }
+
+    public void GoFishing()
+    {
+        SceneManager.LoadScene("GameUI");
+        SceneManager.LoadScene("Fishing", LoadSceneMode.Additive);
     }
 }

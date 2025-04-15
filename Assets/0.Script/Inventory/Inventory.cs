@@ -35,7 +35,9 @@ public enum ItemType
     Weapon,
     Potion,
     Arrow,
-    Plant
+    Plant,
+    Fish,
+    Food
 }
 
 public class InventoryData
@@ -52,8 +54,9 @@ public class Inventory : Singleton<Inventory>
     private PlayerData pd;
     private Player p;
     private Pooling pooling;
+    private GameUI gameUI;
 
-    [SerializeField] InvenItem invenItem; 
+    [SerializeField] InvenItem invenItem;
     public Transform[] invenSlots; //인벤토리 슬롯 리스트
     public Transform[] quickSlotsInven; //퀵 인벤 슬롯 리스트
     public Transform weaponSlot; //무기 슬롯
@@ -73,6 +76,7 @@ public class Inventory : Singleton<Inventory>
         pd = GameManager.Instance.PlayerData;
         p = GameManager.Instance.Player;
         pooling = GameManager.Instance.Pooling;
+        gameUI = GameManager.Instance.GameUI;
     }
 
 
@@ -82,40 +86,47 @@ public class Inventory : Singleton<Inventory>
     /// <param name="itemData"></param>
     public void GetItem(ItemData itemData)
     {
-        if(pooling == null)
+        if (pooling == null)
         {
             pooling = GameManager.Instance.Pooling;
         }
+        if(gameUI == null)
+        {
+            gameUI = GameManager.Instance.GameUI;
+        }
+
         //이미 인벤토리에 중복된 아이템이 있는 경우
         if (itemIdxList.Contains(itemData.itemIdx))
         {
+            //중복아이템 체크
             ItemCheck(itemData);
-            GameUI.Instance.GetItem(itemData);
+            //아이템 획득 UI 표기
+            gameUI.GetItem(itemData);
 
             // 아이템이 물리적으로 존재할 경우 오브젝트 비활성화 및 삭제
             if (itemData.obj != null)
             {
                 //아이템 종류에 따라 Pooling작업
                 ItemType type = itemData.type;
-                switch(type)
+                switch (type)
                 {
-                    case ItemType.Ore :
-                    {
-                        if(itemData.fItem.GetComponent<Stone>())
+                    case ItemType.Ore:
                         {
-                            pooling.SetPool(DicKey.stone, itemData.obj);
+                            if (itemData.fItem.GetComponent<Stone>())
+                            {
+                                pooling.SetPool(DicKey.stone, itemData.obj);
+                            }
+                            else if (itemData.fItem.GetComponent<IronOre>())
+                            {
+                                pooling.SetPool(DicKey.ironOre, itemData.obj);
+                            }
+                            return;
                         }
-                        else if(itemData.fItem.GetComponent<IronOre>())
-                        {
-                            pooling.SetPool(DicKey.ironOre, itemData.obj);
-                        }
-                        return;
-                    }
                     case ItemType.Wood:
-                    {
-                        pooling.SetPool(DicKey.wood, itemData.obj);
-                        return;
-                    }
+                        {
+                            pooling.SetPool(DicKey.wood, itemData.obj);
+                            return;
+                        }
                     default:
                         break;
                 }
@@ -166,7 +177,7 @@ public class Inventory : Singleton<Inventory>
         //인벤아이템의 데이터 세팅
         item.SetData(data);
         item.SetInventory(this);
-        
+
         //인벤아이템 리스트, 데이터 리스트에추가
         invenItems.Add(item);
         invenDatas.Add(item.data);
@@ -176,13 +187,13 @@ public class Inventory : Singleton<Inventory>
         GameUI.Instance.GetItem(itemData);
 
         //아이템 획득시 실물 게임 오브젝트가 있는 경우 오브젝트 제거
-        if(itemData.obj!=null)
+        if (itemData.obj != null)
         {
             ItemType type = itemData.type;
-            switch(type)
+            switch (type)
             {
-                case ItemType.Ore :
-                {
+                case ItemType.Ore:
+                    {
                         if (itemData.fItem.GetComponent<Stone>())
                         {
                             pooling.SetPool(DicKey.stone, itemData.obj);
@@ -197,12 +208,12 @@ public class Inventory : Singleton<Inventory>
                 case ItemType.Wood:
                     pooling.SetPool(DicKey.wood, itemData.obj);
                     return;
-                default :
+                default:
                     break;
             }
             Destroy(itemData.obj);
         }
-        Debug.Log($"invenCont = {inventoryData.invenCount}");
+
     }
 
     /// <summary>
@@ -295,12 +306,12 @@ public class Inventory : Singleton<Inventory>
         }
         invenItem.data.count += itemData.count;
         invenItem.GetComponent<InvenItem>().ItemCntChange(invenItem.data);
-        
+
         if (invenItem.data.inQuickSlot)
         {
             invenItem.data.qItem.ItemCntChange(invenItem);
         }
-        
+
     }
 
     /// <summary>
@@ -320,12 +331,12 @@ public class Inventory : Singleton<Inventory>
         }
         invenItem.data.count += item.data.count;
         invenItem.GetComponent<InvenItem>().ItemCntChange(invenItem.data);
-        
+
         if (invenItem.data.inQuickSlot)
         {
             invenItem.data.qItem.ItemCntChange(invenItem);
         }
-        
+
     }
 
     /// <summary>
@@ -335,25 +346,31 @@ public class Inventory : Singleton<Inventory>
     /// <param name="cnt"></param>
     public void UseItem(InvenItem item, int cnt = -1)
     {
-        ItemType type = item.data.type;
-        
-        switch(type)
+        if (gameUI == null)
         {
-            case ItemType.Potion :
-            {
-                bool canUse = item.data.fieldItem.ItemUseCheck();
-                if(!canUse)
+            gameUI = GameManager.Instance.GameUI;
+        }
+
+        ItemType type = item.data.type;
+
+        switch (type)
+        {
+            case ItemType.Potion:
+            case ItemType.Food:
                 {
-                    Debug.Log("더 이상 회복할 수 없습니다.");
-                    return;
+                    bool canUse = item.data.fieldItem.ItemUseCheck();
+                    if (!canUse)
+                    {
+                        gameUI.DisplayInfo(9);
+                        return;
+                    }
+                    item.data.fieldItem.UseItem();
+                    break;
                 }
-                item.data.fieldItem.UseItem();
-                break;
-            }
             default:
-            {
-                break;
-            }
+                {
+                    break;
+                }
         }
         InvenItemCntChange(item, cnt);
     }
@@ -363,7 +380,7 @@ public class Inventory : Singleton<Inventory>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="cnt"></param>
-    public void InvenItemCntChange(InvenItem item, int cnt =-1)
+    public void InvenItemCntChange(InvenItem item, int cnt = -1)
     {
         item.data.count += cnt;
         if (item.data.count <= 0)
@@ -382,12 +399,12 @@ public class Inventory : Singleton<Inventory>
     public void DeleteItem(InvenItem item)
     {
         //아이템이 일반 슬롯에 있을 경우
-        if(item.transform.parent.GetComponent<Slot>())
+        if (item.transform.parent.GetComponent<Slot>())
         {
             item.transform.parent.GetComponent<Slot>().isFilled = false;
         }
         //아이템이 퀵슬롯에 있을 경우
-        else if(item.transform.parent.GetComponent<QuickSlotInven>())
+        else if (item.transform.parent.GetComponent<QuickSlotInven>())
         {
             item.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(item);
         }
@@ -395,9 +412,9 @@ public class Inventory : Singleton<Inventory>
         int itemIdx = -1;
 
         //인벤아이템 
-        for(int i =0; i<invenItems.Count; i++)
+        for (int i = 0; i < invenItems.Count; i++)
         {
-            if(invenItems[i].data.itemIdx == item.data.itemIdx)
+            if (invenItems[i].data.itemIdx == item.data.itemIdx)
             {
                 itemIdx = i;
                 Debug.Log(itemIdx);
@@ -420,9 +437,9 @@ public class Inventory : Singleton<Inventory>
     public void ItemEquip(InvenItem item)
     {
         QuickSlotInven qSlot = null;
-        for(int i =0; i<quickSlotsInven.Length; i++)
+        for (int i = 0; i < quickSlotsInven.Length; i++)
         {
-            if(!quickSlotsInven[i].GetComponent<QuickSlotInven>().isFilled)
+            if (!quickSlotsInven[i].GetComponent<QuickSlotInven>().isFilled)
             {
                 qSlot = quickSlotsInven[i].GetComponent<QuickSlotInven>();
                 break;
@@ -456,25 +473,25 @@ public class Inventory : Singleton<Inventory>
     {
         WeaponSlot wSlot = null;
         WeaponType type = item.data.fieldItem.GetComponent<Weapon>().weaponData.weaponType;
-        
-        
-        switch(type)
+
+
+        switch (type)
         {
             case WeaponType.Sword:
-            {
-                wSlot = weaponSlot.GetComponent<WeaponSlot>();
-                break;
-            }
+                {
+                    wSlot = weaponSlot.GetComponent<WeaponSlot>();
+                    break;
+                }
 
             case WeaponType.Bow:
-            {
-                wSlot = bowSlot.GetComponent<WeaponSlot>();
-                break;
-            }
-            
+                {
+                    wSlot = bowSlot.GetComponent<WeaponSlot>();
+                    break;
+                }
+
         }
 
-        if(wSlot.isFilled)
+        if (wSlot.isFilled)
         {
             //교환코드(추후 작성)
         }
@@ -497,7 +514,7 @@ public class Inventory : Singleton<Inventory>
     /// <param name="data"></param>
     public void ItemMove(bool isShow, Vector3 pos, InvenData data = null)
     {
-        if(data!=null)
+        if (data != null)
         {
             moveItem.SetData(data);
         }
@@ -524,27 +541,27 @@ public class Inventory : Singleton<Inventory>
     {
         ItemType type = item.invenItem.data.type;
         QuickSlot quickSlot = item.transform.parent.GetComponent<QuickSlot>();
-        if(p == null)
+        if (p == null)
         {
             p = GameManager.Instance.Player;
         }
-        
+
         //아이템의 타입에 따라 세팅 다르게
-        switch(type)
+        switch (type)
         {
             case ItemType.Tool:
-            {
-                //도구가 장착되어 있지 않는 경우
-                if(quickSlot.tool==null)
                 {
-                    //도구 아이템 생성하고 Player쪽에 넣어주기
-                    quickSlot.tool = Instantiate(item.invenItem.data.fieldItem.GetComponent<Tool>(), p.toolPos);
-                    p.currentTool = quickSlot.tool.gameObject;
+                    //도구가 장착되어 있지 않는 경우
+                    if (quickSlot.tool == null)
+                    {
+                        //도구 아이템 생성하고 Player쪽에 넣어주기
+                        quickSlot.tool = Instantiate(item.invenItem.data.fieldItem.GetComponent<Tool>(), p.toolPos);
+                        p.currentTool = quickSlot.tool.gameObject;
+                    }
+                    //도구 세팅
+                    quickSlot.tool.SetTool();
+                    break;
                 }
-                //도구 세팅
-                quickSlot.tool.SetTool();
-                break;
-            }
         }
     }
 
@@ -556,22 +573,22 @@ public class Inventory : Singleton<Inventory>
     {
         ItemType type = item.invenItem.data.type;
         QuickSlot quickSlot = item.transform.parent.GetComponent<QuickSlot>();
-        
-        switch(type)
+
+        switch (type)
         {
             case ItemType.Tool:
-            {
-                if(quickSlot.tool==null)
                 {
-                    return;
-                }
-                //인게임 도구 오브젝트 끄기
-                quickSlot.tool.obj.SetActive(false);
+                    if (quickSlot.tool == null)
+                    {
+                        return;
+                    }
+                    //인게임 도구 오브젝트 끄기
+                    quickSlot.tool.obj.SetActive(false);
 
-                //Player쪽 현재 사용중인 도구 null로 처리
-                p.currentTool = null;
-                break;
-            }
+                    //Player쪽 현재 사용중인 도구 null로 처리
+                    p.currentTool = null;
+                    break;
+                }
         }
     }
 
@@ -583,9 +600,9 @@ public class Inventory : Singleton<Inventory>
     public InvenItem FindItem(int itemIdx)
     {
         InvenItem item = null;
-        for(int i =0; i<invenItems.Count; i++)
+        for (int i = 0; i < invenItems.Count; i++)
         {
-            if(invenItems[i].data.itemIdx==itemIdx)
+            if (invenItems[i].data.itemIdx == itemIdx)
             {
                 item = invenItems[i];
                 break;
@@ -607,9 +624,9 @@ public class Inventory : Singleton<Inventory>
     {
         InvenItem item = null;
         int cnt = 0;
-        for(int i = 0; i<invenItems.Count; i++)
+        for (int i = 0; i < invenItems.Count; i++)
         {
-            if(invenItems[i].data.itemIdx == itemIdx)
+            if (invenItems[i].data.itemIdx == itemIdx)
             {
                 item = invenItems[i];
                 cnt = item.data.count;
@@ -624,7 +641,7 @@ public class Inventory : Singleton<Inventory>
         return cnt;
     }
 
-    
+
 
     /// <summary>
     /// 아이템 장착 해제(퀵 슬롯/무기슬롯 -> 일반슬롯으로 돌아가는코드)
@@ -635,7 +652,7 @@ public class Inventory : Singleton<Inventory>
         int x = SlotCheck();
         item.transform.position = invenSlots[x].transform.position;
         invenSlots[x].GetComponent<Slot>().isFilled = true;
-        
+
         //퀵슬롯에 있었을 경우
         if (item.transform.parent.GetComponent<QuickSlotInven>())
         {

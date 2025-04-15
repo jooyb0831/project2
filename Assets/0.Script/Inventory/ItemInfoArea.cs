@@ -14,21 +14,22 @@ public class ItemInfoArea : MonoBehaviour
         inven = GameManager.Instance.Inven;
     }
 
+    /// <summary>
+    /// 표시중인 UI에 중복된 아이템이 있는지 체크
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
     public bool ItemCheck(ItemData data)
     {
-
-        if (itemTitleList.Contains(data.itemTitle))
-        {
-            Debug.Log("Check");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        //중복된 아이템이 있다면 true를, 없다면 false를 리턴
+        return itemTitleList.Contains(data.itemTitle);
 
     }
 
+    /// <summary>
+    /// 데이터 추가
+    /// </summary>
+    /// <param name="data"></param>
     public void AddData(ItemData data)
     {
         for (int i = 0; i < getUIList.Count; i++)

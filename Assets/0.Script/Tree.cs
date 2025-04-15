@@ -12,11 +12,13 @@ public class Tree : MonoBehaviour
     [SerializeField] ParticleSystem woodParticle;
 
     private Pooling pooling;
+    private Player player;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameManager.Instance.Player;
         pooling = GameManager.Instance.Pooling;
     }
 
@@ -32,7 +34,7 @@ public class Tree : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Axe>())
+        if (other.GetComponent<Axe>() && player.state.Equals(Player.State.Mine))
         {
             curHit++;
             if (curHit > 0)

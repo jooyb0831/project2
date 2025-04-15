@@ -2453,6 +2453,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -3011,8 +3012,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.2512803
-  m_Height: 1.813469
+  m_Radius: 0.25
+  m_Height: 1.8
   m_Direction: 0
   m_Center: {x: 0.15000004, y: 0, z: 0}
 --- !u!1 &8446762251044754087
@@ -4139,6 +4140,7 @@ MonoBehaviour:
   equipedBow: {fileID: 0}
   arrows: {fileID: 0}
   charUICam: {fileID: 8446762251800901751}
+  playerColl: {fileID: 8446762251036787027}
 --- !u!95 &8446762251400451717
 Animator:
   serializedVersion: 5

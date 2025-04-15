@@ -11,10 +11,13 @@ public class MoveScene : MonoBehaviour
         Stage,
         Forest,
         Lobby,
+        Fishing
 
     }
     private Player p;
+    private PlayerData pd;
     private SceneChanger sc;
+    private GameUI gameUI;
     [SerializeField] GoType goType;
 
     [SerializeField] GameObject txtObj;
@@ -24,7 +27,9 @@ public class MoveScene : MonoBehaviour
     void Start()
     {
         p = GameManager.Instance.Player;
+        pd = GameManager.Instance.PlayerData;
         sc = GameManager.Instance.SceneChanger;
+        gameUI = GameManager.Instance.GameUI;
     }
 
     // Update is called once per frame
@@ -66,6 +71,19 @@ public class MoveScene : MonoBehaviour
             case GoType.Forest:
                 sc.GoForest();
                 break;
+
+            case GoType.Fishing:
+                {
+                    if (pd.ST < 5)
+                    {
+                        gameUI.DisplayInfo(0);
+                        return;
+                    }
+                    pd.ST -= 5;
+                    sc.GoFishing();
+                }
+                break;
+
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +19,6 @@ public class InventoryUI : Singleton<InventoryUI>
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("check");
         Init();
         SetInventory();
     }

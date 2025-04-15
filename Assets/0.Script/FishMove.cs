@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class FishMove : MonoBehaviour
@@ -8,7 +7,10 @@ public class FishMove : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float timer;
     [SerializeField] float stayTime; //머무를 시간
-    [SerializeField] bool isMoving;
+
+    private const float X_POS = 13f;
+    private const float Z_POS = 7f;
+    public bool isMoving;
     [SerializeField] Vector3 dest;
     // Start is called before the first frame update
     void Start()
@@ -40,7 +42,7 @@ public class FishMove : MonoBehaviour
     {
         if(isMoving)
         {
-            //transform.LookAt(dest);
+            transform.LookAt(dest);
             transform.position = Vector3.MoveTowards(transform.position, dest, Time.deltaTime * speed);
 
             if (transform.position == dest)
@@ -54,8 +56,8 @@ public class FishMove : MonoBehaviour
     Vector3 SetMoveDestination()
     {
         isMoving = true;
-        float x = Random.Range(-13f, 13f);
-        float z = Random.Range(-7f, 7f);
-        return new Vector3(x, 0, z);
+        float x = Random.Range(-X_POS, X_POS);
+        float z = Random.Range(-Z_POS, Z_POS);
+        return new Vector3(x, -0.4f, z);
     }
 }

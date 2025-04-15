@@ -23,12 +23,10 @@ public class CreateItemIndexUI : MonoBehaviour
         toggle = GetComponent<Toggle>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// 아이템레시피의 데이터를 받아와서 세팅
+    /// </summary>
+    /// <param name="data"></param>
     public void SetData(ItemRecipeData data)
     {
         this.data = data;

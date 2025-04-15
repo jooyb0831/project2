@@ -7,7 +7,7 @@ public class CraftUI : Singleton<CraftUI>
 {
     private CraftSystem craftSystem;
 
-#region UI관련 변수
+    #region UI관련 변수
     [SerializeField] GameObject craftWindow;
 
     [SerializeField] CreateItemIndexUI sample;
@@ -19,10 +19,10 @@ public class CraftUI : Singleton<CraftUI>
     [SerializeField] ToggleGroup recipeToggleGroup;
 
     [SerializeField] CreateResoruceUI resourceBG;
-#endregion
-    
+    #endregion
 
-    
+
+
     void Start()
     {
         craftSystem = GameManager.Instance.CraftSystem;
@@ -36,9 +36,9 @@ public class CraftUI : Singleton<CraftUI>
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(craftWindow.activeSelf)
+            if (craftWindow.activeSelf)
             {
                 OnExitBtn();
             }
@@ -51,7 +51,7 @@ public class CraftUI : Singleton<CraftUI>
     void SetListUp()
     {
         int count = craftSystem.itemRecipeDatas.Count;
-        for(int i = 0; i<count; i++)
+        for (int i = 0; i < count; i++)
         {
             CreateItemIndexUI obj = Instantiate(sample, area);
             itemLists.Add(obj);
@@ -63,7 +63,7 @@ public class CraftUI : Singleton<CraftUI>
     /// </summary>
     void SetItemListData()
     {
-        for(int i = 0; i<craftSystem.itemRecipeDatas.Count; i++)
+        for (int i = 0; i < craftSystem.itemRecipeDatas.Count; i++)
         {
             itemLists[i].SetData(craftSystem.itemRecipeDatas[i]);
             itemLists[i].GetComponent<Toggle>().group = recipeToggleGroup;

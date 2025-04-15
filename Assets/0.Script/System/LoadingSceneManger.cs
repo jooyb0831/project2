@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TMPro;
 
 public class LoadingSceneManger : MonoBehaviour
 {
@@ -15,12 +16,15 @@ public class LoadingSceneManger : MonoBehaviour
     [SerializeField] Image progressBar;
     [SerializeField] Image fadeScreen;
     [SerializeField] GameObject loadingScreen;
+    [SerializeField] TMP_Text tipTxt;
 
+    [SerializeField] string[] tipList;
 
     void Start()
     {
         inven = GameManager.Instance.Inven;
         sc = GameManager.Instance.SceneChanger;
+        SetUpTipText();
         fadeScreen.color = new Color(0, 0, 0, 1);
         fadeScreen.DOFade(0, 0.5f)
         .OnComplete(() =>
@@ -28,6 +32,12 @@ public class LoadingSceneManger : MonoBehaviour
             //Fade가 끝나면 로딩 씬 호출
             StartCoroutine(LoadScene());
         });
+    }
+
+    void SetUpTipText()
+    {
+        int idx = Random.Range(0, tipList.Length);
+        tipTxt.text = $"Tip.{tipList[idx]}";
     }
 
     /// <summary>
@@ -103,6 +113,7 @@ public class LoadingSceneManger : MonoBehaviour
                                 SceneManager.LoadScene("GameUI", LoadSceneMode.Additive);
                                 SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
                                 SceneManager.LoadScene("CraftUI", LoadSceneMode.Additive);
+                                SceneManager.LoadScene("CookingUI", LoadSceneMode.Additive);
                                 SceneManager.LoadScene("StageSelect", LoadSceneMode.Additive);
                                 inven.gameObject.SetActive(true);
                                 sc.sceneType = SceneType.Lobby;
