@@ -30,6 +30,7 @@ public class Skill : MonoBehaviour
 #endregion
 
     public Data data = new Data();
+    public SkillData sData;
 
     public bool isSet = false; //스킬이 세팅되었는지 여부 체크
     protected float coolTimer; //쿨타임의 타이머
@@ -56,6 +57,7 @@ public class Skill : MonoBehaviour
     public virtual void SetData(int idx)
     {
         //Json 형식의 Skill의 데이터를 받아서 적용
+        
         data.SkillTitle = jd.skillData.sData[idx].skilltitle;
         data.SkillExplain = jd.skillData.sData[idx].skillexplain;
         data.SkillIndex = jd.skillData.sData[idx].index;
@@ -64,6 +66,13 @@ public class Skill : MonoBehaviour
         data.Damage = jd.skillData.sData[idx].damage;
         data.NeedLv = jd.skillData.sData[idx].needlevel;
         data.SkillLv = jd.skillData.sData[idx].skilllevel;
+        
+
+        //data를 인스턴스 할 수 있음
+        // sData = Instantiate(jd.skillData.sData[idx]);
+        //SkillData sD = new SkillData();
+        //SkillData s1 = new SkillData();
+
     }
 
     /// <summary>

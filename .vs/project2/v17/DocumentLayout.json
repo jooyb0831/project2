@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\project2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|c:\\users\\user\\desktop\\project2\\assets\\0.script\\skill\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|solutionrelative:assets\\0.script\\skill\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|c:\\users\\user\\desktop\\project2\\assets\\0.script\\inventory\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|solutionrelative:assets\\0.script\\inventory\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|c:\\users\\user\\desktop\\project2\\assets\\0.script\\system\\singleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|solutionrelative:assets\\0.script\\system\\singleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|c:\\users\\user\\desktop\\project2\\assets\\0.script\\system\\jsondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|solutionrelative:assets\\0.script\\system\\jsondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|c:\\users\\user\\desktop\\project2\\assets\\0.script\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|solutionrelative:assets\\0.script\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|c:\\users\\user\\desktop\\project2\\assets\\0.script\\skill\\skill0.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E4ABDF9-CA74-8D88-2BB5-7878F04C3345}|Assembly-CSharp.csproj|solutionrelative:assets\\0.script\\skill\\skill0.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Singleton.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\System\\Singleton.cs",
+              "RelativeDocumentMoniker": "Assets\\0.Script\\System\\Singleton.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\System\\Singleton.cs",
+              "RelativeToolTip": "Assets\\0.Script\\System\\Singleton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T10:31:03.509Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Inventory.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Inventory\\Inventory.cs",
+              "RelativeDocumentMoniker": "Assets\\0.Script\\Inventory\\Inventory.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Inventory\\Inventory.cs",
+              "RelativeToolTip": "Assets\\0.Script\\Inventory\\Inventory.cs",
+              "ViewState": "AgIAAPEAAAAAAAAAAAAYwAQBAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T10:29:21.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Enemy\\Enemy.cs",
+              "RelativeDocumentMoniker": "Assets\\0.Script\\Enemy\\Enemy.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Enemy\\Enemy.cs",
+              "RelativeToolTip": "Assets\\0.Script\\Enemy\\Enemy.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAA7wFwAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T10:20:43.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Skill0.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Skill\\Skill0.cs",
+              "RelativeDocumentMoniker": "Assets\\0.Script\\Skill\\Skill0.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Skill\\Skill0.cs",
+              "RelativeToolTip": "Assets\\0.Script\\Skill\\Skill0.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T10:04:29.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Skill.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Skill\\Skill.cs",
+              "RelativeDocumentMoniker": "Assets\\0.Script\\Skill\\Skill.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\Skill\\Skill.cs",
+              "RelativeToolTip": "Assets\\0.Script\\Skill\\Skill.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAnwDsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T10:01:18.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "JsonData.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\System\\JsonData.cs",
+              "RelativeDocumentMoniker": "Assets\\0.Script\\System\\JsonData.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\project2\\Assets\\0.Script\\System\\JsonData.cs",
+              "RelativeToolTip": "Assets\\0.Script\\System\\JsonData.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAADwvwYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T10:01:06.676Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

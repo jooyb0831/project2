@@ -92,7 +92,9 @@ public class Enemy : MonoBehaviour
     /// <param name="idx"></param>
     public virtual void SetData(int idx)
     {
-        EnemyData enemyData = jd.enemyData.eData[idx];
+
+
+        EnemyData enemyData =jd.enemyData.eData[idx];
         data.MAXHP = enemyData.maxHP;
         data.CURHP = data.MAXHP;
         data.EnemyName = enemyData.enemyName;
