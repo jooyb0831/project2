@@ -65,11 +65,11 @@
       "exp": 12
     },
     {
-      "maxHP": 5,
+      "maxHP": 40,
       "enemyName": "화염 드래곤",
       "index": 8,
       "speed": 10.0,
-      "atkPower": 1,
+      "atkPower": 40,
       "exp": 50
     }
   ]

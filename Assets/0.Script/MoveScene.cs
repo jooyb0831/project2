@@ -32,7 +32,6 @@ public class MoveScene : MonoBehaviour
         gameUI = GameManager.Instance.GameUI;
     }
 
-    // Update is called once per frame
     void Update()
     {
         dist = Vector3.Distance(transform.position, p.transform.position);
@@ -80,6 +79,7 @@ public class MoveScene : MonoBehaviour
                         return;
                     }
                     pd.ST -= 5;
+                    Cursor.visible = true;
                     sc.GoFishing();
                 }
                 break;

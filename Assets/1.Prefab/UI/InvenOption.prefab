@@ -923,6 +923,7 @@ MonoBehaviour:
   equipBtn: {fileID: 0}
   unequipBtn: {fileID: 0}
   dumpBtn: {fileID: 0}
+  itemDumpWindow: {fileID: 2889861831299823815, guid: bb6017bde5f17e842ad2bcb7c3f3a743, type: 3}
 --- !u!1 &5404763267354730010
 GameObject:
   m_ObjectHideFlags: 0

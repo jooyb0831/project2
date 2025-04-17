@@ -267,9 +267,12 @@ MonoBehaviour:
   itemRecipeDatas:
   - {fileID: 7210597207409544393, guid: 60897e6782ece984eb077aeca3e6dfe7, type: 3}
   - {fileID: 8021231370507461453, guid: 31ae857ef4e41ee478882532bd27451e, type: 3}
+  - {fileID: -7952774605942863835, guid: 5f0f00a00b2a6ab4282f61d27314b053, type: 3}
+  - {fileID: 32817311887396543, guid: 7c8c01efe9d6edd46825ccda491a9c40, type: 3}
   foodRecipeDatas:
   - {fileID: 443752977342143672, guid: 2e2470dc3af56b746a534f4d9bf36a37, type: 3}
   - {fileID: 1276622097185936253, guid: 9d4451c8dd1e2344fb85d3f6808f3ed7, type: 3}
+  - {fileID: 1821158833650336241, guid: 18d4d7d614b64754aa4deb0980b27d43, type: 3}
 --- !u!4 &472934532
 Transform:
   m_ObjectHideFlags: 0
@@ -542,6 +545,15 @@ MonoBehaviour:
     questDialogueData: []
   rockData:
     rData: []
+  data1:
+    skilltitle: 
+    skillexplain: 
+    index: 0
+    cooltime: 0
+    mp: 0
+    damage: 0
+    needlevel: 0
+    skilllevel: 0
 --- !u!4 &1705452795
 Transform:
   m_ObjectHideFlags: 0
@@ -694,6 +706,24 @@ MonoBehaviour:
   data:
     Unlocked: 0
     SkillIcon: {fileID: 21300000, guid: b891a2cc80c288a4a8fc1a6ec6384310, type: 3}
+  sData:
+    skilltitle: 
+    skillexplain: 
+    index: 0
+    cooltime: 0
+    mp: 0
+    damage: 0
+    needlevel: 0
+    skilllevel: 0
+  data2:
+    skilltitle: 
+    skillexplain: 
+    index: 0
+    cooltime: 0
+    mp: 0
+    damage: 0
+    needlevel: 0
+    skilllevel: 0
   isSet: 0
   slotIdx: 0
   slot: {fileID: 0}

@@ -80,8 +80,7 @@ public class CraftUI : Singleton<CraftUI>
 
     public void OnExitBtn()
     {
-        GameManager.Instance.isPaused = false;
-        Camera.main.GetComponent<CameraMove>().enabled = true;
+        GameManager.Instance.PauseScene(false);
         craftWindow.SetActive(false);
     }
 

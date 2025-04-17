@@ -19,7 +19,6 @@ public class NPCUI : Singleton<NPCUI>
     private QuestManager qm;
     public bool allDone = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         qm = GameManager.Instance.QuestManager;
@@ -44,11 +43,6 @@ public class NPCUI : Singleton<NPCUI>
         }
 
         SetString();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void SetQuest()
@@ -77,7 +71,6 @@ public class NPCUI : Singleton<NPCUI>
         {
             for (int i = 0; i < curQuest.data.basicDialogue.Length; i++)
             {
-                Debug.Log($"{i}");
                 basicDialogue.Add(curQuest.data.basicDialogue[i]);
                 window.basicDialogue.Add(curQuest.data.basicDialogue[i]);
             }

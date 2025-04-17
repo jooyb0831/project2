@@ -80,6 +80,7 @@ public class SceneChanger : Singleton<SceneChanger>
     {
         LoadingSceneManger.LoadScene("Lobby");
         sceneType = SceneType.Lobby;
+        Cursor.visible = false;
     }
 
     public void GoNPC(bool isLoad)

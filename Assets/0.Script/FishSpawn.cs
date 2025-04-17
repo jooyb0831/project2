@@ -23,6 +23,9 @@ public class FishSpawn : MonoBehaviour
     private const float X_POS = 13f;
     private const float Z_POS = 7f;
 
+    //Y좌표 고정값
+    private const float Y_POS = -0.4f;
+
 
     void Start()
     {
@@ -61,17 +64,18 @@ public class FishSpawn : MonoBehaviour
     /// </summary>
     void SpawnFish()
     {
-        // 1~5 사이의 랜덤한 숫자 뽑아서 그만큼 물고기 만들기
+        // 1~MAX_FISH_CNT까지의 랜덤한 숫자 뽑아서 그만큼 물고기 만들기
         fishCnt = Random.Range(1, MAX_FISH_CNT + 1);
         for (int i = 0; i < fishCnt; i++)
         {
-            FishMove fish = Instantiate(fishPrefab, RandomPos(), Quaternion.identity);
+            FishMove fish = Instantiate(fishPrefab, RandomPos()
+                                        , Quaternion.identity);
             fishList.Add(fish);
         }
     }
 
     /// <summary>
-    /// 랜듬한 포지션을 반환하는 함수
+    /// 랜덤한 포지션을 반환하는 함수
     /// </summary>
     /// <returns></returns>
     Vector3 RandomPos()
@@ -79,6 +83,6 @@ public class FishSpawn : MonoBehaviour
         float x = Random.Range(-X_POS, X_POS);
         float z = Random.Range(-Z_POS, Z_POS);
 
-        return new Vector3(x, -0.4f, z);
+        return new Vector3(x, Y_POS, z);
     }
 }

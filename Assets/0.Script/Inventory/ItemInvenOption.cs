@@ -14,6 +14,8 @@ public class ItemInvenOption : MonoBehaviour
     [SerializeField] GameObject equipBtn;
     [SerializeField] GameObject unequipBtn;
     [SerializeField] GameObject dumpBtn;
+    [SerializeField] ItemDumpWindow itemDumpWindow;
+
 
     void Start()
     {
@@ -28,7 +30,6 @@ public class ItemInvenOption : MonoBehaviour
 
     public void OnEquipBtn()
     {
-
         if(item.data.type.Equals(ItemType.Weapon))
         {
             inven.WeaponEquip(item);
@@ -43,7 +44,10 @@ public class ItemInvenOption : MonoBehaviour
 
     public void OnDumpBtn()
     {
-
+        ItemDumpWindow window = Instantiate(itemDumpWindow, transform.parent.parent);
+        window.SetItem(item);
+        window.transform.SetAsLastSibling();
+        Destroy(gameObject);
     }
 
     public void OnExitBtn()
@@ -71,13 +75,14 @@ public class ItemInvenOption : MonoBehaviour
             buttonList[2].SetActive(true);
         }
 
-        else if(item.transform.parent.GetComponent<Slot>())
+        if(item.transform.parent.GetComponent<Slot>())
         {
             ItemType type = item.data.type;
 
             switch(type)
             {
                 case ItemType.Weapon :
+                case ItemType.Tool:
                 {
                     buttonList[1].SetActive(true);
                     break;

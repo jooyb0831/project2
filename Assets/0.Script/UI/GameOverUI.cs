@@ -25,6 +25,7 @@ public class GameOverUI : MonoBehaviour
         {
             deadTxt.DOFade(1, 1f).OnComplete(() =>
             {
+                GameManager.Instance.PauseScene(true);
                 restartBtn.GetComponent<Image>().DOFade(1, 1.5f);
                 restartTxt.DOFade(1, 1.5f);
                 exitBtn.GetComponent<Image>().DOFade(1, 1.5f);
@@ -56,11 +57,13 @@ public class GameOverUI : MonoBehaviour
         sceneChanger.GoLobby();
         player.state = Player.State.Idle;
         gameObject.SetActive(false);
+        GameManager.Instance.PauseScene(false);
     }
 
     public void OnExitBtnClicked()
     {
         pd.HP = pd.MAXHP;
+        GameManager.Instance.PauseScene(false);
         sceneChanger.GoGameStart();
     }
 }

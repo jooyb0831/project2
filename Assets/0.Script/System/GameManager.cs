@@ -166,10 +166,31 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    
+
 
     /// <summary>
     /// 게임 일시정지 체크여부
     /// </summary>
     public bool isPaused { get; set; }
+
+    public void PauseScene(bool isPause)
+    {
+        isPaused = isPause;
+        CameraMove camMove = Camera.main.GetComponent<CameraMove>();
+
+        //일시정지 상태일 경우
+        if(isPause)
+        {
+            camMove.enabled = false;
+            Cursor.visible = true;
+        }
+        else
+        {
+            camMove.enabled = true;
+            Cursor.visible = false;
+        }
+
+    }
 
 }

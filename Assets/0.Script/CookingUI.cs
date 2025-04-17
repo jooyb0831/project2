@@ -74,14 +74,14 @@ public class CookingUI : Singleton<CookingUI>
 
     public void EnableWindow()
     {
+        GameManager.Instance.PauseScene(true);
         craftWindow.SetActive(true);
         SetItemListData();
     }
 
     public void OnExitBtn()
     {
-        GameManager.Instance.isPaused = false;
-        Camera.main.GetComponent<CameraMove>().enabled = true;
+        GameManager.Instance.PauseScene(false);
         craftWindow.SetActive(false);
     }
 }

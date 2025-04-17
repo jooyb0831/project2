@@ -25,6 +25,7 @@ public class StageSelect : Singleton<StageSelect>
     public void TurnOnMap()
     {
         mapObj.SetActive(true);
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
@@ -66,5 +67,11 @@ public class StageSelect : Singleton<StageSelect>
                 break;
             }
         }
+    }
+
+    public void Exit()
+    {
+        mapObj.SetActive(false);
+        Cursor.visible = false;
     }
 }

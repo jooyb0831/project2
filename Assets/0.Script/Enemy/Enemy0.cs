@@ -95,4 +95,9 @@ public class Enemy0 : Enemy
         base.ToIdleState();
     }
 
+    public override void DeadState()
+    {
+        base.DeadState();
+    }
+
 }

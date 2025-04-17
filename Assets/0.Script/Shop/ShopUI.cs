@@ -20,7 +20,6 @@ public class ShopUI : Singleton<ShopUI>
     private Inventory inven;
     private PlayerData pd;
 
-    // Start is called before the first frame update
     void Start()
     {
         inven = GameManager.Instance.Inven;
@@ -78,19 +77,19 @@ public class ShopUI : Singleton<ShopUI>
         if(item.transform.parent.GetComponent<Slot>())
         {
             int index = item.transform.parent.GetSiblingIndex();
-            //ÀüÃ¼ ÆÇ¸ÅÇÒ °æ¿ì
+            //ï¿½ï¿½Ã¼ ï¿½Ç¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (merchInvenSlots[index].GetChild(0).GetComponent<InvenItem>().data.count == count)
             {
-                //ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛ »èÁ¦
+                //ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 Destroy(inven.invenSlots[index].GetChild(0).gameObject);
-                //ÀÎº¥Åä¸® ºó °ÍÀ¸·Î Ã¼Å©
+                //ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
                 inven.invenSlots[index].GetComponent<Slot>().isFilled = false;
             }
 
-            //ÀÏºÎ¸¸ ÆÇ¸ÅÇÒ °æ¿ì
+            //ï¿½ÏºÎ¸ï¿½ ï¿½Ç¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             else if (merchInvenSlots[index].GetChild(0).GetComponent<InvenItem>().data.count > count)
             {
-                //ÀÎº¥Åä¸®¿¡¼­ ¼ö·®¸¸ º¯°æ
+                //ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 inven.InvenItemCntChange(inven.invenSlots[index].GetChild(0).GetComponent<InvenItem>(), -count);
             }
         }
@@ -115,8 +114,7 @@ public class ShopUI : Singleton<ShopUI>
     public void OnExitBtn()
     {
         window.SetActive(false);
-        //Ä«¸Þ¶ó ¿òÁ÷ÀÓ, Ä³¸¯ÅÍ ¿òÁ÷ÀÓ Á¤Áö
-        GameManager.Instance.isPaused = false;
-        Camera.main.GetComponent<CameraMove>().enabled = true;
+        //
+        GameManager.Instance.PauseScene(false);
     }
 }

@@ -30,8 +30,7 @@ public class WorkTable : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.F))
             {
                 //sc.GoCraftUI();
-                GameManager.Instance.isPaused = true;
-                Camera.main.GetComponent<CameraMove>().enabled = false;
+                GameManager.Instance.PauseScene(true);
                 CraftUI.Instance.EnableWindow();
             }
         }

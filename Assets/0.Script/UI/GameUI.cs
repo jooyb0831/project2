@@ -82,15 +82,7 @@ public class GameUI : Singleton<GameUI>
     /// <param name="isOn"></param>
     public void UISwitch(bool isOn)
     {
-        if(isOn)
-        {
-            UI.SetActive(false);
-        }
-        else
-        {
-            UI.SetActive(true);
-        }
-        
+        UI.SetActive(!isOn);
     }
 
     public int Level
@@ -154,7 +146,6 @@ public class GameUI : Singleton<GameUI>
                 return;
             }
             hpBarImg.DOFillAmount(((float)pd.HP / pd.MAXHP), 0.2f);
-            //hpBarImg.fillAmount = ((float)pd.HP / pd.MAXHP);
             hpTxt.text = $"{pd.HP}/{pd.MAXHP}";
         }
     }
@@ -183,7 +174,7 @@ public class GameUI : Singleton<GameUI>
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            stBarImg.fillAmount = ((float)pd.ST / pd.MAXST);
+            stBarImg.DOFillAmount(((float)pd.HP / pd.MAXHP), 0.2f);
             stTxt.text = $"{pd.ST}/{pd.MAXST}";
         }
     }

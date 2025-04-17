@@ -31,8 +31,7 @@ public class MenuUI : MonoBehaviour
             menuObj.SetActive(true);
 
             //카메라 움직임, 캐릭터 움직임 정지
-            GameManager.Instance.isPaused = true;
-            Camera.main.GetComponent<CameraMove>().enabled = false;
+            GameManager.Instance.PauseScene(true);
             p.charUICam.gameObject.SetActive(true);
         }
 
@@ -41,8 +40,8 @@ public class MenuUI : MonoBehaviour
         {
             if(menuObj.activeSelf)
             {
-                p.charUICam.gameObject.SetActive(false);
                 OnExitBtn();
+                p.charUICam.gameObject.SetActive(false);
             }
         }
     }
@@ -52,9 +51,8 @@ public class MenuUI : MonoBehaviour
     /// </summary>
     public void OnExitBtn()
     {
+        GameManager.Instance.PauseScene(false);
         menuObj.SetActive(false);
-        GameManager.Instance.isPaused = false;
-        Camera.main.GetComponent<CameraMove>().enabled = true;
     }
 
     /// <summary>

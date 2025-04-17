@@ -20,15 +20,24 @@ public class Skill0 : Skill
     /// </summary>
     public override void SkillAct()
     {
+        if (p == null)
+        {
+            p = GameManager.Instance.Player;
+        }
+
+        if(gameUI == null)
+        {
+            gameUI = GameManager.Instance.GameUI;
+        }
         //플레이어가 무기 장착하고 있지 않으면 작동X
-        if(p.weaponEquipState.Equals(Player.WeaponEquipState.None))
+        if (p.weaponEquipState.Equals(Player.WeaponEquipState.None))
         {
             //무기가 없음을 UI에 표시
             gameUI.DisplayInfo(8);
             p.skillState = Player.SkillState.None;
             return;
         }
-        
+
         p.Weapon(); //손에 무기 장착
 
         //애니메이션 트리거

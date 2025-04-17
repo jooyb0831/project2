@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RedMushroom : FieldItem
 {
-    
-    // Start is called before the first frame update
     void Start()
     {
         Init();

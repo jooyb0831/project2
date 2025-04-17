@@ -32,7 +32,7 @@ public class NPCDialogue : MonoBehaviour
     public void SetCurDialogue(List<string> dialogue)
     {
         currentDialogue.Clear();
-        for(int i = 0; i<dialogue.Count; i++)
+        for (int i = 0; i < dialogue.Count; i++)
         {
             currentDialogue.Add(dialogue[i]);
         }
@@ -46,15 +46,15 @@ public class NPCDialogue : MonoBehaviour
     {
         idx++;
 
-        if (idx<currentDialogue.Count)
+        if (idx < currentDialogue.Count)
         {
             stringArea.text = currentDialogue[idx];
-        }    
+        }
 
         else if (idx >= currentDialogue.Count)
         {
             //퀘스트 조건 달성 시
-            if(curQuest.data.qState.Equals(QuestState.Done))
+            if (curQuest.data.qState.Equals(QuestState.Done))
             {
                 curQuest.QuestReward();
                 curQuest.QuesUIRemove();
@@ -65,13 +65,13 @@ public class NPCDialogue : MonoBehaviour
                 ExitScene();
                 return;
             }
-            
+
             //퀘스트 수락 중 조건 미달성 시
-            else if(curQuest.data.qState.Equals(QuestState.Start))
+            else if (curQuest.data.qState.Equals(QuestState.Start))
             {
                 ExitScene();
             }
-            
+
             //모든 퀘스트 종료했을 경우
             else if (NPCUI.Instance.allDone)
             {
@@ -79,10 +79,10 @@ public class NPCDialogue : MonoBehaviour
             }
 
             //퀘스트 미수락 상태
-            else if(curQuest.data.qState.Equals(QuestState.None))
+            else if (curQuest.data.qState.Equals(QuestState.None))
             {
                 //기본 다이얼로그였다면
-                if(isBasicDialogue)
+                if (isBasicDialogue)
                 {
                     //수락 창 활성화
                     answerWindow.SetActive(true);
@@ -103,10 +103,11 @@ public class NPCDialogue : MonoBehaviour
 
     void ExitScene()
     {
-        if(sc == null)
+        if (sc == null)
         {
             sc = GameManager.Instance.SceneChanger;
         }
+        Cursor.visible = false;
         sc.GoNPC(false);
     }
 
@@ -117,11 +118,11 @@ public class NPCDialogue : MonoBehaviour
     void DialoguePlayer(List<string> strs)
     {
         idx++;
-        if(idx<strs.Count)
+        if (idx < strs.Count)
         {
             stringArea.text = strs[idx];
         }
-        else if(idx==strs.Count)
+        else if (idx == strs.Count)
         {
             gameObject.SetActive(false);
         }
@@ -152,5 +153,5 @@ public class NPCDialogue : MonoBehaviour
         answerWindow.SetActive(false);
         nextBtn.SetActive(true);
     }
-    
+
 }

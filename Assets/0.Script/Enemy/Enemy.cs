@@ -92,9 +92,7 @@ public class Enemy : MonoBehaviour
     /// <param name="idx"></param>
     public virtual void SetData(int idx)
     {
-
-
-        EnemyData enemyData =jd.enemyData.eData[idx];
+        EnemyData enemyData = jd.enemyData.eData[idx];
         data.MAXHP = enemyData.maxHP;
         data.CURHP = data.MAXHP;
         data.EnemyName = enemyData.enemyName;
@@ -301,5 +299,13 @@ public class Enemy : MonoBehaviour
     public virtual void ToIdleState()
     {
         state = State.Idle;
+    }
+
+    public virtual void DeadState()
+    {
+        if(state != State.Dead)
+        {
+            state = State.Dead;
+        }
     }
 }

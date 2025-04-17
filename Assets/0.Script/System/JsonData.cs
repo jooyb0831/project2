@@ -15,7 +15,7 @@ public class EnemyData
 }
 
 [System.Serializable]
-public class SkillData
+public class SkillData 
 {
     public string skilltitle;
     public string skillexplain;
@@ -81,6 +81,7 @@ public class JsonData : Singleton<JsonData>
     public RockJsonData rockData = new RockJsonData();
 #endregion
 
+    public SkillData data1;
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -90,5 +91,6 @@ public class JsonData : Singleton<JsonData>
         questDialogueData = JsonUtility.FromJson<QuestDialogueData>(questDialogueJson.text);
         rockData = JsonUtility.FromJson<RockJsonData>(rockJson.text);
 
+        data1 = skillData.sData[0];
     }
 }

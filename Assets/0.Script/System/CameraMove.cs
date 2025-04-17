@@ -20,7 +20,6 @@ public class CameraMove : MonoBehaviour
 #region 코드 내 활용 변수
     //카메라의 거리
     private float camDist;
-
     //포지션과 회전
     private Vector3 pos;
     private Vector3 rot;
@@ -44,7 +43,6 @@ public class CameraMove : MonoBehaviour
         pos.y += 1f;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         CameraView();
@@ -65,7 +63,7 @@ public class CameraMove : MonoBehaviour
     /// </summary>
     void CameraView()
     {
-        //마우스 인풋값을 float으로 받음
+        //마우스위치 인풋값을 float으로 받음
         float mX = Input.GetAxis("Mouse X");
         float mY = Input.GetAxis("Mouse Y");
 

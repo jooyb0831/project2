@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 837623242641949364}
   - component: {fileID: 837623242642382508}
   - component: {fileID: 1290667373166811790}
+  - component: {fileID: 32817311887396543}
   - component: {fileID: 837623242645340820}
   - component: {fileID: 837623242644373588}
   - component: {fileID: 837623242642382483}
@@ -67,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     itemTitle: "\uB3C4\uB07C"
+    itemExplain: "\uB098\uBB34\uB97C \uBCA8 \uB54C \uC4F0\uB294 \uB3C4\uAD6C."
     invenIcon: {fileID: 21300000, guid: 719c2201c2f5f6c4aafffaeb5abdf5f9, type: 3}
     bgSprite: {fileID: 21300000, guid: 4f033cdd2b09f9a43b139729d09d002c, type: 3}
     type: 2
@@ -76,6 +78,25 @@ MonoBehaviour:
     obj: {fileID: 0}
     fItem: {fileID: 1290667373166811790}
   isFind: 0
+  getUI: {fileID: 0}
+--- !u!114 &32817311887396543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837623242642382484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473e27ed11401384ea30083e7aa1cae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemIcon: {fileID: 21300000, guid: 719c2201c2f5f6c4aafffaeb5abdf5f9, type: 3}
+  Resources:
+  - {fileID: 8224540129649935743, guid: d49076af1d6919441ac934aaa71b1e9c, type: 3}
+  - {fileID: 7777382695887781675, guid: 80f32b7670602cc469a68087419240b8, type: 3}
+  RcCnts: 0400000001000000
+  Item: {fileID: 837623242642382484}
 --- !u!33 &837623242645340820
 MeshFilter:
   m_ObjectHideFlags: 0

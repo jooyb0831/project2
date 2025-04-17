@@ -20,6 +20,7 @@ public class GameStart : MonoBehaviour
 
     public void OnGameStartBtn()
     {
+        Cursor.visible = false;
         sc.GoLobby();
     }
 

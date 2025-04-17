@@ -30,7 +30,8 @@ public class Skill : MonoBehaviour
 #endregion
 
     public Data data = new Data();
-    public SkillData sData;
+    public SkillData sData= new SkillData();
+    public SkillData data2;
 
     public bool isSet = false; //스킬이 세팅되었는지 여부 체크
     protected float coolTimer; //쿨타임의 타이머
@@ -50,6 +51,7 @@ public class Skill : MonoBehaviour
         isSet = false;
     }
 
+
     /// <summary>
     /// 스킬의 데이터 세팅
     /// </summary>
@@ -67,12 +69,8 @@ public class Skill : MonoBehaviour
         data.NeedLv = jd.skillData.sData[idx].needlevel;
         data.SkillLv = jd.skillData.sData[idx].skilllevel;
         
-
         //data를 인스턴스 할 수 있음
-        // sData = Instantiate(jd.skillData.sData[idx]);
-        //SkillData sD = new SkillData();
-        //SkillData s1 = new SkillData();
-
+        // sData = Instantiate(jd.skillData.sData[idx]); Monobehaviour가 있어야.
     }
 
     /// <summary>
@@ -80,10 +78,6 @@ public class Skill : MonoBehaviour
     /// </summary>
     public virtual void SkillAct()
     {
-        if(p == null)
-        {
-            p = GameManager.Instance.Player;
-        }
         //플레이어의 상태를 스킬 사용중인 상태로 변경
         p.state = Player.State.Skill;
         //스킬이 작동중인 상태로 변경

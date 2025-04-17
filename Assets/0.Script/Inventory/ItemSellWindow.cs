@@ -22,6 +22,11 @@ public class ItemSellWindow : MonoBehaviour
     void Start()
     {
         pd = GameManager.Instance.PlayerData;
+        Init();
+    }
+    void Init()
+    {
+        numInputField.text = 1.ToString();
     }
 
     public void SetItem(InvenItem item)

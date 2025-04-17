@@ -16,7 +16,7 @@ public class InvenData
     public string itemExplain;
     public int price; //아이템 가격
     public int slotIdx; //아이템의 인벤토리 슬롯 인덱스
-    public int invenOrderNum; //아이템이 인벤토리에 들어간 순서
+    public int invenNumCode; //인벤토리에서 아이템을 구분하기 위한 코드 번호
     public bool inQuickSlot = false; //아이템이 퀵인벤에 있는지 여부
     public bool inWeaponSlot = false; //아이템이 무기슬롯에 있는지 여부
     public int quickSlotIdx; //퀵 인벤 슬롯 인덱스
@@ -43,7 +43,6 @@ public enum ItemType
 public class InventoryData
 {
     public int curInvenSlots = 10;
-    public int invenCount = -1;
     public List<InvenItem> items = new();
     public bool invenFull = false;
 }
@@ -69,7 +68,9 @@ public class Inventory : Singleton<Inventory>
     [SerializeField] List<int> itemIdxList = new();
     public List<InvenData> invenDatas = new();
 
-    // Start is called before the first frame update
+    private int invenCodeNum;
+
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -147,8 +148,6 @@ public class Inventory : Singleton<Inventory>
 
         //리스트에 아이템 데이터 추가
         itemIdxList.Add(itemData.itemIdx);
-        //인벤토리 데이터의 인벤 카운트 증가
-        inventoryData.invenCount++;
         //아이템이 들어갈 인벤토리 인덱스 번호 부여
         int index = SlotCheck();
         //인벤아이템 생성
@@ -166,10 +165,8 @@ public class Inventory : Singleton<Inventory>
             type = itemData.type,
             count = itemData.count,
             price = itemData.price,
-            //usage = itemData.usage,
             itemIdx = itemData.itemIdx,
-            //인벤아이템의 데이터(인벤데이터)가 인벤에 들어간 순서 
-            invenOrderNum = inventoryData.invenCount,
+            invenNumCode = invenCodeNum,
             fieldItem = itemData.fItem,
             slotIdx = index
         };
@@ -185,6 +182,9 @@ public class Inventory : Singleton<Inventory>
 
         //UI쪽에서 아이템 획득하였음을 알려주는 UI표기
         GameUI.Instance.GetItem(itemData);
+
+        //인벤토리 내의 항목 번호 증가
+        invenCodeNum++;
 
         //아이템 획득시 실물 게임 오브젝트가 있는 경우 오브젝트 제거
         if (itemData.obj != null)
@@ -353,17 +353,23 @@ public class Inventory : Singleton<Inventory>
 
         ItemType type = item.data.type;
 
+        //아이템의 타입에 따라 분기 나눔
         switch (type)
         {
+            //물약이나 음식일 경우
             case ItemType.Potion:
             case ItemType.Food:
                 {
+                    //사용 가능한 상태인지 판단
                     bool canUse = item.data.fieldItem.ItemUseCheck();
+                    //사용 불가능한 상태일 경우
                     if (!canUse)
                     {
+                        //UI에 사용 불가능함을 표시 후 리턴
                         gameUI.DisplayInfo(9);
                         return;
                     }
+                    //각 아이템의 사용 코드 호출
                     item.data.fieldItem.UseItem();
                     break;
                 }
@@ -372,6 +378,7 @@ public class Inventory : Singleton<Inventory>
                     break;
                 }
         }
+        //수량 변경
         InvenItemCntChange(item, cnt);
     }
 
@@ -382,12 +389,16 @@ public class Inventory : Singleton<Inventory>
     /// <param name="cnt"></param>
     public void InvenItemCntChange(InvenItem item, int cnt = -1)
     {
+        //인벤 아이템 데이터 수량 변경하기
         item.data.count += cnt;
+        //만약 수량이 0이 될 경우
         if (item.data.count <= 0)
         {
+            //아이템 삭제 후 리턴 
             DeleteItem(item);
             return;
         }
+        //인벤아이템(UI)쪽의 수량 변경 표기
         item.ItemCntChange(item.data);
     }
 
@@ -409,22 +420,20 @@ public class Inventory : Singleton<Inventory>
             item.transform.parent.GetComponent<QuickSlotInven>().RemoveItem(item);
         }
 
+        //인벤토리 내부 데이터 리스트에서 해당 인벤아이템 삭제
         int itemIdx = -1;
-
-        //인벤아이템 
         for (int i = 0; i < invenItems.Count; i++)
         {
             if (invenItems[i].data.itemIdx == item.data.itemIdx)
             {
                 itemIdx = i;
-                Debug.Log(itemIdx);
                 break;
             }
         }
-        itemIdxList.RemoveAt(item.data.invenOrderNum);
-        invenDatas.RemoveAt(item.data.invenOrderNum);
-        invenItems.RemoveAt(item.data.invenOrderNum);
-        inventoryData.invenCount--;
+        itemIdxList.Remove(item.data.itemIdx);
+        invenDatas.Remove(item.data);
+        invenItems.Remove(item);
+
         Destroy(item.gameObject);
     }
 
@@ -439,6 +448,7 @@ public class Inventory : Singleton<Inventory>
         QuickSlotInven qSlot = null;
         for (int i = 0; i < quickSlotsInven.Length; i++)
         {
+            //앞쪽부터 비어있는 퀵 슬롯 찾아서 리턴
             if (!quickSlotsInven[i].GetComponent<QuickSlotInven>().isFilled)
             {
                 qSlot = quickSlotsInven[i].GetComponent<QuickSlotInven>();
@@ -446,23 +456,19 @@ public class Inventory : Singleton<Inventory>
             }
         }
 
+        //원래 있던 일반 슬롯 비움처리
         item.transform.parent.GetComponent<Slot>().isFilled = false;
+        //일반 슬롯이 아니므로 슬롯 인덱스 -1로 처리
         item.data.slotIdx = -1;
+        //위치를 퀵슬롯으로 변경
         item.transform.SetParent(qSlot.transform);
         item.transform.position = qSlot.transform.position;
+        //퀵슬롯 인덱스 번호 부여
         item.data.quickSlotIdx = qSlot.quickSlotIdx;
+        //아이템 세팅
         qSlot.SetItem(item);
+        //해당 퀵슬롯 채워진 것으로 처리
         qSlot.isFilled = true;
-
-        /*
-        if(item.data.type.Equals(ItemType.Tool))
-        {
-            if(item.data.itemTitle.Equals("곡괭이"))
-            {
-                Instantiate(item.data.fieldItem, p.swordPos);
-            }
-        }
-        */
     }
 
     /// <summary>
@@ -474,7 +480,7 @@ public class Inventory : Singleton<Inventory>
         WeaponSlot wSlot = null;
         WeaponType type = item.data.fieldItem.GetComponent<Weapon>().weaponData.weaponType;
 
-
+        //무기의 종류에 따라 슬롯 구분함
         switch (type)
         {
             case WeaponType.Sword:
@@ -488,18 +494,23 @@ public class Inventory : Singleton<Inventory>
                     wSlot = bowSlot.GetComponent<WeaponSlot>();
                     break;
                 }
-
         }
 
         if (wSlot.isFilled)
         {
             //교환코드(추후 작성)
         }
+
+        //무기 슬롯 채워진 것으로 처리
         wSlot.isFilled = true;
+        //원래 있던 일반 슬롯은 비움 처리
         item.transform.parent.GetComponent<Slot>().isFilled = false;
+        //일반 슬롯이 아니므로 슬롯 인덱스 -1로 처리
         item.data.slotIdx = -1;
+        //해당 인벤아이템 오브젝트 위치 및 부모 변경
         item.transform.SetParent(wSlot.transform);
         item.transform.position = wSlot.transform.position;
+        //무기슬롯에 아이템 세팅
         wSlot.item = item;
         wSlot.Equip();
 
@@ -518,7 +529,9 @@ public class Inventory : Singleton<Inventory>
         {
             moveItem.SetData(data);
         }
+        //드래그 시 보이는 MoveItem오브젝트 활성화
         moveItem.gameObject.SetActive(isShow);
+        //Moveitem의 위치 설정
         moveItem.transform.position = pos;
     }
 
@@ -541,6 +554,7 @@ public class Inventory : Singleton<Inventory>
     {
         ItemType type = item.invenItem.data.type;
         QuickSlot quickSlot = item.transform.parent.GetComponent<QuickSlot>();
+
         if (p == null)
         {
             p = GameManager.Instance.Player;
@@ -593,15 +607,17 @@ public class Inventory : Singleton<Inventory>
     }
 
     /// <summary>
-    /// 인벤에 있는 아이템을 리턴
+    /// 인벤에 아이템 찾아서 리턴
     /// </summary>
     /// <param name="itemIdx">아이템 코드번호</param>
     /// <returns>아이템 개수</returns>
     public InvenItem FindItem(int itemIdx)
     {
         InvenItem item = null;
+        //인벤토리를 돌면서
         for (int i = 0; i < invenItems.Count; i++)
         {
+            //아이템 코드가 동일한 것을 찾기
             if (invenItems[i].data.itemIdx == itemIdx)
             {
                 item = invenItems[i];
@@ -624,10 +640,14 @@ public class Inventory : Singleton<Inventory>
     {
         InvenItem item = null;
         int cnt = 0;
+
+        //인벤토리를 돌면서
         for (int i = 0; i < invenItems.Count; i++)
         {
+            //아이템 코드로 아이템 찾기
             if (invenItems[i].data.itemIdx == itemIdx)
             {
+                //찾았다면 해당 아이템의 현재 인벤 내 갯수 리턴
                 item = invenItems[i];
                 cnt = item.data.count;
                 break;
@@ -636,7 +656,6 @@ public class Inventory : Singleton<Inventory>
             {
                 cnt = 0;
             }
-
         }
         return cnt;
     }
