@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
                 return;
             }
             //MP가 부족할 경우
-            if (pd.CURMP < qSkill.data.MP)
+            if (pd.CURMP < qSkill.data.skillData.mp)
             {
                 gameUI.DisplayInfo(1); //UI에 MP가 부족함을 표시
                 return;
@@ -219,7 +219,7 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            if (pd.CURMP < rSkill.data.MP)
+            if (pd.CURMP < rSkill.data.skillData.mp)
             {
                 gameUI.DisplayInfo(1); //UI에 MP가 부족함을 표시
                 return;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,6 +58,11 @@ public class Pooling : Singleton<Pooling>
     // Start is called before the first frame update
     void Start()
     {
+        foreach(var item in Enum.GetValues(typeof(DicKey)))
+        {
+            pool.Add((DicKey)item, new Queue<GameObject>());
+        }
+        /*
         pool.Add(DicKey.arrow, new Queue<GameObject>());
         pool.Add(DicKey.stone, new Queue<GameObject>());
         pool.Add(DicKey.wood, new Queue<GameObject>());
@@ -67,6 +73,7 @@ public class Pooling : Singleton<Pooling>
         pool.Add(DicKey.fallRock, new Queue<GameObject>());
         pool.Add(DicKey.enemyRock, new Queue<GameObject>());
         pool.Add(DicKey.arrowTrap, new Queue<GameObject>());
+        */
     }
 
 

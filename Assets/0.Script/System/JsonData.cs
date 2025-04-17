@@ -15,7 +15,7 @@ public class EnemyData
 }
 
 [System.Serializable]
-public class SkillData 
+public class SkillData
 {
     public string skilltitle;
     public string skillexplain;

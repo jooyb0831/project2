@@ -10,14 +10,7 @@ public class Skill : MonoBehaviour
     [System.Serializable]
     public class Data
     {
-        public string SkillTitle { get; set; }
-        public string SkillExplain { get; set; }
-        public int SkillIndex { get; set; }
-        public float CoolTime { get; set; }
-        public int MP { get; set; }
-        public int Damage { get; set; }
-        public int NeedLv { get; set; }
-        public int SkillLv { get; set; }
+        public SkillData skillData;
         public bool Unlocked = false;
         public Sprite SkillIcon;
     }
@@ -30,8 +23,7 @@ public class Skill : MonoBehaviour
 #endregion
 
     public Data data = new Data();
-    public SkillData sData= new SkillData();
-    public SkillData data2;
+    public SkillData sData = new SkillData();
 
     public bool isSet = false; //스킬이 세팅되었는지 여부 체크
     protected float coolTimer; //쿨타임의 타이머
@@ -59,7 +51,7 @@ public class Skill : MonoBehaviour
     public virtual void SetData(int idx)
     {
         //Json 형식의 Skill의 데이터를 받아서 적용
-        
+        /*
         data.SkillTitle = jd.skillData.sData[idx].skilltitle;
         data.SkillExplain = jd.skillData.sData[idx].skillexplain;
         data.SkillIndex = jd.skillData.sData[idx].index;
@@ -68,9 +60,11 @@ public class Skill : MonoBehaviour
         data.Damage = jd.skillData.sData[idx].damage;
         data.NeedLv = jd.skillData.sData[idx].needlevel;
         data.SkillLv = jd.skillData.sData[idx].skilllevel;
-        
+        */
         //data를 인스턴스 할 수 있음
-        // sData = Instantiate(jd.skillData.sData[idx]); Monobehaviour가 있어야.
+        //data.skillData = Instantiate(jd.skillData.sData[idx]);
+        data.skillData = jd.skillData.sData[idx];
+        
     }
 
     /// <summary>
@@ -83,7 +77,7 @@ public class Skill : MonoBehaviour
         //스킬이 작동중인 상태로 변경
         isWorking = true;
         //스킬의 사용 MP만큼 차감
-        pd.CURMP -= data.MP;
+        pd.CURMP -= data.skillData.mp;
 
         //기타 실질적인 스킬 작동은 상속받는 클래스에서 입력
     }
@@ -93,8 +87,8 @@ public class Skill : MonoBehaviour
         //스킬이 해제되지 않았다면면
         if (!data.Unlocked)
         {
-            //필요 레벨보다 플레이어 레벨 높으면 해제제
-            if (pd.Level >= data.NeedLv)
+            //필요 레벨보다 플레이어 레벨 높으면 해제
+            if (pd.Level >= data.skillData.needlevel)
             {
                 data.Unlocked = true;
             }
@@ -115,7 +109,7 @@ public class Skill : MonoBehaviour
     void CoolTimeCheck()
     {
         coolTimer += Time.deltaTime;
-        if(coolTimer>=data.CoolTime)
+        if(coolTimer>= data.skillData.cooltime)
         {
             coolTimer = 0;
             isWorking = false;

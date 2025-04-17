@@ -27,10 +27,10 @@ public class Skill0UI : SkillUISample
 
     void SetUI()
     {
-        skillTitleTxt.text = skill.data.SkillTitle;
-        skillExplainTxt.text = skill.data.SkillExplain;
-        skillExplainTxt2.text =  $"쿨타임 : {skill.data.CoolTime}초\n공격력 : {skill.data.Damage}";
+        skillTitleTxt.text = skill.data.skillData.skilltitle;
+        skillExplainTxt.text = skill.data.skillData.skillexplain;
+        skillExplainTxt2.text =  $"쿨타임 : {skill.data.skillData.cooltime}초\n공격력 : {skill.data.skillData.damage}";
         icon.sprite = skill.data.SkillIcon;
-        unlockTxt.text = $"레벨 필요 : {skill.data.NeedLv}";
+        unlockTxt.text = $"레벨 필요 : {skill.data.skillData.needlevel}";
     }
 }

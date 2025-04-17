@@ -38,7 +38,7 @@ public class SkillQuickIcon : MonoBehaviour
     void SetData()
     {
         icon.sprite = skill.data.SkillIcon;
-        coolTime = skill.data.CoolTime;
+        coolTime = skill.data.skillData.cooltime;
         timeTxt.text = $"{coolTime}";
     }
 

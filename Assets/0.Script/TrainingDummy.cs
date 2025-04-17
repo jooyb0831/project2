@@ -58,13 +58,13 @@ public class TrainingDummy : MonoBehaviour
                 if (p.skillState.Equals(Player.SkillState.Qskill))
                 {   
                     //피격 처리
-                    TakeDamage(skSystem.qSkill.GetComponent<Skill>().data.Damage);
+                    TakeDamage(skSystem.qSkill.GetComponent<Skill>().data.skillData.damage);
                 }
                 //R스킬일 경우
                 else if (p.skillState.Equals(Player.SkillState.Rskill))
                 {   
                     //피격처리
-                    TakeDamage(skSystem.rSkill.GetComponent<Skill>().data.Damage);
+                    TakeDamage(skSystem.rSkill.GetComponent<Skill>().data.skillData.damage);
                 }
             }
         }

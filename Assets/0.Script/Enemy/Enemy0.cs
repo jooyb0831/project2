@@ -75,7 +75,7 @@ public class Enemy0 : Enemy
     [SerializeField] float atkTimer;
     void Attack()
     {
-        //공격 시간 계산산
+        //공격 시간 계산
         atkTimer += Time.deltaTime;
         if (atkTimer >= atkCoolTime)
         {
