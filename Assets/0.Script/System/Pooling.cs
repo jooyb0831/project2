@@ -53,27 +53,15 @@ public class Pooling : Singleton<Pooling>
 
 
     //Pool 딕셔너리 생성
-    private Dictionary<DicKey, Queue<GameObject>> pool = new Dictionary<DicKey, Queue<GameObject>>();
+    private Dictionary<DicKey, Queue<GameObject>> pool 
+    = new Dictionary<DicKey, Queue<GameObject>>();
 
-    // Start is called before the first frame update
     void Start()
     {
         foreach(var item in Enum.GetValues(typeof(DicKey)))
         {
             pool.Add((DicKey)item, new Queue<GameObject>());
         }
-        /*
-        pool.Add(DicKey.arrow, new Queue<GameObject>());
-        pool.Add(DicKey.stone, new Queue<GameObject>());
-        pool.Add(DicKey.wood, new Queue<GameObject>());
-        pool.Add(DicKey.itemGetUI, new Queue<GameObject>());
-        pool.Add(DicKey.noticeUI, new Queue<GameObject>());
-        pool.Add(DicKey.ironOre, new Queue<GameObject>());
-        pool.Add(DicKey.slimeBall, new Queue<GameObject>());
-        pool.Add(DicKey.fallRock, new Queue<GameObject>());
-        pool.Add(DicKey.enemyRock, new Queue<GameObject>());
-        pool.Add(DicKey.arrowTrap, new Queue<GameObject>());
-        */
     }
 
 

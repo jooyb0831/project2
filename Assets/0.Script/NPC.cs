@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour
     private GameUI gameUI;
     private SceneChanger sc;
 
-    //대화 안내말을 담을 게임오브젝트트
+    //대화 안내말을 담을 게임오브젝트
     [SerializeField] GameObject textObj;
 
     //npc를 보여줄 카메라
@@ -98,6 +98,14 @@ public class NPC : MonoBehaviour
             //상점 인벤토리 세팅 및 상점 창 호출
             ShopUI.Instance.SetShopInven();
             ShopUI.Instance.window.SetActive(true);
+        }
+
+        //NPC Index가 3일 경우 = 강화 NPC
+        else if (num == 3)
+        {
+            //기타 환경 움직임과 카메라 움직임 일시정지
+            GameManager.Instance.PauseScene(true);
+            EnchantUI.Instance.EnableWindow();
         }
     }
 }

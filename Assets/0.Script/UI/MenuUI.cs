@@ -13,13 +13,15 @@ public class MenuUI : MonoBehaviour
     public Transform questArea;
 
     private Player p;
+    private GameUI gameUI;
 
     int onIdx = -1;
 
     // Start is called before the first frame update
     void Start()
     {
-        p = GameManager.Instance.Player;        
+        p = GameManager.Instance.Player;
+        gameUI = GameManager.Instance.GameUI;        
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class MenuUI : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             menuObj.SetActive(true);
+            menuUIs[0].GetComponent<CharUI>().SetUI();
 
             //카메라 움직임, 캐릭터 움직임 정지
             GameManager.Instance.PauseScene(true);

@@ -166,6 +166,19 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private EnchantSystem enchantSystem;
+    public EnchantSystem EnchantSystem
+    {
+        get
+        {
+            if(enchantSystem == null)
+            {
+                enchantSystem = FindAnyObjectByType<EnchantSystem>();
+            }
+            return enchantSystem;
+        }
+    }
+
     
 
 

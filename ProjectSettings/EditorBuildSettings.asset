@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/8.Scenes/Shop.unity
     guid: b1f47796122cf9741bbf6b1fc3b7daea
   - enabled: 1
+    path: Assets/8.Scenes/EnchantUI.unity
+    guid: caf314c7cb14e334b8757e459878ab79
+  - enabled: 1
     path: Assets/8.Scenes/Mine.unity
     guid: 372815acc457c7a4e936598226cc17b2
   - enabled: 1

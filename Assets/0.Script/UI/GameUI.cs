@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using Unity.VisualScripting;
 
 public class GameUI : Singleton<GameUI>
 {
@@ -12,8 +11,8 @@ public class GameUI : Singleton<GameUI>
     private PlayerData pd;
 
     private Pooling pooling;
-    
-#region 변수선언
+
+    #region 변수선언
     //화살 UI 연결 변수
     public GameObject arrowUI;
 
@@ -49,13 +48,19 @@ public class GameUI : Singleton<GameUI>
 
     [SerializeField] InvenItemInfo itemExplainWindow;
     [SerializeField] Transform menuTransform;
-#endregion
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         pd = GameManager.Instance.PlayerData;
         pooling = GameManager.Instance.Pooling;
+        SetStatUI();
+
+    }
+
+    public void SetStatUI()
+    {
         hpBarImg.fillAmount = (float)((float)pd.HP / (float)pd.MAXHP);
         stBarImg.fillAmount = (float)((float)pd.ST / (float)pd.MAXST);
         lvBarImg.fillAmount = (float)((float)pd.EXP / (float)pd.MAXEXP);
@@ -67,6 +72,7 @@ public class GameUI : Singleton<GameUI>
         mpTxt.text = $"{pd.CURMP}/{pd.MAXMP}";
         goldTxt.text = $"{pd.Gold}";
     }
+
 
     /// <summary>
     /// 게임오버시 호출되는 함수
@@ -174,7 +180,7 @@ public class GameUI : Singleton<GameUI>
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            stBarImg.DOFillAmount(((float)pd.HP / pd.MAXHP), 0.2f);
+            stBarImg.DOFillAmount(((float)pd.ST / pd.MAXST), 0.2f);
             stTxt.text = $"{pd.ST}/{pd.MAXST}";
         }
     }
@@ -238,7 +244,7 @@ public class GameUI : Singleton<GameUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -273,9 +279,9 @@ public class GameUI : Singleton<GameUI>
         }
     }
 
-    private string[] noticeTxtList = 
+    private string[] noticeTxtList =
     {"기력이 부족합니다.", "마력이 부족합니다", "골드가 부족합니다.", "재료가 부족합니다.", "아직 스킬을 사용할 수 없습니다.",
-    "장착된 활이 없습니다.", "화살이 부족합니다.", "인벤토리가 가득 찼습니다.", "장착된 무기가 없습니다.", "아직 사용할 수 없습니다."};
+    "장착된 활이 없습니다.", "화살이 부족합니다.", "인벤토리가 가득 찼습니다.", "장착된 무기가 없습니다.", "아직 사용할 수 없습니다.", "레벨이 부족합니다."};
 
     /// <summary>
     /// UI에 정보 표시하기

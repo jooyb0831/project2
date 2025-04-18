@@ -252,7 +252,6 @@ public class PlayerData : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -274,7 +273,6 @@ public class PlayerData : MonoBehaviour
         CURMP = MAXMP;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F8))
@@ -289,7 +287,7 @@ public class PlayerData : MonoBehaviour
         if (EXP >= MAXEXP)
         {
             Level++;
-            EXP = MAXEXP - EXP;
+            EXP -= MAXEXP;
             MAXEXP += 10;
             MAXHP += 10;
             HP = MAXHP;

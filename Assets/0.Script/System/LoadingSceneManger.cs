@@ -114,6 +114,7 @@ public class LoadingSceneManger : MonoBehaviour
                                 SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
                                 SceneManager.LoadScene("CraftUI", LoadSceneMode.Additive);
                                 SceneManager.LoadScene("CookingUI", LoadSceneMode.Additive);
+                                SceneManager.LoadScene("EnchantUI", LoadSceneMode.Additive);
                                 SceneManager.LoadScene("StageSelect", LoadSceneMode.Additive);
                                 inven.gameObject.SetActive(true);
                                 sc.sceneType = SceneType.Lobby;

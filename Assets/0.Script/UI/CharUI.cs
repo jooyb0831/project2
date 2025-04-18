@@ -25,7 +25,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -38,7 +38,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -51,12 +51,12 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
             }
-            
+
         }
     }
 
@@ -64,7 +64,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -77,7 +77,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -90,7 +90,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -103,7 +103,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -116,7 +116,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -129,7 +129,7 @@ public class CharUI : Singleton<CharUI>
     {
         set
         {
-            if(pd == null)
+            if (pd == null)
             {
                 pd = GameManager.Instance.PlayerData;
                 return;
@@ -138,10 +138,20 @@ public class CharUI : Singleton<CharUI>
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         pd = GameManager.Instance.PlayerData;
+        SetUI();
+
+    }
+
+    public void SetUI()
+    {
+        if (pd == null)
+        {
+            pd = GameManager.Instance.PlayerData;
+        }
+
         lvTxt.text = $"Level : {pd.Level}";
         expTxt.text = $"EXP : {pd.EXP}/{pd.MAXEXP}";
         hpTxt.text = $"HP : {pd.MAXHP}";
@@ -150,12 +160,5 @@ public class CharUI : Singleton<CharUI>
         mpTxt.text = $"MP : {pd.MAXMP}";
         atkTxt.text = $"ATK : {pd.BasicAtk}";
         speedTxt.text = $"Speed : {pd.Speed}";
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
