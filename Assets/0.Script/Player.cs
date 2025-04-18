@@ -84,6 +84,8 @@ public class Player : MonoBehaviour
     public Transform backWeaponRest; //무기 등에 맸을 때 Transform
     [SerializeField] Transform bowAttackPos; //활 장착 Transform
     public Transform toolPos; //도구 장착 Transform
+
+    public Transform sheildPos; //쉴드 스킬 Transform
     #endregion
 
     #region Weapons

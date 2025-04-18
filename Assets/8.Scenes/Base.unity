@@ -269,6 +269,7 @@ MonoBehaviour:
   - {fileID: 8021231370507461453, guid: 31ae857ef4e41ee478882532bd27451e, type: 3}
   - {fileID: -7952774605942863835, guid: 5f0f00a00b2a6ab4282f61d27314b053, type: 3}
   - {fileID: 32817311887396543, guid: 7c8c01efe9d6edd46825ccda491a9c40, type: 3}
+  - {fileID: 8266906798802948288, guid: 2babfde963ff65c488321c4a901cb004, type: 3}
   foodRecipeDatas:
   - {fileID: 443752977342143672, guid: 2e2470dc3af56b746a534f4d9bf36a37, type: 3}
   - {fileID: 1276622097185936253, guid: 9d4451c8dd1e2344fb85d3f6808f3ed7, type: 3}

@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -16,7 +14,7 @@ public class Arrow : MonoBehaviour
 
     //화살 차징의 최대 파워
     private const int MAX_POWER = 15;
-    
+
     //화살의 발사 Power
     private float power;
     public float Power
@@ -28,12 +26,13 @@ public class Arrow : MonoBehaviour
             ArrowUI.Instance.Power = power;
         }
     }
-    
+
     //파워 차징 기준 타이머(속도) 0.1초 기준
     [SerializeField] float chargeTimer = 0.1f;
 
     private Rigidbody rigid;
     private Player p;
+    private Pooling pooling;
     bool isEnd = false;
 
 
@@ -46,6 +45,7 @@ public class Arrow : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         p = GameManager.Instance.Player;
+        pooling = GameManager.Instance.Pooling;
 
         //화살 UI에 화살 세팅
         ArrowUI.Instance.arrow = this;
@@ -63,7 +63,7 @@ public class Arrow : MonoBehaviour
         //화살 차징 타이머 계산
         chargeTimer -= Time.deltaTime;
 
-        if(chargeTimer<=0)
+        if (chargeTimer <= 0)
         {
             Power += 1;
             chargeTimer = 0.1f;
@@ -76,7 +76,7 @@ public class Arrow : MonoBehaviour
     public void Fire()
     {
         //rigid가 없으면 rigid 받기
-        if(rigid == null) rigid = GetComponent<Rigidbody>();
+        if (rigid == null) rigid = GetComponent<Rigidbody>();
         //중력 활성화
         rigid.useGravity = true;
         //방향 설정
@@ -99,13 +99,13 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Ground"))
+        if (other.CompareTag("Ground"))
         {
-            Pooling.Instance.SetPool(DicKey.arrow, gameObject);
+            pooling.SetPool(DicKey.arrow, gameObject);
         }
     }
 
-    
+
 
     /// <summary>
     /// 초기화 함수

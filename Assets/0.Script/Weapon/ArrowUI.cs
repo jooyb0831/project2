@@ -17,13 +17,18 @@ public class ArrowUI : Singleton<ArrowUI>
         }
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
         bar.fillAmount = 0;
     }
 
-    // Update is called once per frame
+    void OnDisable()
+    {
+        bar.fillAmount = 0;
+    }
+
+
     void Update()
     {
         
