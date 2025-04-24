@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class MoveItem : MonoBehaviour
 {
@@ -66,13 +65,7 @@ public class MoveItem : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("인식");
         coll = collision;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //coll = null;
     }
     
     /// <summary>
@@ -85,10 +78,9 @@ public class MoveItem : MonoBehaviour
         //무기 슬롯으로 이동시 : 무기 장착
         if(coll.GetComponent<WeaponSlot>())
         {
-            if(invenItem.data.type != ItemType.Weapon)
-            {
-                return;
-            }
+            //아이템 종류가 무기가 아닐 경우 리턴
+            if(invenItem.data.type != ItemType.Weapon) return;
+
             //무기 슬롯이 비어있을 경우
             if(!coll.GetComponent<WeaponSlot>().isFilled)
             {
@@ -99,18 +91,22 @@ public class MoveItem : MonoBehaviour
                 }
             }
 
+            //아이템의 위치 및 부모 변경
             invenItem.transform.position = coll.transform.position;
             invenItem.transform.SetParent(coll.transform);
+            //해당 아이템이 장착된 것으로 체크
             invenItem.data.inWeaponSlot = true;
+            //해당 무기 슬롯이 Fill된 것으로 체크
             coll.GetComponent<WeaponSlot>().isFilled = true;
             coll.GetComponent<WeaponSlot>().item = invenItem;
+            //무기 장착하는 코드 호출
             coll.GetComponent<WeaponSlot>().Equip();
         }
 
         // 아이템을 인벤토리의 일반 슬롯으로 이동할 경우
         if (coll.GetComponent<Slot>()) 
         {
-            // 빈 슬롯으로 이동시
+            // 비어있는 슬롯으로 이동시
             if (!coll.GetComponent<Slot>().isFilled)
             {
                 // 아이템이 현재 퀵슬롯에 있을 경우
@@ -125,7 +121,6 @@ public class MoveItem : MonoBehaviour
                 {
                     invenItem.transform.parent.GetComponent<Slot>().isFilled = false;
                 }
-
                 //아이템이 무기 슬롯에 있을 경우
                 if(invenItem.transform.parent.GetComponent<WeaponSlot>())
                 {
@@ -133,17 +128,13 @@ public class MoveItem : MonoBehaviour
                     invenItem.data.inWeaponSlot = false;
                     invenItem.transform.parent.GetComponent<WeaponSlot>().UnequipWeapon();
                 }
-                /*
-                if (invenItem.transform.parent.GetComponent<BoxSlot>() == true) // �������� �ڽ����� �̵��� ���
-                {
-                    Inventory.Instance.GetBoxItem(invenItem);
-                    invenItem.transform.parent.GetComponent<BoxSlot>().isFilled = false;
-                    invenItem.transform.parent.GetComponent<BoxSlot>().RemoveItem();
-                }
-                */
+                
+                //해당 InvenItem의 슬롯 인덱스를 이동한 슬롯의 인덱스로 변경
                 invenItem.data.slotIdx = coll.GetComponent<Slot>().indexNum;
+                //InvenItem의 위치와 부모 변경
                 invenItem.transform.position = coll.transform.position;
                 invenItem.transform.SetParent(coll.transform);
+                //이동한 InvenSlot이 Fill 된 것으로 체크
                 coll.GetComponent<Slot>().isFilled = true;
             }
 
@@ -174,13 +165,6 @@ public class MoveItem : MonoBehaviour
                     {
                         invenItem.transform.parent.GetComponent<Slot>().isFilled = false;
                     }
-                    /*
-                    if (invenItem.transform.parent.GetComponent<BoxSlot>() == true)
-                    {
-                        invenItem.transform.parent.GetComponent<BoxSlot>().isFilled = false;
-                        invenItem.transform.parent.GetComponent<BoxSlot>().RemoveItem();
-                    }
-                    */
                     invenItem.data.slotIdx = coll.GetComponent<Slot>().indexNum;
                     //옮기려는 invenItem삭제
                     Destroy(invenItem.gameObject);

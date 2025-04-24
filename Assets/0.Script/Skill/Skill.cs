@@ -34,6 +34,11 @@ public class Skill : MonoBehaviour
     public bool isWorking = false; //스킬이 작동중인지 여부
 
 
+    void Start()
+    {
+        Init();   
+    }
+
     public virtual void Init()
     {
         p = GameManager.Instance.Player;
@@ -84,7 +89,7 @@ public class Skill : MonoBehaviour
 
     void Update()
     {
-        //스킬이 해제되지 않았다면면
+        //스킬이 해제되지 않았다면
         if (!data.Unlocked)
         {
             //필요 레벨보다 플레이어 레벨 높으면 해제

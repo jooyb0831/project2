@@ -18,9 +18,6 @@ public class SlimeBall : MonoBehaviour
     private Pooling pooling;
     
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         pooling = GameManager.Instance.Pooling;
@@ -68,16 +65,16 @@ public class SlimeBall : MonoBehaviour
             p.ChangeSpeed(true);
             pooling.SetPool(DicKey.slimeBall, gameObject);
         }
+
+        if(other.CompareTag("MagicShield"))
+        {
+            BallRetrun();
+        }
     }
+
 
     void BallRetrun()
     {
         pooling.SetPool(DicKey.slimeBall, gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

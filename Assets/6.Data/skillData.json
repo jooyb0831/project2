@@ -9,6 +9,16 @@
             "damage" : 7,
             "needlevel" : 3,
             "skilllevel" : 1
+        },
+        {
+            "skilltitle" : "마법 방어막",
+            "skillexplain" : "공격을 막는 방어막을 생성합니다.",
+            "index" : 1,
+            "cooltime" : 12.0,
+            "mp" : 7,
+            "damage" : 2,
+            "needlevel" : 5,
+            "skilllevel" : 1
         }
     ]
 }

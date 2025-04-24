@@ -12,6 +12,7 @@ TagManager:
   - DeadZone
   - Enemy
   - Axe
+  - MagicShield
   layers:
   - Default
   - TransparentFX

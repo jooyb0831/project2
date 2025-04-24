@@ -80,7 +80,7 @@ public class ArrowTrap : MonoBehaviour
             }
         }
 
-        else if (other.GetComponent<WallTrap2>())
+        if (other.GetComponent<WallTrap2>())
         {
             if (isOneShot)
             {
@@ -91,6 +91,12 @@ public class ArrowTrap : MonoBehaviour
                 Invoke(nameof(ReturnObj), 1.5f);
             }
         }
+
+        if(other.CompareTag("MagicShield"))
+        {
+            ReturnObj();
+        }
+        
     }
 
 

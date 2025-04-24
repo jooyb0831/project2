@@ -23,7 +23,8 @@ public class SkillUISample : MonoBehaviour
     public bool isEquiped = false;
     public GameObject skillUIicon;
     public GameObject skillQuickIcon;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         Init();
@@ -35,7 +36,6 @@ public class SkillUISample : MonoBehaviour
         skillSystem = GameManager.Instance.SkillSystem;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(skill.data.Unlocked)

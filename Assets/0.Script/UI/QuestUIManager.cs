@@ -20,7 +20,6 @@ public class QuestUIManager : MonoBehaviour
             qm.questMenuUILists.Clear();
             for (int i = 0; i < qm.onGoingQuestLists.Count; i++)
             {
-                //Debug.Log("작동");
                 qm.onGoingQuestLists[i].QuestAdd();
             }
         }

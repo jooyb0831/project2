@@ -25,7 +25,7 @@ public class ArrowUI : Singleton<ArrowUI>
 
     void OnDisable()
     {
-        bar.fillAmount = 0;
+        //bar.fillAmount = 0;
     }
 
 

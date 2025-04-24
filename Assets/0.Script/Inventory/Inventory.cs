@@ -268,23 +268,29 @@ public class Inventory : Singleton<Inventory>
     public bool EmptySlotCheck()
     {
         bool isFull = false;
+
+        //현재 인벤토리의 슬롯만큼 돌면서 체크
         for (int i = 0; i < invenSlots.Length; i++)
         {
+            //인벤슬롯이 없다면 가득 찬 것으로 체크
             if (invenSlots[i] == null)
             {
                 isFull = true;
                 break;
             }
+
+            //인벤슬롯이 하나라도 비어있다면
             if (!invenSlots[i].GetComponent<Slot>().isFilled)
             {
+                //가득 차지 않은 것으로 체크
                 isFull = false;
                 break;
             }
-            else
+            else //아닐 경우
             {
+                //가득 찬 것으로 체크
                 isFull = true;
             }
-
         }
         return isFull;
     }
@@ -296,17 +302,22 @@ public class Inventory : Singleton<Inventory>
     void ItemCheck(ItemData itemData)
     {
         InvenItem invenItem = null;
+        //현재 인벤아이템의 갯수만큼 돌면서
         for (int i = 0; i < invenItems.Count; i++)
         {
+            //아이템 코드가 같은 것이 있다면
             if (invenItems[i].data.itemIdx == itemData.itemIdx)
             {
+                //해당 아이템을 찾고
                 invenItem = invenItems[i];
                 break;
             }
         }
+        //수량 변경(증가)
         invenItem.data.count += itemData.count;
         invenItem.GetComponent<InvenItem>().ItemCntChange(invenItem.data);
 
+        //해당 아이템이 퀵슬롯에 있을 경우 퀵슬롯UI도 수량 변경 표기
         if (invenItem.data.inQuickSlot)
         {
             invenItem.data.qItem.ItemCntChange(invenItem);
@@ -353,7 +364,7 @@ public class Inventory : Singleton<Inventory>
 
         ItemType type = item.data.type;
 
-        //아이템의 타입에 따라 분기 나눔
+        //아이템의 타입에 따라 분기 나눔(세부처리)
         switch (type)
         {
             //물약이나 음식일 경우
@@ -525,8 +536,10 @@ public class Inventory : Singleton<Inventory>
     /// <param name="data"></param>
     public void ItemMove(bool isShow, Vector3 pos, InvenData data = null)
     {
+        //data가 있을 경우
         if (data != null)
         {
+            //MoveItem 오브젝트에 데이터 세팅
             moveItem.SetData(data);
         }
         //드래그 시 보이는 MoveItem오브젝트 활성화

@@ -226,7 +226,7 @@ public class Player : MonoBehaviour
                 gameUI.DisplayInfo(1); //UI에 MP가 부족함을 표시
                 return;
             }
-            skillState = SkillState.Qskill;
+            skillState = SkillState.Rskill;
             rSkill.SkillAct();
         }
 
@@ -374,9 +374,31 @@ public class Player : MonoBehaviour
 
         switch (state)
         {
-            case State.Skill:
             case State.Jump:
                 return;
+            case State.Skill:
+                {
+                    if (skSystem.qSkill != null)
+                    {
+                        if (skSystem.qSkill?.GetComponent<Skill>().data.skillData.index == 0)
+                        {
+                            return;
+                        }
+                        break; ;
+                    }
+                    else if (skSystem.rSkill != null)
+                    {
+                        if (skSystem.rSkill.GetComponent<Skill>().data.skillData.index == 0)
+                        {
+                            return;
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
 
             case State.AttackIdle: //공격 대기 상태일때
                 if (x != 0 || z != 0) //이동값이 있다면

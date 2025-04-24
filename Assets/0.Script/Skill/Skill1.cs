@@ -24,7 +24,9 @@ public class Skill1 : Skill
             gameUI = GameManager.Instance.GameUI;
         }
 
-        Instantiate(sheildObj, p.sheildPos);
+        GameObject obj = Instantiate(sheildObj, p.sheildPos);
         base.SkillAct();
+        Destroy(obj, 4.2f);
+
     }
 }

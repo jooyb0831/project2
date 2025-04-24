@@ -8,6 +8,8 @@ public class CreateResoruceUI : MonoBehaviour
 {
     private Inventory inven;
     private GameUI gameUI;
+    private CraftSystem craftSystem;
+
     private FieldItem item;
 
     [SerializeField] GameObject cover;
@@ -33,6 +35,7 @@ public class CreateResoruceUI : MonoBehaviour
     {
         inven = GameManager.Instance.Inven;
         gameUI = GameManager.Instance.GameUI;
+        craftSystem = GameManager.Instance.CraftSystem;
     }
 
 
@@ -51,12 +54,6 @@ public class CreateResoruceUI : MonoBehaviour
 
         //제작할 아이템의 UI세팅
         this.item = item;
-        itemIcon.sprite = item.itemData.invenIcon;
-        itemTitle.text = item.itemData.itemTitle;
-        int curCnt = inven.FindItemCnt(item.itemData.itemIdx);
-        curItemCnt.text = $"보유 : {curCnt}";
-        createCnt = 1;
-        cntInput.text = createCnt.ToString();
 
         //재료 리스트 오브젝트 생성
         SetList(data.Resources.Length);
@@ -66,6 +63,31 @@ public class CreateResoruceUI : MonoBehaviour
         for (int i = 0; i < needLists.Count; i++)
         {
             needLists[i].SetData(data.Resources[i].itemData, data.RcCnts[i], createCnt);
+        }
+    }
+
+    /// <summary>
+    /// UI세팅
+    /// </summary>
+    void SetUI()
+    {
+        itemIcon.sprite = item.itemData.invenIcon;
+        itemTitle.text = item.itemData.itemTitle;
+        int curCnt = inven.FindItemCnt(item.itemData.itemIdx);
+        curItemCnt.text = $"보유 : {curCnt}";
+        createCnt = 1;
+        cntInput.text = createCnt.ToString();
+        SetCnt(createCnt);
+    }
+
+    /// <summary>
+    /// 수량세팅
+    /// </summary>
+    void SetCnt(int num)
+    {
+        foreach (var item in needLists)
+        {
+            item.SetCnt(num);
         }
     }
 
@@ -101,10 +123,7 @@ public class CreateResoruceUI : MonoBehaviour
     {
         string cntStr = cntInput.text;
         createCnt = int.Parse(cntStr);
-        foreach (var item in needLists)
-        {
-            item.SetCnt(createCnt);
-        }
+        SetCnt(createCnt);
     }
 
     /// <summary>
@@ -116,10 +135,7 @@ public class CreateResoruceUI : MonoBehaviour
         x++;
         createCnt = x;
         cntInput.text = $"{createCnt}";
-        foreach (var item in needLists)
-        {
-            item.SetCnt(createCnt);
-        }
+        SetCnt(createCnt);
     }
 
     /// <summary>
@@ -135,11 +151,7 @@ public class CreateResoruceUI : MonoBehaviour
         x--;
         createCnt = x;
         cntInput.text = $"{createCnt}";
-
-        foreach (var item in needLists)
-        {
-            item.SetCnt(createCnt);
-        }
+        SetCnt(createCnt);
     }
 
     /// <summary>
@@ -147,38 +159,14 @@ public class CreateResoruceUI : MonoBehaviour
     /// </summary>
     public void OnCreateBtn()
     {
-        //만약 하나라도 재료가 부족하다면 리턴
-        foreach (var item in needLists)
+        if(craftSystem == null)
         {
-            bool cntCheck = item.CntCheck();
-            if (!cntCheck)
-            {
-                //UI에 재료가 부족함을 표시
-                gameUI.DisplayInfo(3);
-                return;
-            }
+            craftSystem = GameManager.Instance.CraftSystem;
         }
-
-        //추가될 아이템의 갯수 데이터 설정
-        item.itemData.count = createCnt;
-
-        //인벤토리에 아이템 추가
-        inven.GetItem(item.itemData);
-
-        //아이템 재료 소모처리(인벤에서)
-        foreach (var item in needLists)
-        {
-            item.FindUSeItem(createCnt);
-        }
+        
+        craftSystem.CreateItem(needLists, item, createCnt);
 
         //UI 세팅
-        int curCnt = inven.FindItemCnt(item.itemData.itemIdx);
-        curItemCnt.text = $"보유 : {curCnt}";
-        createCnt = 1;
-        cntInput.text = createCnt.ToString();
-        foreach (var item in needLists)
-        {
-            item.SetCnt(createCnt);
-        }
+        SetUI();
     }
 }

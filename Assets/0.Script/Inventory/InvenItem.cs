@@ -25,17 +25,18 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
     public InvenData data;
 
     [SerializeField] bool canMove = false;
-    
+
     void Start()
     {
         gameUI = GameManager.Instance.GameUI;
         Slot slot = transform.parent.GetComponent<Slot>();
         canMove = (slot != null) ? slot.isInven : false;
-        
+        windowPos = transform.parent.parent.parent.parent;
+
     }
     void Update()
     {
-        if(transform.parent.GetComponent<QuickSlot>())
+        if (transform.parent.GetComponent<QuickSlot>())
         {
             itemFrame.color = Color.clear;
         }
@@ -45,6 +46,11 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
         }
     }
 
+
+    /// <summary>
+    /// 아이템의 데이터로 UI 세팅
+    /// </summary>
+    /// <param name="data"></param>
     public void SetData(InvenData data)
     {
         this.data = data;
@@ -54,75 +60,94 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
         cntBG.SetActive(data.count <= 1 ? false : true);
     }
 
+    /// <summary>
+    /// 인벤토리 세팅
+    /// </summary>
+    /// <param name="inven"></param>
     public void SetInventory(Inventory inven)
     {
         inventory = inven;
     }
 
+    /// <summary>
+    /// 인벤아이템 수량 변경 코드
+    /// </summary>
+    /// <param name="data"></param>
     public void ItemCntChange(InvenData data)
     {
-
         cntTxt.text = $"{data.count}";
         cntBG.SetActive(data.count <= 1 ? false : true);
-        
+
         if (data.inQuickSlot)
         {
             data.qItem.ItemCntChange(this);
         }
-        
     }
 
+    Transform windowPos;
 
-
+    /// <summary>
+    /// 마우스 클릭시 호출되는 함수
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerDown(PointerEventData eventData)
     {
         //마우스 우클릭 시 인벤옵션창 호출
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             //인벤옵션창이 없다면 
-            if(invenOption == null)
-            {   
+            if (invenOption == null)
+            {
                 //인벤옵션창 생성
                 invenOption = Instantiate(itemOptionWindow, transform).gameObject;
                 invenOption.GetComponent<ItemInvenOption>().item = this;
                 invenOption.GetComponent<ItemInvenOption>().SetInvenButton();
 
-                invenOption.transform.SetParent(transform.parent.parent.parent.parent);
+                invenOption.transform.SetParent(windowPos);
                 invenOption.transform.SetAsLastSibling();
 
             }
-
+            //인벤옵션창이 있다면 기존의 옵션창 삭제
             else if (invenOption != null)
             {
                 Destroy(invenOption);
             }
         }
 
-        else if(Input.GetMouseButton(0))
-        {
+        //마우스 좌클릭 시 아이템 이동 활성화
+        else if (Input.GetMouseButton(0))
+        {   
+            //아이템이 일반슬롯에 있을 경우
             if (transform.parent.GetComponent<Slot>())
             {
+                //인벤아이템이 인벤토리리 슬롯에 있을 경우
                 if (transform.parent.GetComponent<Slot>().isInven)
                 {
+                    //아이템 움직이기
                     inventory.ItemMove(true, eventData.position, data);
                 }
+
+                //아이템이 상점의 내 인벤토리 슬롯에 있을 경우
                 else if (transform.parent.GetComponent<Slot>().isShopSlot)
                 {
-                    GameObject window = Instantiate(itemSellWindow, transform.parent.parent.parent.parent);
+                    //아이템 판매 창 생성
+                    GameObject window = Instantiate(itemSellWindow, windowPos);
                     window.transform.SetAsLastSibling();
                     window.GetComponent<ItemSellWindow>().SetItem(this);
                 }
+                //아이템이 상점의 상인 슬롯에 있을 경우
                 else if (transform.parent.GetComponent<Slot>().isMerchantSlot)
                 {
-                    GameObject window = Instantiate(itemBuyWindow, transform.parent.parent.parent.parent);
+                    //아이템 구매 창 생성
+                    GameObject window = Instantiate(itemBuyWindow, windowPos);
                     window.transform.SetAsLastSibling();
                     window.GetComponent<ItemBuyWindow>().SetItem(this);
                 }
             }
-
-            else if(transform.parent.GetComponent<QuickSlotInven>())
+            //아이템이 퀵슬롯에 있을 경우
+            else if (transform.parent.GetComponent<QuickSlotInven>())
             {
-                if(transform.parent.GetComponent<QuickSlotInven>().isInven)
+                if (transform.parent.GetComponent<QuickSlotInven>().isInven)
                 {
                     inventory.ItemMove(true, eventData.position, data);
                 }
@@ -138,29 +163,37 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
                 inventory.ItemMove(true, eventData.position, data);
             }
 
-            //박스슬롯
-            
         }
 
 
     }
 
+    /// <summary>
+    /// 클릭을 해제했을 때 호출
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(Input.GetMouseButtonUp(0))
+        //좌클릭을 뗐을 때
+        if (Input.GetMouseButtonUp(0))
         {
+            //이미지 보이게
             itemFrame.color = Color.white;
             itemBG.color = Color.white;
             itemIcon.color = Color.white;
-            if (data.count >1)
+            if (data.count > 1)
             {
                 cntBG.SetActive(true);
             }
-            if(transform.parent.GetComponent<Slot>() && transform.parent.GetComponent<Slot>().isInven)
+
+            //만약 일반 슬롯에 있었을 경우
+            if (transform.parent.GetComponent<Slot>() 
+               && transform.parent.GetComponent<Slot>().isInven)
             {
                 inventory.PointUp(this);
             }
-            else if (transform.parent.GetComponent<QuickSlotInven>() && transform.parent.GetComponent<QuickSlotInven>().isInven)
+            else if (transform.parent.GetComponent<QuickSlotInven>() 
+                    && transform.parent.GetComponent<QuickSlotInven>().isInven)
             {
                 inventory.PointUp(this);
             }
@@ -171,18 +204,23 @@ public class InvenItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, 
         }
     }
 
+    /// <summary>
+    /// 마우스로 드래그 시 호출
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
-        
-
-        if(Input.GetMouseButton(0) && canMove)
+        //아이템을 클릭한 상태 + 아이템이 움직일 수 있는 상태일 때
+        if (Input.GetMouseButton(0) && canMove)
         {
+            //현재의 인벤 아이템 투명처리(MoveItem활성화)
             itemFrame.color = Color.clear;
             itemBG.color = Color.clear;
             itemIcon.color = Color.clear;
             cntBG.SetActive(false);
 
-            if(transform.parent.GetComponent<Slot>() 
+            //아이템 움직이기
+            if (transform.parent.GetComponent<Slot>()
             || transform.parent.GetComponent<QuickSlotInven>()
             || transform.parent.GetComponent<WeaponSlot>())
             {

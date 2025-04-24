@@ -13,16 +13,10 @@ public class NeedItemUI : MonoBehaviour
     int itemIdx = -1; //아이템 인덱스 번호
     private ItemData data;
     private Inventory inven;
-    // Start is called before the first frame update
+
     void Start()
     {
         inven = GameManager.Instance.Inven;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>
@@ -32,7 +26,7 @@ public class NeedItemUI : MonoBehaviour
     /// <returns></returns>
     int FindInvenCnt(int itemCodeIdx)
     {
-        if(inven == null)
+        if (inven == null)
         {
             inven = GameManager.Instance.Inven;
         }
@@ -58,15 +52,7 @@ public class NeedItemUI : MonoBehaviour
         itemIcon.sprite = data.invenIcon;
         itemTitle.text = data.itemTitle;
         itemCntTxt.text = $"{curCnt} / {totalCnt}";
-
-        if(curCnt < totalCnt)
-        {
-            itemCntTxt.color = Color.red;
-        }
-        else
-        {
-            itemCntTxt.color = Color.white;
-        }
+        itemCntTxt.color = (curCnt < totalCnt) ? Color.red : Color.white;
     }
 
     /// <summary>
@@ -78,22 +64,15 @@ public class NeedItemUI : MonoBehaviour
         this.createCnt = createCnt;
         int totalCnt = needCnt * createCnt;
         curCnt = FindInvenCnt(itemIdx);
-        
+
         itemCntTxt.text = $"{curCnt} / {totalCnt}";
-        if(curCnt<totalCnt)
-        {
-            itemCntTxt.color = Color.red;
-        }
-        else
-        {
-            itemCntTxt.color = Color.white;
-        }
+        itemCntTxt.color = (curCnt<totalCnt) ? Color.red : Color.white;    
     }
 
     /// <summary>
     /// 인벤토리에서 아이템 찾아서 수량 변경
     /// </summary>
-    public void FindUSeItem(int createCnt)
+    public void FindUseItem(int createCnt)
     {
         InvenItem invenItem = inven.FindItem(this.data.itemIdx);
         inven.InvenItemCntChange(invenItem, needCnt * createCnt * (-1));
@@ -105,15 +84,7 @@ public class NeedItemUI : MonoBehaviour
     /// <returns></returns>
     public bool CntCheck()
     {
-        if (curCnt < needCnt * createCnt)
-        {
-            return false;
-        }
-
-        else
-        {
-            return true;
-        }
-
+        return (curCnt < needCnt * createCnt) ? false : true;
     }
+
 }

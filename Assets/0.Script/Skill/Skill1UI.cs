@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-public class Skill0UI : SkillUISample
+public class Skill1UI : SkillUISample
 {
     void Start()
     {
@@ -14,7 +12,7 @@ public class Skill0UI : SkillUISample
     public override void Init()
     {
         base.Init();
-        skill = skillSystem.skills[0];
+        skill = skillSystem.skills[1];
 
         if(skill.isSet)
         {

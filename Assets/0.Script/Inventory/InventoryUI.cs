@@ -46,11 +46,12 @@ public class InventoryUI : Singleton<InventoryUI>
 
     }
 
-
+    private int selectedIdx = 0;
+    private const int MAX_INDEX = 3;
+    
     /// <summary>
     /// 휠스크롤 아이템 선택 변경 코드
     /// </summary>
-    [SerializeField] int selectedIdx = 0;
     void WheelScroll()
     {
         float wheelInput = Input.GetAxis("Mouse ScrollWheel");
@@ -58,24 +59,21 @@ public class InventoryUI : Singleton<InventoryUI>
         //휠 인풋값이 0보다 클경우 : 위로 올릴 때
         if (wheelInput > 0)
         {
+            //인덱스 하나씩 증가
             selectedIdx++;
-            if (selectedIdx > 3)
-            {
-                selectedIdx = 0;
-            }
-            SelectItem(selectedIdx);
+            //만약 MAX_INDEX보다 커지면 0으로 초기화
+            if (selectedIdx > MAX_INDEX) selectedIdx = 0;
         }
-
         //휠 아래로 내릴 때
         else if (wheelInput < 0)
         {
+            //인덱스 하나씩 감소
             selectedIdx--;
-            if (selectedIdx < 0)
-            {
-                selectedIdx = 3;
-            }
-            SelectItem(selectedIdx);
+            //0보다 작아지면 MAX_INDEX로
+            if (selectedIdx < 0) selectedIdx = MAX_INDEX;
         }
+        //아이템 선택
+        SelectItem(selectedIdx);
     }
 
     /// <summary>
